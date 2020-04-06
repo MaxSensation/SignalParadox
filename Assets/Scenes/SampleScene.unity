@@ -494,12 +494,12 @@ PrefabInstance:
     - target: {fileID: 3483924296651530059, guid: f0e7173f3569cf24bb2c14cd12f59ba4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 3483924296651530059, guid: f0e7173f3569cf24bb2c14cd12f59ba4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.19
+      value: -2.57
       objectReference: {fileID: 0}
     - target: {fileID: 3483924296651530059, guid: f0e7173f3569cf24bb2c14cd12f59ba4,
         type: 3}
@@ -545,6 +545,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PushableBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483924296651530167, guid: f0e7173f3569cf24bb2c14cd12f59ba4,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0e7173f3569cf24bb2c14cd12f59ba4, type: 3}

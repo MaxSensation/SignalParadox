@@ -14,12 +14,12 @@ namespace PlayerStateMachine
             Debug.Log("Entered Push State");
             _box = Player.GetPushableBox();
             CorrectPlayerPositionForBox();
-            _playerToBoxDirection = _box.collider.transform.position - Position;
+            _playerToBoxDirection = Vector3.ProjectOnPlane(_box.collider.transform.position - Position, Vector3.up);
             _box.collider.gameObject.transform.parent = Player.transform;
         }
 
         public override void Exit()
-        {
+        { ;
             _box.collider.gameObject.transform.parent = null;
         }
 
