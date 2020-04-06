@@ -183,6 +183,10 @@ public class PlayerController : MonoBehaviour
             var distance = (whereCameraWantToMove - playerPosition).magnitude;
             // Get the position from the players First Person Camera Position to Third Person Camera position want to move and move the camera to that position based on collisions
             _camera.position = Physics.SphereCast(playerPosition + _cameraOffset, thirdPersonCameraSize, direction, out _cameraCast, distance) ? playerPosition + _cameraOffset + direction * _cameraCast.distance : whereCameraWantToMove;
+            if (_cameraCast.collider && _cameraCast.distance < 1f)
+            {
+                _camera.localPosition = _cameraOffset;
+            }
         } 
         // If in First Person then update the position to zero 
         else _camera.localPosition = _cameraOffset;
