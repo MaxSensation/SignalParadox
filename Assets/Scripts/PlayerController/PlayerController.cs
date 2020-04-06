@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -57,13 +56,10 @@ public class PlayerController : MonoBehaviour
     {
         // Get CapsuleInfo
         UpdateCapsuleInfo();
-        
         // Rotate PlayerMesh
         RotatePlayerMesh();
-        
         // Run CurrentState
         _stateMachine.Run();
-        
         // Add gravity to velocity
         _velocity += Physic3D.GetGravity();
         // Limit the velocity to terminalVelocity

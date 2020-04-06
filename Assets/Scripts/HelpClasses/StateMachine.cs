@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System;
-using UnityEngine.UI;
 
 public class StateMachine
 {
     private State _currentState;
     private State _queuedState;
-    private Stack<State> _automaton;
+    private Stack<State> _automaton = new Stack<State>();
     private readonly Dictionary<Type, State> _stateDictionary = new Dictionary<Type, State>();
 
     public StateMachine(object controller, State[] states)
@@ -29,6 +28,16 @@ public class StateMachine
     {
         _queuedState = _stateDictionary[typeof(T)];
     }
+
+    public void StackState<T>() where T : State
+    {
+        _automaton.Push(_stateDictionary[typeof(T)]);
+    }
+    
+    public void UnStackState()
+    {
+        _queuedState = _automaton.Pop();
+    }
     
     public void Run()
     {
@@ -45,11 +54,5 @@ public class StateMachine
             _currentState = _queuedState;
             _currentState.Enter();
         }
-    }
-
-    public String GetState()
-    {
-        var state = _currentState.GetType().Name;
-        return state ?? "";
     }
 }

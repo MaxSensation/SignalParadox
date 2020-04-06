@@ -19,12 +19,26 @@ namespace PlayerStateMachine
             if (Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider && Vector3.Dot(Velocity, Vector3.down) > 0.5f)
                 stateMachine.TransitionTo<LandState>();
             
+            // Melee attack
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                stateMachine.StackState<InAirState>();
+                stateMachine.TransitionTo<MeleeState>();
+            }
+            
+            // Melee attack
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                stateMachine.StackState<InAirState>();
+                stateMachine.TransitionTo<FireState>();
+            }
+            
             // Get Input from user
             var inputVector = Player.GetInputVector(accelerationSpeed);
 
             // Add Input force to velocity
             Velocity += inputVector;
-        
+            
             // If any directional inputs accelerate with the accelerateSpeed added with turnSpeed 
             if (inputVector.magnitude > 0) 
                 Velocity += Physic3D.GetAcceleration(inputVector, accelerationSpeed + Physic3D.GetTurnVelocity(inputVector, Velocity.normalized));

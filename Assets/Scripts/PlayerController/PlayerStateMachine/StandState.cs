@@ -24,6 +24,20 @@ namespace PlayerStateMachine
                 }
             }
             
+            // Melee attack
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                stateMachine.StackState<StandState>();
+                stateMachine.TransitionTo<MeleeState>();
+            }
+            
+            // Melee attack
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                stateMachine.StackState<StandState>();
+                stateMachine.TransitionTo<FireState>();
+            }
+            
             // Enter Crouch if Control is pressed 
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
