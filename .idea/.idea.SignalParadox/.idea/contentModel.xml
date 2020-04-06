@@ -16,6 +16,7 @@
           <e p="PlayerController" t="Include">
             <e p="PlayerController.cs" t="Include" />
             <e p="PlayerStateMachine" t="Include">
+              <e p="CrouchState.cs" t="Include" />
               <e p="InAirState.cs" t="Include" />
               <e p="JumpState.cs" t="Include" />
               <e p="LandState.cs" t="Include" />

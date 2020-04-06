@@ -37,6 +37,12 @@ namespace PlayerStateMachine
                 }
             }
             
+            // Enter Crouch if Control is pressed 
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                stateMachine.TransitionTo<CrouchState>();
+            }
+            
             // Get Input from user
             var inputVector = Player.GetInputVector(accelerationSpeed);
 

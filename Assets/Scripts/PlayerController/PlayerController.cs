@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 _cameraOffset;
     private Vector3 _point1;
     private Vector3 _point2;
-    private float _distanceToPoints;
     private GameObject _playerMesh;
     
     private void Awake()
@@ -48,7 +47,6 @@ public class PlayerController : MonoBehaviour
         thirdPersonCameraMaxAngle = 25f;
         if (Camera.main != null) _camera = Camera.main.transform;
         _collider = GetComponent<CapsuleCollider>();
-        _distanceToPoints = (_collider.height / 2) - _collider.radius;
         _cameraRotation = Vector2.zero;
         _cameraOffset = _camera.localPosition;
         Cursor.lockState = CursorLockMode.Locked;
@@ -65,6 +63,7 @@ public class PlayerController : MonoBehaviour
         
         // Run CurrentState
         _stateMachine.Run();
+        
         // Add gravity to velocity
         _velocity += Physic3D.GetGravity();
         // Limit the velocity to terminalVelocity
@@ -86,9 +85,10 @@ public class PlayerController : MonoBehaviour
         _playerMesh.transform.rotation = Quaternion.Euler(0, _cameraRotation.x, 0);
     }
 
-    private void UpdateCapsuleInfo()
+    internal void UpdateCapsuleInfo()
     {
             var capsulePosition = transform.position + _collider.center;
+            var _distanceToPoints = (_collider.height / 2) - _collider.radius;
             _point1 = capsulePosition + Vector3.up * _distanceToPoints;
             _point2 = capsulePosition + Vector3.down * _distanceToPoints;
     }
@@ -274,10 +274,14 @@ public class PlayerController : MonoBehaviour
     {
         return _collider;
     }
+    
+    public Vector3 GetCameraOffset()
+    {
+        return _cameraOffset;
+    }
 
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.yellow;
-    //     Gizmos.DrawRay(transform.position, _playerMesh.transform.forward);
-    // }
+    public void SetCameraOffset(Vector3 value)
+    {
+        _cameraOffset = value;
+    }
 }
