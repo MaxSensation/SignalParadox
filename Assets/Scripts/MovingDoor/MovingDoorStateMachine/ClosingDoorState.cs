@@ -17,8 +17,8 @@ namespace MovingDoorStateMachine
         // Update is called once per frame
         public override void Run()
         {
-            MovingDoor.transform.position = Vector3.down;
-            stateMachine.TransitionTo<ClosedDoorState>();
+            //MovingDoor.transform.position = Vector3.down; //Ta bort och animera istället
+            //stateMachine.TransitionTo<ClosedDoorState>();
         }
     }
 }

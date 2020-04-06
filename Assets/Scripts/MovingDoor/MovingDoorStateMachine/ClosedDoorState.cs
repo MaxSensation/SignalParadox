@@ -15,10 +15,12 @@ namespace MovingDoorStateMachine
 
         public override void Run()
         {
-            if (MovingDoor.GetTriggerCollider().collider)
+            if (MovingDoor.PlayerTriggeredCast().collider && MovingDoor.PlayerTriggeredCast().collider.CompareTag("Player"))
+            {
+                /* MovingDoor.transform.position = Vector3.up; */// Ta bort och animera istället
+                Debug.Log("playerTriggeredDoor");
                 stateMachine.TransitionTo<OpeningDoorState>();
-            //else
-            //    Debug.Log("not triggered");
+            }
         }
     }
 }

@@ -8,8 +8,5 @@ namespace MovingDoorStateMachine
     {
         private MovingDoor _movingDoor;
         protected MovingDoor MovingDoor => _movingDoor = _movingDoor ? _movingDoor : (MovingDoor)owner;
-        //protected GameObject triggerCollider { get => MovingDoor.GetTriggerCollider(); }
     }
-    
-
 }
