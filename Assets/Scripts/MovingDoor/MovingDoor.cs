@@ -12,7 +12,7 @@ public class MovingDoor : MonoBehaviour
     private Vector3 _triggerPosition;
     private bool _hasButton;
 
-    public void Awake()
+    private void Awake()
     {
         _hasButton = false; //..
         _stateMachine = new StateMachine(this, states);
@@ -20,24 +20,24 @@ public class MovingDoor : MonoBehaviour
         _triggerPosition = (_collider.transform.position + (_collider.size.y * 2) * Vector3.down);
     }
 
-    public void Start()
+    private void Start()
     {
 
     }
 
-    void Update()
+    private void Update()
     {
         _stateMachine.Run();
     }
 
     internal RaycastHit PlayerTriggeredCast()
     {
-        if(_hasButton)
+        if(!_hasButton)
         Physics.BoxCast(_triggerPosition, new Vector3(1,1,1) * 1f, Vector3.up , out _boxCastHit, transform.rotation, 5f, _layerMask, QueryTriggerInteraction.Collide);
         return _boxCastHit;
     }
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
 
