@@ -88,9 +88,9 @@ public class PlayerController : MonoBehaviour
     internal void UpdateCapsuleInfo()
     {
             var capsulePosition = transform.position + _collider.center;
-            var _distanceToPoints = (_collider.height / 2) - _collider.radius;
-            _point1 = capsulePosition + Vector3.up * _distanceToPoints;
-            _point2 = capsulePosition + Vector3.down * _distanceToPoints;
+            var distanceToPoints = (_collider.height / 2) - _collider.radius;
+            _point1 = capsulePosition + Vector3.up * distanceToPoints;
+            _point2 = capsulePosition + Vector3.down * distanceToPoints;
     }
 
     private void LimitVelocity()
