@@ -12,14 +12,27 @@
             <e p="TwoDController.cs" t="Include" />
             <e p="World.cs" t="Include" />
           </e>
+          <e p="MovingDoor" t="Include">
+            <e p="MovingDoor.cs" t="Include" />
+            <e p="MovingDoorStateMachine" t="Include">
+              <e p="ClosedDoorState.cs" t="Include" />
+              <e p="ClosingDoorState.cs" t="Include" />
+              <e p="MovingDoorBaseState.cs" t="Include" />
+              <e p="OpenDoorState.cs" t="Include" />
+              <e p="OpeningDoorState.cs" t="Include" />
+            </e>
+            <e p="TriggerCollider.cs" t="Include" />
+          </e>
           <e p="MovingPlattform.cs" t="Include" />
           <e p="PlayerController" t="Include">
             <e p="PlayerController.cs" t="Include" />
             <e p="PlayerStateMachine" t="Include">
               <e p="CrouchState.cs" t="Include" />
+              <e p="FireState.cs" t="Include" />
               <e p="InAirState.cs" t="Include" />
               <e p="JumpState.cs" t="Include" />
               <e p="LandState.cs" t="Include" />
+              <e p="MeleeState.cs" t="Include" />
               <e p="PlayerBaseState.cs" t="Include" />
               <e p="PushingState.cs" t="Include" />
               <e p="RunState.cs" t="Include" />

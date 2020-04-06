@@ -43,6 +43,21 @@ namespace PlayerStateMachine
                 stateMachine.TransitionTo<CrouchState>();
             }
             
+            // Melee attack
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                stateMachine.StackState<WalkState>();
+                stateMachine.TransitionTo<MeleeState>();
+            }
+            
+            // Melee attack
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                stateMachine.StackState<WalkState>();
+                stateMachine.TransitionTo<FireState>();
+            }
+
+            
             // Get Input from user
             var inputVector = Player.GetInputVector(accelerationSpeed);
 
