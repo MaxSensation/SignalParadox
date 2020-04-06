@@ -31,7 +31,7 @@ namespace PlayerStateMachine
             // Enter PushState if E is pressed and interactive 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (Player.HasPushableBox())
+                if (Player.SimpleShortRayCast("PushableBox").collider)
                 {
                     stateMachine.TransitionTo<PushingState>();    
                 }

@@ -230,20 +230,10 @@ public class PlayerController : MonoBehaviour
         _velocity += force;
     }
 
-    internal bool HasPushableBox()
+    internal RaycastHit SimpleShortRayCast(string tagName)
     {
         Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
-        if (hit.collider && hit.transform.CompareTag("PushableBox"))
-        {
-            return true;
-        }
-        return false;
-    }
-
-    internal RaycastHit GetPushableBox()
-    {
-        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
-        if (hit.collider && hit.transform.CompareTag("PushableBox"))
+        if (hit.collider && hit.transform.CompareTag(tagName))
         {
             return hit;
         }
