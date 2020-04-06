@@ -12,4 +12,10 @@ public class ButtonController : MonoBehaviour
         _stateMachine = new StateMachine(this, states);
     }
 
+    private void Update()
+    {
+        _stateMachine.Run();
+        //GetplayerpressedButton
+    }
+
 }

@@ -19,7 +19,6 @@ namespace MovingDoorStateMachine
         public override void Run()
         {
             stateMachine.TransitionTo<OpenDoorState>();
-
         }
     }
 }

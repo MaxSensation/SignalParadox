@@ -20,11 +20,6 @@ public class MovingDoor : MonoBehaviour
         _triggerPosition = (_collider.transform.position + (_collider.size.y * 2) * Vector3.down);
     }
 
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
         _stateMachine.Run();
@@ -58,5 +53,4 @@ public class MovingDoor : MonoBehaviour
             Gizmos.DrawWireCube(_triggerPosition + Vector3.up * 5f, new Vector3(1, 1, 1) * 2f);
         }
     }
-
 }
