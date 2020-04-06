@@ -28,6 +28,21 @@ namespace PlayerStateMachine
             if (!Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider)
                 stateMachine.TransitionTo<InAirState>();
 
+            // Enter PushState if E is pressed and interactive 
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (Player.HasPushableBox())
+                {
+                    stateMachine.TransitionTo<PushingState>();    
+                }
+            }
+            
+            // Enter Crouch if Control is pressed 
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                stateMachine.TransitionTo<CrouchState>();
+            }
+            
             // Get Input from user
             var inputVector = Player.GetInputVector(accelerationSpeed);
 

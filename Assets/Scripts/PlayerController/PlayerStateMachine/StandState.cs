@@ -15,6 +15,21 @@ namespace PlayerStateMachine
             if (new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).magnitude > 0f)
                 stateMachine.TransitionTo<WalkState>();
             
+            // Enter PushState if E is pressed and interactive box is in range 
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (Player.HasPushableBox())
+                {
+                    stateMachine.TransitionTo<PushingState>();    
+                }
+            }
+            
+            // Enter Crouch if Control is pressed 
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                stateMachine.TransitionTo<CrouchState>();
+            }
+            
             // Check for ground
             var grounded = Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider;
             

@@ -27,10 +27,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 _cameraOffset;
     private Vector3 _point1;
     private Vector3 _point2;
-    private float _distanceToPoints;
+    private GameObject _playerMesh;
     
     private void Awake()
     {
+        _playerMesh = GameObject.Find("PlayerMesh");
         _stateMachine = new StateMachine(this, states);
         terminalVelocity = 20f;
         staticFriction = 0.6f;
@@ -46,7 +47,6 @@ public class PlayerController : MonoBehaviour
         thirdPersonCameraMaxAngle = 25f;
         if (Camera.main != null) _camera = Camera.main.transform;
         _collider = GetComponent<CapsuleCollider>();
-        _distanceToPoints = (_collider.height / 2) - _collider.radius;
         _cameraRotation = Vector2.zero;
         _cameraOffset = _camera.localPosition;
         Cursor.lockState = CursorLockMode.Locked;
@@ -57,8 +57,13 @@ public class PlayerController : MonoBehaviour
     {
         // Get CapsuleInfo
         UpdateCapsuleInfo();
+        
+        // Rotate PlayerMesh
+        RotatePlayerMesh();
+        
         // Run CurrentState
         _stateMachine.Run();
+        
         // Add gravity to velocity
         _velocity += Physic3D.GetGravity();
         // Limit the velocity to terminalVelocity
@@ -75,11 +80,17 @@ public class PlayerController : MonoBehaviour
         MoveCamera();
     }
 
-    private void UpdateCapsuleInfo()
+    private void RotatePlayerMesh()
+    {
+        _playerMesh.transform.rotation = Quaternion.Euler(0, _cameraRotation.x, 0);
+    }
+
+    internal void UpdateCapsuleInfo()
     {
             var capsulePosition = transform.position + _collider.center;
-            _point1 = capsulePosition + Vector3.up * _distanceToPoints;
-            _point2 = capsulePosition + Vector3.down * _distanceToPoints;
+            var distanceToPoints = (_collider.height / 2) - _collider.radius;
+            _point1 = capsulePosition + Vector3.up * distanceToPoints;
+            _point2 = capsulePosition + Vector3.down * distanceToPoints;
     }
 
     private void LimitVelocity()
@@ -217,5 +228,60 @@ public class PlayerController : MonoBehaviour
     public void AddForce(Vector3 force)
     {
         _velocity += force;
+    }
+
+    internal bool HasPushableBox()
+    {
+        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
+        if (hit.collider && hit.transform.CompareTag("PushableBox"))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    internal RaycastHit GetPushableBox()
+    {
+        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
+        if (hit.collider && hit.transform.CompareTag("PushableBox"))
+        {
+            return hit;
+        }
+        return hit;
+    }
+
+    internal Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    internal void SetPosition(Vector3 value)
+    {
+        transform.position = value;
+    }
+
+    internal Quaternion GetRotation()
+    {
+        return transform.rotation;
+    }
+
+    internal void SetRotation(Quaternion value)
+    {
+        transform.rotation = value;
+    }
+
+    public CapsuleCollider GetPlayerCollider()
+    {
+        return _collider;
+    }
+    
+    public Vector3 GetCameraOffset()
+    {
+        return _cameraOffset;
+    }
+
+    public void SetCameraOffset(Vector3 value)
+    {
+        _cameraOffset = value;
     }
 }
