@@ -28,9 +28,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 _point1;
     private Vector3 _point2;
     private float _distanceToPoints;
+    private GameObject _playerMesh;
     
     private void Awake()
     {
+        _playerMesh = GameObject.Find("PlayerMesh");
         _stateMachine = new StateMachine(this, states);
         terminalVelocity = 20f;
         staticFriction = 0.6f;
@@ -57,6 +59,10 @@ public class PlayerController : MonoBehaviour
     {
         // Get CapsuleInfo
         UpdateCapsuleInfo();
+        
+        // Rotate PlayerMesh
+        RotatePlayerMesh();
+        
         // Run CurrentState
         _stateMachine.Run();
         // Add gravity to velocity
@@ -73,6 +79,11 @@ public class PlayerController : MonoBehaviour
         RotateCamera();
         // Move Camera based on thirdPerson or firstPerson
         MoveCamera();
+    }
+
+    private void RotatePlayerMesh()
+    {
+        _playerMesh.transform.rotation = Quaternion.Euler(0, _cameraRotation.x, 0);
     }
 
     private void UpdateCapsuleInfo()
@@ -218,4 +229,55 @@ public class PlayerController : MonoBehaviour
     {
         _velocity += force;
     }
+
+    internal bool HasPushableBox()
+    {
+        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
+        if (hit.collider && hit.transform.CompareTag("PushableBox"))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    internal RaycastHit GetPushableBox()
+    {
+        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
+        if (hit.collider && hit.transform.CompareTag("PushableBox"))
+        {
+            return hit;
+        }
+        return hit;
+    }
+
+    internal Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    internal void SetPosition(Vector3 value)
+    {
+        transform.position = value;
+    }
+
+    internal Quaternion GetRotation()
+    {
+        return transform.rotation;
+    }
+
+    internal void SetRotation(Quaternion value)
+    {
+        transform.rotation = value;
+    }
+
+    public CapsuleCollider GetPlayerCollider()
+    {
+        return _collider;
+    }
+
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.yellow;
+    //     Gizmos.DrawRay(transform.position, _playerMesh.transform.forward);
+    // }
 }
