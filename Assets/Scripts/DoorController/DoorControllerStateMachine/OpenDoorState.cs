@@ -15,7 +15,7 @@ namespace DoorControllerStateMachine
 
         public override void Run()
         {
-            stateMachine.TransitionTo<ClosingDoorState>(); //Ta bort bara 
+            //stateMachine.TransitionTo<ClosingDoorState>(); //Ta bort bara 
         }
     }
 }

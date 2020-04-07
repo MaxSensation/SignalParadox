@@ -18,7 +18,7 @@ namespace DoorControllerStateMachine
 
         public override void Run()
         {
-            DoorController.transform.position = Vector3.up;
+            Door.transform.position = new Vector3(Door.transform.position.x,Door.transform.position.y + 2, Door.transform.position.z);
             stateMachine.TransitionTo<OpenDoorState>();
         }
     }

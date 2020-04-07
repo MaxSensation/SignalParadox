@@ -6,11 +6,12 @@ public class LaserWallController : MonoBehaviour
 {
     private Collider _collider;
     [SerializeField] private PlayerController player; //Det här för göras om senare.
-    //private RaycastHit _hit;
+    private GameObject _lasers;
     private bool _active;
 
     void Awake()
     {
+        _lasers = transform.Find("TempShowCaseLaser").gameObject;
         _active = true;
         _collider = GetComponent<BoxCollider>();
     }
@@ -31,17 +32,20 @@ public class LaserWallController : MonoBehaviour
                 //PlayerEvents.Init();
                 Debug.Log("Player killed by lazer");
                 player.Die();
+                SaveManager.LoadLastCheckPoint();
             }
             else if (_hit.collider.CompareTag("PushableBox"))
             {
                 Debug.Log("lazer Deactivated");
                 _active = false;
+                _lasers.SetActive(false);
             }
         }
         else if (!_active && (!_hit.collider || _hit.collider.CompareTag("Untagged")) /*&&harknapp*/)
         {
             Debug.Log("lazer back on");
             _active = true;
+            _lasers.SetActive(true);
         }
     }
 

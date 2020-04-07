@@ -43,6 +43,16 @@ public class DoorController : MonoBehaviour
         return _boxCastHit.collider && _boxCastHit.collider.CompareTag("Player") && !_hasButton;
     }
 
+    internal BoxCollider GetCollider()
+    {
+        return _collider;
+    }
+
+    internal void SetCollider(bool value)
+    {
+        _collider.isTrigger = value;
+    }
+
     internal bool GetHasButtonAndIsPushed()
     {
         if (_hasButton)
