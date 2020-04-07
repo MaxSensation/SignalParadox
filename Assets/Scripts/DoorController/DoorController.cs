@@ -55,26 +55,4 @@ public class DoorController : MonoBehaviour
     {
        return _pushedButton = value;
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-
-    //    //Check if there has been a hit yet
-    //    if (_boxCastHit.collider)
-    //    {
-    //        //Draw a Ray forward from GameObject toward the hit
-    //        Gizmos.DrawRay(_triggerPosition, Vector3.up * 5f);
-    //        //Draw a cube that extends to where the hit exists
-    //        Gizmos.DrawWireCube(_triggerPosition + Vector3.up * 5f, new Vector3(1, 1, 1) * 2f);
-    //    }
-    //    //If there hasn't been a hit yet, draw the ray at the maximum distance
-    //    else
-    //    {
-    //        //Draw a Ray forward from GameObject toward the maximum distance
-    //        Gizmos.DrawRay(_triggerPosition, Vector3.up * 5f);
-    //        //Draw a cube at the maximum distance
-    //        Gizmos.DrawWireCube(_triggerPosition + Vector3.up * 5f, new Vector3(1, 1, 1) * 2f);
-    //    }
-    //}
 }

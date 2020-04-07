@@ -10,7 +10,7 @@ namespace DoorControllerStateMachine
         private RaycastHit _hit;
         public override void Enter()
         {
-            Debug.Log("Enterd Closed State");
+            Debug.Log("Door Enterd Closed State");
         }
 
         public override void Run()
