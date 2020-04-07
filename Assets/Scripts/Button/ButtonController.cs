@@ -25,7 +25,4 @@ public class ButtonController : MonoBehaviour
         //if(_stateMachine.GetCurrentState().GetType().Equals()) ....
         pushed = true;
     }   
-    
-
-
 }

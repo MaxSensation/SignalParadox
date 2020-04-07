@@ -15,14 +15,13 @@ namespace DoorControllerStateMachine
 
         public override void Run()
         {
-            if (DoorController.PlayerTriggeredCast().collider && DoorController.PlayerTriggeredCast().collider.CompareTag("Player") && !DoorController.GetHasButton()) //Gör om så det inte blir två calls hela tiden kanske?
+            if (!DoorController.GetHasButtonAndIsPushed() && DoorController.GetPlayerTriggeredCast())
             {
                 /* MovingDoor.transform.position = Vector3.up; */// Ta bort och animera istället
                 Debug.Log("player Triggered Door Cast");
                 stateMachine.TransitionTo<OpeningDoorState>();
             }
-            else
-                if (DoorController.GetHasButton())
+            else if (DoorController.GetHasButtonAndIsPushed())
             {
                 Debug.Log("Player Pressed Button");
                 stateMachine.TransitionTo<OpeningDoorState>();
