@@ -15,8 +15,9 @@ namespace ButtonStateMachine
         public override void Run()
         {
             //if ispressed transition to On..
+            if(Button.pushed) //Ändra
+                stateMachine.TransitionTo<On>();
         }
-
     }
 }
 

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MovingDoorStateMachine
+namespace DoorControllerStateMachine
 {
     [CreateAssetMenu(menuName = "MovingDoorStates/ClosingState")]
-    public class ClosingDoorState : MovingDoorBaseState
+    public class ClosingDoorState : DoorControllerBaseState
     {
 
         // Start is called before the first frame update

@@ -14,7 +14,9 @@ namespace ButtonStateMachine
 
         public override void Run()
         {
-
+            Button.Door.SetHasButton(true);
+            //if (Button.pushed)
+            //    stateMachine.TransitionTo<Off>();
         }
 
     }

@@ -45,6 +45,11 @@ public class StateMachine
         _currentState.Run();
     }
 
+    public State GetCurrentState()
+    {
+        return _currentState;
+    }
+
     private void UpdateState()
     {
         if (_queuedState != null && _queuedState != _currentState)
