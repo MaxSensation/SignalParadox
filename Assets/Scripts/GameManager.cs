@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this);
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene("ShowCase");
         SaveManager.Init();
     }
 }

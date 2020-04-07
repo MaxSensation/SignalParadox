@@ -5,6 +5,14 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
+          <e p="AI" t="Include">
+            <e p="AIController.cs" t="Include" />
+            <e p="AIStateMachine" t="Include">
+              <e p="AIBaseState.cs" t="Include" />
+              <e p="JumpState.cs" t="Include" />
+              <e p="PatrolState.cs" t="Include" />
+            </e>
+          </e>
           <e p="Button" t="Include">
             <e p="ButtonController.cs" t="Include" />
             <e p="ButtonStateMachine" t="Include">
@@ -14,6 +22,16 @@
             </e>
           </e>
           <e p="CheckPoint.cs" t="Include" />
+          <e p="DoorController" t="Include">
+            <e p="DoorController.cs" t="Include" />
+            <e p="DoorControllerStateMachine" t="Include">
+              <e p="ClosedDoorState.cs" t="Include" />
+              <e p="ClosingDoorState.cs" t="Include" />
+              <e p="DoorControllerBaseState.cs" t="Include" />
+              <e p="OpenDoorState.cs" t="Include" />
+              <e p="OpeningDoorState.cs" t="Include" />
+            </e>
+          </e>
           <e p="GameManager.cs" t="Include" />
           <e p="HelpClasses" t="Include">
             <e p="Physic3D.cs" t="Include" />
@@ -21,16 +39,6 @@
             <e p="StateMachine.cs" t="Include" />
             <e p="TwoDController.cs" t="Include" />
             <e p="World.cs" t="Include" />
-          </e>
-          <e p="MovingDoor" t="Include">
-            <e p="MovingDoor.cs" t="Include" />
-            <e p="MovingDoorStateMachine" t="Include">
-              <e p="ClosedDoorState.cs" t="Include" />
-              <e p="ClosingDoorState.cs" t="Include" />
-              <e p="MovingDoorBaseState.cs" t="Include" />
-              <e p="OpenDoorState.cs" t="Include" />
-              <e p="OpeningDoorState.cs" t="Include" />
-            </e>
           </e>
           <e p="MovingPlattform.cs" t="Include" />
           <e p="PlayerController" t="Include">
