@@ -84,6 +84,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    internal void Die()
+    {
+        //Här ska läggas dödsanim
+    }
+
     private void TryPushButton()
     {
         if (Input.GetKey(KeyCode.E))
@@ -94,10 +99,9 @@ public class PlayerController : MonoBehaviour
                 CameraRayCastHit.collider.gameObject.GetComponent<ButtonController>().Pushed();
             }
         }
+        else return;
         //return CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button") && Input.GetKey(KeyCode.E);
     }
-
-
 
     private void RotatePlayerMesh()
     {

@@ -11,7 +11,7 @@ namespace DoorControllerStateMachine
         // Start is called before the first frame update
         public override void Enter()
         {
-            Debug.Log("Enterd Closing State");
+            Debug.Log("Door Enterd Closing State");
         }
 
         // Update is called once per frame

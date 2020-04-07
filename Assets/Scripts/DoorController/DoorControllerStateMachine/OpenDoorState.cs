@@ -10,7 +10,7 @@ namespace DoorControllerStateMachine
 
         public override void Enter()
         {
-            Debug.Log("Enterd Open State");
+            Debug.Log("Door Enterd Open State");
         }
 
         public override void Run()

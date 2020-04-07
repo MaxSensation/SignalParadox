@@ -8,13 +8,15 @@ public class DoorController : MonoBehaviour
     private StateMachine _stateMachine;
     private BoxCollider _collider;
     [SerializeField] private LayerMask _layerMask;
-    private RaycastHit _boxCastHit;
+    //private RaycastHit _boxCastHit;
     private Vector3 _triggerPosition;
     private bool _hasButton;
+    private bool _pushedButton;
 
     private void Awake()
     {
-        _hasButton = false; //..
+        //_pushedButton = false;
+        _hasButton = true; //..
         _stateMachine = new StateMachine(this, states);
         _collider = GetComponent<BoxCollider>();
         _triggerPosition = (_collider.transform.position + (_collider.size.y * 2) * Vector3.down);
@@ -25,42 +27,32 @@ public class DoorController : MonoBehaviour
         _stateMachine.Run();
     }
 
-    internal RaycastHit PlayerTriggeredCast() //Fixa denna den kommer ändå returnera fastän boxcasten e tom
+    //internal RaycastHit PlayerTriggeredCast() //Fixa denna den kommer ändå returnera fastän boxcasten e tom
+    //{
+    //    if (!_hasButton)
+    //    {
+    //        Physics.BoxCast(_triggerPosition, new Vector3(1, 1, 1) * 1f, Vector3.up, out RaycastHit _boxCastHit, transform.rotation, 5f, _layerMask, QueryTriggerInteraction.Collide);
+    //        return _boxCastHit;
+    //    }
+    //    return _boxCastHit;
+    //}
+
+    internal bool GetPlayerTriggeredCast()
     {
-        if(!_hasButton)
-        Physics.BoxCast(_triggerPosition, new Vector3(1,1,1) * 1f, Vector3.up , out _boxCastHit, transform.rotation, 5f, _layerMask, QueryTriggerInteraction.Collide);
-        return _boxCastHit;
+        Physics.BoxCast(_triggerPosition, new Vector3(1, 1, 1) * 1f, Vector3.up, out var _boxCastHit, transform.rotation, 5f, _layerMask, QueryTriggerInteraction.Collide);
+        return _boxCastHit.collider && _boxCastHit.collider.CompareTag("Player") && !_hasButton;
     }
 
-    internal bool GetHasButton()
+    internal bool GetHasButtonAndIsPushed()
     {
-        return _hasButton;
-    }
-
-    internal bool SetHasButton(bool value)
-    {
-       return _hasButton = value;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-
-        //Check if there has been a hit yet
-        if (_boxCastHit.collider)
-        {
-            //Draw a Ray forward from GameObject toward the hit
-            Gizmos.DrawRay(_triggerPosition, Vector3.up * 5f);
-            //Draw a cube that extends to where the hit exists
-            Gizmos.DrawWireCube(_triggerPosition + Vector3.up * 5f, new Vector3(1, 1, 1) * 2f);
-        }
-        //If there hasn't been a hit yet, draw the ray at the maximum distance
+        if (_hasButton)
+            return _pushedButton;
         else
-        {
-            //Draw a Ray forward from GameObject toward the maximum distance
-            Gizmos.DrawRay(_triggerPosition, Vector3.up * 5f);
-            //Draw a cube at the maximum distance
-            Gizmos.DrawWireCube(_triggerPosition + Vector3.up * 5f, new Vector3(1, 1, 1) * 2f);
-        }
+            return false;
+    }
+
+    internal bool SetPushedButton(bool value)
+    {
+       return _pushedButton = value;
     }
 }
