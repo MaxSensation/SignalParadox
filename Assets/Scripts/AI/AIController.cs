@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace AI
@@ -11,9 +12,13 @@ namespace AI
         private StateMachine _stateMachine;
         internal GameObject target;
         internal NavMeshAgent agent;
+        internal Rigidbody rigidbody;
+        private bool _stunned;
+        
 
         private void Awake()
         {
+            rigidbody = GetComponent<Rigidbody>();
             _stateMachine = new StateMachine(this, states);
             target = GameObject.FindWithTag("Player");
             agent = GetComponent<NavMeshAgent>();
@@ -24,7 +29,26 @@ namespace AI
         {
             agent.speed = moveSpeed;
             _stateMachine.Run();
-            agent.SetDestination(target.transform.position);
+            if (agent.enabled)
+            {
+                agent.SetDestination(target.transform.position);                
+            }
+        }
+        private IEnumerator StunTime()
+        {
+            yield return new WaitForSeconds(3);
+            _stunned = false;
+        }
+
+        internal void ActivateStun()
+        {
+            _stunned = true;
+            StartCoroutine("StunTime");
+        }
+
+        public bool IsStunned()
+        {
+            return _stunned;
         }
     }
 }

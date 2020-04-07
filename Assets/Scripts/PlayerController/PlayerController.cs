@@ -86,7 +86,8 @@ public class PlayerController : MonoBehaviour
 
     internal void Die()
     {
-        //Här ska läggas dödsanim
+        Debug.Log("Player Died");
+        SaveManager.LoadLastCheckPoint();
     }
 
     private void TryPushButton()

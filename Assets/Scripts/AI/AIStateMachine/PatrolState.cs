@@ -9,22 +9,27 @@ namespace AI.AIStateMachine
         [SerializeField] private float jumpDistance;
         [SerializeField] private float moveSpeed;
 
-        private int currentPoint = 0;
+        private int currentPoint;
         
         public override void Enter()
         {
-            Ai.moveSpeed = moveSpeed;
             ChooseClosest();
         }
 
         public override void Run()
         {
+            if (!CanSeePlayer())
+                Ai.agent.speed = 0;
+            else
+                Ai.agent.speed = moveSpeed;
+
             if (patrolPoints.Length > 0)
             {
                 Ai.agent.SetDestination(patrolPoints[currentPoint]);
                 if (Vector3.Distance(Ai.transform.position, patrolPoints[currentPoint]) < 1)
                     currentPoint = (currentPoint + 1) % patrolPoints.Length;
             }
+            
             if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
                 stateMachine.TransitionTo<JumpState>();
         }

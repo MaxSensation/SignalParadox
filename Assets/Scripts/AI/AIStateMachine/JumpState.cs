@@ -5,9 +5,44 @@ namespace AI.AIStateMachine
     [CreateAssetMenu(menuName = "AIStates/JumpState")]
     public class JumpState : AiBaseState
     {
+        [SerializeField] private float jumpHeight;
+
+
         public override void Enter()
         {
+            Jump();
+            Ai.ActivateStun();
             Debug.Log("Test");
+        }
+
+        public override void Run()
+        {
+            if (TouchingPlayer())
+            {
+                Ai.target.GetComponent<PlayerController>().Die();
+            }
+            if (Grounded() && !Ai.IsStunned())
+            {
+                Ai.agent.enabled = true;
+                stateMachine.TransitionTo<PatrolState>();
+            }
+        }
+
+        private bool Grounded()
+        {
+            return Physics.Raycast(Ai.transform.position, Vector3.down, 0.3f, Ai.agent.areaMask);
+        }
+
+        private bool TouchingPlayer()
+        {
+            Physics.Raycast(Ai.transform.position, (Ai.target.transform.position - Ai.transform.position).normalized, out var hit, 1f);
+            return (hit.collider && hit.collider.CompareTag("Player"));
+        }
+
+        private void Jump()
+        {
+            Ai.agent.enabled = false;
+            Ai.rigidbody.velocity = (Ai.target.transform.position - Ai.transform.position).normalized * jumpHeight;
         }
     }
 }
