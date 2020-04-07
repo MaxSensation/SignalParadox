@@ -11,7 +11,7 @@ namespace PlayerStateMachine
         
         public override void Enter()
         {
-            Debug.Log("Entered Run State");
+            //Debug.Log("Entered Run State");
         }
         
         public override void Run()
@@ -32,7 +32,7 @@ namespace PlayerStateMachine
             // Enter PushState if E is pressed and interactive 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (Player.SimpleShortRayCast("PushableBox").collider)
+                if (Player.CheckSimpleShortRayCast("PushableBox"))
                 {
                     stateMachine.TransitionTo<PushingState>();    
                 }

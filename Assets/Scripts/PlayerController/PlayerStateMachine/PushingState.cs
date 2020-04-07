@@ -12,7 +12,7 @@ namespace PlayerStateMachine
         public override void Enter()
         {
             Debug.Log("Entered Push State");
-            _box = Player.SimpleShortRayCast("PushableBox");
+            _box = Player.SimpleShortRayCast();
             CorrectPlayerPositionForBox();
             _playerToBoxDirection = Vector3.ProjectOnPlane(_box.collider.transform.position - Position, Vector3.up);
             _box.collider.gameObject.transform.parent = Player.transform;

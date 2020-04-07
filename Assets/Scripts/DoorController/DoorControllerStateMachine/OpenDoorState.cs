@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MovingDoorStateMachine
+namespace DoorControllerStateMachine
 {
     [CreateAssetMenu(menuName = "MovingDoorStates/OpenState")]
-    public class OpenDoorState : MovingDoorBaseState
+    public class OpenDoorState : DoorControllerBaseState
     {
 
         public override void Enter()

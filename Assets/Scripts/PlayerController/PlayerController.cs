@@ -1,22 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     public World world;
     public State[] states;
-    [SerializeField] [Range(1f,500f)] private float terminalVelocity;
-    [SerializeField] [Range(0f,1f)] private float staticFriction;
-    [SerializeField] [Range(0f,1f)] private float dynamicFriction;
-    [SerializeField] [Range(0f,1f)] private float skinWidth;
-    [SerializeField] [Range(0f,1f)] private float groundCheckDistance;
-    [SerializeField] [Range(0f,100f)] private float overlayColliderResistant;
-    [SerializeField] [Range(0f,500f)] private float mouseSensitivity;
+    [SerializeField] [Range(1f, 500f)] private float terminalVelocity;
+    [SerializeField] [Range(0f, 1f)] private float staticFriction;
+    [SerializeField] [Range(0f, 1f)] private float dynamicFriction;
+    [SerializeField] [Range(0f, 1f)] private float skinWidth;
+    [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
+    [SerializeField] [Range(0f, 100f)] private float overlayColliderResistant;
+    [SerializeField] [Range(0f, 500f)] private float mouseSensitivity;
     [SerializeField] private bool thirdPersonCamera;
     [SerializeField] private float thirdPersonCameraSize;
     [SerializeField] private float thirdPersonCameraMaxAngle;
     [SerializeField] private float thirdPersonCameraDistance;
     [SerializeField] private LayerMask collisionLayer;
-    
+
     private StateMachine _stateMachine;
     private Vector3 _velocity;
     private CapsuleCollider _collider;
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _point1;
     private Vector3 _point2;
     private GameObject _playerMesh;
-    
+
     private void Awake()
     {
         _playerMesh = GameObject.Find("PlayerMesh");
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Physic3D.LoadWorldParameters(world);
     }
-    
+
     private void Update()
     {
         // Get CapsuleInfo
@@ -60,6 +61,8 @@ public class PlayerController : MonoBehaviour
         RotatePlayerMesh();
         // Run CurrentState
         _stateMachine.Run();
+        //CheckForButtonAfterPush
+        TryPushButton();
         // Add gravity to velocity
         _velocity += Physic3D.GetGravity();
         // Limit the velocity to terminalVelocity
@@ -81,6 +84,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void TryPushButton()
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            Physics.Raycast(transform.position + _cameraOffset, _camera.transform.forward, out var CameraRayCastHit, 1f);
+            if (CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button"))
+            {
+                CameraRayCastHit.collider.gameObject.GetComponent<ButtonController>().Pushed();
+            }
+        }
+        //return CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button") && Input.GetKey(KeyCode.E);
+    }
+
+
+
     private void RotatePlayerMesh()
     {
         _playerMesh.transform.rotation = Quaternion.Euler(0, _cameraRotation.x, 0);
@@ -88,16 +106,16 @@ public class PlayerController : MonoBehaviour
 
     internal void UpdateCapsuleInfo()
     {
-            var capsulePosition = transform.position + _collider.center;
-            var distanceToPoints = (_collider.height / 2) - _collider.radius;
-            _point1 = capsulePosition + Vector3.up * distanceToPoints;
-            _point2 = capsulePosition + Vector3.down * distanceToPoints;
+        var capsulePosition = transform.position + _collider.center;
+        var distanceToPoints = (_collider.height / 2) - _collider.radius;
+        _point1 = capsulePosition + Vector3.up * distanceToPoints;
+        _point2 = capsulePosition + Vector3.down * distanceToPoints;
     }
 
     private void LimitVelocity()
     {
         // If currentVelocity is greater then terminalVelocity then set the currentVelocity to terminalVelocity
-        if (_velocity.magnitude > terminalVelocity) 
+        if (_velocity.magnitude > terminalVelocity)
             _velocity = _velocity.normalized * terminalVelocity;
     }
 
@@ -133,12 +151,12 @@ public class PlayerController : MonoBehaviour
         // Correct the input based on camera
         direction = CorrectInputVectorFromCamera(direction);
         // If magnitude is greater then 1 normalize the value
-        if (direction.magnitude > 1) 
+        if (direction.magnitude > 1)
             return direction.normalized * (accelerationSpeed * Time.deltaTime);
         // Else just return the direction
         return direction * (accelerationSpeed * Time.deltaTime);
     }
-    
+
     private void AddOverLayCorrection()
     {
         // Get all collides overlapping with the player collider 
@@ -151,7 +169,7 @@ public class PlayerController : MonoBehaviour
             // Get the closest point on the collider to the player
             var colliderOverLapClosestPointOnBounds = overlapCollider.ClosestPointOnBounds(playerClosestPointOnBounds);
             // Add force to the player in the direction from collision point on player to collider
-            _velocity +=  -_velocity.normalized * ((colliderOverLapClosestPointOnBounds.magnitude + overlayColliderResistant * 100.0f) * Time.deltaTime);
+            _velocity += -_velocity.normalized * ((colliderOverLapClosestPointOnBounds.magnitude + overlayColliderResistant * 100.0f) * Time.deltaTime);
         }
     }
 
@@ -188,7 +206,7 @@ public class PlayerController : MonoBehaviour
             {
                 _camera.localPosition = _cameraOffset;
             }
-        } 
+        }
         // If in First Person then update the position to zero 
         else _camera.localPosition = _cameraOffset;
     }
@@ -200,9 +218,9 @@ public class PlayerController : MonoBehaviour
         // Do a cast in the down direction to check if the player is standing on the ground
         var hit = GetRayCast(Vector3.down, groundCheckDistance + skinWidth);
         // If any collision then project that speed to that normal of that collision else project horizontal only
-        return hit.collider ? Vector3.ProjectOnPlane(projectHorizontal,  hit.normal).normalized : projectHorizontal.normalized;
+        return hit.collider ? Vector3.ProjectOnPlane(projectHorizontal, hit.normal).normalized : projectHorizontal.normalized;
     }
-    
+
     internal RaycastHit GetRayCast(Vector3 direction, float magnitude)
     {
         // Return a Raycast Hit in the direction and magnitude specific
@@ -235,14 +253,17 @@ public class PlayerController : MonoBehaviour
         _velocity += force;
     }
 
-    internal RaycastHit SimpleShortRayCast(string tagName)
+    internal RaycastHit SimpleShortRayCast()
     {
         Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
-        if (hit.collider && hit.transform.CompareTag(tagName))
-        {
-            return hit;
-        }
         return hit;
+    }
+
+    internal bool CheckSimpleShortRayCast(string tagName)
+    {
+        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
+        return hit.collider && hit.collider.CompareTag(tagName);
+
     }
 
     internal Vector3 GetPosition()
@@ -269,7 +290,7 @@ public class PlayerController : MonoBehaviour
     {
         return _collider;
     }
-    
+
     public Vector3 GetCameraOffset()
     {
         return _cameraOffset;

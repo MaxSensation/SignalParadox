@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MovingDoorStateMachine
+namespace DoorControllerStateMachine
 {
     [CreateAssetMenu(menuName = "MovingDoorStates/OpeningState")]
-    public class OpeningDoorState : MovingDoorBaseState
+    public class OpeningDoorState : DoorControllerBaseState
 
     {
         [SerializeField] private IEnumerator _coroutine;

@@ -8,6 +8,7 @@ namespace ButtonStateMachine
     {
         private ButtonController _button;
         protected ButtonController Button => _button = _button ? _button : (ButtonController)owner;
+
     }
 }
 

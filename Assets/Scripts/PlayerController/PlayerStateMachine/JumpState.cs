@@ -9,7 +9,7 @@ namespace PlayerStateMachine
         
         public override void Enter()
         {
-            Debug.Log("Entered Jump State");
+            //Debug.Log("Entered Jump State");
             // Add JumpForce and GravityForce to PlayerVelocity
             Velocity += Vector3.up * jumpHeight;
             // Change to In Air State

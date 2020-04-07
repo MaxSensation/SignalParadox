@@ -10,7 +10,7 @@ namespace PlayerStateMachine
 
         public override void Enter()
         {
-            Debug.Log("Entered InAir State");
+            //Debug.Log("Entered InAir State");
         }
         
         public override void Run()

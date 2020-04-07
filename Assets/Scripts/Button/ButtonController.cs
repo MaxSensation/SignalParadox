@@ -6,6 +6,8 @@ public class ButtonController : MonoBehaviour
 {
     public State[] states;
     private StateMachine _stateMachine;
+    internal bool pushed;
+    public DoorController Door;
 
     private void Awake()
     {
@@ -17,5 +19,13 @@ public class ButtonController : MonoBehaviour
         _stateMachine.Run();
         //GetplayerpressedButton
     }
+
+    internal void Pushed()
+    {
+        //if(_stateMachine.GetCurrentState().GetType().Equals()) ....
+        pushed = true;
+    }   
+    
+
 
 }

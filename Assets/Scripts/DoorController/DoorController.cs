@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingDoor : MonoBehaviour
+public class DoorController : MonoBehaviour
 {
     public State[] states;
     private StateMachine _stateMachine;
@@ -25,11 +25,21 @@ public class MovingDoor : MonoBehaviour
         _stateMachine.Run();
     }
 
-    internal RaycastHit PlayerTriggeredCast()
+    internal RaycastHit PlayerTriggeredCast() //Fixa denna den kommer ändå returnera fastän boxcasten e tom
     {
         if(!_hasButton)
         Physics.BoxCast(_triggerPosition, new Vector3(1,1,1) * 1f, Vector3.up , out _boxCastHit, transform.rotation, 5f, _layerMask, QueryTriggerInteraction.Collide);
         return _boxCastHit;
+    }
+
+    internal bool GetHasButton()
+    {
+        return _hasButton;
+    }
+
+    internal bool SetHasButton(bool value)
+    {
+       return _hasButton = value;
     }
 
     private void OnDrawGizmos()
