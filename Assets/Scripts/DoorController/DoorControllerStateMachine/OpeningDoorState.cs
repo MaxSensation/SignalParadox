@@ -18,6 +18,7 @@ namespace DoorControllerStateMachine
 
         public override void Run()
         {
+            DoorController.transform.position = Vector3.up;
             stateMachine.TransitionTo<OpenDoorState>();
         }
     }
