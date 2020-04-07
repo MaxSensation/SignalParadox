@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public static class SaveManager
 {
@@ -23,12 +24,19 @@ public static class SaveManager
 
     private static void SaveCheckPoint()
     {
+        Init();
         Debug.Log("CheckPoint Saved!");
         _lastCheckPoint.playerPosition = _player.transform.position;
+        _lastCheckPoint.level = SceneManager.GetActiveScene().name;
     }
 
-    public static CheckPoint GetLastCheckPoint()
+    public static void LoadLastCheckPoint()
     {
-        return _lastCheckPoint;
+        if (SceneManager.GetActiveScene().name != _lastCheckPoint.level)
+            SceneManager.LoadScene(_lastCheckPoint.level);
+        var spawnPosition = _lastCheckPoint.playerPosition;
+        spawnPosition.y += 0.2f;
+        _player.transform.position = spawnPosition;
+        _player.GetComponent<PlayerController>().SetVelocity(Vector3.zero);
     }
 }
