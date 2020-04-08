@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using AI.AIStateMachine;
+using AI.Charger.AIStateMachine;
+using UnityEngine;
 
-namespace AI.AIStateMachine
+namespace AI.BodyTrapper.AIStateMachine
 {
-    [CreateAssetMenu(menuName = "AIStates/JumpState")]
+    [CreateAssetMenu(menuName = "AIStates/BodyTrapper/JumpState")]
     public class JumpState : AiBaseState
     {
         [SerializeField] private float jumpHeight;

@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using AI.AIStateMachine;
+using AI.Charger.AIStateMachine;
+using UnityEngine;
 
-namespace AI.AIStateMachine
+namespace AI.BodyTrapper.AIStateMachine
 {
-    [CreateAssetMenu(menuName = "AIStates/HuntState")]
+    [CreateAssetMenu(menuName = "AIStates/BodyTrapper/HuntState")]
     public class HuntState : AiBaseState
     {
         [SerializeField] private float jumpDistance;

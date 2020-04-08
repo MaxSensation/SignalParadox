@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using AI.AIStateMachine;
+using AI.Charger.AIStateMachine;
+using UnityEngine;
 
-namespace AI.AIStateMachine
+namespace AI.BodyTrapper.AIStateMachine
 {
-    [CreateAssetMenu(menuName = "AIStates/PatrolState")]
+    [CreateAssetMenu(menuName = "AIStates/BodyTrapper/PatrolState")]
     public class PatrolState : AiBaseState
     {
         [SerializeField] private float hearDistance;
