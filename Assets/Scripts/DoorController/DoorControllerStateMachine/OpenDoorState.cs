@@ -15,7 +15,14 @@ namespace DoorControllerStateMachine
 
         public override void Run()
         {
-            //stateMachine.TransitionTo<ClosingDoorState>(); //Ta bort bara 
+            if (Door.GetHasButton() && !Door.CloseDoor() && Door.OpenDoor())
+            {
+                stateMachine.TransitionTo<ClosingDoorState>();
+            }
+            else if (!Door.GetHasButton() && Door.GetPlayerTriggeredCast() && !Door.CloseDoor() && Door.OpenDoor())
+            {
+                stateMachine.TransitionTo<ClosingDoorState>();
+            }
         }
     }
 }

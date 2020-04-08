@@ -7,12 +7,11 @@ public class DoorController : MonoBehaviour
     public State[] states;
     private StateMachine _stateMachine;
     private BoxCollider _collider;
-    //private RaycastHit _boxCastHit;
     private Vector3 _triggerPosition;
     [SerializeField] private LayerMask _layerMask;
     [SerializeField] private bool _hasButton;
-    private bool _cooldown;
-
+    private bool _closeDoor;
+    private bool _openDoor;
 
     private void Awake()
     {
@@ -28,16 +27,6 @@ public class DoorController : MonoBehaviour
         _stateMachine.Run();
     }
 
-    //internal RaycastHit PlayerTriggeredCast() //Fixa denna den kommer ändå returnera fastän boxcasten e tom
-    //{
-    //    if (!_hasButton)
-    //    {
-    //        Physics.BoxCast(_triggerPosition, new Vector3(1, 1, 1) * 1f, Vector3.up, out RaycastHit _boxCastHit, transform.rotation, 5f, _layerMask, QueryTriggerInteraction.Collide);
-    //        return _boxCastHit;
-    //    }
-    //    return _boxCastHit;
-    //}
-
     internal bool GetPlayerTriggeredCast()
     {
         Physics.BoxCast(_triggerPosition, new Vector3(1, 1, 1) * 1f, Vector3.up, out var _boxCastHit, transform.rotation, 5f, _layerMask, QueryTriggerInteraction.Collide);
@@ -47,18 +36,31 @@ public class DoorController : MonoBehaviour
     internal IEnumerator CooldownTime()
     {
         yield return new WaitForSeconds(2);
-        _cooldown = false;
+        _closeDoor = false;
+        _openDoor = false;
     }
 
     internal void ActivateDoor()
     {
-        _cooldown = true;
+        if (_stateMachine.GetCurrentState().name.Equals("ClosedState(Clone)"))
+        {
+            _closeDoor = true;
+        }
+        else
+        {
+            _openDoor = true;
+        }
         StartCoroutine("CooldownTime");
     }
 
-    internal bool IsButtonPushed()
+    internal bool CloseDoor()
     {
-        return _cooldown;
+        return _closeDoor;
+    }
+
+    internal bool OpenDoor()
+    {
+        return _openDoor;
     }
 
     internal bool GetHasButton()

@@ -17,8 +17,9 @@ namespace DoorControllerStateMachine
         // Update is called once per frame
         public override void Run()
         {
-            //MovingDoor.transform.position = Vector3.down; //Ta bort och animera istället
-            //stateMachine.TransitionTo<ClosedDoorState>();
+            Door.transform.position = new Vector3(Door.transform.position.x, Door.transform.position.y - 2, Door.transform.position.z);
+            Door.gameObject.layer = 8; //Det här kan bli fel om layers ordning ändras om
+            stateMachine.TransitionTo<ClosedDoorState>();
         }
     }
 }

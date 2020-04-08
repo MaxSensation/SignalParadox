@@ -10,14 +10,16 @@ namespace ButtonStateMachine
         public override void Enter()
         {
             Debug.Log("Button on");
-            Button.Door.ActivateDoor();
             //Button.SetRenderColor("_Color", Color.green);
         }
 
         public override void Run()
         {
             if (!Button.IsOffCooldown() && Button.IsOnCooldown())
-                stateMachine.TransitionTo<Off>();            
+            {
+                Button.Door.ActivateDoor();
+                stateMachine.TransitionTo<Off>();
+            }        
         }
 
     }

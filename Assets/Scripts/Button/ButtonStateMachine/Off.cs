@@ -15,9 +15,9 @@ namespace ButtonStateMachine
 
         public override void Run()
         {
-            //if ispressed transition to On..
             if(Button.IsOffCooldown() && !Button.IsOnCooldown())
             {
+                Button.Door.ActivateDoor(); //Om off knappen ska avaktivera saker.
                 stateMachine.TransitionTo<On>();
             }
         }
