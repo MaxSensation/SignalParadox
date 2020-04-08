@@ -5,9 +5,8 @@ namespace AI.AIStateMachine
     [CreateAssetMenu(menuName = "AIStates/PatrolState")]
     public class PatrolState : AiBaseState
     {
-        [SerializeField] private Vector3[] patrolPoints;
-        [SerializeField] private float jumpDistance;
-        [SerializeField] private float moveSpeed;
+        [SerializeField] private float hearDistance;
+        [SerializeField] private float seeDistance;
 
         private int currentPoint;
         
@@ -18,32 +17,34 @@ namespace AI.AIStateMachine
 
         public override void Run()
         {
-            if (!CanSeePlayer())
-                Ai.agent.speed = 0;
-            else
-                Ai.agent.speed = moveSpeed;
-
-            if (patrolPoints.Length > 0)
+            if (Ai.waypoints.Length > 0)
             {
-                Ai.agent.SetDestination(patrolPoints[currentPoint]);
-                if (Vector3.Distance(Ai.transform.position, patrolPoints[currentPoint]) < 1)
-                    currentPoint = (currentPoint + 1) % patrolPoints.Length;
+                Ai.agent.SetDestination(Ai.waypoints[currentPoint].position);
+                if (Vector3.Distance(Ai.transform.position, Ai.waypoints[currentPoint].position) < 1)
+                    currentPoint = (currentPoint + 1) % Ai.waypoints.Length;
             }
-            
-            if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
-                stateMachine.TransitionTo<JumpState>();
+
+            if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < seeDistance)
+            {
+                stateMachine.TransitionTo<HuntState>();   
+            }
+
+            if (Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < hearDistance)
+                stateMachine.TransitionTo<HuntState>();
         }
-        
+
         private void ChooseClosest()
         {
-            int closest = 0;
-            for (int i = 0; i < patrolPoints.Length; i++)
-            {
-                float dist = Vector3.Distance(Ai.transform.position, patrolPoints[i]);
-                if (dist < Vector3.Distance(Ai.transform.position, patrolPoints[closest]))
-                    closest = i;
+            if (Ai.waypoints.Length > 0){
+                int closest = 0;
+                for (int i = 0; i < Ai.waypoints.Length; i++)
+                {
+                    float dist = Vector3.Distance(Ai.transform.position, Ai.waypoints[i].position);
+                    if (dist < Vector3.Distance(Ai.transform.position, Ai.waypoints[closest].position))
+                        closest = i;
+                }
+                currentPoint = closest;
             }
-            currentPoint = closest;
         }
     }
 }

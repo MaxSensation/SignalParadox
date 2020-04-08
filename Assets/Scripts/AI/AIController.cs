@@ -7,14 +7,15 @@ namespace AI
     public class AIController : MonoBehaviour
     {
         public State[] states;
+        public Transform[] waypoints;
         public LayerMask visionMask;
         public float moveSpeed;
         private StateMachine _stateMachine;
+        private bool _stunned;
         internal GameObject target;
         internal NavMeshAgent agent;
         internal Rigidbody rigidbody;
-        private bool _stunned;
-        
+
 
         private void Awake()
         {
@@ -29,10 +30,6 @@ namespace AI
         {
             agent.speed = moveSpeed;
             _stateMachine.Run();
-            if (agent.enabled)
-            {
-                agent.SetDestination(target.transform.position);                
-            }
         }
         private IEnumerator StunTime()
         {

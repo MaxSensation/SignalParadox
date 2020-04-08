@@ -24,7 +24,7 @@ namespace AI.AIStateMachine
             if (Grounded() && !Ai.IsStunned())
             {
                 Ai.agent.enabled = true;
-                stateMachine.TransitionTo<PatrolState>();
+                stateMachine.TransitionTo<HuntState>();
             }
         }
 
