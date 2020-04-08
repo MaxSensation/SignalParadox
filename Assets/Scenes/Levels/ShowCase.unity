@@ -252,33 +252,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BodyTrapper (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4186294646274312012, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
-        type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
-        type: 0}
-    - target: {fileID: 4186294646274312012, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186294646274312014, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
-        type: 3}
-      propertyPath: states.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186294646274312014, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
-        type: 3}
-      propertyPath: waypoints.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186294646274312014, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
-        type: 3}
-      propertyPath: states.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 7989879139a9a1a418ce4f90e5a64ca7,
-        type: 2}
     - target: {fileID: 4186294646274312014, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
         type: 3}
       propertyPath: waypoints.Array.data[0]
@@ -297,7 +270,7 @@ PrefabInstance:
     - target: {fileID: 4186294646274312015, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.51873
+      value: -1.44
       objectReference: {fileID: 0}
     - target: {fileID: 4186294646274312015, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
         type: 3}
@@ -343,26 +316,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186294646274312016, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186294646274312016, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186294646274312016, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
-        type: 3}
-      propertyPath: m_Drag
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186294646274312017, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
-        type: 3}
-      propertyPath: m_WalkableMask
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e9a93b6e706fcb4b99baf65c4b15240, type: 3}

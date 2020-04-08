@@ -17,7 +17,9 @@ namespace PlayerStateMachine
 
         private void Melee()
         {
-            var hit = Player.GetRayCast(PlayerCameraDirection, hitDistance);
+            //var hit = Player.GetRayCast(PlayerCameraDirection, hitDistance);
+            RaycastHit hit = Player.GetCameraRayCast();
+
             if (hit.collider && hit.collider.CompareTag("Enemy"))
             {
                 Debug.Log("Found Enemy");
