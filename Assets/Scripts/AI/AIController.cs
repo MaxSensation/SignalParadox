@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,10 +17,12 @@ namespace AI
         internal GameObject target;
         internal NavMeshAgent agent;
         internal Rigidbody rigidbody;
+        internal CapsuleCollider _collider;
 
 
         private void Awake()
         {
+            _collider = GetComponent<CapsuleCollider>();
             aihRenderer = transform.GetChild(0).GetComponent<Renderer>();
             rigidbody = GetComponent<Rigidbody>();
             _stateMachine = new StateMachine(this, states);
@@ -39,12 +42,24 @@ namespace AI
             agent.enabled = true;
             _stunned = false;
         }
+        
+        private IEnumerator OnlyStunTime()
+        {
+            yield return new WaitForSeconds(3);
+            _stunned = false;
+        }
 
         internal void ActivateStun()
         {
             agent.enabled = false;
             _stunned = true;
             StartCoroutine("StunTime");
+        }
+
+        internal void ActivateOnlyStun()
+        {
+            _stunned = true;
+            StartCoroutine("OnlyStunTime");
         }
 
         public bool IsStunned()
@@ -60,6 +75,17 @@ namespace AI
         public Renderer GetRenderer()
         {
             return aihRenderer;
+        }
+
+        public CapsuleCollider GetCollider()
+        {
+            return _collider;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(transform.position, transform.forward);
         }
     }
 }
