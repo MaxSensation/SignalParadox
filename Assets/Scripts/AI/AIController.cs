@@ -7,17 +7,20 @@ namespace AI
     public class AIController : MonoBehaviour
     {
         public State[] states;
+        public Transform[] waypoints;
         public LayerMask visionMask;
         public float moveSpeed;
         private StateMachine _stateMachine;
+        private bool _stunned;
+        private Renderer aihRenderer;
         internal GameObject target;
         internal NavMeshAgent agent;
         internal Rigidbody rigidbody;
-        private bool _stunned;
-        
+
 
         private void Awake()
         {
+            aihRenderer = transform.GetChild(0).GetComponent<Renderer>();
             rigidbody = GetComponent<Rigidbody>();
             _stateMachine = new StateMachine(this, states);
             target = GameObject.FindWithTag("Player");
@@ -29,19 +32,17 @@ namespace AI
         {
             agent.speed = moveSpeed;
             _stateMachine.Run();
-            if (agent.enabled)
-            {
-                agent.SetDestination(target.transform.position);                
-            }
         }
         private IEnumerator StunTime()
         {
             yield return new WaitForSeconds(3);
+            agent.enabled = true;
             _stunned = false;
         }
 
         internal void ActivateStun()
         {
+            agent.enabled = false;
             _stunned = true;
             StartCoroutine("StunTime");
         }
@@ -49,6 +50,16 @@ namespace AI
         public bool IsStunned()
         {
             return _stunned;
+        }
+
+        public void Die()
+        {
+            _stunned = true;
+        }
+
+        public Renderer GetRenderer()
+        {
+            return aihRenderer;
         }
     }
 }

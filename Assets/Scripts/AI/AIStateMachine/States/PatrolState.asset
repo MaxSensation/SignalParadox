@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99ec42cf4f39964bbaa961b5d3b2de1, type: 3}
   m_Name: PatrolState
   m_EditorClassIdentifier: 
-  patrolPoints: []
-  jumpDistance: 10
-  moveSpeed: 3
+  material: {fileID: 2100000, guid: 136327839bdb4a046810788bcfb16af1, type: 2}
+  hearDistance: 8
+  seeDistance: 20

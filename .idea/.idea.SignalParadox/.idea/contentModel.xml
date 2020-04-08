@@ -9,6 +9,7 @@
             <e p="AIController.cs" t="Include" />
             <e p="AIStateMachine" t="Include">
               <e p="AIBaseState.cs" t="Include" />
+              <e p="HuntState.cs" t="Include" />
               <e p="JumpState.cs" t="Include" />
               <e p="PatrolState.cs" t="Include" />
             </e>
@@ -59,6 +60,10 @@
             </e>
           </e>
           <e p="SaveManager.cs" t="Include" />
+          <e p="Traps" t="Include">
+            <e p="HazardsController.cs" t="Include" />
+            <e p="LaserWallController.cs" t="Include" />
+          </e>
           <e p="TriggerCheckPoint.cs" t="Include" />
           <e p="TriggerLoadNextLevel.cs" t="Include" />
         </e>
