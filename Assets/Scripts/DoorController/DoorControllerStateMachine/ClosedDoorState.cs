@@ -15,15 +15,15 @@ namespace DoorControllerStateMachine
 
         public override void Run()
         {
-            if (!Door.GetHasButtonAndIsPushed() && Door.GetPlayerTriggeredCast())
-            {
-                /* MovingDoor.transform.position = Vector3.up; */// Ta bort och animera istället
-                Debug.Log("Player Triggered Door Cast");
-                stateMachine.TransitionTo<OpeningDoorState>();
-            }
-            else if (Door.GetHasButtonAndIsPushed())
+            if (Door.GetHasButton() && Door.IsButtonPushed())
             {
                 Debug.Log("Player Pressed Button");
+                Door.gameObject.layer = 1; //Temporärt annars kommer dörren annars kommer dörre krocka med taket.
+                stateMachine.TransitionTo<OpeningDoorState>();
+            }
+            else if (!Door.GetHasButton() && Door.GetPlayerTriggeredCast())
+            {
+                Debug.Log("Player Triggered Door Cast");
                 Door.gameObject.layer = 1; //Temporärt annars kommer dörren annars kommer dörre krocka med taket.
                 stateMachine.TransitionTo<OpeningDoorState>();
             }

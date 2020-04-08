@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
             Physics.Raycast(transform.position + _cameraOffset, _camera.transform.forward, out var CameraRayCastHit, 1f);
             if (CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button"))
             {
-                CameraRayCastHit.collider.gameObject.GetComponent<ButtonController>().Pushed();
+                CameraRayCastHit.collider.gameObject.GetComponent<ButtonController>().ButtonPress();
             }
         }
         else return;

@@ -7,16 +7,17 @@ public class DoorController : MonoBehaviour
     public State[] states;
     private StateMachine _stateMachine;
     private BoxCollider _collider;
-    [SerializeField] private LayerMask _layerMask;
     //private RaycastHit _boxCastHit;
     private Vector3 _triggerPosition;
-    private bool _hasButton;
-    private bool _pushedButton;
+    [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private bool _hasButton;
+    private bool _cooldown;
+
 
     private void Awake()
     {
         //_pushedButton = false;
-        _hasButton = true; //..
+        _hasButton = true;
         _stateMachine = new StateMachine(this, states);
         _collider = GetComponent<BoxCollider>();
         _triggerPosition = (_collider.transform.position + (_collider.size.y * 2) * Vector3.down);
@@ -43,26 +44,30 @@ public class DoorController : MonoBehaviour
         return _boxCastHit.collider && _boxCastHit.collider.CompareTag("Player") && !_hasButton;
     }
 
-    internal BoxCollider GetCollider()
+    internal IEnumerator CooldownTime()
     {
-        return _collider;
+        yield return new WaitForSeconds(2);
+        _cooldown = false;
     }
 
-    internal void SetCollider(bool value)
+    internal void ActivateDoor()
     {
-        _collider.isTrigger = value;
+        _cooldown = true;
+        StartCoroutine("CooldownTime");
     }
 
-    internal bool GetHasButtonAndIsPushed()
+    internal bool IsButtonPushed()
     {
-        if (_hasButton)
-            return _pushedButton;
-        else
-            return false;
+        return _cooldown;
     }
 
-    internal bool SetPushedButton(bool value)
+    internal bool GetHasButton()
     {
-       return _pushedButton = value;
+        return _hasButton;
     }
+
+    //internal bool SetPushedButton(bool value)
+    //{
+    //   return _pushedButton = value;
+    //}
 }

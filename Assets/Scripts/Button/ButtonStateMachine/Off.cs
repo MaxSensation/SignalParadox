@@ -10,13 +10,16 @@ namespace ButtonStateMachine
         public override void Enter()
         {
             Debug.Log("Button off");
+            //Button.SetRenderColor("_Color", Color.red);
         }
 
         public override void Run()
         {
             //if ispressed transition to On..
-            if(Button.pushed) //Ändra
+            if(Button.IsOffCooldown() && !Button.IsOnCooldown())
+            {
                 stateMachine.TransitionTo<On>();
+            }
         }
     }
 }

@@ -9,8 +9,6 @@ namespace DoorControllerStateMachine
     public class OpeningDoorState : DoorControllerBaseState
 
     {
-        [SerializeField] private IEnumerator _coroutine;
-
         public override void Enter()
         {
             Debug.Log("Door Enterd Opening State");
