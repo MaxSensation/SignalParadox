@@ -291,18 +291,23 @@ public class PlayerController : MonoBehaviour
         transform.rotation = value;
     }
 
-    public CapsuleCollider GetPlayerCollider()
+    internal CapsuleCollider GetPlayerCollider()
     {
         return _collider;
     }
 
-    public Vector3 GetCameraOffset()
+    internal Vector3 GetCameraOffset()
     {
         return _cameraOffset;
     }
 
-    public void SetCameraOffset(Vector3 value)
+    internal void SetCameraOffset(Vector3 value)
     {
         _cameraOffset = value;
+    }
+
+    internal Vector3 GetPlayerCameraDirection()
+    {
+        return _playerMesh.transform.forward;
     }
 }

@@ -6,6 +6,13 @@ namespace AI.AIStateMachine
     {
         private AIController _ai;
         protected AIController Ai => _ai = _ai ? _ai : (AIController)owner;
+        protected Renderer _renderer => Ai.GetRenderer();
+        [SerializeField] protected Material material;
+
+        public override void Enter()
+        { 
+            _renderer.material = material;
+        }
 
         protected bool CanSeePlayer()
         {

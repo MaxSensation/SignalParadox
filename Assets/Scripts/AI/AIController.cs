@@ -12,6 +12,7 @@ namespace AI
         public float moveSpeed;
         private StateMachine _stateMachine;
         private bool _stunned;
+        private Renderer aihRenderer;
         internal GameObject target;
         internal NavMeshAgent agent;
         internal Rigidbody rigidbody;
@@ -19,6 +20,7 @@ namespace AI
 
         private void Awake()
         {
+            aihRenderer = transform.GetChild(0).GetComponent<Renderer>();
             rigidbody = GetComponent<Rigidbody>();
             _stateMachine = new StateMachine(this, states);
             target = GameObject.FindWithTag("Player");
@@ -34,11 +36,13 @@ namespace AI
         private IEnumerator StunTime()
         {
             yield return new WaitForSeconds(3);
+            agent.enabled = true;
             _stunned = false;
         }
 
         internal void ActivateStun()
         {
+            agent.enabled = false;
             _stunned = true;
             StartCoroutine("StunTime");
         }
@@ -46,6 +50,16 @@ namespace AI
         public bool IsStunned()
         {
             return _stunned;
+        }
+
+        public void Die()
+        {
+            _stunned = true;
+        }
+
+        public Renderer GetRenderer()
+        {
+            return aihRenderer;
         }
     }
 }

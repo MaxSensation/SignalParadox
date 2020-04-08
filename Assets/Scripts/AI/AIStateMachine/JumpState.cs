@@ -10,9 +10,9 @@ namespace AI.AIStateMachine
 
         public override void Enter()
         {
+            base.Enter();
             Jump();
             Ai.ActivateStun();
-            Debug.Log("Test");
         }
 
         public override void Run()
@@ -23,7 +23,6 @@ namespace AI.AIStateMachine
             }
             if (Grounded() && !Ai.IsStunned())
             {
-                Ai.agent.enabled = true;
                 stateMachine.TransitionTo<HuntState>();
             }
         }
@@ -41,7 +40,6 @@ namespace AI.AIStateMachine
 
         private void Jump()
         {
-            Ai.agent.enabled = false;
             Ai.rigidbody.velocity = (Ai.target.transform.position - Ai.transform.position).normalized * jumpHeight;
         }
     }

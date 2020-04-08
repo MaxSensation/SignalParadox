@@ -12,6 +12,7 @@ namespace AI.AIStateMachine
         
         public override void Enter()
         {
+            base.Enter();
             ChooseClosest();
         }
 
