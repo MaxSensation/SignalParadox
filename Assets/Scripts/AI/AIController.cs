@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,18 +16,17 @@ namespace AI
         internal GameObject target;
         internal NavMeshAgent agent;
         internal Rigidbody rigidbody;
-        internal CapsuleCollider _collider;
-
+        private string _enemyType;
 
         private void Awake()
         {
-            _collider = GetComponent<CapsuleCollider>();
             aihRenderer = transform.GetChild(0).GetComponent<Renderer>();
             rigidbody = GetComponent<Rigidbody>();
             _stateMachine = new StateMachine(this, states);
             target = GameObject.FindWithTag("Player");
             agent = GetComponent<NavMeshAgent>();
             moveSpeed = agent.speed;
+            _enemyType = aihRenderer.name;
         }
 
         private void Update()
@@ -42,24 +40,12 @@ namespace AI
             agent.enabled = true;
             _stunned = false;
         }
-        
-        private IEnumerator OnlyStunTime()
-        {
-            yield return new WaitForSeconds(3);
-            _stunned = false;
-        }
 
         internal void ActivateStun()
         {
             agent.enabled = false;
             _stunned = true;
             StartCoroutine("StunTime");
-        }
-
-        internal void ActivateOnlyStun()
-        {
-            _stunned = true;
-            StartCoroutine("OnlyStunTime");
         }
 
         public bool IsStunned()
@@ -69,23 +55,15 @@ namespace AI
 
         public void Die()
         {
-            _stunned = true;
+            if (_enemyType.Equals("BodyTrapperMesh"))
+                gameObject.SetActive(false);
+            else
+                ActivateStun();
         }
 
         public Renderer GetRenderer()
         {
             return aihRenderer;
-        }
-
-        public CapsuleCollider GetCollider()
-        {
-            return _collider;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawRay(transform.position, transform.forward);
         }
     }
 }
