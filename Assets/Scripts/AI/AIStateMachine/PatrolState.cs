@@ -25,13 +25,10 @@ namespace AI.AIStateMachine
                     currentPoint = (currentPoint + 1) % Ai.waypoints.Length;
             }
 
-            if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < seeDistance)
+            if ((CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < seeDistance) || Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < hearDistance)
             {
                 stateMachine.TransitionTo<HuntState>();   
             }
-
-            if (Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < hearDistance)
-                stateMachine.TransitionTo<HuntState>();
         }
 
         private void ChooseClosest()
