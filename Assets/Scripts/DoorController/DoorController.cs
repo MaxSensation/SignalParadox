@@ -38,7 +38,6 @@ public class DoorController : MonoBehaviour
         yield return new WaitForSeconds(2);
         _closeDoor = false;
         _openDoor = false;
-        StopCoroutine("ActivateDoor");
     }
 
     internal void ActivateDoor()

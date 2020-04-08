@@ -233,12 +233,6 @@ public class PlayerController : MonoBehaviour
         return hit;
     }
 
-    internal RaycastHit GetCameraRayCast()
-    {
-        Physics.Raycast(transform.position + _cameraOffset, _camera.transform.forward, out var CameraRayCastHit, 5f);
-        return CameraRayCastHit;
-    }
-
     internal float GetGroundCheckDistance()
     {
         return groundCheckDistance;

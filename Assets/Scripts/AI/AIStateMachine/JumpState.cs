@@ -19,7 +19,7 @@ namespace AI.AIStateMachine
         {
             if (TouchingPlayer())
             {
-                //Ai.target.GetComponent<PlayerController>().Die();
+                Ai.target.GetComponent<PlayerController>().Die();
             }
             if (Grounded() && !Ai.IsStunned())
             {
