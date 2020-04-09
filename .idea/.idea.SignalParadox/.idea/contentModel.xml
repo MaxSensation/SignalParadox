@@ -7,11 +7,21 @@
         <e p="Scripts" t="Include">
           <e p="AI" t="Include">
             <e p="AIController.cs" t="Include" />
-            <e p="AIStateMachine" t="Include">
-              <e p="AIBaseState.cs" t="Include" />
-              <e p="HuntState.cs" t="Include" />
-              <e p="JumpState.cs" t="Include" />
-              <e p="PatrolState.cs" t="Include" />
+            <e p="BodyTrapper" t="Include">
+              <e p="AIStateMachine" t="Include">
+                <e p="BodyTrapperBaseState.cs" t="Include" />
+                <e p="HuntState.cs" t="Include" />
+                <e p="JumpState.cs" t="Include" />
+                <e p="PatrolState.cs" t="Include" />
+              </e>
+            </e>
+            <e p="Charger" t="Include">
+              <e p="AIStateMachine" t="Include">
+                <e p="ChargerBaseState.cs" t="Include" />
+                <e p="ChargeState.cs" t="Include" />
+                <e p="HuntState.cs" t="Include" />
+                <e p="PatrolState.cs" t="Include" />
+              </e>
             </e>
           </e>
           <e p="Button" t="Include">
@@ -60,6 +70,9 @@
             </e>
           </e>
           <e p="SaveManager.cs" t="Include" />
+          <e p="StunGun" t="Include">
+            <e p="StunGunPatron.cs" t="Include" />
+          </e>
           <e p="Traps" t="Include">
             <e p="HazardsController.cs" t="Include" />
             <e p="LaserWallController.cs" t="Include" />

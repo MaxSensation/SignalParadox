@@ -289,7 +289,7 @@ public class PlayerController : MonoBehaviour
 
     internal Quaternion GetRotation()
     {
-        return transform.rotation;
+        return _playerMesh.transform.rotation;
     }
 
     internal void SetRotation(Quaternion value)
