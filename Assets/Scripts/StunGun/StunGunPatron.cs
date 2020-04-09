@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using AI;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,6 +10,7 @@ namespace StunGun
     {
         // StunGun
         [SerializeField] private float maxDistanceToCenter;
+        [SerializeField] private float maxRotation;
         [SerializeField] private float spreadSpeed;
         [SerializeField] private float projectileForce;
         private BoxCollider triggerZone;
@@ -49,20 +51,28 @@ namespace StunGun
             finalRightPatronPosition = maxDistanceToCenter;
             finalTriggerSize = maxDistanceToCenter * 2;
             _rigidbody = GetComponent<Rigidbody>();
-            _rigidbody.AddForce(transform.forward.normalized * (projectileForce * 100) + Vector3.up * 150);
-
-                // Effect
+            _rigidbody.AddForce(transform.forward.normalized * projectileForce + Vector3.up * 10);
+            _rigidbody.AddTorque(transform.forward * Random.Range(-maxRotation, maxRotation));
+            _rigidbody.AddTorque(transform.up * Random.Range(-maxRotation/4, maxRotation/4));
+            // Effect
             _lineRenderer = GetComponent<LineRenderer>();
             _points = new Vector3[_pointsCount];
             _lineRenderer.positionCount = _pointsCount;
+            StartCoroutine("ActivateDestructionTimer");
         }
+
+        private IEnumerator ActivateDestructionTimer()
+        {
+            yield return new WaitForSeconds(3);
+            Destroy(gameObject);
+        }
+
         private void Update()
         {
-            // StunGun
-            LerpPatronsAndColider();
-            
             // Effect
             CalculatePoints();
+            // StunGun
+            LerpPatronsAndColider();
         }
 
         private void OnCollisionEnter(Collision other)
