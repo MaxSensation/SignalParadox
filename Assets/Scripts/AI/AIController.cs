@@ -25,11 +25,11 @@ namespace AI
             _collider = GetComponent<CapsuleCollider>();
             aihRenderer = transform.GetChild(0).GetComponent<Renderer>();
             rigidbody = GetComponent<Rigidbody>();
-            _stateMachine = new StateMachine(this, states);
             target = GameObject.FindWithTag("Player");
             agent = GetComponent<NavMeshAgent>();
             moveSpeed = agent.speed;
             _enemyType = aihRenderer.name;
+            _stateMachine = new StateMachine(this, states);
         }
 
         private void Update()

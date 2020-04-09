@@ -10,7 +10,7 @@ namespace ButtonStateMachine
         public override void Enter()
         {
             Debug.Log("Button on");
-            //Button.SetRenderColor("_Color", Color.green);
+            base.Enter();
         }
 
         public override void Run()

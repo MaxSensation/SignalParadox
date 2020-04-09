@@ -6,25 +6,27 @@ public class ButtonController : MonoBehaviour
 {
     public State[] states;
     private StateMachine _stateMachine;
-    //internal bool pushed;
     public DoorController Door;
     private bool _offcooldown;
     private bool _onCooldown;
-    [SerializeField] internal Material _OffMaterial;
-    [SerializeField] internal Material _OnMaterial;
-    internal MeshRenderer _currentMaterial;
+    private Renderer _buttonRenderer;
 
     private void Awake()
     {
+        _buttonRenderer = GetComponent<Renderer>();
         _stateMachine = new StateMachine(this, states);
-        _currentMaterial = GetComponent<MeshRenderer>();
-        //_currentMaterial.material.SetColor("_Color", Color.red);
+
     }
 
-    internal void SetRenderColor(string name, Color value)
+    internal Renderer GetRenderer()
     {
-        _currentMaterial.material.SetColor(name, value);
+        return _buttonRenderer;
     }
+
+    //internal void SetRenderColor(string name, Color value)
+    //{
+    //    _currentMaterial.material.SetColor(name, value);
+    //}
 
     private void Update()
     {
