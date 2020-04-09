@@ -21,6 +21,7 @@ namespace AI.Charger.AIStateMachine
 
         public override void Run()
         {
+            if(!Ai.IsStunned())//.
             Charge();
             if (TouchingPlayer())
             {

@@ -233,6 +233,12 @@ public class PlayerController : MonoBehaviour
         return hit;
     }
 
+    internal RaycastHit GetMeeleRayCast(float meeleDistance) //Temporär kanske, för den e bah för meele justn nu
+    {
+        Physics.CapsuleCast(_point1, _point2, _collider.radius, _playerMesh.transform.forward, out var hit, meeleDistance);
+        return hit;
+    }
+
     internal float GetGroundCheckDistance()
     {
         return groundCheckDistance;

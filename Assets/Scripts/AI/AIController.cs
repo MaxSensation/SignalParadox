@@ -18,7 +18,7 @@ namespace AI
         internal NavMeshAgent agent;
         internal Rigidbody rigidbody;
         internal CapsuleCollider _collider;
-
+        private string _enemyType;
 
         private void Awake()
         {
@@ -29,6 +29,7 @@ namespace AI
             target = GameObject.FindWithTag("Player");
             agent = GetComponent<NavMeshAgent>();
             moveSpeed = agent.speed;
+            _enemyType = aihRenderer.name;
         }
 
         private void Update()
@@ -69,7 +70,10 @@ namespace AI
 
         public void Die()
         {
-            _stunned = true;
+            if (_enemyType.Equals("BodyTrapperMesh"))
+                gameObject.SetActive(false);
+            else
+               ActivateStun();
         }
 
         public Renderer GetRenderer()
