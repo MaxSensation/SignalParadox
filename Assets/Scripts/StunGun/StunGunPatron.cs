@@ -61,7 +61,6 @@ namespace StunGun
             _rigidbody.AddForce(transform.forward.normalized * projectileForce + Vector3.up * 10);
             _rigidbody.AddTorque(transform.forward * Random.Range(-maxRotation, maxRotation));
             _rigidbody.AddTorque(transform.up * Random.Range(-maxRotation/4, maxRotation/4));
-            
             // Effect
             _lineRenderer = GetComponent<LineRenderer>();
             _points = new Vector3[_pointsCount];
@@ -118,13 +117,16 @@ namespace StunGun
                 triggerZone.enabled = false;
                 _lineRenderer.enabled = false;
                 //LeftDebris
-                _leftDebrie = Instantiate(debrie, leftPatron.transform.position, leftPatron.transform.rotation);
+                var leftPosition = leftPatron.transform.position;
+                _leftDebrie = Instantiate(debrie, leftPosition, leftPatron.transform.rotation);
                 leftPatron.SetActive(false);
-                _leftDebrie.GetComponent<Rigidbody>().velocity = _rigidbody.velocity;
+                var rightPosition = rightPatron.transform.position;
+                var implosionDirection = (rightPosition - leftPosition).normalized;
+                _leftDebrie.GetComponent<Rigidbody>().velocity = _rigidbody.velocity + implosionDirection;
                 //RightDebris
-                _rightDebrie = Instantiate(debrie, rightPatron.transform.position, rightPatron.transform.rotation);
+                _rightDebrie = Instantiate(debrie, rightPosition, rightPatron.transform.rotation);
                 rightPatron.SetActive(false);
-                _rightDebrie.GetComponent<Rigidbody>().velocity = _rigidbody.velocity;   
+                _rightDebrie.GetComponent<Rigidbody>().velocity = _rigidbody.velocity - implosionDirection;   
             }
         }
 
