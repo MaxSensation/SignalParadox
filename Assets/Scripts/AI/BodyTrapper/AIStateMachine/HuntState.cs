@@ -11,7 +11,11 @@ namespace AI.BodyTrapper.AIStateMachine
         [SerializeField] private float searchingRange;
         public override void Run()
         {
-            Ai.agent.SetDestination(Ai.target.transform.position);
+            if (Ai.isDead)
+                stateMachine.TransitionTo<DeadState>();
+            
+            if (!Ai.IsStunned())
+                Ai.agent.SetDestination(Ai.target.transform.position);                
             
             if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
                 stateMachine.TransitionTo<JumpState>();

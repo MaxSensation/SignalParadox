@@ -8,8 +8,10 @@ public static class SaveManager
     public static UnityEvent checkPointReached;
     private static CheckPoint _lastCheckPoint;
     private static GameObject _player;
+    private static bool hasInitilized;
     internal static void Init()
     {
+        hasInitilized = true;
         _player = GameObject.FindWithTag("Player");
         _lastCheckPoint = (CheckPoint)AssetDatabase.LoadAssetAtPath("Assets/ScriptObjects/Saves/lastCheckPoint.asset", typeof(CheckPoint));
         if (_lastCheckPoint == null)
@@ -38,5 +40,10 @@ public static class SaveManager
         spawnPosition.y += 0.2f;
         _player.transform.position = spawnPosition;
         _player.GetComponent<PlayerController>().SetVelocity(Vector3.zero);
+    }
+
+    public static bool HasCheckpoint()
+    {
+        return hasInitilized;
     }
 }

@@ -12,7 +12,7 @@ namespace PlayerStateMachine
         protected Vector3 CameraOffset { get => Player.GetCameraOffset(); set => Player.SetCameraOffset(value); }
         protected Quaternion Rotation { get => Player.GetRotation(); set => Player.SetRotation(value); }
         protected float GetGroundCheckDistance => Player.GetGroundCheckDistance();
-        protected Vector3 PlayerCameraDirection => Player.GetPlayerCameraDirection();
+        protected Vector2 CameraRotation => Player.GetCameraRotation();
         protected float GetSkinWidth => Player.GetSkinWidth();
     }
 }

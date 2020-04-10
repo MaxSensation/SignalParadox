@@ -10,6 +10,7 @@
             <e p="BodyTrapper" t="Include">
               <e p="AIStateMachine" t="Include">
                 <e p="BodyTrapperBaseState.cs" t="Include" />
+                <e p="DeadState.cs" t="Include" />
                 <e p="HuntState.cs" t="Include" />
                 <e p="JumpState.cs" t="Include" />
                 <e p="PatrolState.cs" t="Include" />

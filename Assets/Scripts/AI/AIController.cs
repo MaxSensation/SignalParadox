@@ -19,6 +19,7 @@ namespace AI
         internal Rigidbody rigidbody;
         internal CapsuleCollider _collider;
         private string _enemyType;
+        internal bool isDead;
 
         private void Awake()
         {
@@ -70,10 +71,12 @@ namespace AI
 
         public void Die()
         {
-            if (_enemyType.Equals("BodyTrapperMesh"))
-                gameObject.SetActive(false);
+            if (_enemyType.Equals("BodyTrapperMesh")){
+                // gameObject.SetActive(false);
+                isDead = true;
+            }
             else
-               ActivateStun();
+                ActivateStun();
         }
 
         public Renderer GetRenderer()

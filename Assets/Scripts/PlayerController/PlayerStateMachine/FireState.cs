@@ -15,7 +15,7 @@ namespace PlayerStateMachine
 
         private void Fire()
         {
-            Instantiate(stunGunPatron, Player.transform.position, Rotation);
+            Instantiate(stunGunPatron, Player.transform.position,  Quaternion.Euler(CameraRotation.y - 10f, CameraRotation.x, Rotation.z));
         }
     }
 }

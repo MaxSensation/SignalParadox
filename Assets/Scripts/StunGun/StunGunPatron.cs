@@ -9,18 +9,24 @@ namespace StunGun
     public class StunGunPatron : MonoBehaviour
     {
         // StunGun
+        [SerializeField] private float minDistanceToCenter;
         [SerializeField] private float maxDistanceToCenter;
         [SerializeField] private float maxRotation;
         [SerializeField] private float spreadSpeed;
         [SerializeField] private float projectileForce;
+        [SerializeField] private GameObject debrie;
         private BoxCollider triggerZone;
         private CapsuleCollider playerCollider;
         private GameObject leftPatron;
         private GameObject rightPatron;
+        private GameObject _leftDebrie;
+        private GameObject _rightDebrie;
         private float finalLeftPatronPosition;
         private float finalRightPatronPosition;
         private float finalTriggerSize;
         private Rigidbody _rigidbody;
+        private bool isDestoryd;
+        private bool _hasCreateDebries;
         
         // Lighting Effect
         private LineRenderer _lineRenderer;
@@ -42,18 +48,20 @@ namespace StunGun
         private void Awake()
         {
             // StunGun
+            var distanceToCenter = Random.Range(minDistanceToCenter, maxDistanceToCenter);
             triggerZone = GetComponent<BoxCollider>();
             playerCollider = GameObject.FindWithTag("Player").GetComponent<CapsuleCollider>();
             Physics.IgnoreCollision(triggerZone, playerCollider);
             rightPatron = transform.Find("RightPatron").gameObject;
             leftPatron = transform.Find("LeftPatron").gameObject;
-            finalLeftPatronPosition = -maxDistanceToCenter;
-            finalRightPatronPosition = maxDistanceToCenter;
-            finalTriggerSize = maxDistanceToCenter * 2;
+            finalLeftPatronPosition = -distanceToCenter;
+            finalRightPatronPosition = distanceToCenter;
+            finalTriggerSize = distanceToCenter * 2;
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.AddForce(transform.forward.normalized * projectileForce + Vector3.up * 10);
             _rigidbody.AddTorque(transform.forward * Random.Range(-maxRotation, maxRotation));
             _rigidbody.AddTorque(transform.up * Random.Range(-maxRotation/4, maxRotation/4));
+            
             // Effect
             _lineRenderer = GetComponent<LineRenderer>();
             _points = new Vector3[_pointsCount];
@@ -63,25 +71,60 @@ namespace StunGun
 
         private IEnumerator ActivateDestructionTimer()
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(5);
+            DestroyEverthing();
+        }
+
+        private void DestroyEverthing()
+        {
+            if (_hasCreateDebries)
+            {
+                Destroy(_leftDebrie);
+                Destroy(_rightDebrie);   
+            }
             Destroy(gameObject);
         }
 
         private void Update()
         {
-            // Effect
-            CalculatePoints();
-            // StunGun
-            LerpPatronsAndColider();
+            if (!isDestoryd)
+            {
+                // Effect
+                CalculatePoints();
+                // StunGun
+                LerpPatronsAndColider();    
+            }
         }
 
         private void OnCollisionEnter(Collision other)
         {
             if (other.collider)
             {
-                if (other.collider.CompareTag("Enemy"))
+                if (other.collider.CompareTag("Enemy")){
                     other.collider.GetComponent<AIController>().Die();
-                Destroy(gameObject);
+                    DestroyEverthing();
+                }
+                else
+                    CreateDebries();
+            }
+        }
+
+        private void CreateDebries()
+        {
+            if (!isDestoryd)
+            {
+                _hasCreateDebries = true;
+                isDestoryd = true;
+                triggerZone.enabled = false;
+                _lineRenderer.enabled = false;
+                //LeftDebris
+                _leftDebrie = Instantiate(debrie, leftPatron.transform.position, leftPatron.transform.rotation);
+                leftPatron.SetActive(false);
+                _leftDebrie.GetComponent<Rigidbody>().velocity = _rigidbody.velocity;
+                //RightDebris
+                _rightDebrie = Instantiate(debrie, rightPatron.transform.position, rightPatron.transform.rotation);
+                rightPatron.SetActive(false);
+                _rightDebrie.GetComponent<Rigidbody>().velocity = _rigidbody.velocity;   
             }
         }
 
@@ -95,27 +138,23 @@ namespace StunGun
         private void CalculatePoints()
         {
             _timer += Time.deltaTime;
-
             if (_timer > _timerTimeOut)
             {
                 _timer = 0;
-
-                _points[_pointIndexA] = leftPatron.transform.position;
-                _points[_pointIndexE] = rightPatron.transform.position;
+                var leftPosition = leftPatron.transform.position;
+                _points[_pointIndexA] = leftPosition;
+                var rightPosition = rightPatron.transform.position;
+                _points[_pointIndexE] = rightPosition;
                 _points[_pointIndexC] = GetCenter(_points[_pointIndexA], _points[_pointIndexE]);
                 _points[_pointIndexB] = GetCenter(_points[_pointIndexA], _points[_pointIndexC]);
                 _points[_pointIndexD] = GetCenter(_points[_pointIndexC], _points[_pointIndexE]);
-
-                float distance = Vector3.Distance(leftPatron.transform.position, rightPatron.transform.position) / _points.Length;
+                float distance = Vector3.Distance(leftPosition, rightPosition) / _points.Length;
                 _mainTextureScale.x = distance;
                 _mainTextureOffset.x = Random.Range(-_randomness, _randomness);
                 _lineRenderer.material.SetTextureScale(_mainTexture, _mainTextureScale);
                 _lineRenderer.material.SetTextureOffset(_mainTexture, _mainTextureOffset);
-
                 _randomness = distance / (_pointsCount * _half);
-
                 SetRandomness();
-
                 _lineRenderer.SetPositions(_points);
             }
         }

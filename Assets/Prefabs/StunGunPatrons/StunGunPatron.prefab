@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 6156182510165109409}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4314083774358118960
 MeshFilter:
@@ -110,8 +110,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5156559431596214140}
   - {fileID: 2904045115805041920}
+  - {fileID: 5156559431596214140}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -140,10 +140,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95cab0c8b6288784581a2c7f922473c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceToCenter: 1.5
+  minDistanceToCenter: 0.5
+  maxDistanceToCenter: 1
   maxRotation: 0.08
   spreadSpeed: 0.01
   projectileForce: 70
+  debrie: {fileID: 6759130322808967242, guid: 9f2c9c70cdfd07142a8f5fd9bffbe640, type: 3}
 --- !u!120 &722063465
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -308,7 +310,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 6156182510165109409}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &632104250330967432
 MeshFilter:

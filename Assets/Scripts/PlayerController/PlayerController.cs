@@ -87,7 +87,10 @@ public class PlayerController : MonoBehaviour
     internal void Die()
     {
         Debug.Log("Player Died");
-        SaveManager.LoadLastCheckPoint();
+        if (SaveManager.HasCheckpoint())
+        {
+            SaveManager.LoadLastCheckPoint();            
+        }
     }
 
     private void TryPushButton()
@@ -315,5 +318,10 @@ public class PlayerController : MonoBehaviour
     internal Vector3 GetPlayerCameraDirection()
     {
         return _playerMesh.transform.forward;
+    }
+
+    public Vector2 GetCameraRotation()
+    {
+        return _cameraRotation;
     }
 }

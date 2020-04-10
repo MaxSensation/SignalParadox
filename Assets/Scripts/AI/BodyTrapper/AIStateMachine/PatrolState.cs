@@ -20,11 +20,18 @@ namespace AI.BodyTrapper.AIStateMachine
 
         public override void Run()
         {
+            if (Ai.isDead)
+                stateMachine.TransitionTo<DeadState>();
+            
             if (Ai.waypoints.Length > 0)
             {
                 Ai.agent.SetDestination(Ai.waypoints[currentPoint].position);
                 if (Vector3.Distance(Ai.transform.position, Ai.waypoints[currentPoint].position) < 1)
                     currentPoint = (currentPoint + 1) % Ai.waypoints.Length;
+            }
+            else
+            {
+                Ai.agent.SetDestination(Ai.target.transform.position);
             }
 
             if ((CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < seeDistance) || Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < hearDistance)

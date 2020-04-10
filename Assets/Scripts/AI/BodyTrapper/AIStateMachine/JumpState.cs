@@ -19,6 +19,9 @@ namespace AI.BodyTrapper.AIStateMachine
 
         public override void Run()
         {
+            if (Ai.isDead)
+                stateMachine.TransitionTo<DeadState>();
+            
             if (TouchingPlayer())
             {
                 Ai.target.GetComponent<PlayerController>().Die();
