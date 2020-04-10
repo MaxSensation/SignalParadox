@@ -4,6 +4,7 @@
     <e p="C:\GitHub\SignalParadox" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="LaserController.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="AI" t="Include">
             <e p="AIController.cs" t="Include" />
@@ -81,6 +82,8 @@
           <e p="TriggerCheckPoint.cs" t="Include" />
           <e p="TriggerLoadNextLevel.cs" t="Include" />
         </e>
+        <e p="SuperLaserWallController.cs" t="Include" />
+        <e p="WeaponPickUp.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />

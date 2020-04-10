@@ -52,7 +52,7 @@ namespace PlayerStateMachine
             }
             
             // Melee attack
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.Mouse1) && Player.hasStunGun)
             {
                 stateMachine.StackState<RunState>();
                 stateMachine.TransitionTo<FireState>();

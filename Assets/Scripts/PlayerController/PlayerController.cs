@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float thirdPersonCameraMaxAngle;
     [SerializeField] private float thirdPersonCameraDistance;
     [SerializeField] private LayerMask collisionLayer;
-
+    [SerializeField] internal bool hasStunGun;
     private StateMachine _stateMachine;
     private Vector3 _velocity;
     private CapsuleCollider _collider;
@@ -323,5 +323,10 @@ public class PlayerController : MonoBehaviour
     public Vector2 GetCameraRotation()
     {
         return _cameraRotation;
+    }
+
+    public void EnableStunGun()
+    {
+        hasStunGun = true;
     }
 }
