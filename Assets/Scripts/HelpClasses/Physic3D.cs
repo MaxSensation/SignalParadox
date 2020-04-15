@@ -28,15 +28,15 @@ public static class Physic3D
         return velocity * (accelerationSpeedCoefficient * Time.deltaTime);
     }
 
-    // public static Vector3 GetDeceleration(Vector3 velocity, float decelerateSpeedCoefficient, float decelerateThreshold)
-    // {
-    //     var decelerateVector = velocity;
-    //     decelerateVector.y = 0;
-    //     if (decelerateVector.magnitude > decelerateThreshold) 
-    //         velocity += decelerateVector.normalized * (decelerateSpeedCoefficient * Time.deltaTime);
-    //     return velocity;
-    // } 
-    
+    public static Vector3 GetDeceleration(Vector3 velocity, float decelerateSpeedCoefficient, float decelerateThreshold)
+    {
+        var decelerateVector = velocity;
+        decelerateVector.y = 0;
+        if (decelerateVector.magnitude > decelerateThreshold)
+            return decelerateVector.normalized * (decelerateSpeedCoefficient * Time.deltaTime);
+        else
+            return velocity = Vector3.zero;
+    }
 
     public static float GetTurnVelocity(Vector3 forces, Vector3 velocity)
     {

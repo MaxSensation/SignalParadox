@@ -6,7 +6,6 @@ namespace PlayerStateMachine
     public class PushingState : PlayerBaseState
     {
         [SerializeField] private float accelerationSpeed;
-
         private RaycastHit _box;
         private Vector3 _playerToBoxDirection;
         public override void Enter()

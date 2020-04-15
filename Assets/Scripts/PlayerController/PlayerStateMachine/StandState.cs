@@ -7,7 +7,7 @@ namespace PlayerStateMachine
     {
         public override void Enter()
         {
-            //Debug.Log("Entered Stand State");
+            Debug.Log("Entered Stand State");
         }
         public override void Run()
         {

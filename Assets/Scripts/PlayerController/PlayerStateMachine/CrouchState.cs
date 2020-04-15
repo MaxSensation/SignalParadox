@@ -7,6 +7,8 @@ namespace PlayerStateMachine
     {
         [SerializeField] private float accelerationSpeed;
         [SerializeField] private float terminalVelocity;
+        [SerializeField] private float decelerateSpeed;
+        [SerializeField] private float decelerateThreshold;
         private Vector3 _oldCameraOffset;
         private float _oldColliderHeight;
         
@@ -31,9 +33,6 @@ namespace PlayerStateMachine
 
         public override void Run()
         {
-            // Run if shift is pressed
-            if (Input.GetKey(KeyCode.LeftShift))
-                stateMachine.TransitionTo<RunState>();
             
             // If Player is on Ground and the Player is pressing the jumpKey then change state to JumpState
             if (Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider && Input.GetKeyDown(KeyCode.Space))
@@ -60,8 +59,8 @@ namespace PlayerStateMachine
             // If any directional inputs accelerate with the accelerateSpeed added with turnSpeed 
             if (inputVector.magnitude > 0) 
                 Velocity += Physic3D.GetAcceleration(inputVector, accelerationSpeed + Physic3D.GetTurnVelocity(inputVector, Velocity.normalized));
-            // else
-            //     Velocity -= Physic3D.GetDeceleration(Velocity, decelerateSpeed, decelerateThreshold);
+            else
+                Velocity -= Physic3D.GetDeceleration(Velocity, decelerateSpeed, decelerateThreshold);
 
             LimitVelocity();
         }

@@ -13,9 +13,6 @@ namespace PlayerStateMachine
                 stateMachine.TransitionTo<StandState>();
             else
             {
-                // Run if shift is pressed
-                if (Input.GetKey(KeyCode.LeftShift))
-                    stateMachine.TransitionTo<RunState>();
                 // Walk
                 stateMachine.TransitionTo<WalkState>();
             }

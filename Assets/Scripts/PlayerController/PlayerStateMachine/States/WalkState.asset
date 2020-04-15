@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: WalkState
   m_EditorClassIdentifier: 
   accelerationSpeed: 10
-  minMoveSpeed: 0.001
+  decelerateSpeed: 10
+  decelerateThreshold: 0.1

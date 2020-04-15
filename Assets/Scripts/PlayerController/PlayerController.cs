@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask collisionLayer;
     [SerializeField] internal bool hasStunGun;
     private StateMachine _stateMachine;
-    private Vector3 _velocity;
+    [SerializeField] private Vector3 _velocity;
     private CapsuleCollider _collider;
     private Transform _camera;
     private Vector2 _cameraRotation;
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         _playerMesh = GameObject.Find("PlayerMesh");
         _stateMachine = new StateMachine(this, states);
-        terminalVelocity = 20f;
+        terminalVelocity = 7f;
         staticFriction = 0.6f;
         dynamicFriction = 0.3f;
         skinWidth = 0.05f;
