@@ -203,18 +203,22 @@ public class PlayerController : MonoBehaviour
         if (thirdPersonCamera)
         {
             // Save the players position
-            var playerPosition = transform.position + (_playerMesh.transform.right * thirdPersonOffsetHorizontal);
+            var playerPosition = transform.position + _cameraOffset + (_playerMesh.transform.right * thirdPersonOffsetHorizontal);
             // Get the position the Camera want to move to
-            var whereCameraWantToMove = (playerPosition + _cameraOffset) - (_camera.forward * thirdPersonCameraDistance);
+            var whereCameraWantToMove = (playerPosition) - (_camera.forward * (thirdPersonCameraDistance - thirdPersonCameraSize));
             // Get the direction from the players First Person Camera Position to the position where the Third Person Camera position want to move
             var direction = (whereCameraWantToMove - playerPosition).normalized;
             // Get the distance from the players First Person Camera Position to the position where the Third Person Camera position want to move
             var distance = (whereCameraWantToMove - playerPosition).magnitude;
             // Get the position from the players First Person Camera Position to Third Person Camera position want to move and move the camera to that position based on collisions
-            _camera.position = Physics.SphereCast(playerPosition + _cameraOffset, thirdPersonCameraSize, direction, out _cameraCast, distance) ? playerPosition + _cameraOffset + direction * _cameraCast.distance : whereCameraWantToMove;
-            if (_cameraCast.collider && _cameraCast.distance < 1f)
+            var newCameraPos = Physics.SphereCast(playerPosition, thirdPersonCameraSize, direction, out _cameraCast, distance) ? playerPosition + direction * (_cameraCast.distance - thirdPersonCameraSize) : whereCameraWantToMove;
+            if ((_cameraCast.collider && _cameraCast.distance < 0.4f) || Physics.OverlapSphere(newCameraPos, thirdPersonCameraSize, collisionLayer).Length > 0)
             {
                 _camera.localPosition = _cameraOffset;
+            }
+            else
+            {
+                _camera.position = newCameraPos;
             }
         }
         // If in First Person then update the position to zero 
