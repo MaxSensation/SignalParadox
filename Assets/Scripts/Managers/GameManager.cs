@@ -7,16 +7,20 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private string fistScene;
         private GameObject _player;
         private int totalCollectedMemos;
         private void Start()
         {
             DontDestroyOnLoad(this);
-            SceneManager.LoadScene(fistScene);
             SaveManager.Init();
             //Register Events
+            EventHandler.RegisterListener<OnButtonStartEvent>(LoadLevel);
             EventHandler.RegisterListener<OnTriggerMemoEvent>(MemoCollected);
+        }
+
+        private void LoadLevel(OnButtonStartEvent obj)
+        {
+            SceneManager.LoadScene(obj.level);
         }
 
         private void OnDestroy()
