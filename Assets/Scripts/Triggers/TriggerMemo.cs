@@ -12,6 +12,7 @@ namespace Triggers
         {
             if (!hasPlayed && other.CompareTag("Player"))
             {
+                Debug.Log("Memo Found");
                 hasPlayed = true;
                 EventHandler.InvokeEvent(new OnTriggerMemoEvent(memo));
             }
