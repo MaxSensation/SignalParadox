@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 940996568}
-  - component: {fileID: 940996571}
   - component: {fileID: 940996570}
+  - component: {fileID: 483604736}
   m_Layer: 0
   m_Name: PlayerMesh
   m_TagString: Untagged
@@ -26,20 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940996567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.922, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5312461777412064972}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &940996571
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 940996567}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &940996570
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -79,6 +71,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!33 &483604736
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940996567}
+  m_Mesh: {fileID: 848738974752588258, guid: 7c2f16298f8f77e48b19dbf113a795fa, type: 3}
 --- !u!1 &5312461777412064974
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,10 +148,12 @@ MonoBehaviour:
   thirdPersonCamera: 0
   thirdPersonCameraSize: 0
   thirdPersonCameraMaxAngle: 0
+  thirdPersonOffsetHorizontal: 0
   thirdPersonCameraDistance: 0
   collisionLayer:
     serializedVersion: 2
     m_Bits: 256
+  hasStunGun: 0
 --- !u!136 &5312461777412065011
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -162,8 +164,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.32
+  m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &1742834469
@@ -175,8 +177,8 @@ NavMeshObstacle:
   m_GameObject: {fileID: 5312461777412064974}
   m_Enabled: 1
   serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Shape: 0
+  m_Extents: {x: 0.33, y: 0.915, z: 0.33}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
@@ -208,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5312461778865844360}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.67, z: 0}
+  m_LocalPosition: {x: 0, y: 0.785, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5312461777412064972}

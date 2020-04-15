@@ -16,8 +16,8 @@ namespace PlayerStateMachine
             _oldCameraOffset = CameraOffset;
             CameraOffset = Vector3.zero;
             _oldColliderHeight = PlayerCollider.height;
-            PlayerCollider.center = new Vector3(0, -0.25f, 0);
-            PlayerCollider.height = 1.5f;
+            PlayerCollider.center = new Vector3(0, -0.35f, 0);
+            PlayerCollider.height = 1.1f;
             Player.UpdateCapsuleInfo();
         }
         
