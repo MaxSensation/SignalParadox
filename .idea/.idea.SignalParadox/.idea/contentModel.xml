@@ -4,6 +4,7 @@
     <e p="C:\GitHub\SignalParadox" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="LoadLevel.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="AI" t="Include">
             <e p="AIController.cs" t="Include" />
@@ -43,7 +44,10 @@
               <e p="OpeningDoorState.cs" t="Include" />
             </e>
           </e>
-          <e p="GameManager.cs" t="Include" />
+          <e p="EventSystem" t="Include">
+            <e p="EventHandler.cs" t="Include" />
+            <e p="EventInfo.cs" t="Include" />
+          </e>
           <e p="HelpClasses" t="Include">
             <e p="Physic3D.cs" t="Include" />
             <e p="State.cs" t="Include" />
@@ -51,7 +55,19 @@
             <e p="TwoDController.cs" t="Include" />
             <e p="World.cs" t="Include" />
           </e>
+          <e p="Managers" t="Include">
+            <e p="GameManager.cs" t="Include" />
+            <e p="SaveManager" t="Include">
+              <e p="CheckPoint.cs" t="Include" />
+              <e p="SaveManager.cs" t="Include" />
+            </e>
+            <e p="SoundManager.cs" t="Include" />
+          </e>
           <e p="MovingPlattform.cs" t="Include" />
+          <e p="Pickups" t="Include">
+            <e p="PickupStunBaton.cs" t="Include" />
+            <e p="PickupStunGunUpgrade.cs" t="Include" />
+          </e>
           <e p="PlayerController" t="Include">
             <e p="PlayerController.cs" t="Include" />
             <e p="PlayerEvents.cs" t="Include" />
@@ -69,10 +85,6 @@
               <e p="WalkState.cs" t="Include" />
             </e>
           </e>
-          <e p="SaveManager" t="Include">
-            <e p="CheckPoint.cs" t="Include" />
-            <e p="SaveManager.cs" t="Include" />
-          </e>
           <e p="StunGun" t="Include">
             <e p="StunGunPatron.cs" t="Include" />
           </e>
@@ -80,15 +92,15 @@
             <e p="HazardsController.cs" t="Include" />
             <e p="LaserController.cs" t="Include" />
             <e p="LaserWallController.cs" t="Include" />
+            <e p="SteamController.cs" t="Include" />
             <e p="SuperLaserWallController.cs" t="Include" />
           </e>
           <e p="Triggers" t="Include">
             <e p="TriggerCheckPoint.cs" t="Include" />
             <e p="TriggerLoadNextLevel.cs" t="Include" />
-            <e p="WeaponPickUp.cs" t="Include" />
+            <e p="TriggerMemo.cs" t="Include" />
           </e>
         </e>
-        <e p="SteamController.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />

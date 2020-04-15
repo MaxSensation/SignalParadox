@@ -1,5 +1,7 @@
 ﻿using System;
+using EventSystem;
 using UnityEngine;
+using EventHandler = EventSystem.EventHandler;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,7 +20,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float thirdPersonOffsetHorizontal;
     [SerializeField] private float thirdPersonCameraDistance;
     [SerializeField] private LayerMask collisionLayer;
-    [SerializeField] internal bool hasStunGun;
+    [SerializeField] internal bool hasStunBaton;
+    [SerializeField] internal bool hasStunGunUpgrade;
     private StateMachine _stateMachine;
     [SerializeField] private Vector3 _velocity;
     private CapsuleCollider _collider;
@@ -53,6 +56,19 @@ public class PlayerController : MonoBehaviour
         _cameraOffset = _camera.localPosition;
         Cursor.lockState = CursorLockMode.Locked;
         Physic3D.LoadWorldParameters(world);
+    }
+
+
+    private void Start()
+    {
+        EventHandler.RegisterListener<OnPickupStunBatonEvent>(EnableStunBaton);
+        EventHandler.RegisterListener<OnPickupStunGunUpgradeEvent>(EnableStunGun);
+    }
+
+    private void OnDestroy()
+    {
+        EventHandler.UnregisterListener<OnPickupStunBatonEvent>(EnableStunBaton);
+        EventHandler.UnregisterListener<OnPickupStunGunUpgradeEvent>(EnableStunGun);
     }
 
     private void Update()
@@ -330,9 +346,14 @@ public class PlayerController : MonoBehaviour
     {
         return _cameraRotation;
     }
-
-    public void EnableStunGun()
+    
+    private void EnableStunBaton(OnPickupStunBatonEvent obj)
     {
-        hasStunGun = true;
+        hasStunBaton = true;
+    }
+    
+    private void EnableStunGun(OnPickupStunGunUpgradeEvent obj)
+    {
+        hasStunGunUpgrade = true;
     }
 }

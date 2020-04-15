@@ -34,8 +34,7 @@ public static class SaveManager
 
     public static void LoadLastCheckPoint()
     {
-        //if (SceneManager.GetActiveScene().name != _lastCheckPoint.level)
-            SceneManager.LoadScene(_lastCheckPoint.level);
+        SceneManager.LoadScene(_lastCheckPoint.level);
         var spawnPosition = _lastCheckPoint.playerPosition;
         spawnPosition.y += 0.2f;
         _player.transform.position = spawnPosition;
