@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1107217402274612923}
   - component: {fileID: 1348379358264743204}
   - component: {fileID: 4425861694239541386}
-  - component: {fileID: 6845737245741576432}
   m_Layer: 8
   m_Name: Roof
   m_TagString: Untagged
@@ -80,19 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6845737245741576432
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463697308404510094}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1799871290042384668
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +109,7 @@ Transform:
   - {fileID: 1107217402274612923}
   - {fileID: 7545823621227511399}
   m_Father: {fileID: 4980632992975196626}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4018381888670355450
 GameObject:
@@ -134,6 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4980632992975196626}
+  - component: {fileID: 8658511210267225748}
   m_Layer: 8
   m_Name: DoorWay_withTunnel_small
   m_TagString: Untagged
@@ -156,11 +143,23 @@ Transform:
   - {fileID: 7146992168343150042}
   - {fileID: 6384387639837451747}
   - {fileID: 6384387640753903982}
-  - {fileID: 6384387640124684893}
   - {fileID: 5175146741392324515}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8658511210267225748
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4018381888670355450}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 1, y: 2.5, z: 0.5}
 --- !u!1 &5156995450392749372
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,36 +270,6 @@ Transform:
   m_Father: {fileID: 4980632992975196626}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6384387640124685730
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6384387640124684893}
-  m_Layer: 8
-  m_Name: Door_thick_liten
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6384387640124684893
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6384387640124685730}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.965523, y: 1.6066217, z: 0.40664256}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4980632992975196626}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6384387640529789191
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +281,6 @@ GameObject:
   - component: {fileID: 6384387640529789190}
   - component: {fileID: 6384387640529789187}
   - component: {fileID: 6384387640529789184}
-  - component: {fileID: 6384387640529789185}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
@@ -381,19 +349,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6384387640529789185
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6384387640529789191}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6384387640753903983
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +391,6 @@ GameObject:
   - component: {fileID: 6384387640849450639}
   - component: {fileID: 6384387640849450632}
   - component: {fileID: 6384387640849450633}
-  - component: {fileID: 6384387640849450638}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
@@ -505,19 +459,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6384387640849450638
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6384387640849450636}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6384387640450369154
 PrefabInstance:
   m_ObjectHideFlags: 0
