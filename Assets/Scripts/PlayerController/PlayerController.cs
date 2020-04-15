@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool thirdPersonCamera;
     [SerializeField] private float thirdPersonCameraSize;
     [SerializeField] private float thirdPersonCameraMaxAngle;
+    [SerializeField] private float thirdPersonOffsetHorizontal;
     [SerializeField] private float thirdPersonCameraDistance;
     [SerializeField] private LayerMask collisionLayer;
     [SerializeField] internal bool hasStunGun;
@@ -42,7 +43,8 @@ public class PlayerController : MonoBehaviour
         mouseSensitivity = 100;
         _velocity = Vector3.zero;
         thirdPersonCamera = true;
-        thirdPersonCameraDistance = 5f;
+        thirdPersonCameraDistance = 2f;
+        thirdPersonOffsetHorizontal = 0.5f;
         thirdPersonCameraSize = 0.5f;
         thirdPersonCameraMaxAngle = 25f;
         if (Camera.main != null) _camera = Camera.main.transform;
@@ -201,7 +203,7 @@ public class PlayerController : MonoBehaviour
         if (thirdPersonCamera)
         {
             // Save the players position
-            var playerPosition = transform.position;
+            var playerPosition = transform.position + (_playerMesh.transform.right * thirdPersonOffsetHorizontal);
             // Get the position the Camera want to move to
             var whereCameraWantToMove = (playerPosition + _cameraOffset) - (_camera.forward * thirdPersonCameraDistance);
             // Get the direction from the players First Person Camera Position to the position where the Third Person Camera position want to move

@@ -148,6 +148,7 @@ MonoBehaviour:
   thirdPersonCamera: 0
   thirdPersonCameraSize: 0
   thirdPersonCameraMaxAngle: 0
+  thirdPersonOffsetHorizontal: 0
   thirdPersonCameraDistance: 0
   collisionLayer:
     serializedVersion: 2
@@ -176,8 +177,8 @@ NavMeshObstacle:
   m_GameObject: {fileID: 5312461777412064974}
   m_Enabled: 1
   serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Shape: 0
+  m_Extents: {x: 0.33, y: 0.915, z: 0.33}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
