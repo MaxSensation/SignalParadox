@@ -28,4 +28,14 @@ namespace EventSystem
     
     // Level Events
     public class OnLevelFirstMemoTriggeredEvent : EventInfo {}
+    
+    // Button Events
+    public class OnButtonStartEvent : EventInfo
+    {
+        public readonly string level;
+        public OnButtonStartEvent(string level)
+        {
+            this.level = level;
+        }
+    }
 }
