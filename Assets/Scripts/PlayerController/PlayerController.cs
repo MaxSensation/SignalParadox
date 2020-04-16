@@ -22,8 +22,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask collisionLayer;
     [SerializeField] internal bool hasStunBaton;
     [SerializeField] internal bool hasStunGunUpgrade;
+    [SerializeField] private Vector3 velocity;
+    private BoxCollider _interactTrigger;
     private StateMachine _stateMachine;
-    [SerializeField] private Vector3 _velocity;
     private CapsuleCollider _collider;
     private Transform _camera;
     private Vector2 _cameraRotation;
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour
         groundCheckDistance = 0.05f;
         overlayColliderResistant = 20f;
         mouseSensitivity = 100;
-        _velocity = Vector3.zero;
+        velocity = Vector3.zero;
         thirdPersonCamera = true;
         thirdPersonCameraDistance = 2f;
         thirdPersonOffsetHorizontal = 0.5f;
@@ -80,13 +81,13 @@ public class PlayerController : MonoBehaviour
         // Run CurrentState
         _stateMachine.Run();
         //CheckForButtonAfterPush
-        TryPushButton();
+        // TryPushButton();
         // Add gravity to velocity
-        _velocity += Physic3D.GetGravity();
+        velocity += Physic3D.GetGravity();
         // Limit the velocity to terminalVelocity
         LimitVelocity();
         // Add Air resistant to the player
-        _velocity *= Physic3D.GetAirResistant();
+        velocity *= Physic3D.GetAirResistant();
         // Fix weird collision clips
         AddOverLayCorrection();
         // Only Move Player as close as possible to the collision
@@ -111,19 +112,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void TryPushButton()
-    {
-        if (Input.GetKey(KeyCode.E))
-        {
-            Physics.Raycast(transform.position + _cameraOffset, _camera.transform.forward, out var CameraRayCastHit, 1f);
-            if (CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button"))
-            {
-                CameraRayCastHit.collider.gameObject.GetComponent<ButtonController>().ButtonPress();
-            }
-        }
-        else return;
-        //return CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button") && Input.GetKey(KeyCode.E);
-    }
+    // private void TryPushButton()
+    // {
+    //     if (Input.GetKey(KeyCode.E))
+    //     {
+    //         Physics.Raycast(transform.position + _cameraOffset, _camera.transform.forward, out var CameraRayCastHit, 1f);
+    //         if (CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button"))
+    //         {
+    //             CameraRayCastHit.collider.gameObject.GetComponent<ButtonController>().ButtonPress();
+    //         }
+    //     }
+    //     else return;
+    //     //return CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button") && Input.GetKey(KeyCode.E);
+    // }
 
     private void RotatePlayerMesh()
     {
@@ -141,30 +142,30 @@ public class PlayerController : MonoBehaviour
     private void LimitVelocity()
     {
         // If currentVelocity is greater then terminalVelocity then set the currentVelocity to terminalVelocity
-        if (_velocity.magnitude > terminalVelocity)
-            _velocity = _velocity.normalized * terminalVelocity;
+        if (velocity.magnitude > terminalVelocity)
+            velocity = velocity.normalized * terminalVelocity;
     }
 
     private Vector3 FixCollision()
     {
         // Get totalMovement possible per frame
-        var movementPerFrame = _velocity * Time.deltaTime;
+        var movementPerFrame = velocity * Time.deltaTime;
         while (true)
         {
             // Get hit from CapsuleCast in the direction as Velocity
-            var hit = GetRayCast(_velocity.normalized, float.PositiveInfinity);
+            var hit = GetRayCast(velocity.normalized, float.PositiveInfinity);
             // If any collision continue 
             if (!hit.collider) break;
             // If AllowedDistance is greater then MovementPerFrame magnitude continue
             if (hit.distance + (skinWidth / Vector3.Dot(movementPerFrame.normalized, hit.normal)) >= movementPerFrame.magnitude) break;
             // Get NormalForce
-            var normalForce = Physic3D.GetNormalForce(_velocity, hit.normal);
+            var normalForce = Physic3D.GetNormalForce(velocity, hit.normal);
             // Add NormalForce To velocity
-            _velocity += normalForce;
+            velocity += normalForce;
             // Add Friction to Velocity
-            _velocity = Physic3D.GetFriction(_velocity, normalForce.magnitude, dynamicFriction, staticFriction);
+            velocity = Physic3D.GetFriction(velocity, normalForce.magnitude, dynamicFriction, staticFriction);
             // Add the new MovementPerFrame
-            movementPerFrame = _velocity * Time.deltaTime;
+            movementPerFrame = velocity * Time.deltaTime;
         }
         // Return the possible movement per frame based on collisions
         return movementPerFrame;
@@ -195,7 +196,7 @@ public class PlayerController : MonoBehaviour
             // Get the closest point on the collider to the player
             var colliderOverLapClosestPointOnBounds = overlapCollider.ClosestPointOnBounds(playerClosestPointOnBounds);
             // Add force to the player in the direction from collision point on player to collider
-            _velocity += -_velocity.normalized * ((colliderOverLapClosestPointOnBounds.magnitude + overlayColliderResistant * 100.0f) * Time.deltaTime);
+            velocity += -velocity.normalized * ((colliderOverLapClosestPointOnBounds.magnitude + overlayColliderResistant * 100.0f) * Time.deltaTime);
         }
     }
 
@@ -276,17 +277,17 @@ public class PlayerController : MonoBehaviour
 
     internal Vector3 GetVelocity()
     {
-        return _velocity;
+        return velocity;
     }
 
     internal void SetVelocity(Vector3 velocity)
     {
-        _velocity = velocity;
+        this.velocity = velocity;
     }
 
     public void AddForce(Vector3 force)
     {
-        _velocity += force;
+        velocity += force;
     }
 
     internal RaycastHit SimpleShortRayCast()

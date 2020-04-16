@@ -1,25 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using EventSystem;
 using UnityEngine;
+using EventHandler = EventSystem.EventHandler;
 
 public class DoorController : MonoBehaviour
 {
-    public State[] states;
+    [SerializeField] private State[] states;
     private StateMachine _stateMachine;
-    private BoxCollider _collider;
     private Vector3 _triggerPosition;
-    [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private bool _hasButton;
-    private bool _closeDoor;
-    private bool _openDoor;
+    internal BoxCollider _collider;
+    internal bool _isOpen;
+    private bool _isMoving;
 
     private void Awake()
     {
-        //_pushedButton = false;
-        _hasButton = true;
         _stateMachine = new StateMachine(this, states);
-        _collider = GetComponent<BoxCollider>();
-        _triggerPosition = (_collider.transform.position + (_collider.size.y * 2) * Vector3.down);
+    }
+
+    private void Start()
+    {
+        EventHandler.RegisterListener<OnButtonPressedEvent>(ActivateButton);
+    }
+
+    private void OnDestroy()
+    {
+        EventHandler.UnregisterListener<OnButtonPressedEvent>(ActivateButton);
+    }
+
+    private void ActivateButton(OnButtonPressedEvent obj)
+    {
+        if (obj.interactableObjects.Contains(gameObject) && !_isMoving)
+        {
+            StartCoroutine("CooldownTime");
+        }
     }
 
     private void Update()
@@ -27,49 +42,11 @@ public class DoorController : MonoBehaviour
         _stateMachine.Run();
     }
 
-    internal bool GetPlayerTriggeredCast()
-    {
-        Physics.BoxCast(_triggerPosition, new Vector3(1, 1, 1) * 1f, Vector3.up, out var _boxCastHit, transform.rotation, 5f, _layerMask, QueryTriggerInteraction.Collide);
-        return _boxCastHit.collider && _boxCastHit.collider.CompareTag("Player") && !_hasButton;
-    }
-
     internal IEnumerator CooldownTime()
     {
+        _isMoving = true;
+        _isOpen = !_isOpen;
         yield return new WaitForSeconds(2);
-        _closeDoor = false;
-        _openDoor = false;
+        _isMoving = false;
     }
-
-    internal void ActivateDoor()
-    {
-        if (_stateMachine.GetCurrentState().name.Equals("ClosedState(Clone)"))
-        {
-            _closeDoor = true;
-        }
-        else
-        {
-            _openDoor = true;
-        }
-        StartCoroutine("CooldownTime");
-    }
-
-    internal bool CloseDoor()
-    {
-        return _closeDoor;
-    }
-
-    internal bool OpenDoor()
-    {
-        return _openDoor;
-    }
-
-    internal bool GetHasButton()
-    {
-        return _hasButton;
-    }
-
-    //internal bool SetPushedButton(bool value)
-    //{
-    //   return _pushedButton = value;
-    //}
 }

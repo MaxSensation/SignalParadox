@@ -29,13 +29,42 @@ namespace EventSystem
     // Level Events
     public class OnLevelFirstMemoTriggeredEvent : EventInfo {}
     
-    // Button Events
+    // Menu Events
     public class OnButtonStartEvent : EventInfo
     {
         public readonly string level;
         public OnButtonStartEvent(string level)
         {
             this.level = level;
+        }
+    }
+    
+    // Player Events
+    public class OnPlayerEnteredInteractionEvent : EventInfo
+    {
+        public readonly GameObject interactableObject ;
+        public OnPlayerEnteredInteractionEvent(GameObject gameObject)
+        {
+            interactableObject = gameObject;
+        }
+    }
+    
+    public class OnPlayerExitedInteractionEvent : EventInfo
+    {
+        public readonly GameObject interactableObject ;
+        public OnPlayerExitedInteractionEvent(GameObject gameObject)
+        {
+            interactableObject = gameObject;
+        }
+    }
+    
+    // Button Events
+    public class OnButtonPressedEvent : EventInfo
+    {
+        public readonly GameObject[] interactableObjects ;
+        public OnButtonPressedEvent(GameObject[] gameObjects)
+        {
+            interactableObjects = gameObjects;
         }
     }
 }
