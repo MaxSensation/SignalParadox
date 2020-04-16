@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using EventSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,6 +17,7 @@ namespace Traps
         private LaserController[] _lasers;
         private Transform _laserWallOffset;
         private Transform _laserWallMesh;
+        private bool _isLaserOn;
         private void Awake()
         {
             turnOn.AddListener(ActivateLasers);
@@ -34,11 +36,20 @@ namespace Traps
         private void Start()
         {
             StartCoroutine("WaitForStart");
+            EventHandler.RegisterListener<OnButtonPressedEvent>(OnButtonPressed);
+        }
+
+        private void OnButtonPressed(OnButtonPressedEvent obj)
+        {
+            if (_isLaserOn)
+                DeactivateLasers();
+            else
+                ActivateLasers();
         }
 
         private void GenerateLasers()
         {
-            for (int i = 1; i < (int)(wallHeight/laserDensity) + 1; i++)
+            for (var i = 1; i < (int)(wallHeight/laserDensity) + 1; i++)
             {
                 var transform1 = transform;
                 var position = transform1.position;
@@ -60,11 +71,13 @@ namespace Traps
 
         private void ActivateLasers()
         {
+            _isLaserOn = true;
             StartCoroutine("ActivateWithDelay");
         }
 
         private void DeactivateLasers()
         {
+            _isLaserOn = false;
             StartCoroutine("DeactivateWithDelay");
         }
 
@@ -81,8 +94,9 @@ namespace Traps
     
         private IEnumerator DeactivateWithDelay()
         {
-            foreach (var l in _lasers)
+            for (var index = _lasers.Length - 1; index >= 0; index--)
             {
+                var l = _lasers[index];
                 l.turnOff.Invoke();
                 yield return new WaitForSeconds(delay);
             }
