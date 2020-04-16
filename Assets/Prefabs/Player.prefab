@@ -241,6 +241,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7c3d39f665601284fb5839c02f79be9d, type: 2}
   - {fileID: 11400000, guid: a134f48d503307541a887d28f421878e, type: 2}
   - {fileID: 11400000, guid: e9989169a192e0d42982443a12daa1a4, type: 2}
+  - {fileID: 11400000, guid: 1337e3cb5046bb0429af839bd39909b4, type: 2}
   terminalVelocity: 0
   staticFriction: 0
   dynamicFriction: 0
@@ -253,12 +254,16 @@ MonoBehaviour:
   thirdPersonCameraMaxAngle: 0
   thirdPersonOffsetHorizontal: 0
   thirdPersonCameraDistance: 0
+  hasReloaded: 0
   collisionLayer:
     serializedVersion: 2
     m_Bits: 256
   hasStunBaton: 0
   hasStunGunUpgrade: 0
   velocity: {x: 0, y: 0, z: 0}
+  _layermask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!136 &5312461777412065011
 CapsuleCollider:
   m_ObjectHideFlags: 0
