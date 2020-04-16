@@ -10,12 +10,18 @@ namespace PlayerStateMachine
         {
             Debug.Log("Entered Fire State");
             Fire();
-            stateMachine.UnStackState();
         }
 
         private void Fire()
         {
-            Instantiate(stunGunPatron, Player.transform.position,  Quaternion.Euler(CameraRotation.y - 10f, CameraRotation.x, Rotation.z));
+            if (Player.hasReloaded)
+            {
+                Instantiate(stunGunPatron, Player.transform.position, Quaternion.Euler(CameraRotation.y - 10f, CameraRotation.x, Rotation.z));
+                Player.hasReloaded = false;
+                stateMachine.TransitionTo<ReloadState>();
+            }
+            else
+                stateMachine.UnStackState();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;//För ienumerator
 using EventSystem;
 using UnityEngine;
 using EventHandler = EventSystem.EventHandler;
@@ -19,10 +20,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float thirdPersonCameraMaxAngle;
     [SerializeField] private float thirdPersonOffsetHorizontal;
     [SerializeField] private float thirdPersonCameraDistance;
+    [SerializeField] internal bool hasReloaded;
     [SerializeField] private LayerMask collisionLayer;
     [SerializeField] internal bool hasStunBaton;
     [SerializeField] internal bool hasStunGunUpgrade;
     [SerializeField] private Vector3 velocity;
+    [SerializeField] private LayerMask _layermask;
     private BoxCollider _interactTrigger;
     private StateMachine _stateMachine;
     private CapsuleCollider _collider;
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviour
         _cameraOffset = _camera.localPosition;
         Cursor.lockState = CursorLockMode.Locked;
         Physic3D.LoadWorldParameters(world);
+        hasReloaded = true;
     }
 
 
@@ -96,12 +100,8 @@ public class PlayerController : MonoBehaviour
         RotateCamera();
         // Move Camera based on thirdPerson or firstPerson
         MoveCamera();
-        //TODO Remove this!
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SaveManager.LoadLastCheckPoint();
-        }
     }
+
 
     internal void Die()
     {
@@ -112,6 +112,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private IEnumerator ReloadTime()
+    {
+        yield return new WaitForSeconds(2f);
+        hasReloaded = true;
+        StopCoroutine("ReloadTime");
+    }
+
+    internal void Reloading()
+    {
+        StartCoroutine("ReloadTime");
+    }
     // private void TryPushButton()
     // {
     //     if (Input.GetKey(KeyCode.E))
@@ -292,15 +303,14 @@ public class PlayerController : MonoBehaviour
 
     internal RaycastHit SimpleShortRayCast()
     {
-        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
+        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
         return hit;
     }
 
     internal bool CheckSimpleShortRayCast(string tagName)
     {
-        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
+        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
         return hit.collider && hit.collider.CompareTag(tagName);
-
     }
 
     internal Vector3 GetPosition()
