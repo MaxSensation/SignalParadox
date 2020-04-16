@@ -1,15 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using EventSystem;
 using UnityEngine;
+using EventHandler = EventSystem.EventHandler;
 
 public class ButtonController : MonoBehaviour
 {
-    public State[] states;
+    [SerializeField] internal GameObject[] interactableObject;
+    [SerializeField] private State[] states;
     private StateMachine _stateMachine;
-    public DoorController Door;
     private bool _offcooldown;
     private bool _onCooldown;
     private Renderer _buttonRenderer;
+    private bool _isInteractable;
 
     private void Awake()
     {
@@ -18,19 +22,28 @@ public class ButtonController : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        EventHandler.RegisterListener<OnPlayerEnteredInteractionEvent>(EnableInteraction);
+        EventHandler.RegisterListener<OnPlayerExitedInteractionEvent>(DisableInteraction);
+    }
+
+    private void OnDestroy()
+    {
+        EventHandler.RegisterListener<OnPlayerEnteredInteractionEvent>(EnableInteraction);
+        EventHandler.RegisterListener<OnPlayerExitedInteractionEvent>(DisableInteraction);
+    }
+
     internal Renderer GetRenderer()
     {
         return _buttonRenderer;
     }
 
-    //internal void SetRenderColor(string name, Color value)
-    //{
-    //    _currentMaterial.material.SetColor(name, value);
-    //}
-
     private void Update()
     {
         _stateMachine.Run();
+        if (Input.GetKeyDown(KeyCode.E))
+            ButtonPress();
     }
 
     internal bool IsOffCooldown()
@@ -67,6 +80,22 @@ public class ButtonController : MonoBehaviour
             _onCooldown = true;
         }
         StartCoroutine("ActivateButton");
+    }
+    
+    private void EnableInteraction(OnPlayerEnteredInteractionEvent obj)
+    {
+        if (obj.interactableObject == gameObject)
+        { 
+            _isInteractable = true;   
+        }
+    }
+    
+    private void DisableInteraction(OnPlayerExitedInteractionEvent obj)
+    {
+        if (obj.interactableObject == gameObject)
+        { 
+            _isInteractable = false;   
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using EventSystem;
 using UnityEngine;
 
 namespace ButtonStateMachine
@@ -17,7 +18,8 @@ namespace ButtonStateMachine
         {
             if (!Button.IsOffCooldown() && Button.IsOnCooldown())
             {
-                Button.Door.ActivateDoor();
+                //Button.Door.ActivateDoor();
+                EventHandler.InvokeEvent(new OnButtonPressedEvent(_button.interactableObject));
                 stateMachine.TransitionTo<Off>();
             }        
         }

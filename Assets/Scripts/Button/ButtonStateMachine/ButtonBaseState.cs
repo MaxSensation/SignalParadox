@@ -6,7 +6,7 @@ namespace ButtonStateMachine
 {
     public abstract class ButtonBaseState : State
     {
-        private ButtonController _button;
+        protected ButtonController _button;
         protected ButtonController Button => _button = _button ? _button : (ButtonController)owner;
         [SerializeField] protected Material material;
         protected Renderer _renderer => Button.GetRenderer();
