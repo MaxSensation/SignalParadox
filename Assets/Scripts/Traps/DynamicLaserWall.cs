@@ -26,7 +26,7 @@ namespace Traps
             localScale = new Vector3(localScale.x, wallHeight, localScale.z);
             _laserWallMesh.localScale = localScale;
             _laserWallOffset.localPosition = new Vector3(0,wallHeight/2, -0.08f);
-            _lasers = new LaserController[(int)(wallHeight/laserDensity - 1)];
+            _lasers = new LaserController[(int)(wallHeight/laserDensity)];
             Debug.Log(_lasers.Length);
             GenerateLasers();
         }
@@ -38,7 +38,7 @@ namespace Traps
 
         private void GenerateLasers()
         {
-            for (int i = 1; i < (int)(wallHeight/laserDensity); i++)
+            for (int i = 1; i < (int)(wallHeight/laserDensity) + 1; i++)
             {
                 var transform1 = transform;
                 var position = transform1.position;
