@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using EventSystem;
 using UnityEngine;
 using UnityEngine.Events;
@@ -41,6 +42,7 @@ namespace Traps
 
         private void OnButtonPressed(OnButtonPressedEvent obj)
         {
+            if (!obj.interactableObjects.Contains(gameObject)) return;
             if (_isLaserOn)
                 DeactivateLasers();
             else
