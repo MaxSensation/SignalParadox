@@ -123,19 +123,6 @@ public class PlayerController : MonoBehaviour
     {
         StartCoroutine("ReloadTime");
     }
-    // private void TryPushButton()
-    // {
-    //     if (Input.GetKey(KeyCode.E))
-    //     {
-    //         Physics.Raycast(transform.position + _cameraOffset, _camera.transform.forward, out var CameraRayCastHit, 1f);
-    //         if (CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button"))
-    //         {
-    //             CameraRayCastHit.collider.gameObject.GetComponent<ButtonController>().ButtonPress();
-    //         }
-    //     }
-    //     else return;
-    //     //return CameraRayCastHit.collider && CameraRayCastHit.transform.CompareTag("Button") && Input.GetKey(KeyCode.E);
-    // }
 
     private void RotatePlayerMesh()
     {
