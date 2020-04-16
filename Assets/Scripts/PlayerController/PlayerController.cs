@@ -100,11 +100,6 @@ public class PlayerController : MonoBehaviour
         RotateCamera();
         // Move Camera based on thirdPerson or firstPerson
         MoveCamera();
-        //TODO Remove this!
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SaveManager.LoadLastCheckPoint();
-        }
     }
 
 

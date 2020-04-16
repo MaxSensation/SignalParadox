@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using EventSystem;
 using UnityEngine;
 using EventHandler = EventSystem.EventHandler;
@@ -42,7 +40,7 @@ public class ButtonController : MonoBehaviour
     private void Update()
     {
         _stateMachine.Run();
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && _isInteractable)
             ButtonPress();
     }
 

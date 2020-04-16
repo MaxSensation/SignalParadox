@@ -1,5 +1,4 @@
-﻿using System;
-using EventSystem;
+﻿using EventSystem;
 using UnityEngine;
 using EventHandler = EventSystem.EventHandler;
 
