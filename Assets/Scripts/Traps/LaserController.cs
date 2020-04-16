@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class LaserController : MonoBehaviour
 {
     [SerializeField] private bool laserOn;
+    [SerializeField] private LayerMask layermask;
     public UnityEvent turnOn;
     public UnityEvent turnOff;
     private RaycastHit _hit;
@@ -90,6 +91,6 @@ public class LaserController : MonoBehaviour
 
     private void CastLaser()
     {
-        Physics.Raycast(transform.position, transform.forward, out _hit, float.PositiveInfinity);
+        Physics.Raycast(transform.position, transform.forward, out _hit, float.PositiveInfinity, layermask);
     }
 }
