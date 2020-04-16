@@ -40,14 +40,14 @@ namespace PlayerStateMachine
             }
             
             // Melee attack
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Player.hasStunBaton)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Player.hasStunBaton && Player.hasReloaded)
             {
                 stateMachine.StackState<WalkState>();
                 stateMachine.TransitionTo<MeleeState>();
             }
             
             // Fire attack
-            if (Input.GetKeyDown(KeyCode.Mouse1) && Player.hasStunGunUpgrade)
+            if (Input.GetKeyDown(KeyCode.Mouse1) && Player.hasStunGunUpgrade && Player.hasReloaded)
             {
                 stateMachine.StackState<WalkState>();
                 stateMachine.TransitionTo<FireState>();
