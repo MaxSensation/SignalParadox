@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] internal bool hasStunBaton;
     [SerializeField] internal bool hasStunGunUpgrade;
     [SerializeField] private Vector3 velocity;
+    [SerializeField] private LayerMask _layermask;
     private BoxCollider _interactTrigger;
     private StateMachine _stateMachine;
     private CapsuleCollider _collider;
@@ -307,13 +308,13 @@ public class PlayerController : MonoBehaviour
 
     internal RaycastHit SimpleShortRayCast()
     {
-        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
+        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
         return hit;
     }
 
     internal bool CheckSimpleShortRayCast(string tagName)
     {
-        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
+        Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
         return hit.collider && hit.collider.CompareTag(tagName);
     }
 
