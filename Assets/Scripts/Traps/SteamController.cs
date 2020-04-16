@@ -76,6 +76,7 @@ public class SteamController : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
+                Debug.Log("Hit by Steam");
                 other.GetComponent<PlayerController>().Die();
             }
         }
