@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;//För ienumerator
 using EventSystem;
 using UnityEngine;
 using EventHandler = EventSystem.EventHandler;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float thirdPersonCameraMaxAngle;
     [SerializeField] private float thirdPersonOffsetHorizontal;
     [SerializeField] private float thirdPersonCameraDistance;
+    [SerializeField] internal bool hasReloaded;
     [SerializeField] private LayerMask collisionLayer;
     [SerializeField] internal bool hasStunBaton;
     [SerializeField] internal bool hasStunGunUpgrade;
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
         _cameraOffset = _camera.localPosition;
         Cursor.lockState = CursorLockMode.Locked;
         Physic3D.LoadWorldParameters(world);
+        hasReloaded = true;
     }
 
 
@@ -103,6 +106,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     internal void Die()
     {
         Debug.Log("Player Died");
@@ -112,6 +116,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private IEnumerator ReloadTime()
+    {
+        yield return new WaitForSeconds(2f);
+        hasReloaded = true;
+        StopCoroutine("ReloadTime");
+    }
+
+    internal void Reloading()
+    {
+        StartCoroutine("ReloadTime");
+    }
     // private void TryPushButton()
     // {
     //     if (Input.GetKey(KeyCode.E))
@@ -300,7 +315,6 @@ public class PlayerController : MonoBehaviour
     {
         Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f);
         return hit.collider && hit.collider.CompareTag(tagName);
-
     }
 
     internal Vector3 GetPosition()
