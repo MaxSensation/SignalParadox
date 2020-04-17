@@ -60,7 +60,7 @@ namespace PlayerController
             thirdPersonCameraMaxAngle = 25f;
             if (Camera.main != null) _camera = Camera.main.transform;
             _collider = GetComponent<CapsuleCollider>();
-            _cameraRotation = Vector2.zero;
+            _cameraRotation = new Vector2(_playerMesh.transform.rotation.eulerAngles.y,0);
             _cameraOffset = _camera.localPosition;
             Cursor.lockState = CursorLockMode.Locked;
             Physic3D.LoadWorldParameters(world);
