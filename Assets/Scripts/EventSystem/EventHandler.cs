@@ -31,7 +31,7 @@ namespace EventSystem
 
         public static void InvokeEvent(EventInfo eventInfo)
         {
-            System.Type correctEventInfoClass = eventInfo.GetType();
+            var correctEventInfoClass = eventInfo.GetType();
             if (_eventListeners?[correctEventInfoClass] == null)
                 return;
             for (var i = 0; i < _eventListeners[correctEventInfoClass].Count; i++)

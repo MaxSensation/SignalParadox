@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Traps;
 using UnityEngine;
 using UnityEngine.Events;
 

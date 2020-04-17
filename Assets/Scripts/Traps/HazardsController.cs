@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using EventSystem;
 using UnityEngine;
 
 public class HazardsController : MonoBehaviour
 {
     private Collider _collider;
-    [SerializeField] private PlayerController player;
+    [SerializeField] private PlayerController.PlayerController player;
 
     void Awake()
     {
@@ -27,8 +26,7 @@ public class HazardsController : MonoBehaviour
             {
                 //PlayerEvents.Init();
                 Debug.Log("Player killed by Hazard");
-                player.Die();
-                SaveManager.LoadLastCheckPoint();
+                EventHandler.InvokeEvent(new OnPlayerDieEvent());
             }
             //else if (_hit.collider.CompareTag("PushableBox"))
             //{

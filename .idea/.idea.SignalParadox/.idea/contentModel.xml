@@ -33,6 +33,7 @@
               <e p="On.cs" t="Include" />
             </e>
           </e>
+          <e p="CheckPoint.cs" t="Include" />
           <e p="DoorController" t="Include">
             <e p="DoorController.cs" t="Include" />
             <e p="DoorControllerStateMachine" t="Include">
@@ -56,10 +57,7 @@
           </e>
           <e p="Managers" t="Include">
             <e p="GameManager.cs" t="Include" />
-            <e p="SaveManager" t="Include">
-              <e p="CheckPoint.cs" t="Include" />
-              <e p="SaveManager.cs" t="Include" />
-            </e>
+            <e p="SaveManager.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
           </e>
           <e p="Menu" t="Include">

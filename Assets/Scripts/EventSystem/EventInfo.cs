@@ -25,7 +25,27 @@ namespace EventSystem
             this.memoAudioClip = memoAudioClip;
         }
     }
-    
+  
+    public class OnTriggerEnteredCheckPointEvent : EventInfo {}
+    public class OnCheckPointLoadEvent : EventInfo {}
+
+    public class OnCheckPointLoadedEvent : EventInfo
+    {
+        public readonly CheckPoint checkPoint;
+        public OnCheckPointLoadedEvent(CheckPoint checkPoint)
+        {
+            this.checkPoint = checkPoint;
+        }
+    }
+    public class OnCheckPointSaveEvent : EventInfo
+    {
+        public readonly CheckPoint checkPoint;
+        public OnCheckPointSaveEvent(CheckPoint checkPoint)
+        {
+            this.checkPoint = checkPoint;
+        }
+    }
+
     // Level Events
     public class OnLevelFirstMemoTriggeredEvent : EventInfo {}
     
@@ -57,6 +77,8 @@ namespace EventSystem
             interactableObject = gameObject;
         }
     }
+    
+    public class OnPlayerDieEvent : EventInfo{}
     
     // Button Events
     public class OnButtonPressedEvent : EventInfo

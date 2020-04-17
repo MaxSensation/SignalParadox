@@ -1,32 +1,17 @@
-﻿using UnityEngine;
+﻿using EventSystem;
+using UnityEngine;
+using EventHandler = EventSystem.EventHandler;
 
 public class TriggerCheckPoint : MonoBehaviour
 {
-    private Collider _collider;
     private bool _checkPointUsed;
-    void Awake()
+    private void OnTriggerEnter(Collider other)
     {
-        _collider = GetComponent<BoxCollider>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!_checkPointUsed)
+        if (!_checkPointUsed && other.CompareTag("Player"))
         {
-            CheckForPlayer();            
-        }
-    }
-
-    private void CheckForPlayer()
-    {
-        if (Physics.BoxCast(_collider.bounds.center, _collider.bounds.extents, Vector3.up, out var hit, _collider.transform.rotation, 5f))
-        {
-            if (hit.collider && hit.collider.CompareTag("Player"))
-            {
-                SaveManager.checkPointReached.Invoke();
-                _checkPointUsed = true;
-            }
+            Debug.Log("CheckpointTrigger activated");
+            EventHandler.InvokeEvent(new OnTriggerEnteredCheckPointEvent());
+            _checkPointUsed = true;
         }
     }
 }

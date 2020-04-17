@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using EventSystem;
 using UnityEngine;
 
 public class LaserWallController : MonoBehaviour
 {
     private Collider _collider;
-    [SerializeField] private PlayerController player; //Det här för göras om senare.
+    [SerializeField] private PlayerController.PlayerController player; //Det här för göras om senare.
     private GameObject _lasers;
     private bool _active;
 
@@ -31,8 +30,7 @@ public class LaserWallController : MonoBehaviour
             {
                 //PlayerEvents.Init();
                 Debug.Log("Player killed by lazer");
-                player.Die();
-                SaveManager.LoadLastCheckPoint();
+                EventHandler.InvokeEvent(new OnPlayerDieEvent());
             }
             else if (_hit.collider.CompareTag("PushableBox"))
             {

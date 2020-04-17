@@ -1,83 +1,85 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
+using EventSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SteamController : MonoBehaviour
+namespace Traps
 {
-    [SerializeField] private bool startSteamOn;
-    [SerializeField] private string secretCode;
-    [SerializeField] private float delay;
-    public UnityEvent turnOn;
-    public UnityEvent turnOff;
-    private ParticleSystem _particleSystem;
-    private bool _isRunning;
-
-    void Start()
+    public class SteamController : MonoBehaviour
     {
-        _particleSystem = GetComponent<ParticleSystem>();
-        if (startSteamOn)
-            ActivateSteam();
-        else
-            DeactivateSteam();
-        turnOn.AddListener(ActivateSteam);
-        turnOff.AddListener(DeactivateSteam);
-    }
+        [SerializeField] private bool startSteamOn;
+        [SerializeField] private string secretCode;
+        [SerializeField] private float delay;
+        public UnityEvent turnOn;
+        public UnityEvent turnOff;
+        private ParticleSystem _particleSystem;
+        private bool _isRunning;
 
-    private void Update()
-    {
-        if (secretCode.Length > 0 && !_isRunning)
+        void Start()
         {
-            StartCoroutine("SecretCodeTimer");
-        }
-    }
-
-    private IEnumerator SecretCodeTimer()
-    {
-        _isRunning = true;
-        var splitedSecretCode = secretCode.Split(',');
-        foreach (var letter in splitedSecretCode)
-        {
-            if (letter == "1")
-            {
-                if (!startSteamOn)
-                {
-                    ActivateSteam();
-                }
-            }
+            _particleSystem = GetComponent<ParticleSystem>();
+            if (startSteamOn)
+                ActivateSteam();
             else
-            {
-                if (startSteamOn)
-                {
-                    DeactivateSteam();
-                }
-            }
-            yield return new WaitForSeconds(delay);
+                DeactivateSteam();
+            turnOn.AddListener(ActivateSteam);
+            turnOff.AddListener(DeactivateSteam);
         }
-        _isRunning = false;
-    }
 
-    private void ActivateSteam()
-    {
-        _particleSystem.Play();
-        startSteamOn = true;
-    }
-    
-    private void DeactivateSteam()
-    {
-        _particleSystem.Stop();
-        startSteamOn = false;
-    }
-
-    private void OnParticleCollision(GameObject other)
-    {
-        if (other)
+        private void Update()
         {
-            if (other.CompareTag("Player"))
+            if (secretCode.Length > 0 && !_isRunning)
             {
-                Debug.Log("Hit by Steam");
-                other.GetComponent<PlayerController>().Die();
+                StartCoroutine("SecretCodeTimer");
+            }
+        }
+
+        private IEnumerator SecretCodeTimer()
+        {
+            _isRunning = true;
+            var splitedSecretCode = secretCode.Split(',');
+            foreach (var letter in splitedSecretCode)
+            {
+                if (letter == "1")
+                {
+                    if (!startSteamOn)
+                    {
+                        ActivateSteam();
+                    }
+                }
+                else
+                {
+                    if (startSteamOn)
+                    {
+                        DeactivateSteam();
+                    }
+                }
+                yield return new WaitForSeconds(delay);
+            }
+            _isRunning = false;
+        }
+
+        private void ActivateSteam()
+        {
+            _particleSystem.Play();
+            startSteamOn = true;
+        }
+    
+        private void DeactivateSteam()
+        {
+            _particleSystem.Stop();
+            startSteamOn = false;
+        }
+
+        private void OnParticleCollision(GameObject other)
+        {
+            if (other)
+            {
+                if (other.CompareTag("Player"))
+                {
+                    Debug.Log("Hit by Steam");
+                    EventHandler.InvokeEvent(new OnPlayerDieEvent());
+                }
             }
         }
     }
