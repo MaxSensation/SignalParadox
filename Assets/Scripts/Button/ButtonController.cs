@@ -28,8 +28,8 @@ public class ButtonController : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventHandler.RegisterListener<OnPlayerEnteredInteractionEvent>(EnableInteraction);
-        EventHandler.RegisterListener<OnPlayerExitedInteractionEvent>(DisableInteraction);
+        EventHandler.UnregisterListener<OnPlayerEnteredInteractionEvent>(EnableInteraction);
+        EventHandler.UnregisterListener<OnPlayerExitedInteractionEvent>(DisableInteraction);
     }
 
     internal Renderer GetRenderer()

@@ -10,8 +10,7 @@ namespace ButtonStateMachine
     {
         public override void Enter()
         {
-            Debug.Log("Button off");
-            base.Enter();
+            
         }
 
         public override void Run()

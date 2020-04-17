@@ -30,7 +30,6 @@ namespace Traps
             _laserWallMesh.localScale = localScale;
             _laserWallOffset.localPosition = new Vector3(0,wallHeight/2, -0.08f);
             _lasers = new LaserController[(int)(wallHeight/laserDensity)];
-            Debug.Log(_lasers.Length);
             GenerateLasers();
         }
 

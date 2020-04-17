@@ -10,7 +10,6 @@ namespace Pickups
         {
             if (other && other.CompareTag("Player"))
             {
-                Debug.Log("Found StunBaton");
                 EventHandler.InvokeEvent(new OnPickupStunBatonEvent());
                 Destroy(gameObject);
             }

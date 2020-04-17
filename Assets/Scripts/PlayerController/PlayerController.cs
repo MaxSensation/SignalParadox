@@ -73,34 +73,7 @@ namespace PlayerController
             EventHandler.RegisterListener<OnPickupStunBatonEvent>(EnableStunBaton);
             EventHandler.RegisterListener<OnPickupStunGunUpgradeEvent>(EnableStunGun);
             EventHandler.RegisterListener<OnPlayerDieEvent>(Die);
-            EventHandler.RegisterListener<OnTriggerEnteredCheckPointEvent>(SavePlayerData);
-            EventHandler.RegisterListener<OnCheckPointLoadedEvent>(LoadPlayerData);
         }
-
-        private void SavePlayerData(OnTriggerEnteredCheckPointEvent obj)
-        {
-            var player = transform;
-            var position = player.position;
-            var rotation = player.rotation;
-            var checkPoint = new CheckPoint(
-                SceneManager.GetActiveScene().name,
-                new[] {position.x, position.y, position.z},
-                new[] {rotation.x, rotation.y, rotation.z},
-                hasStunBaton,
-                hasStunGunUpgrade
-                );
-            EventHandler.InvokeEvent(new OnCheckPointSaveEvent(checkPoint));
-        }
-        
-        private void LoadPlayerData(OnCheckPointLoadedEvent obj)
-        {
-            SceneManager.LoadScene(obj.checkPoint.currentScene);
-            transform.position = new Vector3(obj.checkPoint.playerPosition[0], obj.checkPoint.playerPosition[1], obj.checkPoint.playerPosition[2]);
-            //transform.rotation = new Vector3(obj.checkPoint.playerRotation[0], obj.checkPoint.playerRotation[1], obj.checkPoint.playerRotation[2]);
-            hasStunBaton = obj.checkPoint.hasStunBaton;
-            hasStunGunUpgrade = obj.checkPoint.hasStunGunUpgrade;
-        }
-        
 
         private void OnDestroy()
         {
