@@ -23,10 +23,8 @@ namespace EventSystem
         public static void UnregisterListener<T>(Action<T> listener) where T : EventInfo
         {
             var eventType = typeof(T);
-            if (_eventListeners == null || _eventListeners.ContainsKey(eventType) == false || _eventListeners[eventType] == null)
-                return;
-            EventListener wrapper = (ei) => {listener((T)ei);};
-            _eventListeners[eventType].Remove(wrapper);
+            if (_eventListeners == null || _eventListeners.ContainsKey(eventType) == false) return;
+            _eventListeners[eventType].Remove((ei) => {listener((T)ei);});
         }
 
         public static void InvokeEvent(EventInfo eventInfo)

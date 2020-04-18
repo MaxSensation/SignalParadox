@@ -26,6 +26,8 @@ namespace Managers
         {
             //Unregister Events
             EventHandler.UnregisterListener<OnButtonStartEvent>(LoadLevel);
+            EventHandler.UnregisterListener<OnTriggerEnteredCheckPointEvent>(SavePlayerData);
+            EventHandler.UnregisterListener<OnCheckPointLoadedEvent>(LoadPlayerData);
         }
         
         private void SavePlayerData(OnTriggerEnteredCheckPointEvent obj)

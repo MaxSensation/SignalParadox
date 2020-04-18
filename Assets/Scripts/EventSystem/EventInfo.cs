@@ -7,11 +7,6 @@ namespace EventSystem
         public string eventDescription;
     }
 
-    public class DebugEventInfo : EventInfo
-    {
-        public int verbosityLevel;
-    }
-    
     // Pickup Events
     public class OnPickupStunBatonEvent : EventInfo {}
     public class OnPickupStunGunUpgradeEvent : EventInfo {}
@@ -46,9 +41,6 @@ namespace EventSystem
         }
     }
 
-    // Level Events
-    public class OnLevelFirstMemoTriggeredEvent : EventInfo {}
-    
     // Menu Events
     public class OnButtonStartEvent : EventInfo
     {

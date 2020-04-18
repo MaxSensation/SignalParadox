@@ -54,11 +54,6 @@ public class ButtonController : MonoBehaviour
         return _onCooldown;
     }
 
-    internal State GetCurrentButtonState()
-    {
-        return _stateMachine.GetCurrentState();
-    }
-
     internal IEnumerator ActivateButton()
     {
         yield return new WaitForSeconds(2);

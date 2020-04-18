@@ -79,6 +79,7 @@ namespace PlayerController
         {
             EventHandler.UnregisterListener<OnPickupStunBatonEvent>(EnableStunBaton);
             EventHandler.UnregisterListener<OnPickupStunGunUpgradeEvent>(EnableStunGun);
+            EventHandler.UnregisterListener<OnPlayerDieEvent>(Die);
         }
 
         private void Update()

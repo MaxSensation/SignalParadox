@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using EventSystem;
 using UnityEngine;
 using UnityEngine.Events;
+using EventHandler = EventSystem.EventHandler;
 
 namespace Traps
 {
@@ -37,6 +39,11 @@ namespace Traps
         {
             StartCoroutine("WaitForStart");
             EventHandler.RegisterListener<OnButtonPressedEvent>(OnButtonPressed);
+        }
+
+        private void OnDestroy()
+        {
+            EventHandler.UnregisterListener<OnButtonPressedEvent>(OnButtonPressed);
         }
 
         private void OnButtonPressed(OnButtonPressedEvent obj)

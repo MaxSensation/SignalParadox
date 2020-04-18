@@ -69,7 +69,6 @@
           </e>
           <e p="PlayerController" t="Include">
             <e p="PlayerController.cs" t="Include" />
-            <e p="PlayerEvents.cs" t="Include" />
             <e p="PlayerInteractTrigger.cs" t="Include" />
             <e p="PlayerStateMachine" t="Include">
               <e p="CrouchState.cs" t="Include" />
@@ -90,11 +89,8 @@
           </e>
           <e p="Traps" t="Include">
             <e p="DynamicLaserWall.cs" t="Include" />
-            <e p="HazardsController.cs" t="Include" />
             <e p="LaserController.cs" t="Include" />
-            <e p="LaserWallController.cs" t="Include" />
             <e p="SteamController.cs" t="Include" />
-            <e p="SuperLaserWallController.cs" t="Include" />
           </e>
           <e p="Triggers" t="Include">
             <e p="TriggerCheckPoint.cs" t="Include" />

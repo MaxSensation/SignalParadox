@@ -1,5 +1,7 @@
-﻿using EventSystem;
+﻿using System;
+using EventSystem;
 using UnityEngine;
+using EventHandler = EventSystem.EventHandler;
 
 namespace Managers
 {
@@ -10,6 +12,11 @@ namespace Managers
         {
             _audioSource = GetComponent<AudioSource>();
             EventHandler.RegisterListener<OnTriggerMemoEvent>(PlayMemo);
+        }
+
+        private void OnDestroy()
+        {
+            EventHandler.UnregisterListener<OnTriggerMemoEvent>(PlayMemo);
         }
 
         private void PlayMemo(OnTriggerMemoEvent obj)
