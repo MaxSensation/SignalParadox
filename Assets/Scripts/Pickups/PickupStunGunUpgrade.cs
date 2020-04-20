@@ -1,17 +1,18 @@
-﻿using EventSystem;
-using UnityEngine;
-using EventHandler = EventSystem.EventHandler;
+﻿using UnityEngine;
 
 namespace Pickups
 {
     public class PickupStunGunUpgrade : MonoBehaviour
     {
+        public delegate void OnStunGunUpgradePickup();
+
+        public static event OnStunGunUpgradePickup onStunGunUpgradePickup;
         private void OnTriggerEnter(Collider other)
         {
             if (other && other.CompareTag("Player"))
             {
                 Debug.Log("Found StunGunUpgrade");
-                EventHandler.InvokeEvent(new OnPickupStunGunUpgradeEvent());
+                onStunGunUpgradePickup?.Invoke();
                 Destroy(gameObject);
             }
         }

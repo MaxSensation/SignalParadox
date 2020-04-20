@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
-using EventSystem;
 using UnityEngine;
 using UnityEngine.Events;
-using EventHandler = EventSystem.EventHandler;
 
 namespace Traps
 {
@@ -16,7 +13,8 @@ namespace Traps
         [SerializeField] private float laserDensity;
         [SerializeField] private float wallHeight;
         [SerializeField] private bool onStartLaserWallOn;
-        [SerializeField] private float delay;
+        [SerializeField] private float betweenLaserDelay;
+        [SerializeField] private float startDelay;
         private LaserController[] _lasers;
         private Transform _laserWallOffset;
         private Transform _laserWallMesh;
@@ -38,17 +36,17 @@ namespace Traps
         private void Start()
         {
             StartCoroutine("WaitForStart");
-            EventHandler.RegisterListener<OnButtonPressedEvent>(OnButtonPressed);
+            ButtonController.onButtonPressed += OnButtonPressed;
         }
 
         private void OnDestroy()
         {
-            EventHandler.UnregisterListener<OnButtonPressedEvent>(OnButtonPressed);
+            ButtonController.onButtonPressed -= OnButtonPressed;
         }
 
-        private void OnButtonPressed(OnButtonPressedEvent obj)
+        private void OnButtonPressed(GameObject[] interactables)
         {
-            if (!obj.interactableObjects.Contains(gameObject)) return;
+            if (!interactables.Contains(gameObject)) return;
             if (_isLaserOn)
                 DeactivateLasers();
             else
@@ -70,7 +68,7 @@ namespace Traps
 
         private IEnumerator WaitForStart()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(startDelay);
             if (onStartLaserWallOn)
                 ActivateLasers();
             else
@@ -94,7 +92,7 @@ namespace Traps
             foreach (var l in _lasers)
             {
                 l.turnOn.Invoke();
-                yield return new WaitForSeconds(delay);
+                yield return new WaitForSeconds(betweenLaserDelay);
             }
 
             onStartLaserWallOn = true;
@@ -106,7 +104,7 @@ namespace Traps
             {
                 var l = _lasers[index];
                 l.turnOff.Invoke();
-                yield return new WaitForSeconds(delay);
+                yield return new WaitForSeconds(betweenLaserDelay);
             }
 
             onStartLaserWallOn = false;

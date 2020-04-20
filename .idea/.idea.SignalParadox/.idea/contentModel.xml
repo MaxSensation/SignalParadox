@@ -27,26 +27,11 @@
           </e>
           <e p="Button" t="Include">
             <e p="ButtonController.cs" t="Include" />
-            <e p="ButtonStateMachine" t="Include">
-              <e p="ButtonBaseState.cs" t="Include" />
-              <e p="Off.cs" t="Include" />
-              <e p="On.cs" t="Include" />
-            </e>
           </e>
           <e p="CheckPoint.cs" t="Include" />
-          <e p="DoorController" t="Include">
+          <e p="CheckPointGenerator.cs" t="Include" />
+          <e p="Door" t="Include">
             <e p="DoorController.cs" t="Include" />
-            <e p="DoorControllerStateMachine" t="Include">
-              <e p="ClosedDoorState.cs" t="Include" />
-              <e p="ClosingDoorState.cs" t="Include" />
-              <e p="DoorControllerBaseState.cs" t="Include" />
-              <e p="OpenDoorState.cs" t="Include" />
-              <e p="OpeningDoorState.cs" t="Include" />
-            </e>
-          </e>
-          <e p="EventSystem" t="Include">
-            <e p="EventHandler.cs" t="Include" />
-            <e p="EventInfo.cs" t="Include" />
           </e>
           <e p="HelpClasses" t="Include">
             <e p="Physic3D.cs" t="Include" />
@@ -69,7 +54,7 @@
           </e>
           <e p="PlayerController" t="Include">
             <e p="PlayerController.cs" t="Include" />
-            <e p="PlayerInteractTrigger.cs" t="Include" />
+            <e p="PlayerInteractionTrigger.cs" t="Include" />
             <e p="PlayerStateMachine" t="Include">
               <e p="CrouchState.cs" t="Include" />
               <e p="FireState.cs" t="Include" />

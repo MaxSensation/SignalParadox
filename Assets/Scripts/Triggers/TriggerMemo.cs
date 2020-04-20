@@ -1,6 +1,4 @@
-﻿using EventSystem;
-using UnityEngine;
-using EventHandler = EventSystem.EventHandler;
+﻿using UnityEngine;
 
 namespace Triggers
 {
@@ -8,13 +6,17 @@ namespace Triggers
     {
         [SerializeField] private AudioClip memo;
         private bool hasPlayed;
+
+        public delegate void OnMemoPickup(AudioClip audioClip);
+
+        public static event OnMemoPickup onMemoPickup;
         private void OnTriggerEnter(Collider other)
         {
             if (!hasPlayed && other.CompareTag("Player"))
             {
                 Debug.Log("Memo Found");
                 hasPlayed = true;
-                EventHandler.InvokeEvent(new OnTriggerMemoEvent(memo));
+                onMemoPickup?.Invoke(memo);
             }
         }
     }

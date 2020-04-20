@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,6 +19,14 @@ namespace AI
         internal CapsuleCollider _collider;
         private string _enemyType;
         internal bool isDead;
+
+        public delegate void OnTrappedPlayer();
+
+        public static event OnTrappedPlayer onTrappedPlayer;
+        
+        public delegate void OnCrushedPlayer();
+
+        public static event OnCrushedPlayer onCrushedPlayer;
 
         private void Awake()
         {
@@ -93,6 +100,26 @@ namespace AI
         {
             Gizmos.color = Color.green;
             Gizmos.DrawRay(transform.position, transform.forward);
+        }
+
+        internal void TouchingPlayer()
+        {
+            Physics.Raycast(transform.position, (target.transform.position - transform.position).normalized, out var hit, 1f);
+            if (hit.collider && hit.collider.CompareTag("Player"))
+                onTrappedPlayer?.Invoke();
+        }
+
+        public void PlayerCrushed()
+        {
+            if (rigidbody.velocity.magnitude <= 0.001f)
+            {
+                if (target.transform.parent == transform)
+                    onCrushedPlayer?.Invoke();
+                target.transform.parent = null;
+                agent.enabled = true;
+                ActivateOnlyStun();
+                _stateMachine.TransitionTo<Charger.AIStateMachine.HuntState>();
+            }
         }
     }
 }

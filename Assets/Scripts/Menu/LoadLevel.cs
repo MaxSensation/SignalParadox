@@ -1,8 +1,7 @@
 ﻿using System;
-using EventSystem;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using EventHandler = EventSystem.EventHandler;
 
 public class LoadLevel : MonoBehaviour
 {
@@ -21,6 +20,6 @@ public class LoadLevel : MonoBehaviour
 
     private void InvokeLoadLevelEvent()
     {
-        EventHandler.InvokeEvent(new OnButtonStartEvent(levelToLoad));
+        SceneManager.LoadScene(levelToLoad);
     }
 }

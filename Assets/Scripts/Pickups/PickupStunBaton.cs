@@ -1,16 +1,17 @@
-﻿using EventSystem;
-using UnityEngine;
-using EventHandler = EventSystem.EventHandler;
+﻿using UnityEngine;
 
 namespace Pickups
 {
     public class PickupStunBaton : MonoBehaviour
     {
+        public delegate void OnStunBatonPickup();
+
+        public static event OnStunBatonPickup onStunBatonPickup;
         private void OnTriggerEnter(Collider other)
         {
             if (other && other.CompareTag("Player"))
             {
-                EventHandler.InvokeEvent(new OnPickupStunBatonEvent());
+                onStunBatonPickup?.Invoke();
                 Destroy(gameObject);
             }
         }

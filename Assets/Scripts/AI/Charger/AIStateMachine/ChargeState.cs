@@ -1,5 +1,4 @@
-﻿using EventSystem;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AI.Charger.AIStateMachine
 {
@@ -28,18 +27,7 @@ namespace AI.Charger.AIStateMachine
             {
                 Ai.target.transform.parent = Ai.transform;
             }
-
-            if (Ai.rigidbody.velocity.magnitude <= 0.001f)
-            {
-                if (Ai.target.transform.parent == Ai.transform)
-                {
-                    EventHandler.InvokeEvent(new OnPlayerDieEvent());
-                }
-                Ai.target.transform.parent = null;
-                Ai.agent.enabled = true;
-                Ai.ActivateOnlyStun();
-                stateMachine.TransitionTo<HuntState>();
-            }
+            Ai.PlayerCrushed();
         }
 
         private bool TouchingPlayer()

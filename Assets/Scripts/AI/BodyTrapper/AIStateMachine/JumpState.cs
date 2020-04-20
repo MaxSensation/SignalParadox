@@ -1,6 +1,4 @@
-﻿using AI.AIStateMachine;
-using AI.Charger.AIStateMachine;
-using EventSystem;
+﻿using AI.Charger.AIStateMachine;
 using UnityEngine;
 
 namespace AI.BodyTrapper.AIStateMachine
@@ -23,10 +21,8 @@ namespace AI.BodyTrapper.AIStateMachine
             if (Ai.isDead)
                 stateMachine.TransitionTo<DeadState>();
             
-            if (TouchingPlayer())
-            {
-                EventHandler.InvokeEvent(new OnPlayerDieEvent());
-            }
+            Ai.TouchingPlayer();
+            
             if (Grounded() && !Ai.IsStunned())
             {
                 stateMachine.TransitionTo<HuntState>();
@@ -36,12 +32,6 @@ namespace AI.BodyTrapper.AIStateMachine
         private bool Grounded()
         {
             return Physics.Raycast(Ai.transform.position, Vector3.down, 0.3f, Ai.agent.areaMask);
-        }
-
-        private bool TouchingPlayer()
-        {
-            Physics.Raycast(Ai.transform.position, (Ai.target.transform.position - Ai.transform.position).normalized, out var hit, 1f);
-            return (hit.collider && hit.collider.CompareTag("Player"));
         }
 
         private void Jump()

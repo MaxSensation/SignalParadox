@@ -1,8 +1,5 @@
-﻿using AI;
-using EventSystem;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
-using EventHandler = EventSystem.EventHandler;
 namespace Traps
 {
     public class LaserController : MonoBehaviour
@@ -15,6 +12,11 @@ namespace Traps
         private Collider _lastHit;
         private LineRenderer _lineRenderer;
         private ParticleSystem _particleSystem;
+        
+        // Events
+        public delegate void OnLaserDeath(GameObject gameObject);
+
+        public static event OnLaserDeath onLaserDeath;
 
         private void Awake()
         {
@@ -64,15 +66,8 @@ namespace Traps
             if (_hit.collider)
             {
                 var hit = _hit.collider.gameObject;
-                if (hit.CompareTag("Player"))
-                {
-                    EventHandler.InvokeEvent(new OnPlayerDieEvent());
-                }
-
-                if (hit.CompareTag("Enemy"))
-                {
-                    hit.GetComponent<AIController>().Die();
-                }
+                if (hit.CompareTag("Player") || hit.CompareTag("Enemy"))
+                    onLaserDeath?.Invoke(hit.gameObject);
             }
         }
 

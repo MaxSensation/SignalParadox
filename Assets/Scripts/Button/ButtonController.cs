@@ -1,96 +1,64 @@
 ﻿using System.Collections;
-using EventSystem;
+using PlayerController;
 using UnityEngine;
-using EventHandler = EventSystem.EventHandler;
 
 public class ButtonController : MonoBehaviour
 {
-    [SerializeField] internal GameObject[] interactableObject;
-    [SerializeField] private State[] states;
+    [SerializeField] internal GameObject[] interactableObjects;
     private StateMachine _stateMachine;
-    private bool _offcooldown;
-    private bool _onCooldown;
-    private Renderer _buttonRenderer;
+    private bool _isInRangeOfPlayer;
     private bool _isInteractable;
+    private WaitForSeconds buttonDelay;
+    
+    public delegate void OnButtonPressed(GameObject[] interactableObjects);
+    public static event OnButtonPressed onButtonPressed;
 
     private void Awake()
     {
-        _buttonRenderer = GetComponent<Renderer>();
-        _stateMachine = new StateMachine(this, states);
-
-    }
-
-    private void Start()
-    {
-        EventHandler.RegisterListener<OnPlayerEnteredInteractionEvent>(EnableInteraction);
-        EventHandler.RegisterListener<OnPlayerExitedInteractionEvent>(DisableInteraction);
+        _isInteractable = true;
+        buttonDelay = new WaitForSeconds(2);
+        PlayerInteractionTrigger.onEnteredInteractionRange += EnableInteraction;
+        PlayerInteractionTrigger.onExitedInteractionRange += DisableInteraction;
     }
 
     private void OnDestroy()
     {
-        EventHandler.UnregisterListener<OnPlayerEnteredInteractionEvent>(EnableInteraction);
-        EventHandler.UnregisterListener<OnPlayerExitedInteractionEvent>(DisableInteraction);
+        PlayerInteractionTrigger.onEnteredInteractionRange -= EnableInteraction;
+        PlayerInteractionTrigger.onExitedInteractionRange -= DisableInteraction;
     }
-
-    internal Renderer GetRenderer()
-    {
-        return _buttonRenderer;
-    }
-
+    
     private void Update()
     {
-        _stateMachine.Run();
-        if (Input.GetKeyDown(KeyCode.E) && _isInteractable)
+        if (Input.GetKeyDown(KeyCode.E) && _isInRangeOfPlayer && _isInteractable)
             ButtonPress();
     }
-
-    internal bool IsOffCooldown()
+    
+    private IEnumerator ActivateButton()
     {
-        return _offcooldown;
+        yield return buttonDelay;
+        _isInteractable = true;
     }
 
-    internal bool IsOnCooldown()
+    private void ButtonPress()
     {
-        return _onCooldown;
-    }
-
-    internal IEnumerator ActivateButton()
-    {
-        yield return new WaitForSeconds(2);
-        _offcooldown = false;
-        _onCooldown = false;
-        StopCoroutine("ActivateButton");
-    }
-
-    internal void ButtonPress()
-    {
-        if (_stateMachine.GetCurrentState().name.Equals("OffState(Clone)"))
-        {
-            _offcooldown = true;
-        }
-        else
-        {
-            _onCooldown = true;
-        }
+        _isInteractable = false;
+        onButtonPressed?.Invoke(interactableObjects);
         StartCoroutine("ActivateButton");
     }
     
-    private void EnableInteraction(OnPlayerEnteredInteractionEvent obj)
+    
+    private void EnableInteraction(GameObject o)
     {
-        if (obj.interactableObject == gameObject)
-        { 
-            _isInteractable = true;   
-        }
+        if (o == gameObject)
+            _isInRangeOfPlayer = true;   
+        
     }
     
-    private void DisableInteraction(OnPlayerExitedInteractionEvent obj)
+    private void DisableInteraction(GameObject o)
     {
-        if (obj.interactableObject == gameObject)
-        { 
-            _isInteractable = false;   
-        }
+        if (o == gameObject)
+            _isInRangeOfPlayer = false;
     }
-
 }
 
 

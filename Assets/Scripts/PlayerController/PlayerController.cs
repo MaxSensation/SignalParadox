@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
-using EventSystem;
+﻿using System.Collections;
+using AI;
+using Pickups;
+using Traps;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using EventHandler = EventSystem.EventHandler;
 
 namespace PlayerController
 {
@@ -40,8 +39,18 @@ namespace PlayerController
         private Vector3 _point2;
         private GameObject _playerMesh;
         private bool _alive;
+        
+        // Events
+        public delegate void OnPlayerDeath();
+        public static event OnPlayerDeath onPlayerDeath;
+        
         private void Awake()
         {
+            LaserController.onLaserDeath += Die;
+            SteamController.onSteamDeath += Die;
+            AIController.onTrappedPlayer += Die;
+            PickupStunBaton.onStunBatonPickup += EnableStunBaton;
+            PickupStunGunUpgrade.onStunGunUpgradePickup += EnableStunGun;
             _alive = true;
             _playerMesh = GameObject.Find("PlayerMesh");
             _stateMachine = new StateMachine(this, states);
@@ -67,19 +76,13 @@ namespace PlayerController
             hasReloaded = true;
         }
 
-
-        private void Start()
-        {
-            EventHandler.RegisterListener<OnPickupStunBatonEvent>(EnableStunBaton);
-            EventHandler.RegisterListener<OnPickupStunGunUpgradeEvent>(EnableStunGun);
-            EventHandler.RegisterListener<OnPlayerDieEvent>(Die);
-        }
-
         private void OnDestroy()
         {
-            EventHandler.UnregisterListener<OnPickupStunBatonEvent>(EnableStunBaton);
-            EventHandler.UnregisterListener<OnPickupStunGunUpgradeEvent>(EnableStunGun);
-            EventHandler.UnregisterListener<OnPlayerDieEvent>(Die);
+            LaserController.onLaserDeath -= Die;
+            SteamController.onSteamDeath -= Die;
+            AIController.onTrappedPlayer -= Die;
+            PickupStunBaton.onStunBatonPickup -= EnableStunBaton;
+            PickupStunGunUpgrade.onStunGunUpgradePickup -= EnableStunGun;
         }
 
         private void Update()
@@ -109,16 +112,21 @@ namespace PlayerController
         }
 
 
-        private void Die(OnPlayerDieEvent obj)
+        private void Die(GameObject o)
         {
-            if (_alive)
+            if (gameObject == o && _alive)
             {
-                _alive = false;
-                Debug.Log("Player Died");
-                EventHandler.InvokeEvent(new OnCheckPointLoadEvent());
+                Die();
             }
         }
 
+        private void Die()
+        {
+            _alive = false;
+            Debug.Log("Player Died");
+            onPlayerDeath?.Invoke();
+        }
+        
         private IEnumerator ReloadTime()
         {
             yield return new WaitForSeconds(2f);
@@ -352,12 +360,12 @@ namespace PlayerController
             return _cameraRotation;
         }
     
-        private void EnableStunBaton(OnPickupStunBatonEvent obj)
+        private void EnableStunBaton()
         {
             hasStunBaton = true;
         }
     
-        private void EnableStunGun(OnPickupStunGunUpgradeEvent obj)
+        private void EnableStunGun()
         {
             hasStunGunUpgrade = true;
         }

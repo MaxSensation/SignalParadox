@@ -1,27 +1,26 @@
-﻿using System;
-using EventSystem;
+﻿using Triggers;
 using UnityEngine;
-using EventHandler = EventSystem.EventHandler;
 
 namespace Managers
 {
     public class SoundManager : MonoBehaviour
     {
         private AudioSource _audioSource;
-        void Start()
+
+        private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
-            EventHandler.RegisterListener<OnTriggerMemoEvent>(PlayMemo);
+            TriggerMemo.onMemoPickup += PlayMemo;
         }
 
         private void OnDestroy()
         {
-            EventHandler.UnregisterListener<OnTriggerMemoEvent>(PlayMemo);
+            TriggerMemo.onMemoPickup -= PlayMemo;
         }
 
-        private void PlayMemo(OnTriggerMemoEvent obj)
+        private void PlayMemo(AudioClip memo)
         {
-            _audioSource.clip = obj.memoAudioClip;
+            _audioSource.clip = memo;
             _audioSource.Play();
         }
     }

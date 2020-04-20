@@ -1,35 +1,46 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using EventSystem;
 using UnityEngine;
 
 namespace Managers
 {
     public static class SaveManager
     {
+        public delegate void OnLoadCheckPoint(CheckPoint checkPoint);
+        public static event OnLoadCheckPoint onLoadCheckPoint;
+
         public static void Init()
         {
-            EventHandler.RegisterListener<OnCheckPointSaveEvent>(SaveCheckPoint);
-            EventHandler.RegisterListener<OnCheckPointLoadEvent>(LoadCheckPoint);
+            TriggerCheckPoint.onTriggerCheckPoint += SaveCheckPoint;
+            PlayerController.PlayerController.onPlayerDeath += LoadCheckPoint;
         }
         
-        private static void SaveCheckPoint(OnCheckPointSaveEvent data)
+        private static void SaveCheckPoint(CheckPoint checkPoint)
         {
-            var formatter = new BinaryFormatter();
-            var path = Application.persistentDataPath + "/SaveGame.paradox";
-            var stream = new FileStream(path, FileMode.Create);
-            formatter.Serialize(stream, data.checkPoint);
-            stream.Close();
+            if (checkPoint != null)
+            {
+                var formatter = new BinaryFormatter();
+                var path = Application.persistentDataPath + "/SaveGame.paradox";
+                var stream = new FileStream(path, FileMode.Create);
+                formatter.Serialize(stream, checkPoint);
+                stream.Close();
+                Debug.Log("CheckPoint Saved");
+            }
         }
         
-        private static void LoadCheckPoint(OnCheckPointLoadEvent data)
+        private static void LoadCheckPoint()
         {
             var path = Application.persistentDataPath + "/SaveGame.paradox";
             if (File.Exists(path))
             {
                 var formatter = new BinaryFormatter();
                 var stream = new FileStream(path, FileMode.Open);
-                EventHandler.InvokeEvent(new OnCheckPointLoadedEvent(formatter.Deserialize(stream) as CheckPoint));
+                if (stream.Length > 0)
+                {
+                    var checkPoint = formatter.Deserialize(stream) as CheckPoint;
+                    onLoadCheckPoint?.Invoke(checkPoint);
+                    Debug.Log("CheckPoint Loaded");
+                }
                 stream.Close();
             }
             else

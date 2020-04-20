@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1798079271}
   m_Layer: 8
   m_Name: Button
-  m_TagString: Button
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,10 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9ae9b04557a864e9d3e0f0814c2a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableObject: []
-  states:
-  - {fileID: 11400000, guid: 340cf0ef23c47df47a9075550703e264, type: 2}
-  - {fileID: 11400000, guid: c8bf1e117c069d744aa344ffaa897eb0, type: 2}
+  interactableObjects: []
 --- !u!54 &1798079271
 Rigidbody:
   m_ObjectHideFlags: 0

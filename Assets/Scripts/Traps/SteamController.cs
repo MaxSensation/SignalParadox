@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using EventSystem;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,6 +14,9 @@ namespace Traps
         public UnityEvent turnOff;
         private ParticleSystem _particleSystem;
         private bool _isRunning;
+        public delegate void OnSteamDeath(GameObject entity);
+
+        public static event OnSteamDeath onSteamDeath;
 
         void Start()
         {
@@ -75,10 +78,10 @@ namespace Traps
         {
             if (other)
             {
-                if (other.CompareTag("Player"))
+                if (other.CompareTag("Player") || other.CompareTag("Enemy"))
                 {
                     Debug.Log("Hit by Steam");
-                    EventHandler.InvokeEvent(new OnPlayerDieEvent());
+                    onSteamDeath?.Invoke(other);
                 }
             }
         }
