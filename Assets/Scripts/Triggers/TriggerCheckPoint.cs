@@ -7,15 +7,13 @@ public class TriggerCheckPoint : MonoBehaviour
     public static event OnTriggerCheckPoint onTriggerCheckPoint;
     private void OnTriggerEnter(Collider other)
     {
-        if (!_checkPointUsed && other.CompareTag("Player"))
+        if (_checkPointUsed || !other.CompareTag("Player")) return;
+        Debug.Log("CheckpointTrigger activated");
+        var checkPoint = CheckPointGenerator.Generate();
+        if (checkPoint != null)
         {
-            Debug.Log("CheckpointTrigger activated");
-            var checkPoint = CheckPointGenerator.Generate();
-            if (checkPoint != null)
-            {
-                onTriggerCheckPoint?.Invoke(checkPoint);
-                _checkPointUsed = true;
-            }
+            onTriggerCheckPoint?.Invoke(checkPoint);
+            _checkPointUsed = true;
         }
     }
 }

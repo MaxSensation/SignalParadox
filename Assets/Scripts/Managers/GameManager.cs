@@ -1,22 +1,36 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
+
+        private bool checkPointLoaded;
+        private CheckPoint loadedCheckPoint;
         private void Awake()
         {
             SaveManager.Init();
             DontDestroyOnLoad(this);
-            SaveManager.onLoadCheckPoint += LoadPlayerData;
+            SaveManager.onLoadCheckPoint += LoadCheckPoint;
+            SceneManager.sceneLoaded += LoadPlayerData;
         }
 
-        private void LoadPlayerData(CheckPoint checkPoint)
+        private void LoadPlayerData(Scene arg0, LoadSceneMode arg1)
         {
+            if (checkPointLoaded)
+            {
+                GameObject.FindWithTag("Player").transform.position = new Vector3(loadedCheckPoint.playerPosition[0], loadedCheckPoint.playerPosition[1], loadedCheckPoint.playerPosition[2]);
+                checkPointLoaded = false;
+            }
+        }
+
+        private void LoadCheckPoint(CheckPoint checkPoint)
+        {
+            loadedCheckPoint = checkPoint;
+            checkPointLoaded = true;
             SceneManager.LoadScene(checkPoint.currentScene);
-            var player = GameObject.FindWithTag("Player");
-            player.transform.position = new Vector3(checkPoint.playerPosition[0], checkPoint.playerPosition[1], checkPoint.playerPosition[2]);
         }
     }
 }
