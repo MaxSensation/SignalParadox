@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using EventSystem;
 using UnityEngine;
 using UnityEngine.Events;
+using EventHandler = EventSystem.EventHandler;
 
 namespace Traps
 {
@@ -30,7 +32,6 @@ namespace Traps
             _laserWallMesh.localScale = localScale;
             _laserWallOffset.localPosition = new Vector3(0,wallHeight/2, -0.08f);
             _lasers = new LaserController[(int)(wallHeight/laserDensity)];
-            Debug.Log(_lasers.Length);
             GenerateLasers();
         }
 
@@ -38,6 +39,11 @@ namespace Traps
         {
             StartCoroutine("WaitForStart");
             EventHandler.RegisterListener<OnButtonPressedEvent>(OnButtonPressed);
+        }
+
+        private void OnDestroy()
+        {
+            EventHandler.UnregisterListener<OnButtonPressedEvent>(OnButtonPressed);
         }
 
         private void OnButtonPressed(OnButtonPressedEvent obj)

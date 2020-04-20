@@ -7,11 +7,6 @@ namespace EventSystem
         public string eventDescription;
     }
 
-    public class DebugEventInfo : EventInfo
-    {
-        public int verbosityLevel;
-    }
-    
     // Pickup Events
     public class OnPickupStunBatonEvent : EventInfo {}
     public class OnPickupStunGunUpgradeEvent : EventInfo {}
@@ -25,10 +20,27 @@ namespace EventSystem
             this.memoAudioClip = memoAudioClip;
         }
     }
-    
-    // Level Events
-    public class OnLevelFirstMemoTriggeredEvent : EventInfo {}
-    
+  
+    public class OnTriggerEnteredCheckPointEvent : EventInfo {}
+    public class OnCheckPointLoadEvent : EventInfo {}
+
+    public class OnCheckPointLoadedEvent : EventInfo
+    {
+        public readonly CheckPoint checkPoint;
+        public OnCheckPointLoadedEvent(CheckPoint checkPoint)
+        {
+            this.checkPoint = checkPoint;
+        }
+    }
+    public class OnCheckPointSaveEvent : EventInfo
+    {
+        public readonly CheckPoint checkPoint;
+        public OnCheckPointSaveEvent(CheckPoint checkPoint)
+        {
+            this.checkPoint = checkPoint;
+        }
+    }
+
     // Menu Events
     public class OnButtonStartEvent : EventInfo
     {
@@ -57,6 +69,8 @@ namespace EventSystem
             interactableObject = gameObject;
         }
     }
+    
+    public class OnPlayerDieEvent : EventInfo{}
     
     // Button Events
     public class OnButtonPressedEvent : EventInfo

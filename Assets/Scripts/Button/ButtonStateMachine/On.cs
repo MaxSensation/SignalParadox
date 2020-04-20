@@ -18,7 +18,6 @@ namespace ButtonStateMachine
         {
             if (!Button.IsOffCooldown() && Button.IsOnCooldown())
             {
-                //Button.Door.ActivateDoor();
                 EventHandler.InvokeEvent(new OnButtonPressedEvent(_button.interactableObject));
                 stateMachine.TransitionTo<Off>();
             }        

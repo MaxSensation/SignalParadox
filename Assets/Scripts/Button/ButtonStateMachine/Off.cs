@@ -10,15 +10,13 @@ namespace ButtonStateMachine
     {
         public override void Enter()
         {
-            Debug.Log("Button off");
-            base.Enter();
+            
         }
 
         public override void Run()
         {
             if(Button.IsOffCooldown() && !Button.IsOnCooldown())
             {
-                //Button.Door.ActivateDoor(); //Om off knappen ska avaktivera saker.
                 EventHandler.InvokeEvent(new OnButtonPressedEvent(_button.interactableObject));
                 stateMachine.TransitionTo<On>();
             }

@@ -1,5 +1,6 @@
 ﻿using AI.AIStateMachine;
 using AI.Charger.AIStateMachine;
+using EventSystem;
 using UnityEngine;
 
 namespace AI.BodyTrapper.AIStateMachine
@@ -24,7 +25,7 @@ namespace AI.BodyTrapper.AIStateMachine
             
             if (TouchingPlayer())
             {
-                Ai.target.GetComponent<PlayerController>().Die();
+                EventHandler.InvokeEvent(new OnPlayerDieEvent());
             }
             if (Grounded() && !Ai.IsStunned())
             {

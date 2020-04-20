@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using EventSystem;
+using UnityEngine;
 
 namespace AI.Charger.AIStateMachine
 {
@@ -21,8 +22,8 @@ namespace AI.Charger.AIStateMachine
 
         public override void Run()
         {
-            if(!Ai.IsStunned())//.
-            Charge();
+            if(!Ai.IsStunned())
+                Charge();
             if (TouchingPlayer())
             {
                 Ai.target.transform.parent = Ai.transform;
@@ -32,7 +33,7 @@ namespace AI.Charger.AIStateMachine
             {
                 if (Ai.target.transform.parent == Ai.transform)
                 {
-                    Ai.target.GetComponent<PlayerController>().Die();
+                    EventHandler.InvokeEvent(new OnPlayerDieEvent());
                 }
                 Ai.target.transform.parent = null;
                 Ai.agent.enabled = true;

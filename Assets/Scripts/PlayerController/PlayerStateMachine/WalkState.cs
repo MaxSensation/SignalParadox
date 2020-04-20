@@ -11,7 +11,7 @@ namespace PlayerStateMachine
 
         public override void Enter()
         {
-            Debug.Log("Entered Walk State");
+            
         }
         
         public override void Run()

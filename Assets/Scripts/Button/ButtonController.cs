@@ -28,8 +28,8 @@ public class ButtonController : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventHandler.RegisterListener<OnPlayerEnteredInteractionEvent>(EnableInteraction);
-        EventHandler.RegisterListener<OnPlayerExitedInteractionEvent>(DisableInteraction);
+        EventHandler.UnregisterListener<OnPlayerEnteredInteractionEvent>(EnableInteraction);
+        EventHandler.UnregisterListener<OnPlayerExitedInteractionEvent>(DisableInteraction);
     }
 
     internal Renderer GetRenderer()
@@ -52,11 +52,6 @@ public class ButtonController : MonoBehaviour
     internal bool IsOnCooldown()
     {
         return _onCooldown;
-    }
-
-    internal State GetCurrentButtonState()
-    {
-        return _stateMachine.GetCurrentState();
     }
 
     internal IEnumerator ActivateButton()
