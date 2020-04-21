@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using PlayerController;
 using UnityEngine;
 
@@ -10,8 +11,7 @@ public class ButtonController : MonoBehaviour
     private bool _isInteractable;
     private WaitForSeconds buttonDelay;
     
-    public delegate void OnButtonPressed(GameObject[] interactableObjects);
-    public static event OnButtonPressed onButtonPressed;
+    public static Action<GameObject[]> onButtonPressed;
 
     private void Awake()
     {

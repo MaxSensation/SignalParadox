@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -41,7 +42,15 @@ namespace Traps
 
         private void OnDestroy()
         {
+            transform.localScale = new Vector3(Berp(0f, 1f, 1f), Berp(0f, 1f, 1f), Berp(0f, 1f, 1f));
             ButtonController.onButtonPressed -= OnButtonPressed;
+        }
+        
+        public float Berp(float start, float end, float value)
+        {
+            value = Mathf.Clamp01(value);
+            value = (Mathf.Sin(value * Mathf.PI * (0.2f + 2.5f * value * value * value)) * Mathf.Pow(1f - value, 2.2f) + value) * (1f + (1.2f * (1f - value)));
+            return start + (end - start) * value;
         }
 
         private void OnButtonPressed(GameObject[] interactables)

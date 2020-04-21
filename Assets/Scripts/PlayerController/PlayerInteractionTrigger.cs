@@ -1,13 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace PlayerController
 {
     public class PlayerInteractionTrigger : MonoBehaviour
     {
-        public delegate void OnEnteredInteractionRange(GameObject gameObject);
-        public delegate void OnExitedInteractionRange(GameObject gameObject);
-        public static event OnEnteredInteractionRange onEnteredInteractionRange;
-        public static event OnExitedInteractionRange onExitedInteractionRange;
+        public static Action<GameObject> onEnteredInteractionRange;
+        public static Action<GameObject> onExitedInteractionRange;
     
         private void OnTriggerEnter(Collider other)
         {

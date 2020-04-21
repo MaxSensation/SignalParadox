@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Triggers
 {
@@ -7,9 +8,7 @@ namespace Triggers
         [SerializeField] private AudioClip memo;
         private bool hasPlayed;
 
-        public delegate void OnMemoPickup(AudioClip audioClip);
-
-        public static event OnMemoPickup onMemoPickup;
+        public static Action<AudioClip> onMemoPickup;
         private void OnTriggerEnter(Collider other)
         {
             if (!hasPlayed && other.CompareTag("Player"))

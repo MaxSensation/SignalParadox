@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,13 +21,9 @@ namespace AI
         private string _enemyType;
         internal bool isDead;
 
-        public delegate void OnTrappedPlayer();
+        public static Action onTrappedPlayer;
 
-        public static event OnTrappedPlayer onTrappedPlayer;
-        
-        public delegate void OnCrushedPlayer();
-
-        public static event OnCrushedPlayer onCrushedPlayer;
+        public static Action onCrushedPlayer;
 
         private void Awake()
         {

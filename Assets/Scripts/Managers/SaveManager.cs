@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -6,9 +7,7 @@ namespace Managers
 {
     public static class SaveManager
     {
-        public delegate void OnLoadCheckPoint(CheckPoint checkPoint);
-        public static event OnLoadCheckPoint onLoadCheckPoint;
-
+        public static Action<CheckPoint> onLoadCheckPoint;
         public static void Init()
         {
             TriggerCheckPoint.onTriggerCheckPoint += SaveCheckPoint;

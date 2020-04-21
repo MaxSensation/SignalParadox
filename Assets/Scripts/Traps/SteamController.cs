@@ -14,9 +14,8 @@ namespace Traps
         public UnityEvent turnOff;
         private ParticleSystem _particleSystem;
         private bool _isRunning;
-        public delegate void OnSteamDeath(GameObject entity);
 
-        public static event OnSteamDeath onSteamDeath;
+        public static Action<GameObject> onSteamDeath;
 
         void Start()
         {

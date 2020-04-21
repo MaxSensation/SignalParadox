@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using AI;
 using Pickups;
 using Traps;
@@ -41,8 +42,7 @@ namespace PlayerController
         private bool _alive;
         
         // Events
-        public delegate void OnPlayerDeath();
-        public static event OnPlayerDeath onPlayerDeath;
+        public static Action onPlayerDeath;
         
         private void Awake()
         {

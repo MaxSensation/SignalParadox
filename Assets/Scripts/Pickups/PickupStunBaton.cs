@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Pickups
 {
     public class PickupStunBaton : MonoBehaviour
     {
-        public delegate void OnStunBatonPickup();
-
-        public static event OnStunBatonPickup onStunBatonPickup;
+        public static Action onStunBatonPickup;
         private void OnTriggerEnter(Collider other)
         {
             if (other && other.CompareTag("Player"))

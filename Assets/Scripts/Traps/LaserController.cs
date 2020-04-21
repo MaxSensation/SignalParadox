@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 namespace Traps
 {
@@ -14,9 +15,7 @@ namespace Traps
         private ParticleSystem _particleSystem;
         
         // Events
-        public delegate void OnLaserDeath(GameObject gameObject);
-
-        public static event OnLaserDeath onLaserDeath;
+        public static Action<GameObject> onLaserDeath;
 
         private void Awake()
         {

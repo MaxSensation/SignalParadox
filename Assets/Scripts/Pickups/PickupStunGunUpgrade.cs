@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Pickups
 {
     public class PickupStunGunUpgrade : MonoBehaviour
     {
-        public delegate void OnStunGunUpgradePickup();
-
-        public static event OnStunGunUpgradePickup onStunGunUpgradePickup;
+        public static Action onStunGunUpgradePickup;
         private void OnTriggerEnter(Collider other)
         {
             if (other && other.CompareTag("Player"))

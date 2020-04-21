@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TriggerCheckPoint : MonoBehaviour
 {
     private bool _checkPointUsed;
-    public delegate void OnTriggerCheckPoint(CheckPoint checkPoint);
-    public static event OnTriggerCheckPoint onTriggerCheckPoint;
+    public static Action<CheckPoint> onTriggerCheckPoint;
     private void OnTriggerEnter(Collider other)
     {
         if (_checkPointUsed || !other.CompareTag("Player")) return;
