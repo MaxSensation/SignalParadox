@@ -17,7 +17,7 @@ namespace AI.Charger.AIStateMachine
 
         public override void Run()
         {
-            if (Ai.hasChargedUp)
+            if (Ai.GetHasChargedUp())
                 stateMachine.TransitionTo<ChargeState>();
         }
 

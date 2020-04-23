@@ -7,8 +7,15 @@ namespace AI.Charger
 {
     public class ChargerController : AIController
     {
-        internal bool hasChargedUp;
+        private bool hasChargedUp;
         public static Action onCrushedPlayer;
+        private BoxCollider _hitCollider;
+
+        private void Awake()
+        {
+            _hitCollider = GetComponent<BoxCollider>();
+        }
+
         public void PlayerCrushed()
         {
             if (rigidbody.velocity.magnitude <= 0.001f)
@@ -21,6 +28,7 @@ namespace AI.Charger
                 _stateMachine.TransitionTo<HuntState>();
             }
         }
+
         private IEnumerator OnlyStunTime()
         {
             yield return new WaitForSeconds(3);
@@ -46,5 +54,16 @@ namespace AI.Charger
             _stunned = true;
             StartCoroutine("OnlyStunTime");
         }
+
+        internal bool GetHasChargedUp()
+        {
+            return hasChargedUp;
+        }
+
+        protected override void Die()
+        {
+
+        }
+
     }
 }

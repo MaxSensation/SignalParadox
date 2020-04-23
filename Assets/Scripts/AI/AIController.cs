@@ -36,18 +36,18 @@ namespace AI
             _stateMachine.Run();
         }
         
-        public bool IsStunned()
+        protected bool IsStunned()
         { return _stunned;
-        }      
+        }
 
-        public virtual void Die(){}
+        protected virtual void Die(){}
 
-        public Renderer GetRenderer()
+        protected Renderer GetRenderer()
         {
             return aihRenderer;
         }
 
-        public CapsuleCollider GetCollider()
+        protected CapsuleCollider GetCollider()
         {
             return _collider;
         }
