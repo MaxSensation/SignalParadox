@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AI.Charger.AIStateMachine
 {
     [CreateAssetMenu(menuName = "AIStates/Charger/ChargeUpState")]
-    public class ChargeUpState : AiBaseState
+    public class ChargeUpState : ChargerBaseState
     {
 
         public override void Enter()
