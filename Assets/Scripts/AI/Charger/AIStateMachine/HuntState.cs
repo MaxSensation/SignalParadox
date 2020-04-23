@@ -17,11 +17,10 @@ namespace AI.Charger.AIStateMachine
             }
 
             if (!Ai.IsStunned() && CanCharge() && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < chargeDistance)
-                stateMachine.TransitionTo<ChargeState>();
+                stateMachine.TransitionTo<ChargeUpState>();
             
             if (!CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) > searchingRange)
-                stateMachine.TransitionTo<PatrolState>();
-            
+                stateMachine.TransitionTo<PatrolState>();          
         }
 
         private bool CanCharge()

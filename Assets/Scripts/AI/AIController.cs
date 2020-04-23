@@ -20,6 +20,7 @@ namespace AI
         internal CapsuleCollider _collider;
         private string _enemyType;
         internal bool isDead;
+        internal bool hasChargedUp;
 
         public static Action onTrappedPlayer;
 
@@ -45,7 +46,7 @@ namespace AI
         private IEnumerator StunTime()
         {
             yield return new WaitForSeconds(3);
-            agent.enabled = true;
+            agent.isStopped = true;
             _stunned = false;
         }
         
@@ -55,11 +56,26 @@ namespace AI
             _stunned = false;
         }
 
+        private IEnumerator ChargeTime()
+        {
+            yield return new WaitForSeconds(2);
+            agent.isStopped = false;
+            hasChargedUp = true;
+            //StopCoroutine("ChargeTime");
+        }
+
         internal void ActivateStun()
         {
-            agent.enabled = false;
+            agent.isStopped = false;
             _stunned = true;
             StartCoroutine("StunTime");
+        }
+
+        internal void ChargeUp()
+        {
+            agent.isStopped = true;
+            hasChargedUp = false;
+            StartCoroutine("ChargeTime");
         }
 
         internal void ActivateOnlyStun()
@@ -71,7 +87,7 @@ namespace AI
         public bool IsStunned()
         {
             return _stunned;
-        }
+        }      
 
         public void Die()
         {
