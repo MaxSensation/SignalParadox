@@ -9,6 +9,7 @@ namespace AI.BodyTrapper.AIStateMachine
     {
         [SerializeField] private float jumpDistance;
         [SerializeField] private float searchingRange;
+        [SerializeField] private float maxMinLookRange;
         public override void Run()
         {
             if (Ai.isDead)
@@ -17,12 +18,22 @@ namespace AI.BodyTrapper.AIStateMachine
             if (!Ai.IsStunned())
                 Ai.agent.SetDestination(Ai.target.transform.position);                
             
-            if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
-                stateMachine.TransitionTo<JumpState>();
+            if (LookingAtPlayer() && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
+                stateMachine.TransitionTo<ChargeState>();
             
             if (!CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) > searchingRange)
                 stateMachine.TransitionTo<PatrolState>();
             
+        }
+
+        private bool LookingAtPlayer()
+        {
+            var transform = Ai.transform;
+            var enemyPosition = transform.position;
+            enemyPosition = new Vector3(enemyPosition.x, 0, enemyPosition.z);
+            var playerPosition = Ai.target.transform.position;
+            playerPosition = new Vector3(playerPosition.x, 0, playerPosition.z);
+            return Vector3.Dot(transform.forward.normalized, (playerPosition - enemyPosition).normalized) > maxMinLookRange;
         }
     }
 }

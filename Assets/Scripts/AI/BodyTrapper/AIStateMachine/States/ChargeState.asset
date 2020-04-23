@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf241be877327141851c957da5800eb, type: 3}
-  m_Name: HuntState
+  m_Script: {fileID: 11500000, guid: 5120c862ba3bd6b429013723adc2a5ca, type: 3}
+  m_Name: ChargeState
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: b238e1b757e79944e8a8a7474bb8047b, type: 2}
-  jumpDistance: 5
-  searchingRange: 10
-  maxMinLookRange: 0.98
+  material: {fileID: 2100000, guid: b56f3877d49128744a310ac0c34a5f9b, type: 2}
+  chargeTime: 1

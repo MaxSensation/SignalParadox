@@ -8,9 +8,22 @@ namespace AI.BodyTrapper
     public class BodyTrapperController : AIController
     {
         private bool isStuckOnPlayer;
-        private void Start()
+        private EnemyTrigger _enemyTrigger;
+        internal bool isCharging;
+        private float chargeTime;
+        internal Vector3 jumpDirection;
+
+        private new void Awake()
         {
+            base.Awake();
+            chargeTime = 0f;
+            _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             PlayerTrapable.onPlayerTrapped += StuckOnPlayer;
+        }
+
+        private void OnDestroy()
+        {
+            PlayerTrapable.onPlayerTrapped -= StuckOnPlayer;
         }
 
         private void StuckOnPlayer(GameObject bodyTrapper)
@@ -27,10 +40,11 @@ namespace AI.BodyTrapper
 
         protected internal override void Die()
         {
-            
+            isDead = true;
         }
 
         public static Action<GameObject> onTrappedPlayer;
+
         public void ActivateStun()
         {
             agent.enabled = false;
@@ -48,9 +62,21 @@ namespace AI.BodyTrapper
         }
         internal void TouchingPlayer()
         {
-            Physics.Raycast(transform.position, (target.transform.position - transform.position).normalized, out var hit, 1f);
-            if (hit.collider && hit.collider.CompareTag("Player"))
+            if (_enemyTrigger.IsTouchingEnemy)
                 onTrappedPlayer?.Invoke(gameObject);
+        }
+
+        public void StartCharge(float chargeTime)
+        {
+            this.chargeTime = chargeTime;
+            isCharging = true;
+            StartCoroutine("ChargeTime");
+        }
+
+        private IEnumerator ChargeTime()
+        {
+            yield return new WaitForSeconds(chargeTime);
+            isCharging = false;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AI.AIStateMachine;
-using AI.Charger.AIStateMachine;
 using UnityEngine;
 
 namespace AI.BodyTrapper.AIStateMachine
@@ -8,6 +7,7 @@ namespace AI.BodyTrapper.AIStateMachine
     public class JumpState : BodyTrapperBaseState
     {
         [SerializeField] private float jumpHeight;
+        [SerializeField] private float jumpLength;
 
 
         public override void Enter()
@@ -26,6 +26,7 @@ namespace AI.BodyTrapper.AIStateMachine
             
             if (Grounded() && !Ai.IsStunned())
             {
+                Ai.agent.isStopped = false;
                 stateMachine.TransitionTo<HuntState>();
             }
         }
@@ -37,7 +38,7 @@ namespace AI.BodyTrapper.AIStateMachine
 
         private void Jump()
         {
-            Ai.rigidbody.velocity = (Ai.target.transform.position - Ai.transform.position).normalized * jumpHeight;
+            Ai.rigidbody.velocity = Ai.jumpDirection * jumpLength + Vector3.up * (jumpHeight);
         }
     }
 }
