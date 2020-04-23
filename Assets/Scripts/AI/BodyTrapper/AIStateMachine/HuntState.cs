@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AI.BodyTrapper.AIStateMachine
 {
     [CreateAssetMenu(menuName = "AIStates/BodyTrapper/HuntState")]
-    public class HuntState : AiBaseState
+    public class HuntState : BodyTrapperBaseState
     {
         [SerializeField] private float jumpDistance;
         [SerializeField] private float searchingRange;

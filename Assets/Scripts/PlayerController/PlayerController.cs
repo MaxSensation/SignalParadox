@@ -48,7 +48,6 @@ namespace PlayerController
         {
             LaserController.onLaserDeath += Die;
             SteamController.onSteamDeath += Die;
-            AIController.onTrappedPlayer += Die;
             PickupStunBaton.onStunBatonPickup += EnableStunBaton;
             PickupStunGunUpgrade.onStunGunUpgradePickup += EnableStunGun;
             _alive = true;
@@ -80,7 +79,6 @@ namespace PlayerController
         {
             LaserController.onLaserDeath -= Die;
             SteamController.onSteamDeath -= Die;
-            AIController.onTrappedPlayer -= Die;
             PickupStunBaton.onStunBatonPickup -= EnableStunBaton;
             PickupStunGunUpgrade.onStunGunUpgradePickup -= EnableStunGun;
         }

@@ -3,7 +3,7 @@
 namespace AI.Charger.AIStateMachine
 {
     [CreateAssetMenu(menuName = "AIStates/Charger/ChargeState")]
-    public class ChargeState : AiBaseState
+    public class ChargeState : ChargerBaseState
     {
         [SerializeField] private float chargeSpeed;
         private Vector3 _chargeDirection;

@@ -2,10 +2,10 @@
 
 namespace AI.Charger.AIStateMachine
 {
-    public abstract class AiBaseState : State
+    public abstract class ChargerBaseState : State
     {
-        private AIController _ai;
-        protected AIController Ai => _ai = _ai ? _ai : (AIController)owner;
+        private ChargerController _ai;
+        protected ChargerController Ai => _ai = _ai ? _ai : (ChargerController)owner;
         protected Renderer _renderer => Ai.GetRenderer();
         protected CapsuleCollider AiCollider => Ai.GetCollider();
         [SerializeField] protected Material material;

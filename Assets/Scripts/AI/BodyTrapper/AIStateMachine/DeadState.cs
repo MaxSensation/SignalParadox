@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AI.BodyTrapper.AIStateMachine
 {
     [CreateAssetMenu(menuName = "AIStates/BodyTrapper/DeadState")]
-    public class DeadState : AiBaseState
+    public class DeadState : BodyTrapperBaseState
     {
         public override void Enter()
         {
