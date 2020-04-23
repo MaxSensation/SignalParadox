@@ -5,7 +5,7 @@ using UnityEngine;
 namespace AI.BodyTrapper.AIStateMachine
 {
     [CreateAssetMenu(menuName = "AIStates/BodyTrapper/PatrolState")]
-    public class PatrolState : AiBaseState
+    public class PatrolState : BodyTrapperBaseState
     {
         [SerializeField] private float hearDistance;
         [SerializeField] private float seeDistance;

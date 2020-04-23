@@ -3,7 +3,7 @@
 namespace AI.Charger.AIStateMachine
 {
     [CreateAssetMenu(menuName = "AIStates/Charger/PatrolState")]
-    public class PatrolState : AiBaseState
+    public class PatrolState : ChargerBaseState
     {
         [SerializeField] private float seeDistance;
 

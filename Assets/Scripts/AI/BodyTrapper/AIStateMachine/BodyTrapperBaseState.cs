@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using AI.BodyTrapper;
+using UnityEngine;
 
 namespace AI.AIStateMachine
 {
     public abstract class BodyTrapperBaseState : State
     {
-        private AIController _ai;
-        protected AIController Ai => _ai = _ai ? _ai : (AIController)owner;
+        private BodyTrapperController _ai;
+        protected BodyTrapperController Ai => _ai = _ai ? _ai : (BodyTrapperController)owner;
         protected Renderer _renderer => Ai.GetRenderer();
         [SerializeField] protected Material material;
 

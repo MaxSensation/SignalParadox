@@ -5,7 +5,7 @@ using PatrolState = AI.Charger.AIStateMachine.PatrolState;
 namespace AI.Charger.AIStateMachine
 {
     [CreateAssetMenu(menuName = "AIStates/Charger/HuntState")]
-    public class HuntState : AiBaseState
+    public class HuntState : ChargerBaseState
     {
         [SerializeField] private float chargeDistance;
         [SerializeField] private float searchingRange;
