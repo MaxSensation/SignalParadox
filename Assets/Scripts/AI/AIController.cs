@@ -19,7 +19,7 @@ namespace AI
         private CapsuleCollider _collider;
         internal bool isDead;
 
-        private void Awake()
+        protected void Awake()
         {
             _collider = GetComponent<CapsuleCollider>();
             aihRenderer = transform.GetChild(0).GetComponent<Renderer>();

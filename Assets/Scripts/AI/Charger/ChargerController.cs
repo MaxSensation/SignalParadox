@@ -11,8 +11,9 @@ namespace AI.Charger
         public static Action onCrushedPlayer;
         private BoxCollider _hitCollider;
 
-        private void Awake()
+        private new void Awake()
         {
+            base.Awake();
             _hitCollider = GetComponent<BoxCollider>();
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using AI;
 using AI.BodyTrapper;
 using UnityEngine;
 
@@ -8,11 +7,13 @@ namespace PlayerController
     public class PlayerTrapable : MonoBehaviour
     {
         private HealthSystem playerHealthSystem;
+        private Transform playerMesh;
         public static Action<GameObject> onPlayerTrapped;  
         private void Awake()
         {
             BodyTrapperController.onTrappedPlayer += HandleDamage;
             playerHealthSystem = GetComponent<HealthSystem>();
+            playerMesh = transform.Find("PlayerMesh");
         }
         
         private void OnDestroy()
@@ -31,7 +32,7 @@ namespace PlayerController
     
         private void TrapPlayer(GameObject bodyTrapper)
         {
-            bodyTrapper.transform.parent = transform;
+            bodyTrapper.transform.parent = playerMesh;
             onPlayerTrapped?.Invoke(bodyTrapper);
         }
     }
