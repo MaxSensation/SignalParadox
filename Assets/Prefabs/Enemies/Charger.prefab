@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2278609319332266325}
   - component: {fileID: 2278609319332266315}
   - component: {fileID: 2278609319332266314}
-  - component: {fileID: 5481817190427764516}
   - component: {fileID: 943039648}
+  - component: {fileID: 1207686941}
   m_Layer: 0
   m_Name: Charger
   m_TagString: Enemy
@@ -73,27 +73,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &5481817190427764516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278609319332266326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87ea9a92fe883f747a061cfe4c080521, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  states:
-  - {fileID: 11400000, guid: c5d3a91db6236654eb7e2c876014835c, type: 2}
-  - {fileID: 11400000, guid: 8e05ff3fa9d76a94eacbbab7f42ff776, type: 2}
-  - {fileID: 11400000, guid: f43d2e49b1dde8042bc60d65316f5aab, type: 2}
-  waypoints: []
-  visionMask:
-    serializedVersion: 2
-    m_Bits: 256
-  moveSpeed: 0
 --- !u!136 &943039648
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -108,6 +87,28 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1207686941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2278609319332266326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac5cf02dfc0d05459fddac9f25e3758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+  - {fileID: 11400000, guid: c5d3a91db6236654eb7e2c876014835c, type: 2}
+  - {fileID: 11400000, guid: f43d2e49b1dde8042bc60d65316f5aab, type: 2}
+  - {fileID: 11400000, guid: 662263246ae7e774b932c15dd1fb171a, type: 2}
+  - {fileID: 11400000, guid: 8e05ff3fa9d76a94eacbbab7f42ff776, type: 2}
+  waypoints: []
+  visionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  moveSpeed: 0
 --- !u!1 &7022415709663250831
 GameObject:
   m_ObjectHideFlags: 0

@@ -90,8 +90,8 @@ GameObject:
   - component: {fileID: 6679593243255257507}
   - component: {fileID: 1025352779056703011}
   - component: {fileID: 5524878611636088516}
-  - component: {fileID: 5772861337741434688}
   - component: {fileID: 646537878}
+  - component: {fileID: 249009892}
   m_Layer: 0
   m_Name: BodyTrapper
   m_TagString: Enemy
@@ -152,28 +152,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &5772861337741434688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5772861337741434719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87ea9a92fe883f747a061cfe4c080521, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  states:
-  - {fileID: 11400000, guid: 03bbca302cad09e43911348891aaebb3, type: 2}
-  - {fileID: 11400000, guid: 7989879139a9a1a418ce4f90e5a64ca7, type: 2}
-  - {fileID: 11400000, guid: 39f3f94e5178a634dbddc8470ca26e6c, type: 2}
-  - {fileID: 11400000, guid: 00885cf945f101c4e970c8cb90257bef, type: 2}
-  waypoints: []
-  visionMask:
-    serializedVersion: 2
-    m_Bits: 256
-  moveSpeed: 0
 --- !u!135 &646537878
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -187,3 +165,25 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &249009892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5772861337741434719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4a6bd254c0c3b54a95e32d844628634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states:
+  - {fileID: 11400000, guid: 03bbca302cad09e43911348891aaebb3, type: 2}
+  - {fileID: 11400000, guid: 39f3f94e5178a634dbddc8470ca26e6c, type: 2}
+  - {fileID: 11400000, guid: 7989879139a9a1a418ce4f90e5a64ca7, type: 2}
+  - {fileID: 11400000, guid: 00885cf945f101c4e970c8cb90257bef, type: 2}
+  waypoints: []
+  visionMask:
+    serializedVersion: 2
+    m_Bits: 256
+  moveSpeed: 0
