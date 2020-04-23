@@ -62,7 +62,7 @@ namespace AI.BodyTrapper
         }
         internal void TouchingPlayer()
         {
-            if (_enemyTrigger.IsTouchingEnemy)
+            if (_enemyTrigger.IsTouchingObject)
                 onTrappedPlayer?.Invoke(gameObject);
         }
 

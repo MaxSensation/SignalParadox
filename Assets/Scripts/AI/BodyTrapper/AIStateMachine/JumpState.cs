@@ -17,6 +17,12 @@ namespace AI.BodyTrapper.AIStateMachine
             Ai.ActivateStun();
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+            Ai.agent.ResetPath();
+        }
+
         public override void Run()
         {
             if (Ai.isDead)
