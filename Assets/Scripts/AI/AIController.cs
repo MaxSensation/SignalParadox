@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace AI
@@ -20,10 +19,6 @@ namespace AI
         private CapsuleCollider _collider;
         internal bool isDead;
         internal bool hasChargedUp;
-
-        public static Action onTrappedPlayer;
-
-        public static Action onCrushedPlayer;
 
         private void Awake()
         {
@@ -56,13 +51,6 @@ namespace AI
         public CapsuleCollider GetCollider()
         {
             return _collider;
-        }
-
-        internal void TouchingPlayer()
-        {
-            Physics.Raycast(transform.position, (target.transform.position - transform.position).normalized, out var hit, 1f);
-            if (hit.collider && hit.collider.CompareTag("Player"))
-                onTrappedPlayer?.Invoke();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using AI.Charger.AIStateMachine;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace AI.Charger
 {
     public class ChargerController : AIController
     {
+        public static Action onCrushedPlayer;
         public void PlayerCrushed()
         {
             if (rigidbody.velocity.magnitude <= 0.001f)
