@@ -8,7 +8,8 @@ namespace PlayerController
     {
         private HealthSystem playerHealthSystem;
         private Transform playerMesh;
-        public static Action<GameObject> onPlayerTrapped;  
+        public static Action<GameObject> onTrapped;  
+        public static Action onDetached;  
         private void Awake()
         {
             BodyTrapperController.onTrappedPlayer += HandleDamage;
@@ -33,7 +34,20 @@ namespace PlayerController
         private void TrapPlayer(GameObject bodyTrapper)
         {
             bodyTrapper.transform.parent = playerMesh;
-            onPlayerTrapped?.Invoke(bodyTrapper);
+            onTrapped?.Invoke(bodyTrapper);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                DetachAllTrappers();
+            }
+        }
+
+        private void DetachAllTrappers()
+        {
+            onDetached?.Invoke();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AI.BodyTrapper.AIStateMachine
         {
             base.Enter();
             Ai.StartCharge(chargeTime);
-            Ai.agent.isStopped = true;
+            Ai.agent.enabled = false;
             var enemyPosition = Ai.transform.position;
             var playerPosition = Ai.target.transform.position;
             Ai.jumpDirection = (new Vector3(playerPosition.x, 0, playerPosition.z)  - new Vector3(enemyPosition.x, 0, enemyPosition.z)).normalized;

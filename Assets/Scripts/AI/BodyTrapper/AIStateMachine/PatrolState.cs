@@ -31,6 +31,8 @@ namespace AI.BodyTrapper.AIStateMachine
             }
             else
             {
+                Ai.agent.enabled = true;
+                Ai.agent.isStopped = false;
                 Ai.agent.SetDestination(Ai.target.transform.position);
             }
 

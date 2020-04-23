@@ -15,14 +15,9 @@ namespace AI.BodyTrapper.AIStateMachine
             base.Enter();
             Jump();
             Ai.ActivateStun();
+            Ai.canAttack = true;
         }
-
-        public override void Exit()
-        {
-            base.Exit();
-            Ai.agent.ResetPath();
-        }
-
+        
         public override void Run()
         {
             if (Ai.isDead)
@@ -30,10 +25,9 @@ namespace AI.BodyTrapper.AIStateMachine
             
             Ai.TouchingPlayer();
             
-            if (Grounded() && !Ai.IsStunned())
+            if ((Grounded() && !Ai.IsStunned()) || (!Ai.isStuckOnPlayer && !Ai.canAttack))
             {
-                Ai.agent.isStopped = false;
-                stateMachine.TransitionTo<HuntState>();
+                stateMachine.TransitionTo<PatrolState>();
             }
         }
 

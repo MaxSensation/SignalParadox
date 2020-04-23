@@ -7,23 +7,35 @@ namespace AI.BodyTrapper
 {
     public class BodyTrapperController : AIController
     {
-        private bool isStuckOnPlayer;
+        internal bool isStuckOnPlayer;
         private EnemyTrigger _enemyTrigger;
         internal bool isCharging;
         private float chargeTime;
         internal Vector3 jumpDirection;
+        internal bool canAttack;
 
         private new void Awake()
         {
             base.Awake();
             chargeTime = 0f;
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
-            PlayerTrapable.onPlayerTrapped += StuckOnPlayer;
+            PlayerTrapable.onTrapped += StuckOnPlayer;
+            PlayerTrapable.onDetached += DetachFromPlayer;
+        }
+
+        private void DetachFromPlayer()
+        {
+            GetComponent<SphereCollider>().enabled = true;
+            isStuckOnPlayer = false;
+            agent.enabled = true;
+            rigidbody.useGravity = true;
+            transform.parent = null;
         }
 
         private void OnDestroy()
         {
-            PlayerTrapable.onPlayerTrapped -= StuckOnPlayer;
+            PlayerTrapable.onTrapped -= StuckOnPlayer;
+            PlayerTrapable.onDetached -= DetachFromPlayer;
         }
 
         private void StuckOnPlayer(GameObject bodyTrapper)
@@ -33,8 +45,8 @@ namespace AI.BodyTrapper
                 GetComponent<SphereCollider>().enabled = false;
                 isStuckOnPlayer = true;
                 agent.enabled = false;
-                rigidbody.velocity = Vector3.zero;
                 rigidbody.useGravity = false;
+                rigidbody.velocity = Vector3.zero;
             }
         }
 
@@ -62,8 +74,11 @@ namespace AI.BodyTrapper
         }
         internal void TouchingPlayer()
         {
-            if (_enemyTrigger.IsTouchingObject)
+            if (_enemyTrigger.IsTouchingObject && !isStuckOnPlayer && canAttack)
+            {
+                canAttack = false;
                 onTrappedPlayer?.Invoke(gameObject);
+            }
         }
 
         public void StartCharge(float chargeTime)
