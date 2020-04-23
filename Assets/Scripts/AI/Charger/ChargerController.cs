@@ -7,6 +7,7 @@ namespace AI.Charger
 {
     public class ChargerController : AIController
     {
+        internal bool hasChargedUp;
         public static Action onCrushedPlayer;
         public void PlayerCrushed()
         {

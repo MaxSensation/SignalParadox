@@ -18,7 +18,6 @@ namespace AI
         internal Rigidbody rigidbody;
         private CapsuleCollider _collider;
         internal bool isDead;
-        internal bool hasChargedUp;
 
         private void Awake()
         {
