@@ -6,6 +6,16 @@ namespace AI.BodyTrapper
 {
     public class BodyTrapperController : AIController
     {
+        private void Start()
+        {
+            
+        }
+
+        protected internal override void Die()
+        {
+            
+        }
+
         public static Action<GameObject> onTrappedPlayer;
         public void ActivateStun()
         {

@@ -60,7 +60,7 @@ namespace AI.Charger
             return hasChargedUp;
         }
 
-        protected override void Die()
+        protected internal override void Die()
         {
 
         }
