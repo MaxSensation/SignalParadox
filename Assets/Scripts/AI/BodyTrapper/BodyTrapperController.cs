@@ -30,6 +30,7 @@ namespace AI.BodyTrapper
             agent.enabled = true;
             rigidbody.useGravity = true;
             transform.parent = null;
+            _stunned = false;
         }
 
         private void OnDestroy()

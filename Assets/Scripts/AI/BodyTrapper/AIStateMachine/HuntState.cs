@@ -10,13 +10,14 @@ namespace AI.BodyTrapper.AIStateMachine
         [SerializeField] private float jumpDistance;
         [SerializeField] private float searchingRange;
         [SerializeField] private float maxMinLookRange;
+
         public override void Run()
         {
             if (Ai.isDead)
                 stateMachine.TransitionTo<DeadState>();
             
             if (!Ai.IsStunned())
-                Ai.agent.SetDestination(Ai.target.transform.position);                
+                Ai.agent.SetDestination(Ai.target.transform.position);
             
             if (Ai.LookingAtPlayer(Ai, maxMinLookRange) && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
                 stateMachine.TransitionTo<ChargeState>();
