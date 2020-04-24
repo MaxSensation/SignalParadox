@@ -41,7 +41,7 @@ namespace AI.Charger.AIStateMachine
         private void SphereOverlapp()
         {
             var Point1 = (Ai._collider.height / 2) - Ai._collider.radius;
-            Collider[] colliders = Physics.OverlapSphere(new Vector3(Ai.transform.position.x, Point1, Ai.transform.position.z), 2f, layerMask);
+            Collider[] colliders = Physics.OverlapSphere(new Vector3(Ai.transform.position.x, Point1, Ai.transform.position.z), 1f, layerMask);
             for (int i = 0; i < colliders.Length; i++)
             {
                 Debug.Log(colliders[i].tag);

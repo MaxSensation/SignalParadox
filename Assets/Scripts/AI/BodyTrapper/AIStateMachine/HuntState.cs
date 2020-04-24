@@ -16,7 +16,7 @@ namespace AI.BodyTrapper.AIStateMachine
             if (Ai.isDead)
                 stateMachine.TransitionTo<DeadState>();
             
-            if (!Ai.IsStunned())
+            if (!Ai.IsStunned() && Ai.agent.enabled)
                 Ai.agent.SetDestination(Ai.target.transform.position);
             
             if (Ai.LookingAtPlayer(Ai, maxMinLookRange) && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
