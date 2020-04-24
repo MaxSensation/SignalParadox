@@ -25,6 +25,7 @@ namespace AI.BodyTrapper.AIStateMachine
             
             if (Ai.waypoints.Length > 0)
             {
+                if(Ai.agent.enabled)
                 Ai.agent.SetDestination(Ai.waypoints[currentPoint].position);
                 if (Vector3.Distance(Ai.transform.position, Ai.waypoints[currentPoint].position) < 1)
                     currentPoint = (currentPoint + 1) % Ai.waypoints.Length;
