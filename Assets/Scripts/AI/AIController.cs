@@ -16,7 +16,7 @@ namespace AI
         internal GameObject target;
         internal NavMeshAgent agent;
         internal Rigidbody rigidbody;
-        private CapsuleCollider _collider;
+        internal CapsuleCollider _collider;
         internal bool isDead;
 
         protected void Awake()

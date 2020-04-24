@@ -10,24 +10,15 @@ namespace AI.Charger
         private bool hasChargedUp;
         public static Action onCrushedPlayer;
         private BoxCollider _hitCollider;
+        internal bool charging;
+        private Vector3 _chargeDirection;
+        [SerializeField] private int _chargeUpTime;
+
 
         private new void Awake()
         {
             base.Awake();
             _hitCollider = GetComponent<BoxCollider>();
-        }
-
-        public void PlayerCrushed()
-        {
-            if (rigidbody.velocity.magnitude <= 0.001f)
-            {
-                if (target.transform.parent == transform)
-                    onCrushedPlayer?.Invoke();
-                target.transform.parent = null;
-                agent.enabled = true;
-                ActivateOnlyStun();
-                _stateMachine.TransitionTo<HuntState>();
-            }
         }
 
         private IEnumerator OnlyStunTime()
@@ -38,8 +29,9 @@ namespace AI.Charger
 
         private IEnumerator ChargeTime()
         {
-            yield return new WaitForSeconds(2);
-            agent.isStopped = false;
+            yield return new WaitForSeconds(_chargeUpTime);
+            if (agent.enabled)
+                agent.isStopped = false;
             hasChargedUp = true;
             //StopCoroutine("ChargeTime");
         }
@@ -59,6 +51,27 @@ namespace AI.Charger
         internal bool GetHasChargedUp()
         {
             return hasChargedUp;
+        }
+
+        internal void SetChargeDirection()
+        {
+            //Ai.agent.enabled = false;
+            //    var enemyPosition = Ai.transform.position;
+            //var playerPosition = Ai.target.transform.position;
+            //Ai.jumpDirection = (new Vector3(playerPosition.x, 0, playerPosition.z)  - new Vector3(enemyPosition.x, 0, enemyPosition.z)).normalized;
+            Vector3 enemyPosition = transform.position;
+            Vector3 playerPosition = target.transform.position;
+            _chargeDirection = (new Vector3(playerPosition.x, 0, playerPosition.z) - new Vector3(enemyPosition.x, 0, enemyPosition.z)).normalized;
+        }
+
+        internal Vector3 GetChargeDirection()
+        {
+            return _chargeDirection;
+        }
+
+        internal void KillPlayer()
+        {
+            onCrushedPlayer?.Invoke();
         }
 
         protected internal override void Die()

@@ -13,12 +13,15 @@ namespace AI.Charger.AIStateMachine
         {
             base.Enter();
             Ai.ChargeUp();
+            Ai.agent.enabled = false;
         }
 
         public override void Run()
         {
             if (Ai.GetHasChargedUp())
+            {
                 stateMachine.TransitionTo<ChargeState>();
+            }
         }
 
     }
