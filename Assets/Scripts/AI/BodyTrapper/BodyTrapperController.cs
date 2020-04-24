@@ -59,6 +59,11 @@ namespace AI.BodyTrapper
 
         private void OnDestroy()
         {
+            UnregisterEvents();
+        }
+
+        private void UnregisterEvents()
+        {
             PlayerTrapable.onTrapped -= StuckOnPlayer;
             PlayerTrapable.onDetached -= DetachFromPlayer;
             MeleeTrigger.OnEnemyWithinMeleeRange -= InRangeForPlayerMelee;
@@ -81,6 +86,8 @@ namespace AI.BodyTrapper
         {
             Debug.Log("bodytrapper is dead");
             isDead = true;
+            agent.enabled = false;
+            UnregisterEvents();
         }
 
         public static Action<GameObject> onTrappedPlayer;
