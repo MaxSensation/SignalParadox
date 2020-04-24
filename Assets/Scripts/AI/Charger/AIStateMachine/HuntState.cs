@@ -9,6 +9,7 @@ namespace AI.Charger.AIStateMachine
     {
         [SerializeField] private float chargeDistance;
         [SerializeField] private float searchingRange;
+        [SerializeField] private float maxMinLookRange;
         public override void Run()
         {
             if (!Ai.IsStunned())
@@ -16,7 +17,7 @@ namespace AI.Charger.AIStateMachine
                 Ai.agent.SetDestination(Ai.target.transform.position);   
             }
 
-            if (!Ai.IsStunned() && CanCharge() && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < chargeDistance)
+            if (Ai.LookingAtPlayer(Ai, maxMinLookRange) && !Ai.IsStunned() && CanCharge() && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < chargeDistance)
                 stateMachine.TransitionTo<ChargeUpState>();
             
             if (!CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) > searchingRange)

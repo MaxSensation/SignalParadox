@@ -51,5 +51,15 @@ namespace AI
         {
             return _collider;
         }
+
+        internal bool LookingAtPlayer(AIController Ai, float maxMinLookRange)
+        {
+            var transform = Ai.transform;
+            var enemyPosition = transform.position;
+            enemyPosition = new Vector3(enemyPosition.x, 0, enemyPosition.z);
+            var playerPosition = Ai.target.transform.position;
+            playerPosition = new Vector3(playerPosition.x, 0, playerPosition.z);
+            return Vector3.Dot(transform.forward.normalized, (playerPosition - enemyPosition).normalized) > maxMinLookRange;
+        }
     }
 }
