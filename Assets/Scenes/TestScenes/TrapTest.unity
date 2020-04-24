@@ -133,6 +133,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BodyTrapper (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5772861337741434719, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6679593243255257507, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -205,7 +210,7 @@ PrefabInstance:
     - target: {fileID: 581608018331421526, guid: 4e0a8e13fce9ac8499757fe02e1b9d44,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.207
+      value: -9.454
       objectReference: {fileID: 0}
     - target: {fileID: 581608018331421526, guid: 4e0a8e13fce9ac8499757fe02e1b9d44,
         type: 3}
@@ -215,7 +220,7 @@ PrefabInstance:
     - target: {fileID: 581608018331421526, guid: 4e0a8e13fce9ac8499757fe02e1b9d44,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 581608018331421526, guid: 4e0a8e13fce9ac8499757fe02e1b9d44,
         type: 3}
@@ -230,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 581608018331421526, guid: 4e0a8e13fce9ac8499757fe02e1b9d44,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 581608018331421526, guid: 4e0a8e13fce9ac8499757fe02e1b9d44,
         type: 3}
@@ -240,7 +245,7 @@ PrefabInstance:
     - target: {fileID: 581608018331421526, guid: 4e0a8e13fce9ac8499757fe02e1b9d44,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 581608018331421526, guid: 4e0a8e13fce9ac8499757fe02e1b9d44,
         type: 3}
@@ -270,6 +275,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BodyTrapper (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5772861337741434719, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6679593243255257507, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
         type: 3}
@@ -339,6 +349,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BodyTrapper (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5772861337741434719, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6679593243255257507, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
         type: 3}
@@ -486,7 +501,7 @@ PrefabInstance:
     - target: {fileID: 5312461777412064972, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 34.6
+      value: 23.41
       objectReference: {fileID: 0}
     - target: {fileID: 5312461777412064972, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
@@ -796,14 +811,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1207686941, guid: 9f76881a68b98234a88a6847eee1e010, type: 3}
-      propertyPath: waypoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 1170557552}
-    - target: {fileID: 1207686941, guid: 9f76881a68b98234a88a6847eee1e010, type: 3}
-      propertyPath: waypoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 1095528846}
     - target: {fileID: 2278609319332266325, guid: 9f76881a68b98234a88a6847eee1e010,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -863,11 +870,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Charger
-      objectReference: {fileID: 0}
-    - target: {fileID: 2278609319332266326, guid: 9f76881a68b98234a88a6847eee1e010,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f76881a68b98234a88a6847eee1e010, type: 3}
@@ -1128,6 +1130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BodyTrapper (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5772861337741434719, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6679593243255257507, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
         type: 3}
@@ -1869,6 +1876,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BodyTrapper (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5772861337741434719, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6679593243255257507, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
         type: 3}
