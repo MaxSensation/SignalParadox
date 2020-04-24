@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AI;
+using PlayerController;
 
 namespace AI
 {
@@ -9,7 +11,7 @@ namespace AI
         [SerializeField] internal Transform[] waypoints;
         [SerializeField] internal LayerMask visionMask;
         [SerializeField] private float moveSpeed;
-        
+
         protected StateMachine _stateMachine;
         protected bool _stunned;
         private Renderer aihRenderer;
@@ -35,12 +37,13 @@ namespace AI
             agent.speed = moveSpeed;
             _stateMachine.Run();
         }
-        
+
         protected internal bool IsStunned()
-        { return _stunned;
+        {
+            return _stunned;
         }
 
-        protected internal virtual void Die(){}
+        protected internal virtual void Die() { }
 
         protected internal Renderer GetRenderer()
         {

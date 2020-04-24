@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474691258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.067, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 940996568}
@@ -103,6 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1955128878}
   - component: {fileID: 1955128879}
+  - component: {fileID: 1632547124}
   m_Layer: 10
   m_Name: MeleeTrigger
   m_TagString: Untagged
@@ -118,7 +119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955128877}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.0669992, z: 0}
+  m_LocalPosition: {x: 0, y: 0.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 940996568}
@@ -135,8 +136,20 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.4, z: 0.6}
-  m_Center: {x: 0, y: 0, z: 0.4}
+  m_Size: {x: 0.8, y: 1.4, z: 1.33}
+  m_Center: {x: 0, y: 0, z: 0.72}
+--- !u!114 &1632547124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955128877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c592028ee33d69f4eb8e59d513df8f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &87441833408838613
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,7 +1693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c93a1f9b5d8461479e5584d9356c932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
+  maxHealth: 0
 --- !u!114 &5312461777412064973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1721,8 +1734,8 @@ MonoBehaviour:
   collisionLayer:
     serializedVersion: 2
     m_Bits: 256
-  hasStunBaton: 0
-  hasStunGunUpgrade: 0
+  hasStunBaton: 1
+  hasStunGunUpgrade: 1
   velocity: {x: 0, y: 0, z: 0}
   _layermask:
     serializedVersion: 2
@@ -2311,7 +2324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7140406853601443953}
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 1.4669993, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 940996568}

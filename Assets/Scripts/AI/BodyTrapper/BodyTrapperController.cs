@@ -13,6 +13,7 @@ namespace AI.BodyTrapper
         private float chargeTime;
         internal Vector3 jumpDirection;
         internal bool canAttack;
+        private bool _enemyWithinPlayerMelee;
 
         private new void Awake()
         {
@@ -21,6 +22,29 @@ namespace AI.BodyTrapper
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
+            MeleeTrigger.OnEnemyWithinMeleeRange += InRangeForPlayerMelee;
+            MeleeTrigger.OnEnemyOutsideMeleeRange += OutOfRangeForPlayerMelee;
+            PlayerController.PlayerController.OnMeleeEvent += DieOnPlayerMelee;
+        }
+
+        private void DieOnPlayerMelee()
+        {
+            if (_enemyWithinPlayerMelee && !isStuckOnPlayer)
+                Die();
+        }
+
+        private void OutOfRangeForPlayerMelee(GameObject obj)
+        {
+            Debug.Log("OutOfRangeForPlayerMelee");
+            if (obj.gameObject.Equals(gameObject))
+                _enemyWithinPlayerMelee = false;
+        }
+
+        private void InRangeForPlayerMelee(GameObject obj)
+        {
+            Debug.Log("InRangeForPlayerMelee");
+            if (obj.gameObject.Equals(gameObject))
+                _enemyWithinPlayerMelee = true;
         }
 
         private void DetachFromPlayer()
@@ -37,11 +61,13 @@ namespace AI.BodyTrapper
         {
             PlayerTrapable.onTrapped -= StuckOnPlayer;
             PlayerTrapable.onDetached -= DetachFromPlayer;
+            MeleeTrigger.OnEnemyWithinMeleeRange -= InRangeForPlayerMelee;
+            MeleeTrigger.OnEnemyOutsideMeleeRange -= OutOfRangeForPlayerMelee;
         }
 
         private void StuckOnPlayer(GameObject bodyTrapper)
         {
-            if (bodyTrapper == gameObject)
+            if (bodyTrapper == gameObject && !isDead)
             {
                 GetComponent<SphereCollider>().enabled = false;
                 isStuckOnPlayer = true;
@@ -53,6 +79,7 @@ namespace AI.BodyTrapper
 
         protected internal override void Die()
         {
+            Debug.Log("bodytrapper is dead");
             isDead = true;
         }
 

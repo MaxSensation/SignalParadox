@@ -43,7 +43,9 @@ namespace PlayerController
         
         // Events
         public static Action onPlayerDeath;
-        
+        public static Action OnMeleeEvent;
+
+
         private void Awake()
         {
             LaserController.onLaserDeath += Die;
@@ -109,6 +111,10 @@ namespace PlayerController
             MoveCamera();
         }
 
+        internal void OnMelee()
+        {
+            OnMeleeEvent?.Invoke();
+        }
 
         private void Die(GameObject o)
         {
