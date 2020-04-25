@@ -95,7 +95,8 @@ namespace AI.BodyTrapper
         {
             Debug.Log("bodytrapper is dead");
             isDead = true;
-            agent.enabled = false;
+            if (agent != null)
+                agent.enabled = false;
             UnregisterEvents();
         }
 
