@@ -86,13 +86,11 @@ namespace Traps
 
         private void ActivateLasers()
         {
-            _isLaserOn = true;
             StartCoroutine("ActivateWithDelay");
         }
 
         private void DeactivateLasers()
         {
-            _isLaserOn = false;
             StartCoroutine("DeactivateWithDelay");
         }
 
@@ -104,6 +102,7 @@ namespace Traps
                 yield return new WaitForSeconds(betweenLaserDelay);
             }
 
+            _isLaserOn = true;
             onStartLaserWallOn = true;
         }
     
@@ -115,7 +114,7 @@ namespace Traps
                 l.turnOff.Invoke();
                 yield return new WaitForSeconds(betweenLaserDelay);
             }
-
+            _isLaserOn = false;
             onStartLaserWallOn = false;
         }
     }
