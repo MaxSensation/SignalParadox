@@ -15,6 +15,9 @@ namespace PlayerStateMachine
         
         public override void Run()
         {
+            if (Player.GetIsPlayerCharged())
+                stateMachine.TransitionTo<ChargedState>();
+
             // If grounded then change to land State
             if (Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider && Vector3.Dot(Velocity, Vector3.down) > 0.5f)
                 stateMachine.TransitionTo<LandState>();

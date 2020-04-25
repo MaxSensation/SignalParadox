@@ -12,6 +12,9 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] private float maxMinLookRange;
         public override void Run()
         {
+            if (Ai.isDead)
+                stateMachine.TransitionTo<DeadState>();
+
             if (!Ai.IsStunned())
             {
                 Ai.agent.SetDestination(Ai.target.transform.position);
