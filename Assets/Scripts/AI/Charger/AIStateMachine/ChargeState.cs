@@ -17,7 +17,6 @@ namespace AI.Charger.AIStateMachine
 
         public override void Run()
         {
-            SphereOverlapp();
             if (!Ai.IsStunned())
                 Charge();
             if (TouchingPlayer())
@@ -38,25 +37,9 @@ namespace AI.Charger.AIStateMachine
             Ai.rigidbody.AddForce(_chargeDirection.normalized * chargeSpeed);
         }
 
-        private void SphereOverlapp()
-        {
-            var Point1 = (Ai._collider.height / 2) - Ai._collider.radius;
-            Collider[] colliders = Physics.OverlapSphere(new Vector3(Ai.transform.position.x, Point1, Ai.transform.position.z), 1f, layerMask);
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                Debug.Log(colliders[i].tag);
-                if (colliders[i].CompareTag("Finish") || colliders[i].CompareTag("Player"))
-                {
-                    Ai.charging = false;
-                }
-                else
-                    Ai.charging = true;
-            }
-        }
-
         public void PlayerCrushed()
         {
-            if (Ai.rigidbody.velocity.magnitude <= 0.001f && !Ai.charging)
+            if (Ai.rigidbody.velocity.magnitude <= 0.001f && Ai.GetHasCollidedWithColliders())
             {
                 if (Ai.target.transform.parent == Ai.transform)
                     Ai.KillPlayer();
