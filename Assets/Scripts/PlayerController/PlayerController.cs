@@ -52,6 +52,7 @@ namespace PlayerController
         {
             LaserController.onLaserDeath += Die;
             SteamController.onSteamDeath += Die;
+            PlayerTrapable.onPlayerTrappedEvent += Die;
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
             PickupStunBaton.onStunBatonPickup += EnableStunBaton;
@@ -85,6 +86,7 @@ namespace PlayerController
         {
             LaserController.onLaserDeath -= Die;
             SteamController.onSteamDeath -= Die;
+            PlayerTrapable.onPlayerTrappedEvent -= Die;
             ChargerController.onCrushedPlayerEvent -= Die;
             ChargerController.CaughtPlayerEvent -= PlayerIsCharged;
             PickupStunBaton.onStunBatonPickup -= EnableStunBaton;
