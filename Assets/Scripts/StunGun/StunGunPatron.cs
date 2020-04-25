@@ -27,6 +27,8 @@ namespace StunGun
         private Rigidbody _rigidbody;
         private bool isDestoryd;
         private bool _hasCreateDebries;
+
+        public static Action<GameObject> onDeathByStunGunEvent;
         
         // Lighting Effect
         private LineRenderer _lineRenderer;
@@ -100,7 +102,7 @@ namespace StunGun
             if (other.collider)
             {
                 if (other.collider.CompareTag("Enemy")){
-                    other.collider.GetComponent<AIController>().Die();
+                    onDeathByStunGunEvent?.Invoke(other.gameObject);
                     DestroyEverthing();
                 }
                 else
