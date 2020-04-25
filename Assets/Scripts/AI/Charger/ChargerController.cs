@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using AI.Charger.AIStateMachine;
+using Traps;
 using UnityEngine;
 
 namespace AI.Charger
@@ -21,6 +22,18 @@ namespace AI.Charger
             base.Awake();
             _hitCollider = GetComponent<BoxCollider>();
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
+            LaserController.onLaserDeath += OnDeathByLaser;
+        }
+
+        private void OnDestroy()
+        {
+            LaserController.onLaserDeath -= OnDeathByLaser;
+        }
+
+        private void OnDeathByLaser(GameObject obj)
+        {
+            if (obj.Equals(gameObject))
+                Die();
         }
 
         private IEnumerator OnlyStunTime()
@@ -89,7 +102,9 @@ namespace AI.Charger
 
         protected internal override void Die()
         {
-
+            isDead = true;
+            if (agent != null)
+                agent.enabled = false;
         }
 
     }
