@@ -148,7 +148,8 @@ MonoBehaviour:
   laserDensity: 0.2
   wallHeight: 2
   onStartLaserWallOn: 1
-  delay: 0.1
+  betweenLaserDelay: 0.2
+  startDelay: 1
 --- !u!1 &7146868348599294425
 GameObject:
   m_ObjectHideFlags: 0
