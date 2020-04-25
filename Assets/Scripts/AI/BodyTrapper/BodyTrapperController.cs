@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using PlayerController;
+using Traps;
 using UnityEngine;
 
 namespace AI.BodyTrapper
@@ -25,6 +26,13 @@ namespace AI.BodyTrapper
             MeleeTrigger.OnEnemyWithinMeleeRange += InRangeForPlayerMelee;
             MeleeTrigger.OnEnemyOutsideMeleeRange += OutOfRangeForPlayerMelee;
             PlayerController.PlayerController.OnMeleeEvent += DieOnPlayerMelee;
+            LaserController.onLaserDeath += OnDeathByLaser;
+        }
+
+        private void OnDeathByLaser(GameObject obj)
+        {
+            if (obj == gameObject)
+                Die();
         }
 
         private void DieOnPlayerMelee()
@@ -68,6 +76,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onDetached -= DetachFromPlayer;
             MeleeTrigger.OnEnemyWithinMeleeRange -= InRangeForPlayerMelee;
             MeleeTrigger.OnEnemyOutsideMeleeRange -= OutOfRangeForPlayerMelee;
+            LaserController.onLaserDeath -= OnDeathByLaser;
         }
 
         private void StuckOnPlayer(GameObject bodyTrapper)

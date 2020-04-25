@@ -66,7 +66,7 @@ namespace Traps
             {
                 var hit = _hit.collider.gameObject;
                 if (hit.CompareTag("Player") || hit.CompareTag("Enemy"))
-                    onLaserDeath?.Invoke(hit.gameObject);
+                    onLaserDeath?.Invoke(hit);
             }
         }
 
