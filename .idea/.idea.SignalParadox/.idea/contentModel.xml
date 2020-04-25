@@ -24,6 +24,7 @@
                 <e p="ChargerBaseState.cs" t="Include" />
                 <e p="ChargeState.cs" t="Include" />
                 <e p="ChargeUpState.cs" t="Include" />
+                <e p="DeadState.cs" t="Include" />
                 <e p="HuntState.cs" t="Include" />
                 <e p="PatrolState.cs" t="Include" />
               </e>
@@ -65,6 +66,7 @@
             <e p="PlayerController.cs" t="Include" />
             <e p="PlayerInteractionTrigger.cs" t="Include" />
             <e p="PlayerStateMachine" t="Include">
+              <e p="ChargedState.cs" t="Include" />
               <e p="CrouchState.cs" t="Include" />
               <e p="FireState.cs" t="Include" />
               <e p="InAirState.cs" t="Include" />
