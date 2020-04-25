@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Managers
@@ -21,7 +20,12 @@ namespace Managers
         {
             if (checkPointLoaded)
             {
-                GameObject.FindWithTag("Player").transform.position = new Vector3(loadedCheckPoint.playerPosition[0], loadedCheckPoint.playerPosition[1], loadedCheckPoint.playerPosition[2]);
+                var player = GameObject.FindWithTag("Player");
+                    
+                player.transform.position = new Vector3(loadedCheckPoint.playerPosition[0], loadedCheckPoint.playerPosition[1], loadedCheckPoint.playerPosition[2]);
+                var playerController = player.GetComponent<PlayerController.PlayerController>();
+                playerController.hasStunBaton = loadedCheckPoint.hasStunBaton;
+                playerController.hasStunGunUpgrade = loadedCheckPoint.hasStunGunUpgrade;
                 checkPointLoaded = false;
             }
         }

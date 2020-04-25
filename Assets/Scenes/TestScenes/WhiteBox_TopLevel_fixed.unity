@@ -4075,9 +4075,9 @@ Transform:
   - {fileID: 1330978185}
   - {fileID: 178482442}
   - {fileID: 419201945}
+  - {fileID: 1190580721}
   - {fileID: 1633750111}
   - {fileID: 677492078}
-  - {fileID: 1190580721}
   - {fileID: 787886512}
   m_Father: {fileID: 481866254}
   m_RootOrder: 2
@@ -20764,7 +20764,7 @@ Transform:
   m_LocalScale: {x: 0.68757, y: 1.0315479, z: 1.0189787}
   m_Children: []
   m_Father: {fileID: 172691155}
-  m_RootOrder: 31
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1190580722
 BoxCollider:
@@ -28438,6 +28438,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312461777412064973, guid: 18a82ee408a047c4da4d7f2749b3f226,
+        type: 3}
+      propertyPath: hasStunGunUpgrade
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5312461777412064973, guid: 18a82ee408a047c4da4d7f2749b3f226,
+        type: 3}
+      propertyPath: hasStunBaton
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5312461777412064974, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
