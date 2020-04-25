@@ -731,6 +731,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000,
         type: 0}
+    - target: {fileID: -927199367670048503, guid: b1b6bf2bb2518774eb9a179da8542c52,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b6bf2bb2518774eb9a179da8542c52, type: 3}
 --- !u!4 &13894743 stripped
@@ -4055,6 +4060,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WH_Hylla6x5x1 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b1b6bf2bb2518774eb9a179da8542c52,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b6bf2bb2518774eb9a179da8542c52, type: 3}
 --- !u!4 &87721251 stripped
@@ -4151,6 +4161,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000,
         type: 0}
+    - target: {fileID: -927199367670048503, guid: b1b6bf2bb2518774eb9a179da8542c52,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b6bf2bb2518774eb9a179da8542c52, type: 3}
 --- !u!4 &92163699 stripped
@@ -6840,6 +6855,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WH_Hylla6x5x1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b1b6bf2bb2518774eb9a179da8542c52,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b6bf2bb2518774eb9a179da8542c52, type: 3}
@@ -9931,8 +9951,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.9444726, y: 3, z: 1}
-  m_Center: {x: -1.1871821, y: 1.5, z: 0.5}
+  m_Size: {x: 1.9444726, y: 4.009078, z: 1}
+  m_Center: {x: -1.1871821, y: 2.004539, z: 0.5}
 --- !u!1001 &244228228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23055,6 +23075,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WH_Hylla6x5x1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b1b6bf2bb2518774eb9a179da8542c52,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b6bf2bb2518774eb9a179da8542c52, type: 3}
 --- !u!4 &569221689 stripped
@@ -27633,8 +27658,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 27.057625, y: 0.1500001, z: 49.136417}
-  m_Center: {x: 26.523891, y: -2, z: -13.55213}
+  m_Size: {x: 27.057625, y: 1, z: 49.136417}
+  m_Center: {x: 26.523891, y: -2.5, z: -13.55213}
 --- !u!65 &694533993
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27646,8 +27671,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.215782, y: 0.15, z: 8.063849}
-  m_Center: {x: 20.057892, y: -0.075, z: -19.032043}
+  m_Size: {x: 14.215782, y: 1, z: 8.063849}
+  m_Center: {x: 20.057892, y: -0.5, z: -19.032043}
 --- !u!65 &694533994
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27659,8 +27684,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15.85, y: 0.15, z: 16.180193}
-  m_Center: {x: 5.0110416, y: -0.075, z: -24.986286}
+  m_Size: {x: 15.85, y: 1, z: 16.180193}
+  m_Center: {x: 5.0110416, y: -0.5, z: -24.986286}
 --- !u!65 &694533995
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27672,8 +27697,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 25.461971, y: 0.15, z: 30.035799}
-  m_Center: {x: 9.771921, y: -0.075, z: -1.9240999}
+  m_Size: {x: 25.461971, y: 1, z: 30.035799}
+  m_Center: {x: 9.771921, y: -0.5, z: -1.9240999}
 --- !u!4 &694533996
 Transform:
   m_ObjectHideFlags: 0
@@ -49967,6 +49992,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WH_Hylla6x5x1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b1b6bf2bb2518774eb9a179da8542c52,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b6bf2bb2518774eb9a179da8542c52, type: 3}
 --- !u!4 &1248260812 stripped
@@ -66695,6 +66725,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WH_Hylla6x5x1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b1b6bf2bb2518774eb9a179da8542c52,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b6bf2bb2518774eb9a179da8542c52, type: 3}
@@ -86588,6 +86623,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WH_Hylla6x5x1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: b1b6bf2bb2518774eb9a179da8542c52,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b6bf2bb2518774eb9a179da8542c52, type: 3}
