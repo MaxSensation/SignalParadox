@@ -11,6 +11,9 @@ namespace PlayerStateMachine
         {
             //Debug.Log("Entered Jump State");
             // Add JumpForce and GravityForce to PlayerVelocity
+            if (Player.GetIsPlayerCharged())
+                stateMachine.TransitionTo<ChargedState>();
+
             Velocity += Vector3.up * jumpHeight;
             // Change to In Air State
             stateMachine.TransitionTo<InAirState>();

@@ -12,16 +12,16 @@ namespace AI.Charger.AIStateMachine
         {
             base.Enter();
             Ai.charging = true;
-            Debug.Log("Enterd Charge State");
         }
 
         public override void Run()
         {
             if (!Ai.IsStunned())
                 Charge();
-            if (TouchingPlayer())
+            if (Ai.GetHasCollidedWithTaggedObjet())
             {
                 Ai.target.transform.parent = Ai.transform;
+                Ai.CaughtPlayer();
             }
             PlayerCrushed();
         }

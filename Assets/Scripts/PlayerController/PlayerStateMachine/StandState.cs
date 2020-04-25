@@ -11,6 +11,9 @@ namespace PlayerStateMachine
         }
         public override void Run()
         {
+            if (Player.GetIsPlayerCharged())
+                stateMachine.TransitionTo<ChargedState>();
+
             // If any move Input then change to MoveState
             if (new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).magnitude > 0f)
                 stateMachine.TransitionTo<WalkState>();

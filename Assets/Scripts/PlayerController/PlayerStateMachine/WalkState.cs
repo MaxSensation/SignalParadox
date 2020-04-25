@@ -16,6 +16,9 @@ namespace PlayerStateMachine
         
         public override void Run()
         {
+            if (Player.GetIsPlayerCharged())
+                stateMachine.TransitionTo<ChargedState>();
+
             // If Player is on Ground and the Player is pressing the jumpKey then change state to JumpState
             if (Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider && Input.GetKeyDown(KeyCode.Space))
                 stateMachine.TransitionTo<JumpState>();

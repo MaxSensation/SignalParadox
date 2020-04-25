@@ -12,6 +12,8 @@ namespace PlayerStateMachine
         {
             Melee();
             Debug.Log("Entered Melee");
+            if (Player.GetIsPlayerCharged())
+                stateMachine.TransitionTo<ChargedState>();
             stateMachine.UnStackState();
         }
 

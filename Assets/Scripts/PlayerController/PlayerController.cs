@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using AI;
+using AI.Charger;
 using Pickups;
 using Traps;
 using UnityEngine;
@@ -40,7 +41,8 @@ namespace PlayerController
         private Vector3 _point2;
         private GameObject _playerMesh;
         private bool _alive;
-        
+        private bool isPlayerCharged;
+
         // Events
         public static Action onPlayerDeath;
         public static Action OnMeleeEvent;
@@ -50,6 +52,8 @@ namespace PlayerController
         {
             LaserController.onLaserDeath += Die;
             SteamController.onSteamDeath += Die;
+            ChargerController.onCrushedPlayerEvent += Die;
+            ChargerController.CaughtPlayerEvent += PlayerIsCharged;
             PickupStunBaton.onStunBatonPickup += EnableStunBaton;
             PickupStunGunUpgrade.onStunGunUpgradePickup += EnableStunGun;
             _alive = true;
@@ -81,6 +85,8 @@ namespace PlayerController
         {
             LaserController.onLaserDeath -= Die;
             SteamController.onSteamDeath -= Die;
+            ChargerController.onCrushedPlayerEvent -= Die;
+            ChargerController.CaughtPlayerEvent -= PlayerIsCharged;
             PickupStunBaton.onStunBatonPickup -= EnableStunBaton;
             PickupStunGunUpgrade.onStunGunUpgradePickup -= EnableStunGun;
         }
@@ -357,6 +363,16 @@ namespace PlayerController
         internal Vector3 GetPlayerCameraDirection()
         {
             return _playerMesh.transform.forward;
+        }
+
+        internal bool GetIsPlayerCharged()
+        {
+            return isPlayerCharged;
+        }
+
+        private void PlayerIsCharged()
+        {
+            isPlayerCharged = true;
         }
 
         public Vector2 GetCameraRotation()

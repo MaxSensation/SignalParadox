@@ -24,6 +24,9 @@ namespace PlayerStateMachine
 
         public override void Run()
         {
+            if (Player.GetIsPlayerCharged())
+                stateMachine.TransitionTo<ChargedState>();
+
             // Get Input from user
             var inputVector = GetPushVector();
 

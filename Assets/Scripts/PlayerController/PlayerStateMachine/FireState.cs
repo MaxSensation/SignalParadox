@@ -14,6 +14,9 @@ namespace PlayerStateMachine
 
         private void Fire()
         {
+            if (Player.GetIsPlayerCharged())
+                stateMachine.TransitionTo<ChargedState>();
+
             if (Player.hasReloaded)
             {
                 Instantiate(stunGunPatron, Player.transform.position, Quaternion.Euler(CameraRotation.y - 10f, CameraRotation.x, Rotation.z));

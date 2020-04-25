@@ -7,14 +7,14 @@ namespace AI.Charger
 {
     public class ChargerController : AIController
     {
+        public static Action onCrushedPlayerEvent;
+        public static Action CaughtPlayerEvent;
         private bool hasChargedUp;
-        public static Action onCrushedPlayer;
         private BoxCollider _hitCollider;
         internal bool charging;
         private Vector3 _chargeDirection;
         private EnemyTrigger _enemyTrigger;
         [SerializeField] private int _chargeUpTime;
-
 
         private new void Awake()
         {
@@ -79,7 +79,12 @@ namespace AI.Charger
 
         internal void KillPlayer()
         {
-            onCrushedPlayer?.Invoke();
+            onCrushedPlayerEvent?.Invoke();
+        }
+
+        internal void CaughtPlayer()
+        {
+            CaughtPlayerEvent?.Invoke();
         }
 
         protected internal override void Die()
