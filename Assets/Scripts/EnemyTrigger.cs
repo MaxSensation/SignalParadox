@@ -3,7 +3,8 @@
 public class EnemyTrigger : MonoBehaviour
 {
     [SerializeField] private string[] tags;
-    public bool IsTouchingObject { get; private set; }
+    public bool IsTouchingTaggedObject { get; private set; }
+    public bool IsTouchingLayerObject { get; private set; }
     public string[] TouchingTags { get; private set; }
 
     private void Awake()
@@ -17,23 +18,32 @@ public class EnemyTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer.Equals(LayerMask.NameToLayer("Colliders")))
+        {
+            IsTouchingLayerObject = true;
+        }
         for (var i = 0; i < tags.Length; i++)
         {
             if (other.CompareTag(tags[i]))
             {
-                IsTouchingObject = true;
+                IsTouchingTaggedObject = true;
                 TouchingTags[i] = "true";
             }
         }
     }
+
     
     private void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.layer.Equals(LayerMask.NameToLayer("Colliders")))
+        {
+            IsTouchingLayerObject = false;
+        }
         for (var i = 0; i < tags.Length; i++)
         {
             if (other.CompareTag(tags[i]))
             {
-                IsTouchingObject = false;
+                IsTouchingTaggedObject = false;
                 TouchingTags[i] = "false";
             }
         }

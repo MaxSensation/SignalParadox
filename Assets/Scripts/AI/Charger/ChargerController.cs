@@ -12,6 +12,7 @@ namespace AI.Charger
         private BoxCollider _hitCollider;
         internal bool charging;
         private Vector3 _chargeDirection;
+        private EnemyTrigger _enemyTrigger;
         [SerializeField] private int _chargeUpTime;
 
 
@@ -19,6 +20,7 @@ namespace AI.Charger
         {
             base.Awake();
             _hitCollider = GetComponent<BoxCollider>();
+            _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
         }
 
         private IEnumerator OnlyStunTime()
@@ -55,10 +57,6 @@ namespace AI.Charger
 
         internal void SetChargeDirection()
         {
-            //Ai.agent.enabled = false;
-            //    var enemyPosition = Ai.transform.position;
-            //var playerPosition = Ai.target.transform.position;
-            //Ai.jumpDirection = (new Vector3(playerPosition.x, 0, playerPosition.z)  - new Vector3(enemyPosition.x, 0, enemyPosition.z)).normalized;
             Vector3 enemyPosition = transform.position;
             Vector3 playerPosition = target.transform.position;
             _chargeDirection = (new Vector3(playerPosition.x, 0, playerPosition.z) - new Vector3(enemyPosition.x, 0, enemyPosition.z)).normalized;
@@ -67,6 +65,16 @@ namespace AI.Charger
         internal Vector3 GetChargeDirection()
         {
             return _chargeDirection;
+        }
+
+        internal bool GetHasCollidedWithColliders()
+        {
+            return _enemyTrigger.IsTouchingLayerObject;
+        }
+
+        internal bool GetHasCollidedWithTaggedObjet()
+        {
+            return _enemyTrigger.IsTouchingTaggedObject;
         }
 
         internal void KillPlayer()
