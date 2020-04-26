@@ -1793,7 +1793,7 @@ Animator:
   m_GameObject: {fileID: 5312461777412064974}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 05e90ad3250b78f409b9956b7e190563, type: 3}
-  m_Controller: {fileID: 9100000, guid: 446d80846d08ae047a69f789a503f93a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 274e0da6a93e9414c954cb93dc944e8e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1869,7 +1869,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.2
+  near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 0
