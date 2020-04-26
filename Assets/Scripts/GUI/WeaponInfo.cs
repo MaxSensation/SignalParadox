@@ -26,7 +26,6 @@ public class WeaponInfo : MonoBehaviour
     
     private void LoadCheckPointData(CheckPoint checkPoint)
     {
-        Debug.Log("Hello");
         if(checkPoint.hasStunBaton)
             ActivateStunGunGUI();
         if(checkPoint.hasStunGunUpgrade)
