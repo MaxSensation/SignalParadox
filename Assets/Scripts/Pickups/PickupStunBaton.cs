@@ -1,4 +1,6 @@
-﻿using System;
+﻿//TODO Create one Class that does the below and the pickupStunGunUpgrade
+
+using System;
 using UnityEngine;
 
 namespace Pickups
