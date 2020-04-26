@@ -1,4 +1,6 @@
-﻿using System;
+﻿//TODO Create one Class that does the below and the pickupStunGun
+
+using System;
 using UnityEngine;
 
 namespace Pickups
@@ -10,7 +12,6 @@ namespace Pickups
         {
             if (other && other.CompareTag("Player"))
             {
-                Debug.Log("Found StunGunUpgrade");
                 onStunGunUpgradePickup?.Invoke();
                 Destroy(gameObject);
             }
