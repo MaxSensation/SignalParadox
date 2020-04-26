@@ -101,8 +101,8 @@ namespace PlayerController
             RotatePlayerMesh();
             // Run CurrentState
             _stateMachine.Run();
-            //CheckForButtonAfterPush
-            // TryPushButton();
+            //Ta bort efter spelredovisning
+            CheckIfPressedRestart();
             // Add gravity to velocity
             velocity += Physic3D.GetGravity();
             // Limit the velocity to terminalVelocity
@@ -117,6 +117,12 @@ namespace PlayerController
             RotateCamera();
             // Move Camera based on thirdPerson or firstPerson
             MoveCamera();
+        }
+
+        private void CheckIfPressedRestart()
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+                Die();
         }
 
         internal void OnMelee()
