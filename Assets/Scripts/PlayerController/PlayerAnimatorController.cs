@@ -14,11 +14,20 @@ namespace PlayerController
 
         private void Update()
         {
-            _animator.SetFloat("vertical", Input.GetAxis("Vertical"));
-            _animator.SetFloat("horizontal", Input.GetAxis("Horizontal"));
+            _animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
+            _animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
             if (Input.GetKeyDown(KeyCode.Space))
-                _animator.SetTrigger("jump");
-            
+                _animator.SetTrigger("Jump");
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                _animator.SetBool("Crouch", true);
+            }
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                _animator.SetBool("Crouch", false);
+            }
+
+
         }
     }
 }
