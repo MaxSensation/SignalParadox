@@ -84,6 +84,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onDetached -= DetachFromPlayer;
             MeleeTrigger.OnEnemyWithinMeleeRange -= InRangeForPlayerMelee;
             MeleeTrigger.OnEnemyOutsideMeleeRange -= OutOfRangeForPlayerMelee;
+            StunGunPatron.onDeathByStunGunEvent -= OnDeathByStunGun;
             LaserController.onLaserDeath -= OnDeathByLaser;
         }
 
