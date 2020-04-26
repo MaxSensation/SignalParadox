@@ -3048,8 +3048,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.6460304, y: 3, z: 1.0111308}
-  m_Center: {x: 2.0274906, y: 0.9005554, z: 1.0520452}
+  m_Size: {x: 3.9292984, y: 3, z: 1.0111308}
+  m_Center: {x: 1.6691244, y: 0.9005554, z: 1.0520452}
 --- !u!33 &64827624
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3356,8 +3356,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.7135837, y: 3, z: 1.345277}
-  m_Center: {x: 2.109864, y: 0.9005554, z: 1.3390265}
+  m_Size: {x: 2.8950603, y: 3, z: 1.345277}
+  m_Center: {x: 2.2006023, y: 0.9005554, z: 1.3390265}
 --- !u!33 &70659738
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5356,8 +5356,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20.770214, y: 3, z: 0.9612236}
-  m_Center: {x: -14.262594, y: 0.9005554, z: 0.7135048}
+  m_Size: {x: 20.515366, y: 3, z: 0.9612236}
+  m_Center: {x: -14.390018, y: 0.9005554, z: 0.7135048}
 --- !u!33 &108010336
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -12996,9 +12996,9 @@ Transform:
   - {fileID: 2020088924}
   - {fileID: 362746016}
   - {fileID: 1437009821}
+  - {fileID: 1148065547}
   - {fileID: 1065768176}
   - {fileID: 1870459811}
-  - {fileID: 1148065547}
   - {fileID: 123443222}
   - {fileID: 2117740235}
   - {fileID: 1901795260}
@@ -20267,7 +20267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &458219088
 Transform:
   m_ObjectHideFlags: 0
@@ -21027,7 +21027,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1102083407}
-  m_RootOrder: 50
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &480085540
 BoxCollider:
@@ -30098,8 +30098,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1660919, y: 3, z: 1.0193973}
-  m_Center: {x: -21.339748, y: 0.9005554, z: 0.60252404}
+  m_Size: {x: 0.89217186, y: 3, z: 1.0193973}
+  m_Center: {x: -21.476707, y: 0.9005554, z: 0.60252404}
 --- !u!33 &675393772
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -33463,7 +33463,7 @@ Transform:
   - {fileID: 1796403681}
   - {fileID: 1889037105}
   m_Father: {fileID: 1005251856}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &750669993
 PrefabInstance:
@@ -43252,11 +43252,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1685628853}
+  - {fileID: 749813064}
   - {fileID: 2074509517}
   - {fileID: 630278842}
   - {fileID: 239871400}
   - {fileID: 339242852}
-  - {fileID: 749813064}
   - {fileID: 1532081117}
   - {fileID: 1325818363}
   - {fileID: 84328081}
@@ -47157,13 +47157,14 @@ Transform:
   - {fileID: 639268586}
   - {fileID: 531488938}
   - {fileID: 2447223907427605966}
+  - {fileID: 3352980940251236820}
   - {fileID: 1131573820}
   - {fileID: 1854566578}
   - {fileID: 239846681}
-  - {fileID: 3352980940251236820}
-  - {fileID: 899386084}
+  - {fileID: 480085539}
   - {fileID: 1599072525}
   - {fileID: 583616127}
+  - {fileID: 899386084}
   - {fileID: 27438594}
   - {fileID: 1597054227}
   - {fileID: 626542977}
@@ -47171,7 +47172,6 @@ Transform:
   - {fileID: 1326837324}
   - {fileID: 1943262093}
   - {fileID: 958442765}
-  - {fileID: 480085539}
   - {fileID: 258861053}
   - {fileID: 1999308995}
   - {fileID: 1347307563}
@@ -48759,7 +48759,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 283136781}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &1148065548
 BoxCollider:
@@ -61380,8 +61380,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 27.171862, y: 3, z: 0.9612236}
-  m_Center: {x: -11.308871, y: 0.9005554, z: 0.7135048}
+  m_Size: {x: 26.887794, y: 3, z: 0.9612236}
+  m_Center: {x: -11.166838, y: 0.9005554, z: 0.7135048}
 --- !u!33 &1499573857
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -80982,8 +80982,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.6418326, y: 3, z: 1.0076771}
-  m_Center: {x: 2.8333602, y: 0.9005554, z: 1.1702265}
+  m_Size: {x: 1.9123862, y: 3, z: 1.0076771}
+  m_Center: {x: 3.1980834, y: 0.9005554, z: 1.1702265}
 --- !u!33 &1999629588
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -81755,8 +81755,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.6203375, y: 3, z: 1.0111308}
-  m_Center: {x: -0.15589285, y: 0.9005554, z: 1.0520452}
+  m_Size: {x: 7.916375, y: 3, z: 1.0111308}
+  m_Center: {x: 0.19608831, y: 0.9005554, z: 1.0520452}
 --- !u!33 &2021759461
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -85499,8 +85499,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1419678, y: 3, z: 0.82852745}
-  m_Center: {x: -19.839008, y: 0.9005554, z: 0.59607697}
+  m_Size: {x: 3.9511738, y: 3, z: 0.82852745}
+  m_Center: {x: -20.24361, y: 0.9005554, z: 0.59607697}
 --- !u!33 &2110123065
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -87742,7 +87742,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1102083407}
-  m_RootOrder: 39
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &3367670760884785488
 Transform:
