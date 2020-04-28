@@ -19,10 +19,6 @@ namespace PlayerStateMachine
             if (Player.GetIsPlayerCharged())
                 stateMachine.TransitionTo<ChargedState>();
 
-            // If Player is on Ground and the Player is pressing the jumpKey then change state to JumpState
-            if (Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider && Input.GetKeyDown(KeyCode.Space))
-                stateMachine.TransitionTo<JumpState>();
-
             // If Player is not grounded then change state to In Air State
             if (!Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider)
                 stateMachine.TransitionTo<InAirState>();
@@ -41,21 +37,7 @@ namespace PlayerStateMachine
             {
                 stateMachine.TransitionTo<CrouchState>();
             }
-            
-            // Melee attack
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Player.hasStunBaton && Player.hasReloaded)
-            {
-                stateMachine.StackState<WalkState>();
-                stateMachine.TransitionTo<MeleeState>();
-            }
-            
-            // Fire attack
-            if (Input.GetKeyDown(KeyCode.Mouse1) && Player.hasStunGunUpgrade && Player.hasReloaded)
-            {
-                stateMachine.StackState<WalkState>();
-                stateMachine.TransitionTo<FireState>();
-            }
-           
+
             // Get Input from user
             var inputVector = Player.GetInputVector(accelerationSpeed);
 

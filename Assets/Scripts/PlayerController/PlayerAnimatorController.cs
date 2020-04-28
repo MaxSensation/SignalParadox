@@ -16,8 +16,6 @@ namespace PlayerController
         {
             _animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
             _animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
-            if (Input.GetKeyDown(KeyCode.Space))
-                _animator.SetTrigger("Jump");
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 _animator.SetBool("Crouch", true);

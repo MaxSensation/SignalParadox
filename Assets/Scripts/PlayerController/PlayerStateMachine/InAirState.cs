@@ -22,20 +22,6 @@ namespace PlayerStateMachine
             if (Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider && Vector3.Dot(Velocity, Vector3.down) > 0.5f)
                 stateMachine.TransitionTo<LandState>();
             
-            // Melee attack
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Player.hasStunBaton)
-            {
-                stateMachine.StackState<InAirState>();
-                stateMachine.TransitionTo<MeleeState>();
-            }
-            
-            // Fire attack
-            if (Input.GetKeyDown(KeyCode.Mouse1) && Player.hasStunGunUpgrade)
-            {
-                stateMachine.StackState<InAirState>();
-                stateMachine.TransitionTo<FireState>();
-            }
-            
             // Get Input from user
             var inputVector = Player.GetInputVector(accelerationSpeed);
 

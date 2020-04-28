@@ -43,18 +43,6 @@ namespace PlayerStateMachine
 
             if (Player.GetIsPlayerCharged())
                 stateMachine.TransitionTo<ChargedState>();
-
-            // If Player is on Ground and the Player is pressing the jumpKey then change state to JumpState
-            if (Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider &&
-                Input.GetKeyDown(KeyCode.Space))
-            {
-                _isCrouchAttacking = false;
-                stateMachine.TransitionTo<JumpState>();
-            }
-
-            // // If Player is not grounded then change state to In Air State
-            // if (!Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider)
-            //     stateMachine.TransitionTo<InAirState>();
             
 
             // Enter Crouch if Control is pressed 
@@ -63,30 +51,13 @@ namespace PlayerStateMachine
                 _isCrouchAttacking = false;
                 stateMachine.TransitionTo<StandState>();
             }
-
-            // Melee attack
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Player.hasStunBaton && Player.hasReloaded)
-            {
-                _isCrouchAttacking = true;
-                stateMachine.StackState<CrouchState>();
-                stateMachine.TransitionTo<MeleeState>();
-            }
-
-            // Fire attack
-            if (Input.GetKeyDown(KeyCode.Mouse1) && Player.hasStunGunUpgrade && Player.hasReloaded)
-            {
-                _isCrouchAttacking = true;
-                stateMachine.StackState<CrouchState>();
-                stateMachine.TransitionTo<FireState>();
-            }
-
+            
             // Get Input from user
             var inputVector = Player.GetInputVector(accelerationSpeed);
 
             // Add Input force to velocity
             Velocity += inputVector;
             
-
             // If any directional inputs accelerate with the accelerateSpeed added with turnSpeed 
             if (inputVector.magnitude > 0) 
                 Velocity += Physic3D.GetAcceleration(inputVector, accelerationSpeed + Physic3D.GetTurnVelocity(inputVector, Velocity.normalized));

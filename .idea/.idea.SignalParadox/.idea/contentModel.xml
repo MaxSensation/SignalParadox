@@ -55,7 +55,6 @@
           <e p="EnemyTrigger.cs" t="Include" />
           <e p="GUI" t="Include">
             <e p="HealthBar.cs" t="Include" />
-            <e p="WeaponInfo.cs" t="Include" />
           </e>
           <e p="HelpClasses" t="Include">
             <e p="Physic3D.cs" t="Include" />
@@ -78,28 +77,20 @@
           </e>
           <e p="PlayerController" t="Include">
             <e p="HealthSystem.cs" t="Include" />
-            <e p="MeleeTrigger.cs" t="Include" />
             <e p="PlayerAnimatorController.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
             <e p="PlayerInteractionTrigger.cs" t="Include" />
             <e p="PlayerStateMachine" t="Include">
               <e p="ChargedState.cs" t="Include" />
               <e p="CrouchState.cs" t="Include" />
-              <e p="FireState.cs" t="Include" />
               <e p="InAirState.cs" t="Include" />
-              <e p="JumpState.cs" t="Include" />
               <e p="LandState.cs" t="Include" />
-              <e p="MeleeState.cs" t="Include" />
               <e p="PlayerBaseState.cs" t="Include" />
               <e p="PushingState.cs" t="Include" />
-              <e p="ReloadState.cs" t="Include" />
               <e p="StandState.cs" t="Include" />
               <e p="WalkState.cs" t="Include" />
             </e>
             <e p="PlayerTrapable.cs" t="Include" />
-          </e>
-          <e p="StunGun" t="Include">
-            <e p="StunGunPatron.cs" t="Include" />
           </e>
           <e p="Traps" t="Include">
             <e p="DynamicLaserWall.cs" t="Include" />

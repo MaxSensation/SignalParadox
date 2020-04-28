@@ -24,8 +24,6 @@ namespace Managers
                     
                 player.transform.position = new Vector3(loadedCheckPoint.playerPosition[0], loadedCheckPoint.playerPosition[1], loadedCheckPoint.playerPosition[2]);
                 var playerController = player.GetComponent<PlayerController.PlayerController>();
-                playerController.hasStunBaton = loadedCheckPoint.hasStunBaton;
-                playerController.hasStunGunUpgrade = loadedCheckPoint.hasStunGunUpgrade;
                 checkPointLoaded = false;
             }
         }
