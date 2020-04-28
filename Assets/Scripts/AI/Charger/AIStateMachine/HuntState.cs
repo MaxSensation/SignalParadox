@@ -15,6 +15,14 @@ namespace AI.Charger.AIStateMachine
             if (Ai.isDead)
                 stateMachine.TransitionTo<DeadState>();
 
+            if (CanSeePlayer() && !Ai.IsStunned())
+            {
+                var newRotation = Quaternion.LookRotation(Ai.target.transform.position - Ai.transform.position, Vector3.up);
+                newRotation.x = 0.0f;
+                newRotation.z = 0.0f;
+                Ai.transform.rotation = Quaternion.Slerp(Ai.transform.rotation, newRotation, Time.deltaTime * 10);
+            }
+
             if (!Ai.IsStunned())
             {
                 Ai.agent.SetDestination(Ai.target.transform.position);
@@ -32,10 +40,10 @@ namespace AI.Charger.AIStateMachine
         private bool CanCharge()
         {
             var capsulePosition = Ai.transform.position + Ai._collider.center;
-            var distanceToPoints = (Ai._collider.height / 2) - Ai._collider.radius;
+            var distanceToPoints = (Ai._collider.height / 2) - Ai._collider.radius/4;
             var point1 = capsulePosition + Vector3.up * distanceToPoints;
             var point2 = capsulePosition + Vector3.down * distanceToPoints;
-            Physics.CapsuleCast(point1, point2, AiCollider.radius, Ai.transform.forward.normalized, out var hit, (Ai.target.transform.position - Ai.transform.position).magnitude, Ai.visionMask);
+            Physics.CapsuleCast(point1.normalized, point2.normalized, AiCollider.radius, Ai.transform.forward.normalized, out var hit, (Ai.target.transform.position - Ai.transform.position).magnitude, Ai.visionMask);
             if ((Ai.target.transform.position - Ai.transform.position).magnitude < Ai._collider.radius * 4)
                 return true;
             else

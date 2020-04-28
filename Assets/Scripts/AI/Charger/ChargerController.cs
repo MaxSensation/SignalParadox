@@ -14,7 +14,8 @@ namespace AI.Charger
         internal bool charging;
         private Vector3 _chargeDirection;
         private EnemyTrigger _enemyTrigger;
-        [SerializeField] private int _chargeUpTime;
+        [SerializeField] private int _chargeUpTime = 1;
+        [SerializeField] private float _stunTime = 0.5f;
 
         private new void Awake()
         {
@@ -36,7 +37,7 @@ namespace AI.Charger
 
         private IEnumerator OnlyStunTime()
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(_stunTime);
             _stunned = false;
         }
 
