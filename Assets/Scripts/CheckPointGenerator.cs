@@ -13,10 +13,8 @@ public class CheckPointGenerator
         var rotation = playerTransform.rotation;
         var playerController = _player.GetComponent<PlayerController.PlayerController>();
         return new CheckPoint(
-            SceneManager.GetActiveScene().name, 
-            new []{position.x, position.y, position.z}, 
-            new []{rotation.x, rotation.y, rotation.z}, 
-            playerController.hasStunBaton,
-            playerController.hasStunGunUpgrade);
+            SceneManager.GetActiveScene().name,
+            new[] {position.x, position.y, position.z},
+            new[] {rotation.x, rotation.y, rotation.z});
     }
 }

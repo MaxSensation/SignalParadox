@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using PlayerController;
-using StunGun;
 using Traps;
 using UnityEngine;
 
@@ -22,21 +21,11 @@ namespace AI.BodyTrapper
             base.Awake();
             chargeTime = 0f;
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
-            StunGunPatron.onDeathByStunGunEvent += OnDeathByStunGun;
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
-            MeleeTrigger.OnEnemyWithinMeleeRange += InRangeForPlayerMelee;
-            MeleeTrigger.OnEnemyOutsideMeleeRange += OutOfRangeForPlayerMelee;
             PlayerController.PlayerController.OnMeleeEvent += DieOnPlayerMelee;
             LaserController.onLaserDeath += OnDeathByLaser;
         }
-
-        private void OnDeathByStunGun(GameObject obj)
-        {
-            if (obj == gameObject)
-                Die();
-        }
-
         private void OnDeathByLaser(GameObject obj)
         {
             if (obj == gameObject)
@@ -82,9 +71,6 @@ namespace AI.BodyTrapper
         {
             PlayerTrapable.onTrapped -= StuckOnPlayer;
             PlayerTrapable.onDetached -= DetachFromPlayer;
-            MeleeTrigger.OnEnemyWithinMeleeRange -= InRangeForPlayerMelee;
-            MeleeTrigger.OnEnemyOutsideMeleeRange -= OutOfRangeForPlayerMelee;
-            StunGunPatron.onDeathByStunGunEvent -= OnDeathByStunGun;
             LaserController.onLaserDeath -= OnDeathByLaser;
         }
 

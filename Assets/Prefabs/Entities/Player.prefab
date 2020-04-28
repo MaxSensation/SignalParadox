@@ -87,7 +87,6 @@ Transform:
   m_Children:
   - {fileID: 8020182939320951861}
   - {fileID: 474691259}
-  - {fileID: 1955128878}
   - {fileID: 3917787688521362751}
   - {fileID: 8108510627880687818}
   - {fileID: 4723533504430569326}
@@ -104,63 +103,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a68006676388a24299ee5ef99bbf30f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1955128877
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1955128878}
-  - component: {fileID: 1955128879}
-  - component: {fileID: 1632547124}
-  m_Layer: 10
-  m_Name: MeleeTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1955128878
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955128877}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.77, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 940996568}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1955128879
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955128877}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.4, z: 1.33}
-  m_Center: {x: 0, y: 0, z: 0.72}
---- !u!114 &1632547124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1955128877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c592028ee33d69f4eb8e59d513df8f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &87441833408838613
@@ -478,7 +420,7 @@ Transform:
   - {fileID: 8034292386152914447}
   - {fileID: 4730377675122422472}
   m_Father: {fileID: 940996568}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1675275571776188384
 GameObject:
@@ -509,7 +451,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 940996568}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &2210837598984800064
 SkinnedMeshRenderer:
@@ -1944,16 +1886,12 @@ MonoBehaviour:
   world: {fileID: 11400000, guid: 07745e6075cd9274fb46300406d646a9, type: 2}
   states:
   - {fileID: 11400000, guid: ca4e009196d05d5448361d7ed0fbee7b, type: 2}
+  - {fileID: 11400000, guid: 7dd807c997b12564fa7e056e43e74c19, type: 2}
+  - {fileID: 11400000, guid: 59af3d97d5eed6c4f9f1951a24eb20b1, type: 2}
+  - {fileID: 11400000, guid: d33995b8a5ea5604c86f89824dbef01c, type: 2}
+  - {fileID: 11400000, guid: a134f48d503307541a887d28f421878e, type: 2}
   - {fileID: 11400000, guid: e9ce5a6decfce15449b3f0e72a436e9f, type: 2}
   - {fileID: 11400000, guid: 6a0a63cb45b836d40a96c55822255415, type: 2}
-  - {fileID: 11400000, guid: 59af3d97d5eed6c4f9f1951a24eb20b1, type: 2}
-  - {fileID: 11400000, guid: 765185a18a2e4774a86da622f6ea97e0, type: 2}
-  - {fileID: 11400000, guid: d33995b8a5ea5604c86f89824dbef01c, type: 2}
-  - {fileID: 11400000, guid: 7c3d39f665601284fb5839c02f79be9d, type: 2}
-  - {fileID: 11400000, guid: a134f48d503307541a887d28f421878e, type: 2}
-  - {fileID: 11400000, guid: e9989169a192e0d42982443a12daa1a4, type: 2}
-  - {fileID: 11400000, guid: 1337e3cb5046bb0429af839bd39909b4, type: 2}
-  - {fileID: 11400000, guid: 7dd807c997b12564fa7e056e43e74c19, type: 2}
   terminalVelocity: 0
   staticFriction: 0
   dynamicFriction: 0
@@ -2915,7 +2853,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 940996568}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &912078135028896202
 SkinnedMeshRenderer:

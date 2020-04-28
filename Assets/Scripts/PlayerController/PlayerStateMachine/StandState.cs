@@ -26,21 +26,7 @@ namespace PlayerStateMachine
                     stateMachine.TransitionTo<PushingState>();    
                 }
             }
-            
-            // Melee attack
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Player.hasStunBaton && Player.hasReloaded)
-            {
-                stateMachine.StackState<StandState>();
-                stateMachine.TransitionTo<MeleeState>();
-            }
-            
-            // Fire attack
-            if (Input.GetKeyDown(KeyCode.Mouse1) && Player.hasStunGunUpgrade && Player.hasReloaded)
-            {
-                stateMachine.StackState<StandState>();
-                stateMachine.TransitionTo<FireState>();
-            }
-            
+
             // Enter Crouch if Control is pressed 
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
@@ -53,10 +39,6 @@ namespace PlayerStateMachine
             // If not grounded then change to In Air State
             if (!grounded)
                 stateMachine.TransitionTo<InAirState>();
-            
-            // If Jump Key is pressed then change to Jump State
-            if (Input.GetKeyDown(KeyCode.Space))
-                stateMachine.TransitionTo<JumpState>();
         }
     }
 }
