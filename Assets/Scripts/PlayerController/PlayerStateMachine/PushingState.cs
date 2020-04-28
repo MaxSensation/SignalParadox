@@ -6,6 +6,7 @@ namespace PlayerStateMachine
     public class PushingState : PlayerBaseState
     {
         [SerializeField] private float accelerationSpeed;
+        [SerializeField] private float terminalVelocity;
         private RaycastHit _box;
         private Vector3 _playerToBoxDirection;
         public override void Enter()
@@ -42,8 +43,7 @@ namespace PlayerStateMachine
             // If any directional inputs accelerate with the accelerateSpeed added with turnSpeed 
             if (inputVector.magnitude > 0) 
                 Velocity += Physic3D.GetAcceleration(inputVector, accelerationSpeed + Physic3D.GetTurnVelocity(inputVector, Velocity.normalized));
-            // else
-            //     Velocity -= Physic3D.GetDeceleration(Velocity, decelerateSpeed, decelerateThreshold);
+            LimitVelocity();
         }
 
         private Vector3 GetPushVector()
@@ -69,6 +69,11 @@ namespace PlayerStateMachine
             var newPosition = _box.collider.bounds.center + distanceFromBoxCenterToEdge * direction;
             Position = new Vector3(newPosition.x, Position.y, newPosition.z);
             Velocity = Vector3.zero;
+        }
+        private void LimitVelocity()
+        {
+            if (Velocity.magnitude > terminalVelocity) 
+                Velocity = Velocity.normalized * terminalVelocity;
         }
     }
 }

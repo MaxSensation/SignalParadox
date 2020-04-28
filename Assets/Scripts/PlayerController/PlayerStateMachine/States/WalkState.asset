@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a691d2871f4914d9496f44778b649a, type: 3}
   m_Name: WalkState
   m_EditorClassIdentifier: 
-  accelerationSpeed: 10
-  decelerateSpeed: 10
+  accelerationSpeed: 20
+  decelerateSpeed: 50
   decelerateThreshold: 0.1

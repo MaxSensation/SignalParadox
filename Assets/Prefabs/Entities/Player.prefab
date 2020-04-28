@@ -1892,22 +1892,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a134f48d503307541a887d28f421878e, type: 2}
   - {fileID: 11400000, guid: e9ce5a6decfce15449b3f0e72a436e9f, type: 2}
   - {fileID: 11400000, guid: 6a0a63cb45b836d40a96c55822255415, type: 2}
-  terminalVelocity: 0
-  staticFriction: 0
-  dynamicFriction: 0
-  skinWidth: 0
-  groundCheckDistance: 0
-  overlayColliderResistant: 0
+  terminalVelocity: 7
+  staticFriction: 0.6
+  dynamicFriction: 0.3
+  skinWidth: 0.05
+  groundCheckDistance: 0.05
+  overlayColliderResistant: 20
+  thirdPersonCameraSize: 2
+  thirdPersonOffsetHorizontal: 0.5
+  thirdPersonCameraDistance: 0.5
   thirdPersonCamera: 0
-  thirdPersonCameraSize: 0
-  thirdPersonOffsetHorizontal: 0
-  thirdPersonCameraDistance: 0
-  hasReloaded: 0
   collisionLayer:
     serializedVersion: 2
     m_Bits: 256
-  hasStunBaton: 0
-  hasStunGunUpgrade: 0
   velocity: {x: 0, y: 0, z: 0}
   _layermask:
     serializedVersion: 2

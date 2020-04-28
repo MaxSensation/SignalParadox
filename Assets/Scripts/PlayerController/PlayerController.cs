@@ -10,20 +10,19 @@ namespace PlayerController
     {
         public World world;
         public State[] states;
+        [Header("PlayerSettings")]
         [SerializeField] [Range(1f, 500f)] private float terminalVelocity;
         [SerializeField] [Range(0f, 1f)] private float staticFriction;
         [SerializeField] [Range(0f, 1f)] private float dynamicFriction;
         [SerializeField] [Range(0f, 1f)] private float skinWidth;
         [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
         [SerializeField] [Range(0f, 100f)] private float overlayColliderResistant;
-        [SerializeField] private bool thirdPersonCamera;
+        [Header("ThirdPersonCamera")]
         [SerializeField] private float thirdPersonCameraSize;
         [SerializeField] private float thirdPersonOffsetHorizontal;
         [SerializeField] private float thirdPersonCameraDistance;
-        [SerializeField] internal bool hasReloaded;
+        [SerializeField] private bool thirdPersonCamera;
         [SerializeField] private LayerMask collisionLayer;
-        [SerializeField] internal bool hasStunBaton;
-        [SerializeField] internal bool hasStunGunUpgrade;
         [SerializeField] private Vector3 velocity;
         [SerializeField] private LayerMask _layermask;
         private BoxCollider _interactTrigger;
@@ -54,24 +53,14 @@ namespace PlayerController
             _alive = true;
             _playerMesh = GameObject.Find("PlayerMesh");
             _stateMachine = new StateMachine(this, states);
-            terminalVelocity = 7f;
-            staticFriction = 0.6f;
-            dynamicFriction = 0.3f;
-            skinWidth = 0.05f;
-            groundCheckDistance = 0.05f;
-            overlayColliderResistant = 20f;
             velocity = Vector3.zero;
             thirdPersonCamera = true;
-            thirdPersonCameraDistance = 2f;
-            thirdPersonOffsetHorizontal = 0.5f;
-            thirdPersonCameraSize = 0.5f;
             if (Camera.main != null) _camera = Camera.main.transform;
             _collider = GetComponent<CapsuleCollider>();
             _cameraRotation = new Vector2(_playerMesh.transform.rotation.eulerAngles.y,0);
             _cameraOffset = _camera.localPosition;
             Cursor.lockState = CursorLockMode.Locked;
             Physic3D.LoadWorldParameters(world);
-            hasReloaded = true;
         }
 
         private void OnDestroy()
@@ -133,18 +122,6 @@ namespace PlayerController
             onPlayerDeath?.Invoke();
         }
         
-        private IEnumerator ReloadTime()
-        {
-            yield return new WaitForSeconds(2f);
-            hasReloaded = true;
-            StopCoroutine("ReloadTime");
-        }
-
-        internal void Reloading()
-        {
-            StartCoroutine("ReloadTime");
-        }
-
         private void RotatePlayerMesh()
         {
             _playerMesh.transform.rotation = Quaternion.Euler(0, _cameraRotation.x, 0);
