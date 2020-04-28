@@ -47,12 +47,14 @@
           <e p="Button" t="Include">
             <e p="ButtonController.cs" t="Include" />
           </e>
-          <e p="CheckPoint.cs" t="Include" />
-          <e p="CheckPointGenerator.cs" t="Include" />
+          <e p="CheckPointSystem" t="Include">
+            <e p="CheckPoint.cs" t="Include" />
+            <e p="CheckPointGenerator.cs" t="Include" />
+            <e p="SaveManager.cs" t="Include" />
+          </e>
           <e p="Door" t="Include">
             <e p="DoorController.cs" t="Include" />
           </e>
-          <e p="EnemyTrigger.cs" t="Include" />
           <e p="GUI" t="Include">
             <e p="HealthBar.cs" t="Include" />
           </e>
@@ -60,20 +62,14 @@
             <e p="Physic3D.cs" t="Include" />
             <e p="State.cs" t="Include" />
             <e p="StateMachine.cs" t="Include" />
-            <e p="TwoDController.cs" t="Include" />
             <e p="World.cs" t="Include" />
           </e>
           <e p="Managers" t="Include">
             <e p="GameManager.cs" t="Include" />
-            <e p="SaveManager.cs" t="Include" />
             <e p="SoundManager.cs" t="Include" />
           </e>
           <e p="Menu" t="Include">
             <e p="LoadLevel.cs" t="Include" />
-          </e>
-          <e p="Pickups" t="Include">
-            <e p="PickupStunBaton.cs" t="Include" />
-            <e p="PickupStunGunUpgrade.cs" t="Include" />
           </e>
           <e p="PlayerController" t="Include">
             <e p="HealthSystem.cs" t="Include" />
@@ -98,6 +94,7 @@
             <e p="SteamController.cs" t="Include" />
           </e>
           <e p="Triggers" t="Include">
+            <e p="EnemyTrigger.cs" t="Include" />
             <e p="TriggerCheckPoint.cs" t="Include" />
             <e p="TriggerLoadNextLevel.cs" t="Include" />
             <e p="TriggerMemo.cs" t="Include" />
