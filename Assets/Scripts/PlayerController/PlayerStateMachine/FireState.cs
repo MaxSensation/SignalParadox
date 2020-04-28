@@ -19,7 +19,7 @@ namespace PlayerStateMachine
 
             if (Player.hasReloaded)
             {
-                Instantiate(stunGunPatron, Player.transform.position, Quaternion.Euler(CameraRotation.y - 10f, CameraRotation.x, Rotation.z));
+                // Instantiate(stunGunPatron, Player.transform.position, Quaternion.Euler(CameraRotation.y - 10f, CameraRotation.x, Rotation.z));
                 Player.hasReloaded = false;
                 stateMachine.TransitionTo<ReloadState>();
             }

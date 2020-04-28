@@ -19,7 +19,7 @@ public class WeaponInfo : MonoBehaviour
 
     private void OnDestroy()
     {
-        PickupStunGunUpgrade.onStunGunUpgradePickup -= ActivateStunGunGUI;
+        PickupStunBaton.onStunBatonPickup -= ActivateStunGunGUI;
         PickupStunGunUpgrade.onStunGunUpgradePickup -= ActivateStunUpgradeGunGUI;
         SaveManager.onLoadCheckPoint -= LoadCheckPointData;
     }

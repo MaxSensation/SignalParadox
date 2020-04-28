@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using AI;
 using AI.Charger;
-using Pickups;
 using Traps;
 using UnityEngine;
 
@@ -18,10 +16,8 @@ namespace PlayerController
         [SerializeField] [Range(0f, 1f)] private float skinWidth;
         [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
         [SerializeField] [Range(0f, 100f)] private float overlayColliderResistant;
-        [SerializeField] [Range(0f, 500f)] private float mouseSensitivity;
         [SerializeField] private bool thirdPersonCamera;
         [SerializeField] private float thirdPersonCameraSize;
-        [SerializeField] private float thirdPersonCameraMaxAngle;
         [SerializeField] private float thirdPersonOffsetHorizontal;
         [SerializeField] private float thirdPersonCameraDistance;
         [SerializeField] internal bool hasReloaded;
@@ -55,8 +51,6 @@ namespace PlayerController
             PlayerTrapable.onPlayerTrappedEvent += Die;
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
-            PickupStunBaton.onStunBatonPickup += EnableStunBaton;
-            PickupStunGunUpgrade.onStunGunUpgradePickup += EnableStunGun;
             _alive = true;
             _playerMesh = GameObject.Find("PlayerMesh");
             _stateMachine = new StateMachine(this, states);
@@ -66,13 +60,11 @@ namespace PlayerController
             skinWidth = 0.05f;
             groundCheckDistance = 0.05f;
             overlayColliderResistant = 20f;
-            mouseSensitivity = 100;
             velocity = Vector3.zero;
             thirdPersonCamera = true;
             thirdPersonCameraDistance = 2f;
             thirdPersonOffsetHorizontal = 0.5f;
             thirdPersonCameraSize = 0.5f;
-            thirdPersonCameraMaxAngle = 25f;
             if (Camera.main != null) _camera = Camera.main.transform;
             _collider = GetComponent<CapsuleCollider>();
             _cameraRotation = new Vector2(_playerMesh.transform.rotation.eulerAngles.y,0);
@@ -89,8 +81,6 @@ namespace PlayerController
             PlayerTrapable.onPlayerTrappedEvent -= Die;
             ChargerController.onCrushedPlayerEvent -= Die;
             ChargerController.CaughtPlayerEvent -= PlayerIsCharged;
-            PickupStunBaton.onStunBatonPickup -= EnableStunBaton;
-            PickupStunGunUpgrade.onStunGunUpgradePickup -= EnableStunGun;
         }
 
         private void Update()
@@ -113,8 +103,6 @@ namespace PlayerController
             AddOverLayCorrection();
             // Only Move Player as close as possible to the collision
             transform.position += FixCollision();
-            // RotateCamera from player input
-            RotateCamera();
             // Move Camera based on thirdPerson or firstPerson
             MoveCamera();
         }
@@ -231,20 +219,6 @@ namespace PlayerController
             }
         }
 
-        private void RotateCamera()
-        {
-            // Get rawAxis rotation from the mouse
-            var cameraRotation = new Vector2(Input.GetAxisRaw("Mouse Y"), Input.GetAxisRaw("Mouse X")) * (mouseSensitivity * Time.deltaTime);
-            // Rotate the camera on x
-            _cameraRotation.x += cameraRotation.y;
-            // Rotate the camera on y
-            _cameraRotation.y -= cameraRotation.x;
-            // Limit the y rotation to lowest and highest point
-            _cameraRotation.y = Mathf.Clamp(_cameraRotation.y, thirdPersonCamera ? -thirdPersonCameraMaxAngle : -89.9f, 89.9f);
-            // Update the rotation to the camera
-            _camera.localRotation = Quaternion.Euler(_cameraRotation.y, _cameraRotation.x, 0);
-        }
-
         private void MoveCamera()
         {
             // If in Third Person then update the position of the camera related to the player
@@ -316,20 +290,15 @@ namespace PlayerController
             this.velocity = velocity;
         }
 
-        public void AddForce(Vector3 force)
-        {
-            velocity += force;
-        }
-
         internal RaycastHit SimpleShortRayCast()
         {
-            Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
+            Physics.Raycast(transform.position, _camera.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
             return hit;
         }
 
         internal bool CheckSimpleShortRayCast(string tagName)
         {
-            Physics.Raycast(transform.position, _playerMesh.transform.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
+            Physics.Raycast(transform.position, _camera.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
             return hit.collider && hit.collider.CompareTag(tagName);
         }
 
@@ -358,21 +327,6 @@ namespace PlayerController
             return _collider;
         }
 
-        internal Vector3 GetCameraOffset()
-        {
-            return _cameraOffset;
-        }
-
-        internal void SetCameraOffset(Vector3 value)
-        {
-            _cameraOffset = value;
-        }
-
-        internal Vector3 GetPlayerCameraDirection()
-        {
-            return _playerMesh.transform.forward;
-        }
-
         internal bool GetIsPlayerCharged()
         {
             return isPlayerCharged;
@@ -381,21 +335,6 @@ namespace PlayerController
         private void PlayerIsCharged()
         {
             isPlayerCharged = true;
-        }
-
-        public Vector2 GetCameraRotation()
-        {
-            return _cameraRotation;
-        }
-    
-        private void EnableStunBaton()
-        {
-            hasStunBaton = true;
-        }
-    
-        private void EnableStunGun()
-        {
-            hasStunGunUpgrade = true;
         }
     }
 }
