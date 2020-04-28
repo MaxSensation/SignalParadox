@@ -18872,7 +18872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &458219088
 Transform:
   m_ObjectHideFlags: 0
@@ -48595,7 +48595,8 @@ GameObject:
   - component: {fileID: 1211805366}
   - component: {fileID: 1211805368}
   - component: {fileID: 1211805367}
-  m_Layer: 0
+  - component: {fileID: 1211805369}
+  m_Layer: 8
   m_Name: WH_Hylla6x5x1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48663,6 +48664,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211805365}
   m_Mesh: {fileID: -2781399162715959912, guid: b1b6bf2bb2518774eb9a179da8542c52, type: 3}
+--- !u!65 &1211805369
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211805365}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 5.4004493, z: 6.0000014}
+  m_Center: {x: 0.0000019073486, y: 2.7002246, z: 0.0000019073486}
 --- !u!1001 &1215280636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57505,7 +57519,7 @@ PrefabInstance:
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.843117
+      value: -16.874
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
@@ -69363,8 +69377,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.3245907, y: 3, z: 1.1351013}
-  m_Center: {x: 0.49198055, y: 0.988477, z: 0.767746}
+  m_Size: {x: 7.3245907, y: 3, z: 1.7895851}
+  m_Center: {x: 0.49198055, y: 0.988477, z: 1.0949879}
 --- !u!33 &1760665295
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -75562,7 +75576,7 @@ PrefabInstance:
     - target: {fileID: 3483924296651530059, guid: f0e7173f3569cf24bb2c14cd12f59ba4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.36
+      value: 16.299
       objectReference: {fileID: 0}
     - target: {fileID: 3483924296651530059, guid: f0e7173f3569cf24bb2c14cd12f59ba4,
         type: 3}
@@ -75572,7 +75586,7 @@ PrefabInstance:
     - target: {fileID: 3483924296651530059, guid: f0e7173f3569cf24bb2c14cd12f59ba4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.681
+      value: -17.049
       objectReference: {fileID: 0}
     - target: {fileID: 3483924296651530059, guid: f0e7173f3569cf24bb2c14cd12f59ba4,
         type: 3}
