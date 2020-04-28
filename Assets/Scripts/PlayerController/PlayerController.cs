@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using AI.Charger;
 using Traps;
 using UnityEngine;
