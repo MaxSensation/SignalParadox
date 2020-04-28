@@ -11,7 +11,6 @@ namespace AI.Charger
         public static Action onCrushedPlayerEvent;
         public static Action CaughtPlayerEvent;
         private bool hasChargedUp;
-        private BoxCollider _hitCollider;
         internal bool charging;
         private Vector3 _chargeDirection;
         private EnemyTrigger _enemyTrigger;
@@ -20,7 +19,6 @@ namespace AI.Charger
         private new void Awake()
         {
             base.Awake();
-            _hitCollider = GetComponent<BoxCollider>();
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             LaserController.onLaserDeath += OnDeathByLaser;
         }
@@ -106,6 +104,5 @@ namespace AI.Charger
             if (agent != null)
                 agent.enabled = false;
         }
-
     }
 }

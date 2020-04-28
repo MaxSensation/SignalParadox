@@ -182,7 +182,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 662263246ae7e774b932c15dd1fb171a, type: 2}
   - {fileID: 11400000, guid: 8e05ff3fa9d76a94eacbbab7f42ff776, type: 2}
   - {fileID: 11400000, guid: f25dfb306ea0f36418aa0743c1139bf9, type: 2}
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   visionMask:
     serializedVersion: 2
     m_Bits: 256
