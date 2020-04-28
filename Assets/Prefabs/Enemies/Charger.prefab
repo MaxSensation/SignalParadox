@@ -126,7 +126,7 @@ NavMeshAgent:
   m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 500
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -192,6 +192,7 @@ MonoBehaviour:
     m_Bits: 256
   moveSpeed: 0
   _chargeUpTime: 1
+  _stunTime: 0.5
 --- !u!1 &7022415709663250831
 GameObject:
   m_ObjectHideFlags: 0
