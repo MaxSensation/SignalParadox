@@ -24,9 +24,10 @@ namespace AI.BodyTrapper
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
             PlayerController.PlayerController.OnMeleeEvent += DieOnPlayerMelee;
-            LaserController.onLaserDeath += OnDeathByLaser;
+            LaserController.onLaserDeath += OnDeathByTrap;
+            SteamController.onSteamDeath += OnDeathByTrap;
         }
-        private void OnDeathByLaser(GameObject obj)
+        private void OnDeathByTrap(GameObject obj)
         {
             if (obj == gameObject)
                 Die();
@@ -71,7 +72,8 @@ namespace AI.BodyTrapper
         {
             PlayerTrapable.onTrapped -= StuckOnPlayer;
             PlayerTrapable.onDetached -= DetachFromPlayer;
-            LaserController.onLaserDeath -= OnDeathByLaser;
+            LaserController.onLaserDeath -= OnDeathByTrap;
+            SteamController.onSteamDeath -= OnDeathByTrap;
         }
 
         private void StuckOnPlayer(GameObject bodyTrapper)

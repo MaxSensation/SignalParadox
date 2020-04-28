@@ -10,7 +10,6 @@ namespace AI
         [SerializeField] private State[] states;
         [SerializeField] internal Transform[] waypoints;
         [SerializeField] internal LayerMask visionMask;
-        [SerializeField] private float moveSpeed;
 
         protected StateMachine _stateMachine;
         protected bool _stunned;
@@ -28,13 +27,11 @@ namespace AI
             rigidbody = GetComponent<Rigidbody>();
             target = GameObject.FindWithTag("Player");
             agent = GetComponent<NavMeshAgent>();
-            moveSpeed = agent.speed;
             _stateMachine = new StateMachine(this, states);
         }
 
         private void Update()
         {
-            agent.speed = moveSpeed;
             _stateMachine.Run();
         }
 
