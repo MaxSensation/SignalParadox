@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 1035085ce6d4b634e92432c9f2508077, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f59bb7ad30e32474787c164196d6413d, type: 2}
 --- !u!4 &2773190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3992987815931757694, guid: abe00267b4c4ce94db14dd3a1b35086a,
@@ -3514,7 +3514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &140996943
 Transform:
   m_ObjectHideFlags: 0
@@ -22511,7 +22511,7 @@ PrefabInstance:
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.824
+      value: 21.573
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
@@ -36676,8 +36676,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 41.413704, y: 0.4698639, z: 49.387764}
-  m_Center: {x: 6.036789, y: -0.26506805, z: 24.958618}
+  m_Size: {x: 41.413708, y: 1.560194, z: 49.387764}
+  m_Center: {x: 6.0000005, y: -0.662748, z: 25.000002}
 --- !u!4 &1922022711
 Transform:
   m_ObjectHideFlags: 0
