@@ -11,7 +11,7 @@ namespace PlayerStateMachine
         private Vector3 _playerToBoxDirection;
         public override void Enter()
         {
-            Debug.Log("Entered Push State");
+            PlayerController.PlayerController.onSoundLevelChanged?.Invoke(10f);
             _box = Player.SimpleShortRayCast();
             CorrectPlayerPositionForBox();
             _playerToBoxDirection = Vector3.ProjectOnPlane(_box.collider.transform.position - Position, Vector3.up);
