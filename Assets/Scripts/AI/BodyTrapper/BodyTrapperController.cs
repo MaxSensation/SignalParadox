@@ -23,7 +23,6 @@ namespace AI.BodyTrapper
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
-            PlayerController.PlayerController.OnMeleeEvent += DieOnPlayerMelee;
             LaserController.onLaserDeath += OnDeathByTrap;
             SteamController.onSteamDeath += OnDeathByTrap;
         }
@@ -32,27 +31,7 @@ namespace AI.BodyTrapper
             if (obj == gameObject)
                 Die();
         }
-
-        private void DieOnPlayerMelee()
-        {
-            if (_enemyWithinPlayerMelee && !isStuckOnPlayer)
-                Die();
-        }
-
-        private void OutOfRangeForPlayerMelee(GameObject obj)
-        {
-            Debug.Log("OutOfRangeForPlayerMelee");
-            if (obj.gameObject.Equals(gameObject))
-                _enemyWithinPlayerMelee = false;
-        }
-
-        private void InRangeForPlayerMelee(GameObject obj)
-        {
-            Debug.Log("InRangeForPlayerMelee");
-            if (obj.gameObject.Equals(gameObject))
-                _enemyWithinPlayerMelee = true;
-        }
-
+        
         private void DetachFromPlayer()
         {
             GetComponent<SphereCollider>().enabled = true;
