@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace PlayerStateMachine
 {
@@ -11,12 +12,16 @@ namespace PlayerStateMachine
         [SerializeField] private float decelerateThreshold;
         private Vector3 _oldCameraOffset;
         private float _oldColliderHeight;
-        private bool _isCrouchAttacking;
+        private bool _isCrouching;
         
+        public static Action onEnteredCrouchEvent;
+        public static Action onExitCrouchEvent;
+
         public override void Enter()
         {
-            if (!_isCrouchAttacking)
+            if (!_isCrouching)
             {
+                onEnteredCrouchEvent?.Invoke();
                 Debug.Log("Entered Crouch State");
                 // _oldCameraOffset = CameraOffset;
                 // CameraOffset = Vector3.zero;
@@ -29,8 +34,9 @@ namespace PlayerStateMachine
         
         public override void Exit()
         {
-            if (!_isCrouchAttacking)
+            if (!_isCrouching)
             {
+                onExitCrouchEvent?.Invoke();
                 Debug.Log("Exit Crouch State");
                 PlayerCollider.center = Vector3.zero;
                 PlayerCollider.height = _oldColliderHeight;
@@ -47,7 +53,7 @@ namespace PlayerStateMachine
             // Enter Crouch if Control is pressed 
             if (Input.GetKey(KeyCode.LeftControl) == false && CanStand())
             {
-                _isCrouchAttacking = false;
+                _isCrouching = false;
                 stateMachine.TransitionTo<StandState>();
             }
             

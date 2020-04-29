@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using PlayerStateMachine;
+using UnityEngine;
 
 public sealed class CameraController : MonoBehaviour
 {
@@ -11,17 +13,43 @@ public sealed class CameraController : MonoBehaviour
 
 	private Transform objectTransform;
 	private Camera cam;
-	private MouseInputCamera mouseInputCamera;
+	private InputCamera inputCamera;
+
+	private float crouchCameraPosition;
+	private float crouchSmoothTime;
+	private bool isCrouching;
 
 	private void Awake () {
 		objectTransform = transform;
-		mouseInputCamera = GetComponent<MouseInputCamera>();
+		inputCamera = GetComponent<InputCamera>();
 		if(cam == null)
 			cam = GetComponentInChildren<Camera>();
-		var _localRotation = objectTransform.localRotation;
-		currentXAngle = _localRotation.eulerAngles.x;
-		currentYAngle = _localRotation.eulerAngles.y;
+		var localRotation = objectTransform.localRotation;
+		currentXAngle = localRotation.eulerAngles.x;
+		currentYAngle = localRotation.eulerAngles.y;
 		RotateCamera(0f, 0f);
+		crouchCameraPosition = -0.5f;
+		crouchSmoothTime = 10f;
+		
+		//Events
+		CrouchState.onEnteredCrouchEvent += EnterCrouchCameraPosition;
+		CrouchState.onExitCrouchEvent += ExitCrouchCameraPosition;
+	}
+
+	private void OnDestroy()
+	{
+		CrouchState.onEnteredCrouchEvent -= EnterCrouchCameraPosition;
+		CrouchState.onExitCrouchEvent -= ExitCrouchCameraPosition;
+	}
+
+	private void EnterCrouchCameraPosition()
+	{
+		isCrouching = true;
+	}
+	
+	private void ExitCrouchCameraPosition()
+	{
+		isCrouching = false;
 	}
 
 	private void Update()
@@ -32,16 +60,18 @@ public sealed class CameraController : MonoBehaviour
 
 	private void HandleCrouch()
 	{
-		if (mouseInputCamera.IsCrouching())
-			objectTransform.transform.localPosition = new Vector3(0, -0.5f, 0);
+		if (isCrouching)
+			objectTransform.transform.localPosition = 
+				new Vector3(0,Mathf.Lerp(objectTransform.transform.localPosition.y, crouchCameraPosition, Time.deltaTime * crouchSmoothTime),0);
 		else
-			objectTransform.transform.localPosition = new Vector3(0, 0, 0);
+			objectTransform.transform.localPosition = 
+				new Vector3(0,Mathf.Lerp(objectTransform.transform.localPosition.y, 0, Time.deltaTime * crouchSmoothTime),0);
 	}
 
 	private void HandleCameraRotation()
 	{
-		var inputHorizontal = mouseInputCamera.GetHorizontalCameraInput();
-		var inputVertical = mouseInputCamera.GetVerticalCameraInput();
+		var inputHorizontal = inputCamera.GetHorizontalCameraInput();
+		var inputVertical = inputCamera.GetVerticalCameraInput();
 		inputHorizontal *= Time.deltaTime * cameraTurningSpeed;
 		inputVertical *= Time.deltaTime * cameraTurningSpeed;
 		RotateCamera(inputHorizontal, inputVertical);

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MouseInputCamera : MonoBehaviour
+public class InputCamera : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity = 1.0f;
     
