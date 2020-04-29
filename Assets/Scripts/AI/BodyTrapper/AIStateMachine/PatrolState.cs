@@ -1,6 +1,7 @@
 ﻿using AI.AIStateMachine;
 using AI.Charger.AIStateMachine;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace AI.BodyTrapper.AIStateMachine
 {
@@ -11,7 +12,7 @@ namespace AI.BodyTrapper.AIStateMachine
         [SerializeField] private float seeDistance;
 
         private int currentPoint;
-        
+
         public override void Enter()
         {
             base.Enter();
@@ -26,7 +27,7 @@ namespace AI.BodyTrapper.AIStateMachine
             if (Ai.waypoints.Length > 0)
             {
                 if(Ai.agent.enabled)
-                Ai.agent.SetDestination(Ai.waypoints[currentPoint].position);
+                    Ai.agent.SetDestination(Ai.waypoints[currentPoint].position);
                 if (Vector3.Distance(Ai.transform.position, Ai.waypoints[currentPoint].position) < 1)
                     currentPoint = (currentPoint + 1) % Ai.waypoints.Length;
             }
@@ -39,7 +40,12 @@ namespace AI.BodyTrapper.AIStateMachine
 
             if ((CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < seeDistance) || Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < hearDistance)
             {
-                stateMachine.TransitionTo<HuntState>();   
+                
+                NavMesh.CalculatePath(Ai.target.transform.position, Ai.transform.position, NavMesh.AllAreas, Ai.path);
+                if (Ai.path.status == NavMeshPathStatus.PathComplete)
+                {
+                    stateMachine.TransitionTo<HuntState>();
+                }
             }
         }
 

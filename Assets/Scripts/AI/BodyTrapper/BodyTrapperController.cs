@@ -3,6 +3,7 @@ using System.Collections;
 using PlayerController;
 using Traps;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace AI.BodyTrapper
 {
@@ -15,10 +16,11 @@ namespace AI.BodyTrapper
         internal Vector3 jumpDirection;
         internal bool canAttack;
         private bool _enemyWithinPlayerMelee;
-
+        internal NavMeshPath path;
         private new void Awake()
         {
             base.Awake();
+            path = new NavMeshPath();
             chargeTime = 0f;
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             PlayerTrapable.onTrapped += StuckOnPlayer;

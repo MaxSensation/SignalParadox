@@ -1,6 +1,7 @@
 ﻿using AI.AIStateMachine;
 using AI.Charger.AIStateMachine;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace AI.BodyTrapper.AIStateMachine
 {
@@ -21,8 +22,8 @@ namespace AI.BodyTrapper.AIStateMachine
             
             if (Ai.LookingAtPlayer(Ai, maxMinLookRange) && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
                 stateMachine.TransitionTo<ChargeState>();
-            
-            if (!CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) > searchingRange)
+            NavMesh.CalculatePath(Ai.target.transform.position, Ai.transform.position, NavMesh.AllAreas, Ai.path);
+            if (Ai.path.status != NavMeshPathStatus.PathComplete || (!CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) > searchingRange))
                 stateMachine.TransitionTo<PatrolState>();
             
         }
