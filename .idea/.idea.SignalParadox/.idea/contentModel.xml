@@ -44,17 +44,6 @@
               <e p="ChargerController.cs" t="Include" />
             </e>
           </e>
-          <e p="Button" t="Include">
-            <e p="ButtonController.cs" t="Include" />
-          </e>
-          <e p="CheckPointSystem" t="Include">
-            <e p="CheckPoint.cs" t="Include" />
-            <e p="CheckPointGenerator.cs" t="Include" />
-            <e p="SaveManager.cs" t="Include" />
-          </e>
-          <e p="Door" t="Include">
-            <e p="DoorController.cs" t="Include" />
-          </e>
           <e p="GUI" t="Include">
             <e p="HealthBar.cs" t="Include" />
           </e>
@@ -63,6 +52,34 @@
             <e p="State.cs" t="Include" />
             <e p="StateMachine.cs" t="Include" />
             <e p="World.cs" t="Include" />
+          </e>
+          <e p="Interactables" t="Include">
+            <e p="Button" t="Include">
+              <e p="ButtonController.cs" t="Include" />
+            </e>
+            <e p="CheckPointSystem" t="Include">
+              <e p="CheckPoint.cs" t="Include" />
+              <e p="CheckPointGenerator.cs" t="Include" />
+              <e p="SaveManager.cs" t="Include" />
+            </e>
+            <e p="Door" t="Include">
+              <e p="DoorController.cs" t="Include" />
+            </e>
+            <e p="PushableBox.cs" t="Include" />
+            <e p="Traps" t="Include">
+              <e p="DynamicLaserWall.cs" t="Include" />
+              <e p="LaserController.cs" t="Include" />
+              <e p="SteamController.cs" t="Include" />
+            </e>
+            <e p="Triggers" t="Include">
+              <e p="EnemyTrigger.cs" t="Include" />
+              <e p="TriggerCheckPoint.cs" t="Include" />
+              <e p="TriggerLoadNextLevel.cs" t="Include" />
+              <e p="TriggerMemo.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Interfaces" t="Include">
+            <e p="IPushable.cs" t="Include" />
           </e>
           <e p="Managers" t="Include">
             <e p="GameManager.cs" t="Include" />
@@ -87,17 +104,6 @@
               <e p="WalkState.cs" t="Include" />
             </e>
             <e p="PlayerTrapable.cs" t="Include" />
-          </e>
-          <e p="Traps" t="Include">
-            <e p="DynamicLaserWall.cs" t="Include" />
-            <e p="LaserController.cs" t="Include" />
-            <e p="SteamController.cs" t="Include" />
-          </e>
-          <e p="Triggers" t="Include">
-            <e p="EnemyTrigger.cs" t="Include" />
-            <e p="TriggerCheckPoint.cs" t="Include" />
-            <e p="TriggerLoadNextLevel.cs" t="Include" />
-            <e p="TriggerMemo.cs" t="Include" />
           </e>
         </e>
       </e>

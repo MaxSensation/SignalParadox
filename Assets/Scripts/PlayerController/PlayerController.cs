@@ -39,7 +39,6 @@ namespace PlayerController
 
         // Events
         public static Action onPlayerDeath;
-        public static Action OnMeleeEvent;
 
 
         private void Awake()
@@ -100,12 +99,7 @@ namespace PlayerController
             if (Input.GetKeyDown(KeyCode.P))
                 Die();
         }
-
-        internal void OnMelee()
-        {
-            OnMeleeEvent?.Invoke();
-        }
-
+        
         private void Die(GameObject o)
         {
             if (gameObject == o && _alive)
@@ -239,12 +233,7 @@ namespace PlayerController
             Physics.CapsuleCast(_point1, _point2, _collider.radius, direction.normalized, out var hit, magnitude, collisionLayer);
             return hit;
         }
-
-        internal RaycastHit GetMeeleRayCast(float meeleDistance) //Temporär kanske, för den e bah för meele justn nu
-        {
-            Physics.CapsuleCast(_point1, _point2, _collider.radius, _playerMesh.transform.forward, out var hit, meeleDistance);
-            return hit;
-        }
+        
 
         internal float GetGroundCheckDistance()
         {

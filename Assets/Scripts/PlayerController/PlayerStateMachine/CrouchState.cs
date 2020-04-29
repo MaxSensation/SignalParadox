@@ -32,7 +32,6 @@ namespace PlayerStateMachine
             if (!_isCrouchAttacking)
             {
                 Debug.Log("Exit Crouch State");
-                // CameraOffset = _oldCameraOffset;
                 PlayerCollider.center = Vector3.zero;
                 PlayerCollider.height = _oldColliderHeight;
             }
