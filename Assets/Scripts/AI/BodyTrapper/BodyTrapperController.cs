@@ -17,6 +17,9 @@ namespace AI.BodyTrapper
         internal bool canAttack;
         private bool _enemyWithinPlayerMelee;
         internal NavMeshPath path;
+        internal SoundListener _soundListener;
+        internal Vector3 lastSoundLocation;
+        private Coroutine _foundSound;
         private new void Awake()
         {
             base.Awake();
@@ -27,7 +30,23 @@ namespace AI.BodyTrapper
             PlayerTrapable.onDetached += DetachFromPlayer;
             LaserController.onLaserDeath += OnDeathByTrap;
             SteamController.onSteamDeath += OnDeathByTrap;
+            _soundListener = GetComponent<SoundListener>();
+            _soundListener.onHeardSound += UpdateSoundSource;
         }
+
+        private void UpdateSoundSource(Vector3 soundLocation)
+        {
+            lastSoundLocation = soundLocation;
+            if (_foundSound != null) StopCoroutine(_foundSound);
+            _foundSound = StartCoroutine(FoundSound());
+        }
+
+        private IEnumerator FoundSound()
+        {
+            yield return new WaitForSeconds(15f);
+            lastSoundLocation = Vector3.zero;
+        }
+
         private void OnDeathByTrap(GameObject obj)
         {
             if (obj == gameObject)

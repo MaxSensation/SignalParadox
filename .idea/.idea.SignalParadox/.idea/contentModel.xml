@@ -29,6 +29,7 @@
                 <e p="HuntState.cs" t="Include" />
                 <e p="JumpState.cs" t="Include" />
                 <e p="PatrolState.cs" t="Include" />
+                <e p="SeekingState.cs" t="Include" />
               </e>
               <e p="BodyTrapperController.cs" t="Include" />
             </e>
@@ -43,6 +44,13 @@
               </e>
               <e p="ChargerController.cs" t="Include" />
             </e>
+          </e>
+          <e p="DecoyGrenade" t="Include">
+            <e p="DecoyGrenade.cs" t="Include" />
+          </e>
+          <e p="FootStepSound" t="Include">
+            <e p="DynamicFootStep.cs" t="Include" />
+            <e p="SurfaceColliderType.cs" t="Include" />
           </e>
           <e p="GUI" t="Include">
             <e p="HealthBar.cs" t="Include" />

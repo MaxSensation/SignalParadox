@@ -19,13 +19,13 @@ namespace Traps
 
         void Start()
         {
-            _particleSystem = GetComponent<ParticleSystem>();
-            if (startSteamOn)
-                ActivateSteam();
-            else
-                DeactivateSteam();
             turnOn.AddListener(ActivateSteam);
             turnOff.AddListener(DeactivateSteam);
+            _particleSystem = GetComponent<ParticleSystem>();
+            if (startSteamOn)
+                turnOn.Invoke();
+            else
+                turnOff.Invoke();
         }
 
         private void Update()
@@ -46,14 +46,14 @@ namespace Traps
                 {
                     if (!startSteamOn)
                     {
-                        ActivateSteam();
+                        turnOn.Invoke();
                     }
                 }
                 else
                 {
                     if (startSteamOn)
                     {
-                        DeactivateSteam();
+                        turnOff.Invoke();
                     }
                 }
                 yield return new WaitForSeconds(delay);

@@ -7,9 +7,6 @@ namespace AI.BodyTrapper.AIStateMachine
     [CreateAssetMenu(menuName = "AIStates/BodyTrapper/PatrolState")]
     public class PatrolState : BodyTrapperBaseState
     {
-        [SerializeField] private float hearDistance;
-        [SerializeField] private float seeDistance;
-
         private int currentPoint;
 
         public override void Enter()
@@ -37,13 +34,13 @@ namespace AI.BodyTrapper.AIStateMachine
                 Ai.agent.SetDestination(Ai.target.transform.position);
             }
 
-            if ((CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < seeDistance) || Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < hearDistance)
+            if (Ai.lastSoundLocation != Vector3.zero)
             {
                 
-                NavMesh.CalculatePath(Ai.target.transform.position, Ai.transform.position, NavMesh.AllAreas, Ai.path);
+                NavMesh.CalculatePath(Ai.target.transform.position, Ai.lastSoundLocation, NavMesh.AllAreas, Ai.path);
                 if (Ai.path.status == NavMeshPathStatus.PathComplete)
                 {
-                    stateMachine.TransitionTo<HuntState>();
+                    stateMachine.TransitionTo<SeekingState>();
                 }
             }
         }

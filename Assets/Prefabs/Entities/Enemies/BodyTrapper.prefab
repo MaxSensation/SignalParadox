@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 5524878611636088516}
   - component: {fileID: 646537878}
   - component: {fileID: 249009892}
+  - component: {fileID: 2886486759013075409}
   m_Layer: 12
   m_Name: BodyTrapper
   m_TagString: Enemy
@@ -202,9 +203,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 2
-  m_Acceleration: 15
+  m_Acceleration: 30
   avoidancePriority: 50
-  m_AngularSpeed: 500
+  m_AngularSpeed: 700
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -260,8 +261,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7989879139a9a1a418ce4f90e5a64ca7, type: 2}
   - {fileID: 11400000, guid: 00885cf945f101c4e970c8cb90257bef, type: 2}
   - {fileID: 11400000, guid: d519529f6353ae140b640a90ccc64bb7, type: 2}
+  - {fileID: 11400000, guid: 7a3222cd59601964bb7328b478de7036, type: 2}
   waypoints: []
   visionMask:
     serializedVersion: 2
     m_Bits: 256
-  moveSpeed: 0
+--- !u!114 &2886486759013075409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5772861337741434719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ec0613936e46941bc26b486649b45c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

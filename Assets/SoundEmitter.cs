@@ -4,7 +4,6 @@
 public class SoundEmitter : MonoBehaviour
 {
     private SphereCollider _soundSphere;
-
     private void Awake()
     {
         _soundSphere = GetComponent<SphereCollider>();
