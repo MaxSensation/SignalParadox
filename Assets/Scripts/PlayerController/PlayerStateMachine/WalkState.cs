@@ -11,7 +11,7 @@ namespace PlayerStateMachine
 
         public override void Enter()
         {
-            
+            PlayerController.PlayerController.onSoundLevelChanged?.Invoke(6f);
         }
         
         public override void Run()

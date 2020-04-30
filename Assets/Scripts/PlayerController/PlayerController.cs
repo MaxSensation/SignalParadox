@@ -39,7 +39,7 @@ namespace PlayerController
 
         // Events
         public static Action onPlayerDeath;
-
+        public static Action<float> onSoundLevelChanged;
 
         private void Awake()
         {
