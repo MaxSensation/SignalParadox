@@ -21,11 +21,13 @@ namespace Door
                 OpenDoor();
             }
             ButtonController.onButtonPressed += OnButtonPressed;
+            PlatformTrigger.onButtonPressed += OnButtonPressed;
         }
     
         private void OnDestroy()
         {
             ButtonController.onButtonPressed -= OnButtonPressed;
+            PlatformTrigger.onButtonPressed -= OnButtonPressed;
         }
 
         private void OpenDoor()
