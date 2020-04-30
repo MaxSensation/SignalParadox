@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b0848136fe05e4b9325b369466fcac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  on: {fileID: 0}
-  off: {fileID: 0}
+  on: {fileID: 2100000, guid: ab30711f9cd224c4db73aed1a676eb5d, type: 2}
+  off: {fileID: 2100000, guid: ad53f1c2448646b43a0f1d1695c28c18, type: 2}
   interactables:
   - {fileID: 0}
   isOn:
@@ -261,7 +261,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ad53f1c2448646b43a0f1d1695c28c18, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
