@@ -5,30 +5,34 @@ using UnityEngine;
 public class DecoyGrenade : MonoBehaviour
 {
     [SerializeField] private GameObject _grenadePrefab;
-    [SerializeField] private Transform _hand;
-    [SerializeField] private Transform _cameraPosition;
-    [SerializeField] private Vector3 _throwTargetRange;
-    [SerializeField] private float h = 25;
+    [SerializeField] private float _throwTargetRange = 20;
+    [SerializeField] private float _maxThrowHeight = 5;
     [SerializeField] private float gravity = -18;
-    [SerializeField] private LayerMask _layerMask;
+    //[SerializeField] private LayerMask _layerMask;
     private bool _shouldDrawPath;
     private bool _canThrow;
     private Rigidbody _grenadeRigidBody;
     private LineRenderer _lineRenderer;
     private Transform _playerMeshPos;
+    private Transform _cameraPosition;
+    private Transform _hand;
+    List<Vector3> _storedLinePoints;
 
     private void Awake()
     {
-        //_lineRenderer = _grenadePrefab.GetComponent<LineRenderer>();
+        //_lineRenderer = gameObject.GetComponent<LineRenderer>();
+        //_lineRenderer.useWorldSpace = true;
+
         _grenadeRigidBody = _grenadePrefab.GetComponent<Rigidbody>();
         _playerMeshPos = transform.Find("PlayerMesh").transform;
+        _cameraPosition = transform.Find("Camera").Find("CameraControls").Find("MainCamera").transform;
+        _hand = transform.Find("PlayerMesh").Find("mixamorig:Hips").Find("mixamorig:Spine").Find("mixamorig:Spine1").Find("mixamorig:Spine2").
+            Find("mixamorig:RightShoulder").Find("mixamorig:RightArm").Find("mixamorig:RightForeArm").Find("mixamorig:RightHand");
         //Lyssnare för när spelaren trycker på kastknappen
     }
 
     private void Update()
     {
-        //_grenadeRigidBody.position = _hand.position + Vector3.forward;
-
         if (Input.GetKeyDown(KeyCode.G))
         {
             _shouldDrawPath = true;
@@ -45,7 +49,6 @@ public class DecoyGrenade : MonoBehaviour
 
     private void Throw()
     {
-        //Debug.Log(CalculateLaunchData().initialVelocity);
         if (_canThrow)
         {
             _grenadeRigidBody = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
@@ -56,17 +59,18 @@ public class DecoyGrenade : MonoBehaviour
 
     private LaunchData CalculateLaunchData()
     {
-        if (GetTarget().collider)
-        {
-            Vector3 _newTarget = GetTarget().point;
+        Vector3 _newTarget = GetTarget().point;
+        Debug.Log(_newTarget.y - _hand.position.y);
 
+        if (GetTarget().collider && (_newTarget.y - _hand.position.y) < _maxThrowHeight)
+        {
             float displacementY = _newTarget.y - _hand.position.y;
 
             Vector3 displacementXZ = new Vector3(_newTarget.x - _hand.position.x, 0, _newTarget.z - _hand.position.z);
 
-            float time = Mathf.Sqrt(-2 * h / gravity) + Mathf.Sqrt(2 * (displacementY - h) / gravity);
+            float time = Mathf.Sqrt(-2 * _maxThrowHeight / gravity) + Mathf.Sqrt(2 * (displacementY - _maxThrowHeight) / gravity);
 
-            Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * h);
+            Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * _maxThrowHeight);
 
             Vector3 velocityXZ = displacementXZ / time;
 
@@ -96,8 +100,8 @@ public class DecoyGrenade : MonoBehaviour
 
                 Debug.DrawLine(previousDrawPoint, drawPoint, Color.green);
 
-                //if(_lineRenderer != null)
-                //_lineRenderer.SetPosition(0, drawPoint);
+                //if (_lineRenderer != null)
+                //    AddLinePoint(drawPoint);
 
                 previousDrawPoint = drawPoint;
                 _canThrow = true;
@@ -109,8 +113,9 @@ public class DecoyGrenade : MonoBehaviour
 
     private RaycastHit GetTarget()
     {
-        Physics.Raycast(_cameraPosition.transform.position, _cameraPosition.forward, out RaycastHit hit, 20f, _layerMask);
-        Debug.Log(Vector3.Dot(new Vector3(0, _cameraPosition.position.y, 0).normalized, _playerMeshPos.forward));
+        LayerMask mask = LayerMask.GetMask("Colliders");
+        Physics.Raycast(_cameraPosition.transform.position, _cameraPosition.forward, out RaycastHit hit, _throwTargetRange, mask);
+        Debug.Log(Vector3.Dot(-_playerMeshPos.up.normalized, (hit.point - _cameraPosition.position).normalized) /*> maxMinThrowRange*/);
 
         return hit;
     }
@@ -127,13 +132,28 @@ public class DecoyGrenade : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Physics.Raycast(_hand.position, _cameraPosition.forward, out RaycastHit hit, 20f, _layerMask);
-        if (hit.collider)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(gameObject.transform.position, hit.point);
-        }
-    }
+    //void AddLinePoint(Vector3 newPoint)
+    //{
+    //    _storedLinePoints.Add(newPoint); // add the new point to our saved list of line points
+    //    _lineRenderer.positionCount = _storedLinePoints.Count + 1; // set the line’s vertex count to how many points we now have, which will be 1 more than it is currently
+    //    _lineRenderer.SetPosition(_storedLinePoints.Count - 1, newPoint); // add newPoint as the last point on the line (count -1 because the SetPosition is 0-based and Count is 1-based)    
+    //}
+
+    //void RemoveLastLinePoint()
+    //{
+    //    _storedLinePoints.RemoveAt(_storedLinePoints.Count - 1); // remove the last point from the line
+    //    _lineRenderer.positionCount = _storedLinePoints.Count - 1; // set the line’s vertex count to how many points we now have, which will be 1 fewer than it is currently       
+    //}
+
+    //private void OnDrawGizmos()
+    //{
+    //    //LayerMask mask = LayerMask.GetMask("Colliders");
+    //    //Physics.Raycast(_cameraPosition.transform.position, _cameraPosition.forward, out RaycastHit hit, _throwTargetRange, mask);
+    //    //if (hit.collider)
+    //    //{
+    //        //Gizmos(Vector3.Dot(-_playerMeshPos.up.normalized, (_cameraPosition.position - hit.point).normalized) /*> maxMinThrowRange*/);
+    //        //Gizmos.color = Color.red;
+    //        //Gizmos.DrawRay(_playerMeshPos.transform.position, -_playerMeshPos.transform.up);
+    //    //}
+    //}
 }
