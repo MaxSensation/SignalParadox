@@ -18,6 +18,7 @@
             </e>
           </e>
         </e>
+        <e p="PlatformTrigger.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="AI" t="Include">
             <e p="AIController.cs" t="Include" />
@@ -47,6 +48,12 @@
           </e>
           <e p="DecoyGrenade" t="Include">
             <e p="DecoyGrenade.cs" t="Include" />
+          </e>
+          <e p="EchoLocation" t="Include">
+            <e p="EchoLocationAudioSource.cs" t="Include" />
+            <e p="EchoLocationReceiver.cs" t="Include" />
+            <e p="EchoLocationResult.cs" t="Include" />
+            <e p="EchoLocationTransmitter.cs" t="Include" />
           </e>
           <e p="FootStepSound" t="Include">
             <e p="DynamicFootStep.cs" t="Include" />
@@ -113,9 +120,13 @@
             </e>
             <e p="PlayerTrapable.cs" t="Include" />
           </e>
+          <e p="TransformModifier" t="Include">
+            <e p="RotationRandomizer.cs" t="Include" />
+          </e>
         </e>
         <e p="SoundEmitter.cs" t="Include" />
         <e p="SoundListener.cs" t="Include" />
+        <e p="SoundProvider.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
