@@ -160,7 +160,7 @@ MonoBehaviour:
   debugMinStrengthTolerance: 0
   debugBounceLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 16640
 --- !u!114 &1566673167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,15 +174,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequency: 0.1
-  xResolution: 8
-  yResolution: 8
-  maxBounces: 10
+  xResolution: 15
+  yResolution: 15
+  maxBounces: 20
   bouncesDecay: 0.1
   airDecay: 0.01
   minStrengthTolerance: 0
   bounceLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 16640
 --- !u!114 &1566673165
 MonoBehaviour:
   m_ObjectHideFlags: 0
