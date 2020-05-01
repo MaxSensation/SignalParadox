@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 8377688227968558043}
   - component: {fileID: 6802805528782445766}
   - component: {fileID: 267838125867196813}
+  - component: {fileID: -7414877779975804434}
+  - component: {fileID: -1616720140967041216}
+  - component: {fileID: 4356298716902081694}
   m_Layer: 0
   m_Name: DecoyGrenade
   m_TagString: Untagged
@@ -110,3 +113,61 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7414877779975804434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610478889220799681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed54d7670cc8224fbdf785470511a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugModeOn: 1
+  debugTestSoundOn: 0
+  debugXResolution: 0
+  debugYResolution: 0
+  debugMaxBounces: 0
+  debugBouncesDecay: 0
+  debugAirDecay: 0
+  debugMinStrengthTolerance: 0
+  debugBounceLayer:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &-1616720140967041216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610478889220799681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6efe2545dcac6f74ebc9ac772b3093fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frequency: 0
+  xResolution: 8
+  yResolution: 8
+  maxBounces: 10
+  bouncesDecay: 0.1
+  airDecay: 0.01
+  minStrengthTolerance: 0
+  bounceLayer:
+    serializedVersion: 2
+    m_Bits: 16640
+--- !u!114 &4356298716902081694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610478889220799681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1584c747cc1092042ac48f74acc4b26b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 5

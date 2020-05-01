@@ -37,11 +37,11 @@ namespace AI.BodyTrapper.AIStateMachine
             if (Ai.lastSoundLocation != Vector3.zero)
             {
                 
-                NavMesh.CalculatePath(Ai.target.transform.position, Ai.lastSoundLocation, NavMesh.AllAreas, Ai.path);
-                if (Ai.path.status == NavMeshPathStatus.PathComplete)
-                {
+                //NavMesh.CalculatePath(Ai.target.transform.position, Ai.lastSoundLocation, NavMesh.AllAreas, Ai.path);
+                //if (Ai.path.status == NavMeshPathStatus.PathComplete)
+                //{
                     stateMachine.TransitionTo<SeekingState>();
-                }
+                //}
             }
         }
 
