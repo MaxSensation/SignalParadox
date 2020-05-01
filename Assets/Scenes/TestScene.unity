@@ -3085,24 +3085,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8265316513196903232, guid: f084b18dd76868d44a7fb8742d08ef87,
         type: 3}
-      propertyPath: on
-      value: 
-      objectReference: {fileID: 2100000, guid: ab30711f9cd224c4db73aed1a676eb5d, type: 2}
-    - target: {fileID: 8265316513196903232, guid: f084b18dd76868d44a7fb8742d08ef87,
-        type: 3}
-      propertyPath: off
-      value: 
-      objectReference: {fileID: 2100000, guid: ad53f1c2448646b43a0f1d1695c28c18, type: 2}
-    - target: {fileID: 8265316513196903232, guid: f084b18dd76868d44a7fb8742d08ef87,
-        type: 3}
       propertyPath: interactables.Array.data[0]
       value: 
       objectReference: {fileID: 1907758779}
-    - target: {fileID: 8265316513325255861, guid: f084b18dd76868d44a7fb8742d08ef87,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ad53f1c2448646b43a0f1d1695c28c18, type: 2}
     - target: {fileID: 8265316514129533537, guid: f084b18dd76868d44a7fb8742d08ef87,
         type: 3}
       propertyPath: m_Controller
