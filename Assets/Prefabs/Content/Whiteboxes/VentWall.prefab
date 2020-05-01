@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 8133471250946481739}
   - component: {fileID: 974153822073742461}
   - component: {fileID: 6825322703264716932}
-  m_Layer: 0
+  - component: {fileID: 3571586453830836400}
+  m_Layer: 8
   m_Name: VentWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8133471250946481739
 Transform:
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3571586453830836400
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081393926486797400}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.5950122, z: 1.0828168}
+  m_Center: {x: 0.49999982, y: 2.702494, z: 0.5}
