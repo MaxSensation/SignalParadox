@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ThrowDecoyGrenade : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private GameObject _camera;
     private float _currentThrowHeight;
     private List<Vector3> _storedLinePoints;
+
+    public static Action OnAimingEvent;
+    public static Action OnThrowEvent;
 
     private void Awake()
     {
@@ -50,13 +54,16 @@ public class ThrowDecoyGrenade : MonoBehaviour
             Throw();
         }
         if (_shouldDrawPath)
+        {
             DrawPath();
+        }
     }
 
     private void Throw()
     {
         if (_canThrow)
         {
+            OnThrowEvent?.Invoke();
             _grenadeRigidBody = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
             Physics.gravity = Vector3.up * _gravity;
             _grenadeRigidBody.velocity = CalculateLaunchData().initialVelocity;
@@ -94,6 +101,8 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
         if (launchData.initialVelocity != Vector3.zero && launchData.timeToTarget != 0f)
         {
+            OnAimingEvent?.Invoke();
+
             for (int i = 0; i < resolution; i++)
             {
 
