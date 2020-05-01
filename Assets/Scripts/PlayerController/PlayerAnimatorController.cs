@@ -20,7 +20,10 @@ namespace PlayerController
             SteamController.onSteamDeath += GasDeath;
             ThrowDecoyGrenade.OnAimingEvent += Aiming;
             ThrowDecoyGrenade.OnThrowEvent += Throw;
+            ThrowDecoyGrenade.OnOutOfRangeEvent += StopAiming;
         }
+
+
 
         private void OnDestroy()
         {
@@ -29,6 +32,12 @@ namespace PlayerController
             SteamController.onSteamDeath -= GasDeath;
             ThrowDecoyGrenade.OnAimingEvent -= Aiming;
             ThrowDecoyGrenade.OnThrowEvent -= Throw;
+            ThrowDecoyGrenade.OnOutOfRangeEvent -= StopAiming;
+        }
+
+        private void StopAiming()
+        {
+            _isAiming = false;
         }
 
         private void Aiming()
@@ -74,7 +83,7 @@ namespace PlayerController
             _animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
             _animator.SetBool("Crouch", _isCrouching);
             _animator.SetBool("Aim", _isAiming);
-            _animator.SetBool("Throw", _isThrowing);
+            _animator.SetBool("Throw", _isThrowing);           
         }
     }
 }

@@ -22,6 +22,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private List<Vector3> _storedLinePoints;
 
     public static Action OnAimingEvent;
+    public static Action OnOutOfRangeEvent;
     public static Action OnThrowEvent;
 
     private void Awake()
@@ -89,7 +90,10 @@ public class ThrowDecoyGrenade : MonoBehaviour
             return new LaunchData(velocityXZ + velocityY * -Mathf.Sign(_gravity), time);
         }
         else
+        {
+            OnOutOfRangeEvent?.Invoke();
             return new LaunchData(Vector3.zero, 0f);
+        }
     }
 
     private void DrawPath()
