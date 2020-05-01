@@ -6,12 +6,14 @@ using System;
 public class ThrowDecoyGrenade : MonoBehaviour
 {
     [SerializeField] private GameObject _grenadePrefab;
+    [SerializeField] private int _maximumThrowableGrenades = 2;
     [SerializeField] private float _throwTargetRange = 20;
     [SerializeField] private float _maxThrowHeight = 5;
     [SerializeField] private float _gravity = -18;
     private float _oldVerticalRange;
     private bool _shouldDrawPath;
     private bool _canThrow;
+    private int _currentThrownGrenades;
     private Rigidbody _grenadeRigidBody;
     private LineRenderer _lineRenderer;
     private Transform _playerMeshPos;
@@ -45,11 +47,11 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
         _currentThrowHeight = SetTargetRange();
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G) && _currentThrownGrenades < _maximumThrowableGrenades)
         {
             _shouldDrawPath = true;
         }
-        if (Input.GetKeyUp(KeyCode.G))
+        if (Input.GetKeyUp(KeyCode.G) && _currentThrownGrenades < _maximumThrowableGrenades)
         {
             _shouldDrawPath = false;
             Throw();
@@ -68,6 +70,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
             _grenadeRigidBody = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
             Physics.gravity = Vector3.up * _gravity;
             _grenadeRigidBody.velocity = CalculateLaunchData().initialVelocity;
+            _currentThrownGrenades++;
         }
     }
 
