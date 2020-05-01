@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using EchoLocation;
 using PlayerController;
 using Traps;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace AI.BodyTrapper
         internal bool canAttack;
         private bool _enemyWithinPlayerMelee;
         internal NavMeshPath path;
-        internal SoundListener _soundListener;
+        internal EchoLocationReceiver _soundListener;
         internal Vector3 lastSoundLocation;
         private Coroutine _foundSound;
         private new void Awake()
@@ -30,13 +31,13 @@ namespace AI.BodyTrapper
             PlayerTrapable.onDetached += DetachFromPlayer;
             LaserController.onLaserDeath += OnDeathByTrap;
             SteamController.onSteamDeath += OnDeathByTrap;
-            _soundListener = GetComponent<SoundListener>();
-            _soundListener.onHeardSound += UpdateSoundSource;
+            _soundListener = transform.GetComponentInChildren<EchoLocationReceiver>();
+            _soundListener.heardSound += UpdateSoundSource;
         }
 
-        private void UpdateSoundSource(Vector3 soundLocation)
+        private void UpdateSoundSource(EchoLocationResult echoLocationResult)
         {
-            lastSoundLocation = soundLocation;
+            lastSoundLocation = echoLocationResult.Transmitter.transform.position;
             if (_foundSound != null) StopCoroutine(_foundSound);
             _foundSound = StartCoroutine(FoundSound());
         }

@@ -21,7 +21,7 @@ namespace PlayerStateMachine
         {
             if (!_isCrouching)
             {
-                PlayerController.PlayerController.onSoundLevelChanged?.Invoke(2f);
+                Player._transmitter.SetSoundStrength(0.98f);
                 onEnteredCrouchEvent?.Invoke();
                 Debug.Log("Entered Crouch State");
                 // _oldCameraOffset = CameraOffset;

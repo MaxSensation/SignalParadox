@@ -8,7 +8,7 @@ namespace PlayerStateMachine
     {
         public override void Enter()
         {
-            PlayerController.PlayerController.onSoundLevelChanged?.Invoke(10f);
+            Player._transmitter.SetSoundStrength(0.0f);
             if (Player.GetIsPlayerCharged())
                 stateMachine.TransitionTo<ChargedState>();
             //Debug.Log("Entered Land State");

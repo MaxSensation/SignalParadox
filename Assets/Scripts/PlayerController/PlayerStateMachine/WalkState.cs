@@ -11,7 +11,7 @@ namespace PlayerStateMachine
 
         public override void Enter()
         {
-            PlayerController.PlayerController.onSoundLevelChanged?.Invoke(6f);
+            Player._transmitter.SetSoundStrength(0.2f);
         }
         
         public override void Run()

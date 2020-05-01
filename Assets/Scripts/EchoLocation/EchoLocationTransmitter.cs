@@ -13,10 +13,6 @@ namespace EchoLocation
         [SerializeField] [Range(0f,1f)] private float debugAirDecay;
         [SerializeField] [Range(0f,1f)] private float debugMinStrengthTolerance;
         [SerializeField] private LayerMask debugBounceLayer;
-        private float _bestSoundStrength;
-        private float _bestSoundDistance;
-        private Vector3 _lastBounceLocation;
-        private GameObject _receiver;
         private Transform _tm;
 
         private void Update()
@@ -30,17 +26,14 @@ namespace EchoLocation
             debugMinStrengthTolerance = tolerance;
         }
 
-        public EchoLocationResult CreateTestSound()
+        public void CreateTestSound()
         {
-            return CastAudioRays(debugXResolution, debugYResolution, debugMaxBounces, debugBouncesDecay, debugAirDecay, debugMinStrengthTolerance, debugBounceLayer);
+            CastAudioRays(debugXResolution, debugYResolution, debugMaxBounces, debugBouncesDecay, debugAirDecay, debugMinStrengthTolerance, debugBounceLayer);
         }
 
-        public EchoLocationResult CastAudioRays(int xResolution, int yResolution, int maxBounces, float bouncesDecay, float airDecay, float minStrengthTolerance, LayerMask bounceLayer)
+        public void CastAudioRays(int xResolution, int yResolution, int maxBounces, float bouncesDecay, float airDecay, float minStrengthTolerance, LayerMask bounceLayer)
         {
             Gizmos.color = Color.red;
-            _bestSoundStrength = 0f;
-            _bestSoundDistance = 0f;
-            _receiver = null;
             _tm = transform;
             var direction = transform.forward;
             var directionChangeAmount = 360 / xResolution; 
@@ -54,11 +47,6 @@ namespace EchoLocation
                     direction = Quaternion.Euler(0, directionChangeAmount, 0) * direction;
                 }
             }
-        
-            if (_receiver == null) return null;
-            var echoLocationResult = new EchoLocationResult(_bestSoundStrength, _bestSoundDistance, _lastBounceLocation, gameObject, _receiver);
-            _receiver.GetComponent<EchoLocationReceiver>().ReceiveHit(echoLocationResult);
-            return echoLocationResult;
         }
 
         private void CastAudioRay(Vector3 direction, int maxBounces, float bouncesDecay, float airDecay, float minStrengthTolerance, LayerMask bounceLayer)
@@ -80,14 +68,8 @@ namespace EchoLocation
                     break;
                 if (hit.collider != null && hit.collider.CompareTag("Receiver"))
                 {
-                    if (_bestSoundStrength < strength)
-                    {
-                        _lastBounceLocation = lastBounceLocation;
-                        _bestSoundStrength = strength;
-                        _bestSoundDistance = distance;
-                        _receiver = hit.collider.gameObject;
-                    }
-                    break;
+                    var echoLocationResult = new EchoLocationResult(strength, distance, lastBounceLocation, gameObject, hit.collider.gameObject);
+                    hit.collider.GetComponent<EchoLocationReceiver>().ReceiveHit(echoLocationResult);
                 }
                 strength *= 1 - bouncesDecay;
             }

@@ -44,4 +44,9 @@ public class SoundProvider : MonoBehaviour
     {
         minStrengthTolerance = tolerance;
     }
+
+    public void SetSoundStrength(float tolerance)
+    {
+        minStrengthTolerance = tolerance;
+    }
 }

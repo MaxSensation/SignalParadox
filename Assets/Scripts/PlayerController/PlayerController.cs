@@ -1,5 +1,6 @@
 ﻿using System;
 using AI.Charger;
+using EchoLocation;
 using Traps;
 using UnityEngine;
 
@@ -36,13 +37,14 @@ namespace PlayerController
         private GameObject _playerMesh;
         private bool _alive;
         private bool isPlayerCharged;
-
+        internal SoundProvider _transmitter;
+        
         // Events
         public static Action onPlayerDeath;
-        public static Action<float> onSoundLevelChanged;
 
         private void Awake()
         {
+            _transmitter = transform.GetComponentInChildren<SoundProvider>();
             LaserController.onLaserDeath += Die;
             SteamController.onSteamDeath += Die;
             PlayerTrapable.onPlayerTrappedEvent += Die;
