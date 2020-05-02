@@ -18,6 +18,7 @@ namespace PlayerController
             CrouchState.onEnteredCrouchEvent += EnteredCrouch;
             CrouchState.onExitCrouchEvent += ExitedCrouch;
             SteamController.onSteamDeath += GasDeath;
+            LaserController.onLaserDeath += LaserDead;
             ThrowDecoyGrenade.OnAimingEvent += Aiming;
             ThrowDecoyGrenade.OnThrowEvent += Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent += StopAiming;
@@ -53,10 +54,13 @@ namespace PlayerController
         }
 
         //Här är test metoderna för de olika death anims
-        private void LaserDead()
+        private void LaserDead(GameObject go)
         {
-           
-            _animator.SetTrigger("LaserDeath");
+            if (go == gameObject)
+            {
+                _animator.SetTrigger("LaserDeath");
+            }  
+            
         }
 
         private void GasDeath(GameObject go)
