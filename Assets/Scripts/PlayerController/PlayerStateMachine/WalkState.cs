@@ -22,16 +22,7 @@ namespace PlayerStateMachine
             // If Player is not grounded then change state to In Air State
             if (!Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider)
                 stateMachine.TransitionTo<InAirState>();
-
-            // Enter PushState if E is pressed and interactive box is in range 
-            if (Player.hasInputInteracting)
-            {
-                if (Player.CheckSimpleShortRayCast("PushableBox"))
-                {
-                    stateMachine.TransitionTo<PushingState>();    
-                }
-                Player.hasInputInteracting = false;
-            }
+            
             
             // Enter Crouch if Control is pressed 
             if (Player.hasInputCrouch)
