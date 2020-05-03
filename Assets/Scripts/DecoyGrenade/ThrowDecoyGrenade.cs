@@ -10,6 +10,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     [SerializeField] private int _maximumThrowableGrenades = 2;
     [SerializeField] private float _throwTargetRange = 20;
     [SerializeField] private float _maxThrowHeight = 5;
+    [SerializeField] private float _timeUntilDestroy;
     [SerializeField] private float _gravity = -18;
     private float _oldVerticalRange;
     private bool _shouldDrawPath;
@@ -23,6 +24,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private GameObject _camera;
     private float _currentThrowHeight;
     private List<Vector3> _storedLinePoints;
+    private Rigidbody _thrownGrenade;
 
     public static Action OnAimingEvent;
     public static Action OnOutOfRangeEvent;
@@ -38,7 +40,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
         _hand = GameObject.Find("mixamorig:RightHand").transform;
         _camera = Camera.main.gameObject;
         _storedLinePoints = new List<Vector3>();
-        //Lyssnare för inputsystemet trycker på kastknappen ska läggas här
+        PickupDecoyGrenade.onGrenadePickup += IncreaseMaxThrowableGrenades;
     }
 
     private void Update()
@@ -48,19 +50,25 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
         _currentThrowHeight = SetTargetRange();
 
-        // if (Input.GetKeyDown(KeyCode.G) && _currentThrownGrenades < _maximumThrowableGrenades)
-        // {
-        //     _shouldDrawPath = true;
-        // }
-        // if (Input.GetKeyUp(KeyCode.G) && _currentThrownGrenades < _maximumThrowableGrenades)
-        // {
-        //     _shouldDrawPath = false;
-        //     Throw();
-        // }
         if (_shouldDrawPath)
         {
             DrawPath();
         }
+    }
+
+    private void IncreaseMaxThrowableGrenades(int pickedUpAmount)
+    {
+        _maximumThrowableGrenades = pickedUpAmount;
+    }
+
+    private IEnumerator DespawnGrenade(Rigidbody thrownGrenade)
+    {
+        Debug.Log(thrownGrenade.gameObject.name);
+        yield return new WaitForSeconds(_timeUntilDestroy);
+        thrownGrenade.gameObject.SetActive(false);
+        Destroy(thrownGrenade.gameObject);
+        _currentThrownGrenades--;
+        StopCoroutine("DespawnGrenade");
     }
 
     public void HandleInput(InputAction.CallbackContext context)
@@ -77,13 +85,14 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
     private void Throw()
     {
-        if (_canThrow)
+        if (_canThrow && _currentThrownGrenades < _maximumThrowableGrenades)
         {
             OnThrowEvent?.Invoke();
-            _grenadeRigidBody = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
+            _thrownGrenade = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
             Physics.gravity = Vector3.up * _gravity;
-            _grenadeRigidBody.velocity = CalculateLaunchData().initialVelocity;
+            _thrownGrenade.velocity = CalculateLaunchData().initialVelocity;
             _currentThrownGrenades++;
+            StartCoroutine("DespawnGrenade", _thrownGrenade);
         }
     }
 
@@ -175,5 +184,10 @@ public class ThrowDecoyGrenade : MonoBehaviour
         _storedLinePoints.Add(newPoint);
         _lineRenderer.positionCount = _storedLinePoints.Count;
         _lineRenderer.SetPosition(_storedLinePoints.Count - 1, newPoint);
+    }
+
+    private void OnDestroy()
+    {
+        PickupDecoyGrenade.onGrenadePickup -= IncreaseMaxThrowableGrenades;
     }
 }
