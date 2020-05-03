@@ -42743,6 +42743,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: OneWayDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 8253962022634553045, guid: 362bbe24027803f429e4e26e534dc936,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8253962022634553045, guid: 362bbe24027803f429e4e26e534dc936,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866816273065365262, guid: 362bbe24027803f429e4e26e534dc936,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c836c574a7866cb4e80c4cc5a7e02eca, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 362bbe24027803f429e4e26e534dc936, type: 3}
 --- !u!1001 &815243472
