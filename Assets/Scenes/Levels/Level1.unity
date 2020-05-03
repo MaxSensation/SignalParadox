@@ -42632,6 +42632,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 790026998399926364, guid: 362bbe24027803f429e4e26e534dc936,
+        type: 3}
+      propertyPath: isOpen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 790026998399926365, guid: 362bbe24027803f429e4e26e534dc936,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 790026998399926366, guid: 362bbe24027803f429e4e26e534dc936,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4595561368016741400, guid: 362bbe24027803f429e4e26e534dc936,
         type: 3}
       propertyPath: m_LocalPosition.x

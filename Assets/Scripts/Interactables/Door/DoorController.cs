@@ -1,25 +1,17 @@
 ﻿using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Door
 {
     public class DoorController : MonoBehaviour
     {
         [SerializeField] private bool isOpen;
-        private BoxCollider _collider;
-        private NavMeshObstacle _meshObstacle;
-        private MeshRenderer _renderer;
-
+        private Animator _animator;
         private void Awake()
         {
-            _collider = GetComponent<BoxCollider>();
-            _meshObstacle = GetComponent<NavMeshObstacle>();
-            _renderer = GetComponent<MeshRenderer>();        
             if (isOpen)
-            {
                 OpenDoor();
-            }
+            _animator = GetComponent<Animator>();
             ButtonController.onButtonPressed += OnButtonPressed;
             PlatformTrigger.onButtonPressed += OnButtonPressed;
         }
@@ -33,17 +25,13 @@ namespace Door
         private void OpenDoor()
         {
             isOpen = true;
-            _collider.enabled = false;
-            _meshObstacle.enabled = false;
-            _renderer.enabled = false;
+            _animator.SetBool("IsOpen", isOpen);
         }
     
         private void CloseDoor()
         {
             isOpen = false;
-            _meshObstacle.enabled = true;
-            _collider.enabled = true;
-            _renderer.enabled = true;
+            _animator.SetBool("IsOpen", isOpen);
         }
 
         private void OnButtonPressed(GameObject[] interactableObjects)
