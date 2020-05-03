@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3832576381926726588}
   - component: {fileID: 3832576381926726591}
   - component: {fileID: 1907758780}
+  - component: {fileID: 7032917527021655004}
   m_Layer: 8
   m_Name: Door
   m_TagString: Untagged
@@ -124,3 +125,22 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -1.991, y: 1.7550001, z: -0.504}
   m_TimeToStationary: 0.5
+--- !u!95 &7032917527021655004
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832576381926726590}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: adb4db35e045990468b0aba006e664ba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
