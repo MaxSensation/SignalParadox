@@ -17,14 +17,20 @@ public class ButtonController : MonoBehaviour
     {
         _isInteractable = true;
         buttonDelay = new WaitForSeconds(2);
-        PlayerInteractionTrigger.onEnteredInteractionRange += EnableInteraction;
-        PlayerInteractionTrigger.onExitedInteractionRange += DisableInteraction;
+        PlayerInteractionTrigger.onPressedButton += OnButtonPressed;
+    }
+
+    private void OnButtonPressed(GameObject button)
+    {
+        if (button == gameObject)
+        {
+            ButtonPress();
+        }
     }
 
     private void OnDestroy()
     {
-        PlayerInteractionTrigger.onEnteredInteractionRange -= EnableInteraction;
-        PlayerInteractionTrigger.onExitedInteractionRange -= DisableInteraction;
+        PlayerInteractionTrigger.onPressedButton -= OnButtonPressed;
     }
     
     private void Update()
@@ -44,20 +50,6 @@ public class ButtonController : MonoBehaviour
         _isInteractable = false;
         onButtonPressed?.Invoke(interactableObjects);
         StartCoroutine("ActivateButton");
-    }
-    
-    
-    private void EnableInteraction(GameObject o)
-    {
-        if (o == gameObject)
-            _isInRangeOfPlayer = true;   
-        
-    }
-    
-    private void DisableInteraction(GameObject o)
-    {
-        if (o == gameObject)
-            _isInRangeOfPlayer = false;
     }
 }
 
