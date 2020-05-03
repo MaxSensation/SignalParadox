@@ -24979,6 +24979,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1227935343099177549, guid: 18a82ee408a047c4da4d7f2749b3f226,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227935343099177549, guid: 18a82ee408a047c4da4d7f2749b3f226,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1318378619}
+    - target: {fileID: 1227935343099177549, guid: 18a82ee408a047c4da4d7f2749b3f226,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Activate
+      objectReference: {fileID: 0}
     - target: {fileID: 5312461777412064972, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -42728,6 +42743,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: OneWayDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 8253962022634553045, guid: 362bbe24027803f429e4e26e534dc936,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8253962022634553045, guid: 362bbe24027803f429e4e26e534dc936,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866816273065365262, guid: 362bbe24027803f429e4e26e534dc936,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c836c574a7866cb4e80c4cc5a7e02eca, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 362bbe24027803f429e4e26e534dc936, type: 3}
 --- !u!1001 &815243472
@@ -68876,6 +68906,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1317355809}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1318378619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1953797835654806964, guid: 18a82ee408a047c4da4d7f2749b3f226,
+    type: 3}
+  m_PrefabInstance: {fileID: 483604734}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace29bb778b75064e874c4bae3eb92f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1320981008
 PrefabInstance:
   m_ObjectHideFlags: 0

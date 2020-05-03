@@ -6,20 +6,19 @@ namespace PlayerController
 {
     public class PlayerInteractionTrigger : MonoBehaviour
     {
-        private bool _playerInteracted;
-        public static Action<GameObject> onInteracted;
-        
-        private void OnTriggerStay(Collider other)
-        {
-            if (!_playerInteracted || !other.CompareTag("Interactable")) return;
-            onInteracted?.Invoke(other.gameObject);
-            _playerInteracted = false;
-        }
+        private BoxCollider _collider;
+        public static Action<GameObject> onInteractedEvent;
 
-        public void PressButton(InputAction.CallbackContext context)
+        private void Awake() => _collider = GetComponent<BoxCollider>();
+
+        public void Activate(InputAction.CallbackContext context)
         {
-            if (context.performed)
-                _playerInteracted = true;
+            if (!context.performed) return;
+            foreach (var collider in Physics.OverlapBox(_collider.transform.position, _collider.size , transform.rotation))
+            {
+                if (collider.CompareTag("Interactable"))
+                    onInteractedEvent?.Invoke(collider.gameObject);
+            }
         }
     }
 }
