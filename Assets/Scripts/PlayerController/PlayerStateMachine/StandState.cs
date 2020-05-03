@@ -28,7 +28,7 @@ namespace PlayerStateMachine
             }
 
             // Enter Crouch if Control is pressed 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Player.hasInputCrouch)
             {
                 stateMachine.TransitionTo<CrouchState>();
             }

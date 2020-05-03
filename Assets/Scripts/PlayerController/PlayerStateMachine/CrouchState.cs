@@ -52,7 +52,7 @@ namespace PlayerStateMachine
             
 
             // Enter Crouch if Control is pressed 
-            if (Input.GetKey(KeyCode.LeftControl) == false && CanStand())
+            if (!Player.hasInputCrouch && CanStand())
             {
                 _isCrouching = false;
                 stateMachine.TransitionTo<StandState>();

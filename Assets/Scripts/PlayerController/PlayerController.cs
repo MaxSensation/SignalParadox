@@ -39,6 +39,7 @@ namespace PlayerController
         private bool isPlayerCharged;
         internal SoundProvider _transmitter;
         private Vector3 currentDirection;
+        internal bool hasInputCrouch;
         
         // Events
         public static Action onPlayerDeath;
@@ -170,17 +171,23 @@ namespace PlayerController
             currentDirection = new Vector3(value.x, 0, value.y);
         }
 
+        public void OnInputCrouch(InputAction.CallbackContext context)
+        {
+            hasInputCrouch = context.performed;
+        }
+
         internal Vector3 GetInputVector(float accelerationSpeed)
         {
+            var direction = currentDirection;
             // Get movement input
             //var direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
             // Correct the input based on camera
-            //currentDirection = CorrectInputVectorFromCamera(currentDirection);
+            direction = CorrectInputVectorFromCamera(currentDirection);
             // If magnitude is greater then 1 normalize the value
-            if (currentDirection.magnitude > 1)
-                return currentDirection.normalized * (accelerationSpeed * Time.deltaTime);
+            if (direction.magnitude > 1)
+                return direction.normalized * (accelerationSpeed * Time.deltaTime);
             // Else just return the direction
-            return currentDirection * (accelerationSpeed * Time.deltaTime);
+            return direction * (accelerationSpeed * Time.deltaTime);
         }
 
         private void AddOverLayCorrection()

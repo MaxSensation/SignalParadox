@@ -1,33 +1,25 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PlayerController
 {
     public class PlayerInteractionTrigger : MonoBehaviour
     {
-        private bool _playerinteracted;
+        private bool _playerInteracted;
         public static Action<GameObject> onInteracted;
         
         private void OnTriggerStay(Collider other)
         {
-            if (_playerinteracted && other.CompareTag("Interactable"))
-            {
-                onInteracted?.Invoke(other.gameObject);
-                _playerinteracted = false;
-            }
+            if (!_playerInteracted || !other.CompareTag("Interactable")) return;
+            onInteracted?.Invoke(other.gameObject);
+            _playerInteracted = false;
         }
 
-        public void PressButton()
+        public void PressButton(InputAction.CallbackContext context)
         {
-            _playerinteracted = true;
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                PressButton();
-            }
+            if (context.performed)
+                _playerInteracted = true;
         }
     }
 }
