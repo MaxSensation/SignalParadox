@@ -80,6 +80,10 @@
               <e p="DoorController.cs" t="Include" />
             </e>
             <e p="PlatformTrigger.cs" t="Include" />
+            <e p="Pushables" t="Include">
+              <e p="IPushable.cs" t="Include" />
+              <e p="PushableBox.cs" t="Include" />
+            </e>
             <e p="Traps" t="Include">
               <e p="DynamicLaserWall.cs" t="Include" />
               <e p="LaserController.cs" t="Include" />
@@ -91,9 +95,6 @@
               <e p="TriggerLoadNextLevel.cs" t="Include" />
               <e p="TriggerMemo.cs" t="Include" />
             </e>
-          </e>
-          <e p="Interfaces" t="Include">
-            <e p="IPushable.cs" t="Include" />
           </e>
           <e p="Managers" t="Include">
             <e p="GameManager.cs" t="Include" />

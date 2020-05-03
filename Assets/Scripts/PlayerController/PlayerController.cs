@@ -40,7 +40,6 @@ namespace PlayerController
         internal SoundProvider _transmitter;
         internal Vector3 currentDirection;
         internal bool hasInputCrouch;
-        internal bool hasInputInteracting;
         
         // Events
         public static Action onPlayerDeath;
@@ -176,11 +175,6 @@ namespace PlayerController
             hasInputCrouch = context.performed;
         }
 
-        public void OnInputInteract(InputAction.CallbackContext context)
-        {
-            hasInputInteracting = context.started;
-        }
-
         internal Vector3 GetInputVector(float accelerationSpeed)
         {
             // Correct the input based on camera
@@ -272,18 +266,6 @@ namespace PlayerController
         internal void SetVelocity(Vector3 velocity)
         {
             this.velocity = velocity;
-        }
-
-        internal RaycastHit SimpleShortRayCast()
-        {
-            Physics.Raycast(transform.position, _camera.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
-            return hit;
-        }
-
-        internal bool CheckSimpleShortRayCast(string tagName)
-        {
-            Physics.Raycast(transform.position, _camera.forward, out var hit, 1f, _layermask, QueryTriggerInteraction.Ignore);
-            return hit.collider && hit.collider.CompareTag(tagName);
         }
 
         internal Vector3 GetPosition()

@@ -17,7 +17,7 @@ public class ButtonController : MonoBehaviour
     {
         _isInteractable = true;
         buttonDelay = new WaitForSeconds(2);
-        PlayerInteractionTrigger.onInteracted += OnButtonPressed;
+        PlayerInteractionTrigger.onInteractedEvent += OnButtonPressed;
     }
 
     private void OnButtonPressed(GameObject button)
@@ -30,7 +30,7 @@ public class ButtonController : MonoBehaviour
 
     private void OnDestroy()
     {
-        PlayerInteractionTrigger.onInteracted -= OnButtonPressed;
+        PlayerInteractionTrigger.onInteractedEvent -= OnButtonPressed;
     }
 
     private IEnumerator ActivateButton()
