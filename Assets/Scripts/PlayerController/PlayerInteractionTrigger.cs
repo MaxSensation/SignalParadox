@@ -5,19 +5,29 @@ namespace PlayerController
 {
     public class PlayerInteractionTrigger : MonoBehaviour
     {
-        public static Action<GameObject> onEnteredInteractionRange;
-        public static Action<GameObject> onExitedInteractionRange;
-    
-        private void OnTriggerEnter(Collider other)
+        private bool _playerinteracted;
+        public static Action<GameObject> onInteracted;
+        
+        private void OnTriggerStay(Collider other)
         {
-            if (!other.CompareTag("Interactable")) return;
-            onEnteredInteractionRange?.Invoke(other.gameObject);
+            if (_playerinteracted && other.CompareTag("Interactable"))
+            {
+                onInteracted?.Invoke(other.gameObject);
+                _playerinteracted = false;
+            }
         }
-    
-        private void OnTriggerExit(Collider other)
+
+        public void PressButton()
         {
-            if (!other.CompareTag("Interactable")) return;
-            onExitedInteractionRange?.Invoke(other.gameObject);
+            _playerinteracted = true;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                PressButton();
+            }
         }
     }
 }
