@@ -15,20 +15,11 @@ namespace PlayerStateMachine
                 stateMachine.TransitionTo<ChargedState>();
 
             // If any move Input then change to MoveState
-            if (new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).magnitude > 0f)
+            if (Player.currentDirection.magnitude > 0f)
                 stateMachine.TransitionTo<WalkState>();
             
-            // Enter PushState if E is pressed and interactive box is in range 
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                if (Player.CheckSimpleShortRayCast("PushableBox"))
-                {
-                    stateMachine.TransitionTo<PushingState>();    
-                }
-            }
-
             // Enter Crouch if Control is pressed 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Player.hasInputCrouch)
             {
                 stateMachine.TransitionTo<CrouchState>();
             }

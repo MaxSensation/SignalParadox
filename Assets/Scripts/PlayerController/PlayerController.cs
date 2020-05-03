@@ -1,8 +1,8 @@
 ﻿using System;
 using AI.Charger;
-using EchoLocation;
 using Traps;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PlayerController
 {
@@ -38,12 +38,16 @@ namespace PlayerController
         private bool _alive;
         private bool isPlayerCharged;
         internal SoundProvider _transmitter;
+        internal Vector3 currentDirection;
+        internal bool hasInputCrouch;
+        internal bool hasInputInteracting;
         
         // Events
         public static Action onPlayerDeath;
 
         private void Awake()
         {
+            currentDirection = Vector2.zero;
             _transmitter = transform.GetComponentInChildren<SoundProvider>();
             LaserController.onLaserDeath += Die;
             SteamController.onSteamDeath += Die;
@@ -81,7 +85,6 @@ namespace PlayerController
             // Run CurrentState
             _stateMachine.Run();
             //Ta bort efter spelredovisning
-            CheckIfPressedRestart();
             // Add gravity to velocity
             velocity += Physic3D.GetGravity();
             // Limit the velocity to terminalVelocity
@@ -96,9 +99,9 @@ namespace PlayerController
             MoveCamera();
         }
 
-        private void CheckIfPressedRestart()
+        public void DebugReset(InputAction.CallbackContext context)
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (context.performed)
                 Die();
         }
         
@@ -162,12 +165,26 @@ namespace PlayerController
             return movementPerFrame;
         }
 
+        public void UpdateInputVector(InputAction.CallbackContext context)
+        {
+            var value = context.ReadValue<Vector2>();
+            currentDirection = new Vector3(value.x, 0, value.y);
+        }
+
+        public void OnInputCrouch(InputAction.CallbackContext context)
+        {
+            hasInputCrouch = context.performed;
+        }
+
+        public void OnInputInteract(InputAction.CallbackContext context)
+        {
+            hasInputInteracting = context.started;
+        }
+
         internal Vector3 GetInputVector(float accelerationSpeed)
         {
-            // Get movement input
-            var direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
             // Correct the input based on camera
-            direction = CorrectInputVectorFromCamera(direction);
+            var direction = CorrectInputVectorFromCamera(currentDirection);
             // If magnitude is greater then 1 normalize the value
             if (direction.magnitude > 1)
                 return direction.normalized * (accelerationSpeed * Time.deltaTime);

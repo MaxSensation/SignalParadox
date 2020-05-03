@@ -1,5 +1,6 @@
 ﻿using System;
 using AI.BodyTrapper;
+using UnityEditor;
 using UnityEngine;
 
 namespace PlayerController
@@ -39,15 +40,8 @@ namespace PlayerController
             onPlayerTrappedEvent?.Invoke();
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                DetachAllTrappers();
-            }
-        }
-
-        private void DetachAllTrappers()
+        [MenuItem("Tools/Enemies/Bodytrappers/Detach All")]
+        private static void DetachAllTrappers()
         {
             onDetached?.Invoke();
         }

@@ -24,8 +24,6 @@ namespace PlayerStateMachine
                 Player._transmitter.SetSoundStrength(0.98f);
                 onEnteredCrouchEvent?.Invoke();
                 Debug.Log("Entered Crouch State");
-                // _oldCameraOffset = CameraOffset;
-                // CameraOffset = Vector3.zero;
                 _oldColliderHeight = PlayerCollider.height;
                 PlayerCollider.center = new Vector3(0, -0.35f, 0);
                 PlayerCollider.height = 1.1f;
@@ -52,7 +50,7 @@ namespace PlayerStateMachine
             
 
             // Enter Crouch if Control is pressed 
-            if (Input.GetKey(KeyCode.LeftControl) == false && CanStand())
+            if (!Player.hasInputCrouch && CanStand())
             {
                 _isCrouching = false;
                 stateMachine.TransitionTo<StandState>();

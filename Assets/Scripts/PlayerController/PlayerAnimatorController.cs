@@ -2,15 +2,19 @@
 using PlayerStateMachine;
 using UnityEngine;
 using Traps;
+using UnityEngine.InputSystem;
 
 namespace PlayerController
 {
     public class PlayerAnimatorController : MonoBehaviour
     {
+        [SerializeField] private float smoothTime;
         private Animator _animator;
         private bool _isCrouching;
         private bool _isAiming;
         private bool _isThrowing;
+        private Vector2 _movement;
+        private Vector2 _newMovement;
         
         private void Awake()
         {
@@ -81,10 +85,16 @@ namespace PlayerController
             _isCrouching = false;
         }
 
+        public void UpdateMovementInput(InputAction.CallbackContext context)
+        {
+            _newMovement = context.ReadValue<Vector2>();
+        }
+
         private void Update()
         {
-            _animator.SetFloat("Vertical", Input.GetAxis("Vertical"));
-            _animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+            _movement = Vector2.Lerp(_movement, _newMovement, Time.deltaTime * smoothTime);
+            _animator.SetFloat("Vertical", _movement.y);
+            _animator.SetFloat("Horizontal", _movement.x);
             _animator.SetBool("Crouch", _isCrouching);
             _animator.SetBool("Aim", _isAiming);
             _animator.SetBool("Throw", _isThrowing);           

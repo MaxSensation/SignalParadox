@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.InputSystem;
 
 public class ThrowDecoyGrenade : MonoBehaviour
 {
@@ -47,19 +48,31 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
         _currentThrowHeight = SetTargetRange();
 
-        if (Input.GetKeyDown(KeyCode.G) && _currentThrownGrenades < _maximumThrowableGrenades)
-        {
-            _shouldDrawPath = true;
-        }
-        if (Input.GetKeyUp(KeyCode.G) && _currentThrownGrenades < _maximumThrowableGrenades)
-        {
-            _shouldDrawPath = false;
-            Throw();
-        }
+        // if (Input.GetKeyDown(KeyCode.G) && _currentThrownGrenades < _maximumThrowableGrenades)
+        // {
+        //     _shouldDrawPath = true;
+        // }
+        // if (Input.GetKeyUp(KeyCode.G) && _currentThrownGrenades < _maximumThrowableGrenades)
+        // {
+        //     _shouldDrawPath = false;
+        //     Throw();
+        // }
         if (_shouldDrawPath)
         {
             DrawPath();
         }
+    }
+
+    public void HandleInput(InputAction.CallbackContext context)
+    {
+        if (context.started && _currentThrownGrenades < _maximumThrowableGrenades)
+        {
+            _shouldDrawPath = true;
+        }
+
+        if (!context.canceled || _currentThrownGrenades >= _maximumThrowableGrenades) return;
+        _shouldDrawPath = false;
+        Throw();
     }
 
     private void Throw()
