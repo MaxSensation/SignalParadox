@@ -5,7 +5,8 @@ using System;
 
 public class PickupDecoyGrenade : MonoBehaviour
 {
-    [SerializeField] private int _grenadeAmount;
+    [SerializeField] private int _grenadeAmount = 1;
+    [SerializeField] private bool _shouldDespawnOnPickup = true;
 
     public static Action<int> onGrenadePickup;
 
@@ -15,7 +16,7 @@ public class PickupDecoyGrenade : MonoBehaviour
         {
             Debug.Log("Picked up Decoygrenade");
             onGrenadePickup?.Invoke(_grenadeAmount);
-            gameObject.SetActive(false);
+            gameObject.SetActive(!_shouldDespawnOnPickup);
         }
     }
 }

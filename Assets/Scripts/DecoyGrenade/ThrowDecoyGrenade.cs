@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 public class ThrowDecoyGrenade : MonoBehaviour
 {
     [SerializeField] private GameObject _grenadePrefab;
-    [SerializeField] private int _maximumThrowableGrenades = 2;
+    [SerializeField] private int _maximumThrowableGrenades = 1;
     [SerializeField] private float _throwTargetRange = 20;
     [SerializeField] private float _maxThrowHeight = 5;
-    [SerializeField] private float _timeUntilDestroy;
+    [SerializeField] private float _timeUntilDestroy = 10;
     [SerializeField] private float _gravity = -18;
     private float _oldVerticalRange;
     private bool _shouldDrawPath;
@@ -59,16 +59,21 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private void IncreaseMaxThrowableGrenades(int pickedUpAmount)
     {
         _maximumThrowableGrenades = pickedUpAmount;
+        if (_thrownGrenade != null)
+        {
+            Destroy(_thrownGrenade.gameObject);
+            _currentThrownGrenades--;
+        }
     }
 
     private IEnumerator DespawnGrenade(Rigidbody thrownGrenade)
     {
-        Debug.Log(thrownGrenade.gameObject.name);
         yield return new WaitForSeconds(_timeUntilDestroy);
-        thrownGrenade.gameObject.SetActive(false);
-        Destroy(thrownGrenade.gameObject);
-        _currentThrownGrenades--;
-        StopCoroutine("DespawnGrenade");
+        if (thrownGrenade != null)
+        {
+            Destroy(thrownGrenade.gameObject);
+            _currentThrownGrenades--;
+        }
     }
 
     public void HandleInput(InputAction.CallbackContext context)
@@ -92,6 +97,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
             Physics.gravity = Vector3.up * _gravity;
             _thrownGrenade.velocity = CalculateLaunchData().initialVelocity;
             _currentThrownGrenades++;
+            _maximumThrowableGrenades--;
             StartCoroutine("DespawnGrenade", _thrownGrenade);
         }
     }
