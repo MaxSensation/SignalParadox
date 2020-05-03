@@ -1,8 +1,8 @@
 ﻿using System;
 using AI.Charger;
-using EchoLocation;
 using Traps;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PlayerController
 {
@@ -38,12 +38,14 @@ namespace PlayerController
         private bool _alive;
         private bool isPlayerCharged;
         internal SoundProvider _transmitter;
+        private Vector3 currentDirection;
         
         // Events
         public static Action onPlayerDeath;
 
         private void Awake()
         {
+            currentDirection = Vector2.zero;
             _transmitter = transform.GetComponentInChildren<SoundProvider>();
             LaserController.onLaserDeath += Die;
             SteamController.onSteamDeath += Die;
@@ -162,17 +164,23 @@ namespace PlayerController
             return movementPerFrame;
         }
 
+        public void UpdateInputVector(InputAction.CallbackContext context)
+        {
+            var value = context.ReadValue<Vector2>();
+            currentDirection = new Vector3(value.x, 0, value.y);
+        }
+
         internal Vector3 GetInputVector(float accelerationSpeed)
         {
             // Get movement input
-            var direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+            //var direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
             // Correct the input based on camera
-            direction = CorrectInputVectorFromCamera(direction);
+            //currentDirection = CorrectInputVectorFromCamera(currentDirection);
             // If magnitude is greater then 1 normalize the value
-            if (direction.magnitude > 1)
-                return direction.normalized * (accelerationSpeed * Time.deltaTime);
+            if (currentDirection.magnitude > 1)
+                return currentDirection.normalized * (accelerationSpeed * Time.deltaTime);
             // Else just return the direction
-            return direction * (accelerationSpeed * Time.deltaTime);
+            return currentDirection * (accelerationSpeed * Time.deltaTime);
         }
 
         private void AddOverLayCorrection()

@@ -1,25 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputCamera : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity = 1.0f;
     
-    private string mouseHorizontalAxis, mouseVerticalAxis;
+    // private string mouseHorizontalAxis, mouseVerticalAxis;
+    private Vector2 _mouseInput;
 
     private void Awake()
     {
-        mouseHorizontalAxis = "Mouse X";
-        mouseVerticalAxis = "Mouse Y";
+        // mouseHorizontalAxis = "Mouse X";
+        // mouseVerticalAxis = "Mouse Y";
     }
 
+    public void UpdateCameraInput(InputAction.CallbackContext context)
+    {
+        _mouseInput = context.ReadValue<Vector2>();
+    }
+    
     public float GetHorizontalCameraInput()
     {
-        return Input.GetAxisRaw(mouseHorizontalAxis) * mouseSensitivity;
+        return _mouseInput.x * mouseSensitivity;
     }
 
     public float GetVerticalCameraInput()
     {
-        return -Input.GetAxisRaw(mouseVerticalAxis) * mouseSensitivity;
+        return -_mouseInput.y * mouseSensitivity;
     }
 
     public bool IsCrouching()

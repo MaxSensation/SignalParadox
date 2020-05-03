@@ -18,7 +18,6 @@
             </e>
           </e>
         </e>
-        <e p="PlatformTrigger.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="AI" t="Include">
             <e p="AIController.cs" t="Include" />
@@ -53,6 +52,7 @@
             <e p="EchoLocationReceiver.cs" t="Include" />
             <e p="EchoLocationResult.cs" t="Include" />
             <e p="EchoLocationTransmitter.cs" t="Include" />
+            <e p="SoundProvider.cs" t="Include" />
           </e>
           <e p="FootStepSound" t="Include">
             <e p="DynamicFootStep.cs" t="Include" />
@@ -79,6 +79,7 @@
             <e p="Door" t="Include">
               <e p="DoorController.cs" t="Include" />
             </e>
+            <e p="PlatformTrigger.cs" t="Include" />
             <e p="PushableBox.cs" t="Include" />
             <e p="Traps" t="Include">
               <e p="DynamicLaserWall.cs" t="Include" />
@@ -123,7 +124,6 @@
             <e p="RotationRandomizer.cs" t="Include" />
           </e>
         </e>
-        <e p="SoundProvider.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
