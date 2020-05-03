@@ -2380,9 +2380,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grenadePrefab: {fileID: 4610478889220799681, guid: 169a45f25fa8e604ba072d8c1cba848a,
     type: 3}
-  _maximumThrowableGrenades: 2
+  _maximumThrowableGrenades: 0
   _throwTargetRange: 20
   _maxThrowHeight: 5
+  _timeUntilDestroy: 10
   _gravity: -18
 --- !u!1 &5319622869415617120
 GameObject:
