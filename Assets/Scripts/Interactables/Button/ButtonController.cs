@@ -32,13 +32,7 @@ public class ButtonController : MonoBehaviour
     {
         PlayerInteractionTrigger.onInteracted -= OnButtonPressed;
     }
-    
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && _isInRangeOfPlayer && _isInteractable)
-            ButtonPress();
-    }
-    
+
     private IEnumerator ActivateButton()
     {
         yield return buttonDelay;

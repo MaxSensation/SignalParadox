@@ -49,7 +49,7 @@ namespace PlayerStateMachine
         private Vector3 GetPushVector()
         {
             // Get movement input
-            var direction = new Vector3(0, 0, Input.GetAxisRaw("Vertical"));
+            var direction = new Vector3(0, 0, Player.currentDirection.y);
             // If direction is negative then do nothing
             if (direction.z > 0f)
             {

@@ -38,8 +38,9 @@ namespace PlayerController
         private bool _alive;
         private bool isPlayerCharged;
         internal SoundProvider _transmitter;
-        private Vector3 currentDirection;
+        internal Vector3 currentDirection;
         internal bool hasInputCrouch;
+        internal bool hasInputInteracting;
         
         // Events
         public static Action onPlayerDeath;
@@ -84,7 +85,6 @@ namespace PlayerController
             // Run CurrentState
             _stateMachine.Run();
             //Ta bort efter spelredovisning
-            CheckIfPressedRestart();
             // Add gravity to velocity
             velocity += Physic3D.GetGravity();
             // Limit the velocity to terminalVelocity
@@ -99,9 +99,9 @@ namespace PlayerController
             MoveCamera();
         }
 
-        private void CheckIfPressedRestart()
+        public void DebugReset(InputAction.CallbackContext context)
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (context.performed)
                 Die();
         }
         
@@ -176,13 +176,15 @@ namespace PlayerController
             hasInputCrouch = context.performed;
         }
 
+        public void OnInputInteract(InputAction.CallbackContext context)
+        {
+            hasInputInteracting = context.started;
+        }
+
         internal Vector3 GetInputVector(float accelerationSpeed)
         {
-            var direction = currentDirection;
-            // Get movement input
-            //var direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
             // Correct the input based on camera
-            direction = CorrectInputVectorFromCamera(currentDirection);
+            var direction = CorrectInputVectorFromCamera(currentDirection);
             // If magnitude is greater then 1 normalize the value
             if (direction.magnitude > 1)
                 return direction.normalized * (accelerationSpeed * Time.deltaTime);
