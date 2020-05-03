@@ -2349,6 +2349,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button
       objectReference: {fileID: 0}
+    - target: {fileID: 2051061910063280990, guid: ce54bd5529852b94ab868f9a6a6f4735,
+        type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280991, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: interactableObjects.Array.size

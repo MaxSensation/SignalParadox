@@ -6,14 +6,13 @@ namespace PlayerController
     public class PlayerInteractionTrigger : MonoBehaviour
     {
         private bool _playerinteracted;
-        public static Action<GameObject> onPressedButton;
+        public static Action<GameObject> onInteracted;
         
         private void OnTriggerStay(Collider other)
         {
-            if (_playerinteracted && other.CompareTag("Button"))
+            if (_playerinteracted && other.CompareTag("Interactable"))
             {
-                Debug.Log("Found Button");
-                onPressedButton?.Invoke(other.gameObject);
+                onInteracted?.Invoke(other.gameObject);
                 _playerinteracted = false;
             }
         }
