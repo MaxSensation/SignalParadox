@@ -22,7 +22,7 @@ public class LoadLevel : MonoBehaviour
     private void InvokeLoadLevelEvent()
     {
         if(Cursor.visible)
-        Cursor.visible = false;
+            Cursor.visible = false;
         SceneManager.LoadScene(levelToLoad);
     }
 }

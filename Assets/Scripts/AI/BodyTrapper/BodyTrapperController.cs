@@ -1,4 +1,5 @@
 ﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
 
 using System;
 using System.Collections;

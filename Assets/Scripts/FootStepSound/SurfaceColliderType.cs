@@ -1,4 +1,5 @@
 ﻿//Main author: Ferreira Dos Santos Keziah
+
 using UnityEngine;
 namespace FootStepSound
 {
