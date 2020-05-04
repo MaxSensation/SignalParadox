@@ -24979,6 +24979,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1566673166, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: debugModeOn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566673166, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: debugTestSoundOn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566673167, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: xResolution
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566673167, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: yResolution
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566673167, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: maxBounces
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1227935343099177549, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
