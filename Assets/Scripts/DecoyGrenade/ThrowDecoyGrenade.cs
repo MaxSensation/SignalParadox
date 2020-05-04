@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
+using PlayerStateMachine;
 
 public class ThrowDecoyGrenade : MonoBehaviour
 {
@@ -25,12 +26,11 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private float _currentThrowHeight;
     private List<Vector3> _storedLinePoints;
     private Rigidbody _thrownGrenade;
+    private bool _isPushing;
 
     public static Action OnAimingEvent;
     public static Action OnOutOfRangeEvent;
     public static Action OnThrowEvent;
-
-    public Rigidbody ThrownGrenade { get; private set; }
 
     private void Awake()
     {
@@ -43,6 +43,19 @@ public class ThrowDecoyGrenade : MonoBehaviour
         _camera = Camera.main.gameObject;
         _storedLinePoints = new List<Vector3>();
         PickupDecoyGrenade.onGrenadePickup += IncreaseMaxThrowableGrenades;
+        PushingState.OnEnterPushingStateEvent += OnPushState;
+        PushingState.OnExitPushingStateEvent += OnExitPushState;
+
+    }
+
+    private void OnExitPushState()
+    {
+        _isPushing = false;
+    }
+
+    private void OnPushState()
+    {
+        _isPushing = true;
     }
 
     private void Update()
@@ -75,12 +88,12 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
     public void HandleInput(InputAction.CallbackContext context)
     {
-        if (context.started  && _thrownGrenade != null && _currentAmountOfGrenades > 0)
+        if (context.started && _thrownGrenade != null && _currentAmountOfGrenades > 0 && !_isPushing)
         {
             Destroy(_thrownGrenade.gameObject);
             _currentThrownGrenades--;
         }
-        if (context.started && _currentThrownGrenades < _currentAmountOfGrenades)
+        if (context.started && _currentThrownGrenades < _currentAmountOfGrenades && !_isPushing)
         {
             _shouldDrawPath = true;
         }
@@ -92,7 +105,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
     private void Throw()
     {
-        if (_canThrow && _currentThrownGrenades < _currentAmountOfGrenades)
+        if (_canThrow && _currentThrownGrenades < _currentAmountOfGrenades && !_isPushing)
         {
             OnThrowEvent?.Invoke();
             _thrownGrenade = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
@@ -197,5 +210,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private void OnDestroy()
     {
         PickupDecoyGrenade.onGrenadePickup -= IncreaseMaxThrowableGrenades;
+        PushingState.OnEnterPushingStateEvent -= OnPushState;
+        PushingState.OnExitPushingStateEvent -= OnExitPushState;
     }
 }
