@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
+
+using System.Linq;
+using Interactables.Button;
 using UnityEngine;
 
-namespace Door
+namespace Interactables.Door
 {
     public class DoorController : MonoBehaviour
     {

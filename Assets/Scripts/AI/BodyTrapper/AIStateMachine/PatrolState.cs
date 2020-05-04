@@ -1,6 +1,7 @@
-﻿using AI.AIStateMachine;
+﻿//Main author: Maximiliam Rosén
+
+using AI.AIStateMachine;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace AI.BodyTrapper.AIStateMachine
 {

@@ -1,13 +1,18 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TriggerLoadNextLevel : MonoBehaviour
+namespace Interactables.Triggers
 {
-    private void OnTriggerEnter(Collider other)
+    public class TriggerLoadNextLevel : MonoBehaviour
     {
-        if (other.CompareTag("Player"))
+        private void OnTriggerEnter(Collider other)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if (other.CompareTag("Player"))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            }
         }
     }
 }

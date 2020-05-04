@@ -1,5 +1,6 @@
-﻿using AI.AIStateMachine;
-using AI.Charger.AIStateMachine;
+﻿//Main author: Maximiliam Rosén
+
+using AI.AIStateMachine;
 using UnityEngine;
 using UnityEngine.AI;
 

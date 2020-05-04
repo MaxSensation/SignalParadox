@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

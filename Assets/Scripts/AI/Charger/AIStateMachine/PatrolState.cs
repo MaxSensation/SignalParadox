@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+
+using UnityEngine;
 
 namespace AI.Charger.AIStateMachine
 {

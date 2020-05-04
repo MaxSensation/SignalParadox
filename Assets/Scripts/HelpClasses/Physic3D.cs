@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+
+using UnityEngine;
 
 public static class Physic3D
 {

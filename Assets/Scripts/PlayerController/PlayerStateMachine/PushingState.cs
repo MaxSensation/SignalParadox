@@ -1,7 +1,9 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
+using System;
 using UnityEngine;
 
-namespace PlayerStateMachine
+namespace PlayerController.PlayerStateMachine
 {
     [CreateAssetMenu(menuName = "PlayerState/PushingState")]
     public class PushingState : PlayerBaseState

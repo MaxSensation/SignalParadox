@@ -1,7 +1,9 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
+using System;
 using UnityEngine;
 
-namespace Triggers
+namespace Interactables.Triggers
 {
     public class TriggerMemo : MonoBehaviour
     {

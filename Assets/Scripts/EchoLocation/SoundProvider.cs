@@ -1,52 +1,55 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
 using System.Collections;
-using EchoLocation;
 using UnityEngine;
 
-public class SoundProvider : MonoBehaviour
+namespace EchoLocation
 {
-    [SerializeField] [Range(0f,10f)] private float frequency;
-    [SerializeField] [Range(1,1000)] private int xResolution;
-    [SerializeField] [Range(1,1000)] private int yResolution;
-    [SerializeField] [Range(1,1000)] private int maxBounces;
-    [SerializeField] [Range(0f,1f)] private float bouncesDecay;
-    [SerializeField] [Range(0f,1f)] private float airDecay;
-    [SerializeField] [Range(0f,1f)] private float minStrengthTolerance;
-    [SerializeField] private LayerMask bounceLayer;
-
-    private EchoLocationTransmitter _transmitter;
-    private Coroutine echo;
-    private void Awake()
+    public class SoundProvider : MonoBehaviour
     {
-        _transmitter = GetComponent<EchoLocationTransmitter>();
-    }
+        [SerializeField] [Range(0f,10f)] private float frequency;
+        [SerializeField] [Range(1,1000)] private int xResolution;
+        [SerializeField] [Range(1,1000)] private int yResolution;
+        [SerializeField] [Range(1,1000)] private int maxBounces;
+        [SerializeField] [Range(0f,1f)] private float bouncesDecay;
+        [SerializeField] [Range(0f,1f)] private float airDecay;
+        [SerializeField] [Range(0f,1f)] private float minStrengthTolerance;
+        [SerializeField] private LayerMask bounceLayer;
 
-    private void OnEnable()
-    {
-        echo = StartCoroutine("Echo");
-    }
-
-    private void OnDisable()
-    {
-        StopCoroutine(echo);
-    }
-
-    private IEnumerator Echo()
-    {
-        while (true)
+        private EchoLocationTransmitter _transmitter;
+        private Coroutine echo;
+        private void Awake()
         {
-            yield return new WaitForSeconds(frequency);
-            _transmitter.CastAudioRays(xResolution, yResolution, maxBounces, bouncesDecay, airDecay, minStrengthTolerance, bounceLayer);            
+            _transmitter = GetComponent<EchoLocationTransmitter>();
         }
-    }
 
-    public void SetMinStrengthTolerance(float tolerance)
-    {
-        minStrengthTolerance = tolerance;
-    }
+        private void OnEnable()
+        {
+            echo = StartCoroutine("Echo");
+        }
 
-    public void SetSoundStrength(float tolerance)
-    {
-        minStrengthTolerance = tolerance;
+        private void OnDisable()
+        {
+            StopCoroutine(echo);
+        }
+
+        private IEnumerator Echo()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(frequency);
+                _transmitter.CastAudioRays(xResolution, yResolution, maxBounces, bouncesDecay, airDecay, minStrengthTolerance, bounceLayer);            
+            }
+        }
+
+        public void SetMinStrengthTolerance(float tolerance)
+        {
+            minStrengthTolerance = tolerance;
+        }
+
+        public void SetSoundStrength(float tolerance)
+        {
+            minStrengthTolerance = tolerance;
+        }
     }
 }

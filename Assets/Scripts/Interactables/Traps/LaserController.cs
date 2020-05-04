@@ -1,7 +1,10 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
+using System;
 using UnityEngine;
 using UnityEngine.Events;
-namespace Traps
+
+namespace Interactables.Traps
 {
     public class LaserController : MonoBehaviour
     {

@@ -1,7 +1,10 @@
-﻿using System;
+﻿//Main author: Andreas Berzelius
+//Secondary author: Maximiliam Rosén
+
+using System;
 using System.Collections;
-using AI.Charger.AIStateMachine;
-using Traps;
+using Interactables.Traps;
+using Interactables.Triggers;
 using UnityEngine;
 
 namespace AI.Charger

@@ -1,19 +1,25 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
+using System;
+using Interactables.CheckPointSystem;
 using UnityEngine;
 
-public class TriggerCheckPoint : MonoBehaviour
+namespace Interactables.Triggers
 {
-    private bool _checkPointUsed;
-    public static Action<CheckPoint> onTriggerCheckPoint;
-    private void OnTriggerEnter(Collider other)
+    public class TriggerCheckPoint : MonoBehaviour
     {
-        if (_checkPointUsed || !other.CompareTag("Player")) return;
-        Debug.Log("CheckpointTrigger activated");
-        var checkPoint = CheckPointGenerator.Generate();
-        if (checkPoint != null)
+        private bool _checkPointUsed;
+        public static Action<CheckPoint> onTriggerCheckPoint;
+        private void OnTriggerEnter(Collider other)
         {
-            onTriggerCheckPoint?.Invoke(checkPoint);
-            _checkPointUsed = true;
+            if (_checkPointUsed || !other.CompareTag("Player")) return;
+            Debug.Log("CheckpointTrigger activated");
+            var checkPoint = CheckPointGenerator.Generate();
+            if (checkPoint != null)
+            {
+                onTriggerCheckPoint?.Invoke(checkPoint);
+                _checkPointUsed = true;
+            }
         }
     }
 }

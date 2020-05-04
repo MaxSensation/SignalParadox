@@ -1,4 +1,6 @@
-﻿using Triggers;
+﻿//Main author: Maximiliam Rosén
+
+using Interactables.Triggers;
 using UnityEngine;
 
 namespace Managers

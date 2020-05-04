@@ -1,9 +1,11 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Traps
+namespace Interactables.Traps
 {
     public class SteamController : MonoBehaviour
     {

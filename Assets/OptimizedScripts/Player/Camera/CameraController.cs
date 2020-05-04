@@ -1,5 +1,5 @@
 ﻿using System;
-using PlayerStateMachine;
+using PlayerController.PlayerStateMachine;
 using UnityEngine;
 
 public sealed class CameraController : MonoBehaviour
