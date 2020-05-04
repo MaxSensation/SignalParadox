@@ -111,7 +111,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
         {
             OnThrowEvent?.Invoke();
             _thrownGrenade = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
-            Physics.gravity = Vector3.up * _gravity;
+            _thrownGrenade.AddForce(Vector3.up * _gravity);
             _thrownGrenade.velocity = CalculateLaunchData().initialVelocity;
             _currentThrownGrenades++;
             _currentAmountOfGrenades--;
