@@ -54,7 +54,7 @@ namespace Interactables.Pushables
 
         public void Push()
         {
-            _rigidbody.AddForce(_pushDirection * force);
+            _rigidbody.AddForce(_pushDirection * (force * Time.deltaTime));
         }
 
         public Vector3 GetPushLocation(Vector3 pusherLocation)

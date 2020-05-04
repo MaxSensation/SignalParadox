@@ -657,6 +657,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: EnteredPushing
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Pushing
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6603054657594480770}
   m_Solo: 0
