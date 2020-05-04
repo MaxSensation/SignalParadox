@@ -14,7 +14,6 @@ namespace PlayerController
         private bool _isCrouching;
         private bool _isAiming;
         private bool _isThrowing;
-        private bool _isPushing;
         private Vector2 _movement;
         private Vector2 _newMovement;
         
@@ -28,8 +27,9 @@ namespace PlayerController
             ThrowDecoyGrenade.OnAimingEvent += Aiming;
             ThrowDecoyGrenade.OnThrowEvent += Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent += StopAiming;
-            PushingState.OnEnterPushingStateEvent += HandlePushing;
-            PushingState.OnPushingStateEvent += HandleEnterPushing;
+            PushingState.OnEnterPushingStateEvent += HandleEnterPushing;
+            PushingState.OnExitPushingStateEvent += HandleExitPushing;
+            PushingState.OnPushingStateEvent += HandlePushing;
         }
 
         private void OnDestroy()
@@ -40,18 +40,23 @@ namespace PlayerController
             ThrowDecoyGrenade.OnAimingEvent -= Aiming;
             ThrowDecoyGrenade.OnThrowEvent -= Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent -= StopAiming;
-            PushingState.OnEnterPushingStateEvent += HandlePushing;
-            PushingState.OnPushingStateEvent -= HandleEnterPushing;
+            PushingState.OnEnterPushingStateEvent -= HandleEnterPushing;
+            PushingState.OnExitPushingStateEvent -= HandleExitPushing;
+            PushingState.OnPushingStateEvent -= HandlePushing;
         }
         
-        private void HandleEnterPushing(bool pushing)
+        private void HandlePushing(bool pushing)
         {
             _animator.SetBool("Pushing", pushing);
         }
-        private void HandlePushing()
+        private void HandleEnterPushing()
         {
-            _isPushing = !_isPushing;
-            _animator.SetBool("EnteredPushing", _isPushing);
+            _animator.SetBool("EnteredPushing", true);
+        }
+        
+        private void HandleExitPushing()
+        {
+            _animator.SetBool("EnteredPushing", false);
         }
 
         private void StopAiming()

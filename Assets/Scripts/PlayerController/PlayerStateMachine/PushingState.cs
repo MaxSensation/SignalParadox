@@ -7,6 +7,7 @@ namespace PlayerStateMachine
     public class PushingState : PlayerBaseState
     {
         public static Action OnEnterPushingStateEvent;
+        public static Action OnExitPushingStateEvent;
         public static Action<Boolean> OnPushingStateEvent;
         private Transform _pushableTransform;
         public override void Enter()
@@ -22,20 +23,24 @@ namespace PlayerStateMachine
 
         public override void Run()
         {
-            base.Run();
-            CorrectRotation();
-            CorrectPosition();
-            if (Player.currentDirection.z > 0){
-                OnPushingStateEvent?.Invoke(true);
-                Player.currentPushableObject.Push();
-            }
-            else
+            if (!Player.endingPushingState)
             {
+                base.Run();
+                CorrectRotation();
+                CorrectPosition();
+                if (Player.currentDirection.z > 0)
+                {
+                    OnPushingStateEvent?.Invoke(true);
+                    Player.currentPushableObject.Push();
+                }
+                else
+                {
+                    OnPushingStateEvent?.Invoke(false);
+                }
+            }
+            else{
                 OnPushingStateEvent?.Invoke(false);
-            }
-
-            if (Player.endingPushingState)
-            {
+                OnExitPushingStateEvent?.Invoke();
                 Player.EndingPushingState();
             }
         }
@@ -58,8 +63,9 @@ namespace PlayerStateMachine
             Player._turnWithCamera.enabled = true;
             Player.transform.parent =  null;
             Player.currentPushableObject = null;
-            OnEnterPushingStateEvent?.Invoke();
             Player.endingPushingState = false;
+            OnPushingStateEvent?.Invoke(false);
+            OnExitPushingStateEvent?.Invoke();
         }
     }
 }
