@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using AI.Charger;
+using Interactables.Pushables;
+using PlayerStateMachine;
 using Traps;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,30 +20,25 @@ namespace PlayerController
         [SerializeField] [Range(0f, 1f)] private float skinWidth;
         [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
         [SerializeField] [Range(0f, 100f)] private float overlayColliderResistant;
-        [Header("ThirdPersonCamera")]
-        [SerializeField] private float thirdPersonCameraSize;
-        [SerializeField] private float thirdPersonOffsetHorizontal;
-        [SerializeField] private float thirdPersonCameraDistance;
-        [SerializeField] private bool thirdPersonCamera;
         [SerializeField] private LayerMask collisionLayer;
         [SerializeField] private Vector3 velocity;
-        [SerializeField] private LayerMask _layermask;
         private BoxCollider _interactTrigger;
         private StateMachine _stateMachine;
         private CapsuleCollider _collider;
         private Transform _camera;
-        private Vector2 _cameraRotation;
         private RaycastHit _cameraCast;
-        private Vector3 _cameraOffset;
         private Vector3 _point1;
         private Vector3 _point2;
-        private GameObject _playerMesh;
+        internal GameObject _playerMesh;
         private bool _alive;
         private bool isPlayerCharged;
+        internal TurnWithCamera _turnWithCamera; 
         internal SoundProvider _transmitter;
         internal Vector3 currentDirection;
         internal bool hasInputCrouch;
-        
+        internal IPushable currentPushableObject;
+        internal bool endingPushingState;
+
         // Events
         public static Action onPlayerDeath;
 
@@ -53,17 +51,30 @@ namespace PlayerController
             PlayerTrapable.onPlayerTrappedEvent += Die;
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
+            PushableBox.onPushStateEvent += HandlePushEvent;
             _alive = true;
             _playerMesh = GameObject.Find("PlayerMesh");
             _stateMachine = new StateMachine(this, states);
             velocity = Vector3.zero;
-            thirdPersonCamera = true;
             if (Camera.main != null) _camera = Camera.main.transform;
             _collider = GetComponent<CapsuleCollider>();
-            _cameraRotation = new Vector2(_playerMesh.transform.rotation.eulerAngles.y,0);
-            _cameraOffset = _camera.localPosition;
             Cursor.lockState = CursorLockMode.Locked;
             Physic3D.LoadWorldParameters(world);
+            _turnWithCamera = _playerMesh.GetComponent<TurnWithCamera>();
+        }
+
+        private void HandlePushEvent(IPushable pushable)
+        {
+            var location = pushable.GetPushLocation(transform.position);
+            if (currentPushableObject == null && location != Vector3.zero &&
+                Vector3.Distance(transform.position, location) < 0.5f)
+            {
+                currentPushableObject = pushable;
+                _stateMachine.TransitionTo<PushingState>();
+            }
+            else
+                endingPushingState = true;
+
         }
 
         private void OnDestroy()
@@ -73,14 +84,13 @@ namespace PlayerController
             PlayerTrapable.onPlayerTrappedEvent -= Die;
             ChargerController.onCrushedPlayerEvent -= Die;
             ChargerController.CaughtPlayerEvent -= PlayerIsCharged;
+            PushableBox.onPushStateEvent -= HandlePushEvent;
         }
 
         private void Update()
         {
             // Get CapsuleInfo
             UpdateCapsuleInfo();
-            // Rotate PlayerMesh
-            RotatePlayerMesh();
             // Run CurrentState
             _stateMachine.Run();
             //Ta bort efter spelredovisning
@@ -94,8 +104,6 @@ namespace PlayerController
             AddOverLayCorrection();
             // Only Move Player as close as possible to the collision
             transform.position += FixCollision();
-            // Move Camera based on thirdPerson or firstPerson
-            MoveCamera();
         }
 
         public void DebugReset(InputAction.CallbackContext context)
@@ -117,11 +125,6 @@ namespace PlayerController
             _alive = false;
             Debug.Log("Player Died");
             onPlayerDeath?.Invoke();
-        }
-        
-        private void RotatePlayerMesh()
-        {
-            _playerMesh.transform.rotation = Quaternion.Euler(0, _cameraRotation.x, 0);
         }
 
         internal void UpdateCapsuleInfo()
@@ -202,34 +205,6 @@ namespace PlayerController
             }
         }
 
-        private void MoveCamera()
-        {
-            // If in Third Person then update the position of the camera related to the player
-            if (thirdPersonCamera)
-            {
-                // Save the players position
-                var playerPosition = transform.position + _cameraOffset + (_playerMesh.transform.right * thirdPersonOffsetHorizontal);
-                // Get the position the Camera want to move to
-                var whereCameraWantToMove = (playerPosition) - (_camera.forward * (thirdPersonCameraDistance - thirdPersonCameraSize));
-                // Get the direction from the players First Person Camera Position to the position where the Third Person Camera position want to move
-                var direction = (whereCameraWantToMove - playerPosition).normalized;
-                // Get the distance from the players First Person Camera Position to the position where the Third Person Camera position want to move
-                var distance = (whereCameraWantToMove - playerPosition).magnitude;
-                // Get the position from the players First Person Camera Position to Third Person Camera position want to move and move the camera to that position based on collisions
-                var newCameraPos = Physics.SphereCast(playerPosition, thirdPersonCameraSize, direction, out _cameraCast, distance) ? playerPosition + direction * (_cameraCast.distance - thirdPersonCameraSize) : whereCameraWantToMove;
-                if ((_cameraCast.collider && _cameraCast.distance < 0.4f) || Physics.OverlapSphere(newCameraPos, thirdPersonCameraSize, collisionLayer).Length > 0)
-                {
-                    _camera.localPosition = _cameraOffset;
-                }
-                else
-                {
-                    _camera.position = newCameraPos;
-                }
-            }
-            // If in First Person then update the position to zero 
-            else _camera.localPosition = _cameraOffset;
-        }
-
         private Vector3 CorrectInputVectorFromCamera(Vector3 inputVector)
         {
             // Get the horizontal projection velocity
@@ -301,6 +276,17 @@ namespace PlayerController
         private void PlayerIsCharged()
         {
             isPlayerCharged = true;
+        }
+
+        internal void EndingPushingState()
+        {
+            StartCoroutine("EndPushingState");
+        }
+
+        private IEnumerator EndPushingState()
+        {
+            yield return new WaitForSeconds(0.2f);
+            _stateMachine.TransitionTo<StandState>();
         }
     }
 }

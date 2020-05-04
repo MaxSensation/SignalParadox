@@ -1,8 +1,11 @@
-﻿namespace Interactables.Pushables
+﻿using UnityEngine;
+
+namespace Interactables.Pushables
 {
     public interface IPushable
     { 
         void Push();
-        void GetPushLocation();
+        Vector3 GetPushLocation(Vector3 pusherLocation);
+        Transform GetPushableTransform();
     }
 }
