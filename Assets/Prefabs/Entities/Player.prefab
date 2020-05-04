@@ -2186,17 +2186,10 @@ MonoBehaviour:
   skinWidth: 0.05
   groundCheckDistance: 0.05
   overlayColliderResistant: 20
-  thirdPersonCameraSize: 2
-  thirdPersonOffsetHorizontal: 0.5
-  thirdPersonCameraDistance: 0.5
-  thirdPersonCamera: 0
   collisionLayer:
     serializedVersion: 2
     m_Bits: 256
   velocity: {x: 0, y: 0, z: 0}
-  _layermask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!136 &5312461777412065011
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2380,7 +2373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grenadePrefab: {fileID: 4610478889220799681, guid: 169a45f25fa8e604ba072d8c1cba848a,
     type: 3}
-  _maximumThrowableGrenades: 0
+  _currentAmountOfGrenades: 0
   _throwTargetRange: 20
   _maxThrowHeight: 5
   _timeUntilDestroy: 10
