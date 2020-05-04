@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using AI.Charger;
 using Interactables.Pushables;
 using PlayerStateMachine;
@@ -36,6 +37,7 @@ namespace PlayerController
         internal Vector3 currentDirection;
         internal bool hasInputCrouch;
         internal IPushable currentPushableObject;
+        internal bool endingPushingState;
 
         // Events
         public static Action onPlayerDeath;
@@ -64,11 +66,15 @@ namespace PlayerController
         private void HandlePushEvent(IPushable pushable)
         {
             var location = pushable.GetPushLocation(transform.position);
-            if (currentPushableObject == null && location != Vector3.zero && Vector3.Distance(transform.position, location) < 0.5f){
+            if (currentPushableObject == null && location != Vector3.zero &&
+                Vector3.Distance(transform.position, location) < 0.5f)
+            {
                 currentPushableObject = pushable;
                 _stateMachine.TransitionTo<PushingState>();
-            } else
-                _stateMachine.TransitionTo<StandState>();
+            }
+            else
+                endingPushingState = true;
+
         }
 
         private void OnDestroy()
@@ -270,6 +276,17 @@ namespace PlayerController
         private void PlayerIsCharged()
         {
             isPlayerCharged = true;
+        }
+
+        internal void EndingPushingState()
+        {
+            StartCoroutine("EndPushingState");
+        }
+
+        private IEnumerator EndPushingState()
+        {
+            yield return new WaitForSeconds(0.2f);
+            _stateMachine.TransitionTo<StandState>();
         }
     }
 }

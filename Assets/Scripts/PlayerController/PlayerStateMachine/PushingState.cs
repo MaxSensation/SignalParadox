@@ -11,6 +11,7 @@ namespace PlayerStateMachine
         private Transform _pushableTransform;
         public override void Enter()
         {
+            base.Enter();
             OnEnterPushingStateEvent?.Invoke();
             Player._transmitter.SetSoundStrength(0.2f);
             Velocity = Vector3.zero;
@@ -21,6 +22,7 @@ namespace PlayerStateMachine
 
         public override void Run()
         {
+            base.Run();
             CorrectRotation();
             CorrectPosition();
             if (Player.currentDirection.z > 0){
@@ -30,6 +32,11 @@ namespace PlayerStateMachine
             else
             {
                 OnPushingStateEvent?.Invoke(false);
+            }
+
+            if (Player.endingPushingState)
+            {
+                Player.EndingPushingState();
             }
         }
 
@@ -52,7 +59,7 @@ namespace PlayerStateMachine
             Player.transform.parent =  null;
             Player.currentPushableObject = null;
             OnEnterPushingStateEvent?.Invoke();
-            stateMachine.TransitionTo<StandState>();
+            Player.endingPushingState = false;
         }
     }
 }
