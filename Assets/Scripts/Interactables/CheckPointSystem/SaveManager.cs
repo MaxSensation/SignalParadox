@@ -1,9 +1,12 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Interactables.Triggers;
 using UnityEngine;
 
-namespace Managers
+namespace Interactables.CheckPointSystem
 {
     public static class SaveManager
     {

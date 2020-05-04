@@ -1,10 +1,12 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
 using System.Collections;
 using System.Linq;
+using Interactables.Button;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Traps
+namespace Interactables.Traps
 {
     public class DynamicLaserWall : MonoBehaviour
     {

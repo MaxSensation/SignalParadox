@@ -1,7 +1,8 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
+
 using UnityEngine;
 using UnityEngine.AI;
-using PlayerController;
 
 namespace AI
 {

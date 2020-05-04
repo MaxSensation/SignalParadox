@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
+using System;
 using AI.BodyTrapper;
 using UnityEditor;
 using UnityEngine;

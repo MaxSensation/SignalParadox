@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿//Main author: Maximiliam Rosén
+
+using System.Collections.Generic;
 using System;
 
 public class StateMachine

@@ -1,8 +1,9 @@
-﻿using System;
-using Interactables.Pushables;
-using PlayerStateMachine;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
+
+using Interactables.Traps;
+using PlayerController.PlayerStateMachine;
 using UnityEngine;
-using Traps;
 using UnityEngine.InputSystem;
 
 namespace PlayerController

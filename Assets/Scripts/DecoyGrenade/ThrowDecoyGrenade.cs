@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿//Main author: Andreas Berzelius
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using PlayerController.PlayerStateMachine;
 using UnityEngine.InputSystem;
-using PlayerStateMachine;
 
 public class ThrowDecoyGrenade : MonoBehaviour
 {

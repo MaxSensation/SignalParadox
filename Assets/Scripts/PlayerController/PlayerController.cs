@@ -1,9 +1,13 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
+
+using System;
 using System.Collections;
 using AI.Charger;
+using EchoLocation;
 using Interactables.Pushables;
-using PlayerStateMachine;
-using Traps;
+using Interactables.Traps;
+using PlayerController.PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

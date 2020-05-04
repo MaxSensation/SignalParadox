@@ -1,4 +1,6 @@
-﻿using PlayerController;
+﻿//Main author: Maximiliam Rosén
+
+using PlayerController;
 using UnityEngine;
 using UnityEngine.UI;
 

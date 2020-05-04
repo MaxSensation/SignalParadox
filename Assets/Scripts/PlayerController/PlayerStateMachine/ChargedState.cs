@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿//Main author: Andreas Berzelius
 
-namespace PlayerStateMachine
+using UnityEngine;
+
+namespace PlayerController.PlayerStateMachine
 {
     [CreateAssetMenu(menuName = "PlayerState/ChargedState")]
     public class ChargedState : PlayerBaseState

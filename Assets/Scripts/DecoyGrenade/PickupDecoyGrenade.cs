@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//Main author: Andreas Berzelius
+
 using UnityEngine;
 using System;
 

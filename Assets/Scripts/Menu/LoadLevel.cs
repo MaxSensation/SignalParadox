@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,7 +22,7 @@ public class LoadLevel : MonoBehaviour
     private void InvokeLoadLevelEvent()
     {
         if(Cursor.visible)
-        Cursor.visible = false;
+            Cursor.visible = false;
         SceneManager.LoadScene(levelToLoad);
     }
 }

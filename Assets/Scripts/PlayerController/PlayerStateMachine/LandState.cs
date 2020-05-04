@@ -1,7 +1,9 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
+
 using UnityEngine;
 
-namespace PlayerStateMachine
+namespace PlayerController.PlayerStateMachine
 {
     [CreateAssetMenu(menuName = "PlayerState/LandState")]
     public class LandState : PlayerBaseState

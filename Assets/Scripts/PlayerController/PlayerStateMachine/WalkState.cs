@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
 
-namespace PlayerStateMachine
+using UnityEngine;
+
+namespace PlayerController.PlayerStateMachine
 {
     [CreateAssetMenu(menuName = "PlayerState/WalkState")]
     public class WalkState : PlayerBaseState

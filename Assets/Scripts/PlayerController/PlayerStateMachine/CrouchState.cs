@@ -1,7 +1,9 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
+using System;
 using UnityEngine;
 
-namespace PlayerStateMachine
+namespace PlayerController.PlayerStateMachine
 {
     [CreateAssetMenu(menuName = "PlayerState/CrouchState")]
     public class CrouchState : PlayerBaseState

@@ -1,18 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿//Main author: Maximiliam Rosén
 
-[System.Serializable]
-public class CheckPoint
+namespace Interactables.CheckPointSystem
 {
-    public readonly string currentScene;
-    public readonly float[] playerPosition;
-    public readonly float[] playerRotation;
-
-    public CheckPoint(string currentScene, float[] playerPosition, float[] playerRotation)
+    [System.Serializable]
+    public class CheckPoint
     {
-        this.currentScene = currentScene;
-        this.playerPosition = playerPosition;
-        this.playerRotation = playerRotation;
+        public readonly string currentScene;
+        public readonly float[] playerPosition;
+        public readonly float[] playerRotation;
+
+        public CheckPoint(string currentScene, float[] playerPosition, float[] playerRotation)
+        {
+            this.currentScene = currentScene;
+            this.playerPosition = playerPosition;
+            this.playerRotation = playerRotation;
+        }
     }
 }

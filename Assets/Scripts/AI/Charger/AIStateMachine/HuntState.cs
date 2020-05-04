@@ -1,6 +1,7 @@
-﻿using AI.BodyTrapper.AIStateMachine;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
+
 using UnityEngine;
-using PatrolState = AI.Charger.AIStateMachine.PatrolState;
 
 namespace AI.Charger.AIStateMachine
 {

@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
 
+using UnityEngine;
 namespace AI.Charger.AIStateMachine
 {
     public abstract class ChargerBaseState : State

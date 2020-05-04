@@ -1,8 +1,12 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
+
+using System;
 using System.Collections;
 using EchoLocation;
+using Interactables.Traps;
+using Interactables.Triggers;
 using PlayerController;
-using Traps;
 using UnityEngine;
 using UnityEngine.AI;
 
