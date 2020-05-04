@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class ThrowDecoyGrenade : MonoBehaviour
 {
     [SerializeField] private GameObject _grenadePrefab;
-    [SerializeField] private int _maximumThrowableGrenades = 1;
+    [SerializeField] private int _currentAmountOfGrenades = 1;
     [SerializeField] private float _throwTargetRange = 20;
     [SerializeField] private float _maxThrowHeight = 5;
     [SerializeField] private float _timeUntilDestroy = 10;
@@ -29,6 +29,8 @@ public class ThrowDecoyGrenade : MonoBehaviour
     public static Action OnAimingEvent;
     public static Action OnOutOfRangeEvent;
     public static Action OnThrowEvent;
+
+    public Rigidbody ThrownGrenade { get; private set; }
 
     private void Awake()
     {
@@ -58,12 +60,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
     private void IncreaseMaxThrowableGrenades(int pickedUpAmount)
     {
-        _maximumThrowableGrenades = pickedUpAmount;
-        if (_thrownGrenade != null)
-        {
-            Destroy(_thrownGrenade.gameObject);
-            _currentThrownGrenades--;
-        }
+        _currentAmountOfGrenades += pickedUpAmount;
     }
 
     private IEnumerator DespawnGrenade(Rigidbody thrownGrenade)
@@ -78,26 +75,31 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
     public void HandleInput(InputAction.CallbackContext context)
     {
-        if (context.started && _currentThrownGrenades < _maximumThrowableGrenades)
+        if (context.started  && _thrownGrenade != null && _currentAmountOfGrenades > 0)
+        {
+            Destroy(_thrownGrenade.gameObject);
+            _currentThrownGrenades--;
+        }
+        if (context.started && _currentThrownGrenades < _currentAmountOfGrenades)
         {
             _shouldDrawPath = true;
         }
+        if (!context.canceled || _currentThrownGrenades > _currentAmountOfGrenades) return;
 
-        if (!context.canceled || _currentThrownGrenades >= _maximumThrowableGrenades) return;
         _shouldDrawPath = false;
         Throw();
     }
 
     private void Throw()
     {
-        if (_canThrow && _currentThrownGrenades < _maximumThrowableGrenades)
+        if (_canThrow && _currentThrownGrenades < _currentAmountOfGrenades)
         {
             OnThrowEvent?.Invoke();
             _thrownGrenade = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
             Physics.gravity = Vector3.up * _gravity;
             _thrownGrenade.velocity = CalculateLaunchData().initialVelocity;
             _currentThrownGrenades++;
-            _maximumThrowableGrenades--;
+            _currentAmountOfGrenades--;
             StartCoroutine("DespawnGrenade", _thrownGrenade);
         }
     }
