@@ -173,10 +173,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6efe2545dcac6f74ebc9ac772b3093fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 0.1
-  xResolution: 20
-  yResolution: 20
-  maxBounces: 20
+  frequency: 0.3
+  xResolution: 8
+  yResolution: 8
+  maxBounces: 10
   bouncesDecay: 0.1
   airDecay: 0.01
   minStrengthTolerance: 0
