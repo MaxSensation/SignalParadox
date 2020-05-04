@@ -3174,16 +3174,6 @@ PrefabInstance:
       propertyPath: interactables.Array.data[0]
       value: 
       objectReference: {fileID: 1907758779}
-    - target: {fileID: 8265316513325255863, guid: f084b18dd76868d44a7fb8742d08ef87,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 8265316514129533537, guid: f084b18dd76868d44a7fb8742d08ef87,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: f5c13ebebbf4ee54aac46915b853f21c, type: 2}
     - target: {fileID: 8265316514129533538, guid: f084b18dd76868d44a7fb8742d08ef87,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3192,7 +3182,7 @@ PrefabInstance:
     - target: {fileID: 8265316514129533538, guid: f084b18dd76868d44a7fb8742d08ef87,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.432
+      value: -9.449
       objectReference: {fileID: 0}
     - target: {fileID: 8265316514129533538, guid: f084b18dd76868d44a7fb8742d08ef87,
         type: 3}
@@ -3249,5 +3239,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8265316514129533541, guid: f084b18dd76868d44a7fb8742d08ef87, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f084b18dd76868d44a7fb8742d08ef87, type: 3}
