@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 5169748750119820677}
   - component: {fileID: 4243980356554221491}
   - component: {fileID: 7627176704501193546}
-  m_Layer: 0
+  - component: {fileID: 1216270338533312798}
+  - component: {fileID: 5014378953525313168}
+  - component: {fileID: 9211548740320393790}
+  m_Layer: 8
   m_Name: GlassWallDoor_2x4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,3 +84,42 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1216270338533312798
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207241606739242902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0092382, y: 4, z: 0.5}
+  m_Center: {x: 3.4953809, y: 2, z: 0.25}
+--- !u!65 &5014378953525313168
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207241606739242902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0155158, y: 4, z: 0.5}
+  m_Center: {x: 0.5077579, y: 2, z: 0.25}
+--- !u!65 &9211548740320393790
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207241606739242902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 0.64136314, z: 0.5}
+  m_Center: {x: 2, y: 3.6793184, z: 0.25}
