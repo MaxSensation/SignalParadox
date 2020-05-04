@@ -63,6 +63,7 @@ namespace PlayerController.PlayerStateMachine
         public override void Exit()
         {
             base.Exit();
+            Player.currentPushableObject.NotPushing();
             Player._turnWithCamera.enabled = true;
             Player.transform.parent =  null;
             Player.currentPushableObject = null;
