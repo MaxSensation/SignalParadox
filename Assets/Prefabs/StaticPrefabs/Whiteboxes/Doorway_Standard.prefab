@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 884829502601352612}
   - component: {fileID: 8150544463410360210}
   - component: {fileID: 2458970253201380203}
-  m_Layer: 0
+  - component: {fileID: 6918228456916057293}
+  m_Layer: 8
   m_Name: Doorway_Standard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &884829502601352612
 Transform:
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &6918228456916057293
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4187453091001411511}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5, y: 0.6, z: 0.49999994}
+  m_Center: {x: -2, y: 3.8, z: -0.25000003}

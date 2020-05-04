@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 5196017218259802176}
   - component: {fileID: 3837331445190189686}
   - component: {fileID: 7384911582275608207}
-  m_Layer: 0
+  - component: {fileID: 3512643093945157577}
+  m_Layer: 8
   m_Name: Doorway_4x4m_Hallway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5196017218259802176
 Transform:
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3512643093945157577
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097464734267386451}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.3, y: 0.64955664, z: 0.5}
+  m_Center: {x: -2, y: 3.8, z: -0.25}
