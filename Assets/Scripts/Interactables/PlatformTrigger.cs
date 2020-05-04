@@ -25,7 +25,7 @@ public class PlatformTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player") && !other.CompareTag("Enemy")) return;
+        if (!other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable")) return;
         objectsOnButton++;
         if (objectsOnButton != 1) return;
         _animator.SetBool(IsPressed, true);
@@ -36,7 +36,7 @@ public class PlatformTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if ((!other.CompareTag("Player") && !other.CompareTag("Enemy"))) return;
+        if ((!other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable"))) return;
         objectsOnButton--;
         if (objectsOnButton != 0) return;
         _animator.SetBool(IsPressed, false);
