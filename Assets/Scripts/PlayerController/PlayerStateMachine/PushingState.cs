@@ -33,10 +33,11 @@ namespace PlayerController.PlayerStateMachine
                 if (Player.currentDirection.z > 0)
                 {
                     OnPushingStateEvent?.Invoke(true);
-                    Player.currentPushableObject.Push();
+                    Player.currentPushableObject.Pushing();
                 }
                 else
                 {
+                    Player.currentPushableObject.NotPushing();
                     OnPushingStateEvent?.Invoke(false);
                 }
             }

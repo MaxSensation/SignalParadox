@@ -1,6 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,13 +11,16 @@ namespace Interactables.Traps
     {
         [SerializeField] private bool laserOn;
         [SerializeField] private LayerMask layermask;
+        [SerializeField] private float checkFrequency;
         public UnityEvent turnOn;
         public UnityEvent turnOff;
         private RaycastHit _hit;
         private Collider _lastHit;
         private LineRenderer _lineRenderer;
         private ParticleSystem _particleSystem;
-        
+        private WaitForSeconds _checkFrequency;
+        private Coroutine laserCoroutine;
+
         // Events
         public static Action<GameObject> onLaserDeath;
 
@@ -24,7 +28,7 @@ namespace Interactables.Traps
         {
             _lineRenderer = GetComponent<LineRenderer>();
             _particleSystem = transform.Find("ImpactEffect").GetComponent<ParticleSystem>();
-
+            _checkFrequency = new WaitForSeconds(checkFrequency);
             if (laserOn)
                 ActivateLaser();
             else
@@ -42,6 +46,7 @@ namespace Interactables.Traps
             _particleSystem.Play();
             _lineRenderer.enabled = true;
             laserOn = true;
+            laserCoroutine = StartCoroutine("LaserCoroutine");
         }
     
         private void DeactivateLaser()
@@ -49,28 +54,31 @@ namespace Interactables.Traps
             _particleSystem.Stop();
             _lineRenderer.enabled = false;
             laserOn = false;
+            if (laserCoroutine != null)
+            {
+                StopCoroutine(laserCoroutine);
+            }
         }
 
-        private void Update()
+        private IEnumerator LaserCoroutine()
         {
-            if (laserOn)
+            while (true)
             {
                 CastLaser();
                 CreateLaserEffect();
                 CreateLaserImpactEffect();
                 CheckForImpact();
                 _lastHit = _hit.collider;
+                yield return _checkFrequency;
             }
         }
 
         private void CheckForImpact()
         {
-            if (_hit.collider)
-            {
-                var hit = _hit.collider.gameObject;
-                if (hit.CompareTag("Player") || hit.CompareTag("Enemy"))
-                    onLaserDeath?.Invoke(hit);
-            }
+            if (!_hit.collider) return;
+            var hit = _hit.collider.gameObject;
+            if (hit.CompareTag("Player") || hit.CompareTag("Enemy"))
+                onLaserDeath?.Invoke(hit);
         }
 
         private void CreateLaserImpactEffect()
@@ -90,7 +98,8 @@ namespace Interactables.Traps
 
         private void CastLaser()
         {
-            Physics.Raycast(transform.position, transform.forward, out _hit, float.PositiveInfinity, layermask);
+            var tf = transform;
+            Physics.Raycast(tf.position, tf.forward, out _hit, float.PositiveInfinity, layermask);
         }
     }
 }

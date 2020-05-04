@@ -38,6 +38,7 @@ namespace PlayerController
             CrouchState.onEnteredCrouchEvent -= EnteredCrouch;
             CrouchState.onExitCrouchEvent -= ExitedCrouch;
             SteamController.onSteamDeath -= GasDeath;
+            LaserController.onLaserDeath -= LaserDead;
             ThrowDecoyGrenade.OnAimingEvent -= Aiming;
             ThrowDecoyGrenade.OnThrowEvent -= Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent -= StopAiming;

@@ -18,6 +18,8 @@ namespace Interactables.Pushables
         private Rigidbody _rigidbody;
         private Vector3[] _pushingLocations;
         private Vector3 _pushDirection;
+        private bool isPushing;
+        
         private void Awake()
         {
             _collider = GetComponent<BoxCollider>();
@@ -54,9 +56,20 @@ namespace Interactables.Pushables
                 onPushStateEvent?.Invoke(this);
         }
 
-        public void Push()
+        private void FixedUpdate()
         {
-            _rigidbody.AddForce(_pushDirection * (force * Time.deltaTime));
+            if (isPushing)
+                _rigidbody.AddForce(_pushDirection.normalized * (force * Time.deltaTime));
+        }
+
+        public void Pushing()
+        {
+            isPushing = true;
+        }
+
+        public void NotPushing()
+        {
+            isPushing = false;
         }
 
         public Vector3 GetPushLocation(Vector3 pusherLocation)
