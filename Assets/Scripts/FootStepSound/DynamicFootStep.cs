@@ -1,6 +1,7 @@
 ﻿//Main author: Ferreira Dos Santos Keziah
 
 using UnityEngine;
+using PlayerController.PlayerStateMachine;
 namespace FootStepSound
 {
     public class DynamicFootStep : MonoBehaviour
@@ -13,16 +14,46 @@ namespace FootStepSound
 
         private double time;
         private float filterTime;
+        
 
         private string colliderType;
+
+
 
         private void Start()
         {
             _source = GetComponent<AudioSource>();
             time = AudioSettings.dspTime;
             filterTime = 0.2f;
+            
+
         }
-    
+
+        private void Awake()
+        {
+
+            CrouchState.onEnteredCrouchEvent += EnteredCrouch;
+            CrouchState.onExitCrouchEvent += ExitedCrouch;
+
+
+        }
+
+        private void OnDestroy()
+        {
+            CrouchState.onEnteredCrouchEvent -= EnteredCrouch;
+            CrouchState.onExitCrouchEvent -= ExitedCrouch;
+        }
+
+        private void EnteredCrouch()
+        {
+            _source.volume = 0.5f;
+        }
+
+        private void ExitedCrouch()
+        {
+            _source.volume = 1f;
+        }
+
         private void OnCollisionEnter(Collision col)
         {
             var act = col.gameObject.GetComponent<Collider>().gameObject.GetComponent<SurfaceColliderType>();
@@ -48,5 +79,9 @@ namespace FootStepSound
                     break;
             }
         }
+
+        
+
+
     }
 }
