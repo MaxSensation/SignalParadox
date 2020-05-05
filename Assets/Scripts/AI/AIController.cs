@@ -13,7 +13,7 @@ namespace AI
         [SerializeField] internal LayerMask visionMask;
 
         protected StateMachine _stateMachine;
-        protected bool _stunned;
+        protected internal bool _stunned;
         private Renderer aihRenderer;
         internal GameObject target;
         internal NavMeshAgent agent;

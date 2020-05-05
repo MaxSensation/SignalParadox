@@ -52,7 +52,6 @@ namespace PlayerController
             _transmitter = transform.GetComponentInChildren<SoundProvider>();
             LaserController.onLaserDeath += Die;
             SteamController.onSteamDamage += Die;
-            PlayerTrapable.onPlayerTrappedEvent += Die;
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
             PushableBox.onPushStateEvent += HandlePushEvent;
@@ -85,7 +84,6 @@ namespace PlayerController
         {
             LaserController.onLaserDeath -= Die;
             SteamController.onSteamDamage -= Die;
-            PlayerTrapable.onPlayerTrappedEvent -= Die;
             ChargerController.onCrushedPlayerEvent -= Die;
             ChargerController.CaughtPlayerEvent -= PlayerIsCharged;
             PushableBox.onPushStateEvent -= HandlePushEvent;

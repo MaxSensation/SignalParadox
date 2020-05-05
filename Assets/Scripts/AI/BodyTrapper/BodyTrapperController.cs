@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using AI.BodyTrapper.AIStateMachine;
 using EchoLocation;
 using Interactables.Traps;
 using Interactables.Triggers;
@@ -25,6 +26,7 @@ namespace AI.BodyTrapper
         internal EchoLocationReceiver _soundListener;
         internal Vector3 lastSoundLocation;
         private Coroutine _foundSound;
+        public static Action<GameObject> onTrappedPlayer;
         private new void Awake()
         {
             base.Awake();
@@ -65,7 +67,8 @@ namespace AI.BodyTrapper
             agent.enabled = true;
             rigidbody.useGravity = true;
             transform.parent = null;
-            _stunned = false;
+            _stateMachine.TransitionTo<StunState>();
+            // ActivateStun();
         }
 
         private void OnDestroy()
@@ -101,24 +104,7 @@ namespace AI.BodyTrapper
                 agent.enabled = false;
             UnregisterEvents();
         }
-
-        public static Action<GameObject> onTrappedPlayer;
-
-        public void ActivateStun()
-        {
-            agent.enabled = false;
-            _stunned = true;
-            StartCoroutine("StunTime");
-        }
-        private IEnumerator StunTime()
-        {
-            yield return new WaitForSeconds(3);
-            if (!isStuckOnPlayer)
-            {
-                agent.enabled = true;
-                _stunned = false;
-            }
-        }
+        
         internal void TouchingPlayer()
         {
             if (_enemyTrigger.IsTouchingTaggedObject && !isStuckOnPlayer && canAttack)
@@ -139,6 +125,19 @@ namespace AI.BodyTrapper
         {
             yield return new WaitForSeconds(chargeTime);
             isCharging = false;
+        }
+
+        public void ActivateStun()
+        {
+            _stunned = true;
+            StartCoroutine(Stun());
+        }
+
+        private IEnumerator Stun()
+        {
+            yield return new WaitForSeconds(2f);
+            _stunned = false;
+            agent.enabled = true;
         }
     }
 }
