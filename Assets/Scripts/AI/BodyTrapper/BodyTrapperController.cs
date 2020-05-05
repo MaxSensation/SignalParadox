@@ -91,7 +91,6 @@ namespace AI.BodyTrapper
             isStuckOnPlayer = true;
             agent.enabled = false;
             rigidbody.useGravity = false;
-            rigidbody.velocity = Vector3.zero;
         }
 
         protected internal override void Die()

@@ -24,8 +24,10 @@ namespace AI.BodyTrapper.AIStateMachine
             if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance && Ai.LookingAtPlayer(Ai, maxMinLookRange))
                 stateMachine.TransitionTo<ChargeState>();
 
-            if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance){
-                var targetRotation = Quaternion.LookRotation(Ai.target.transform.position - Ai.transform.position, Vector3.up);
+            if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
+            {
+                var e = (Ai.target.transform.position - Ai.transform.position);
+                var targetRotation = Quaternion.LookRotation(new Vector3(e.x, 0, e.z), Vector3.up);
                 Ai.transform.rotation = Quaternion.Lerp(Ai.transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
 
