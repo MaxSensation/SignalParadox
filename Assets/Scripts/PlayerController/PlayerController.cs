@@ -45,6 +45,7 @@ namespace PlayerController
 
         // Events
         public static Action onPlayerDeath;
+        private bool _isTrapped;
 
         private void Awake()
         {
@@ -55,6 +56,8 @@ namespace PlayerController
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
             PushableBox.onPushStateEvent += HandlePushEvent;
+            PlayerTrapable.onPlayerTrappedEvent += EnableTrapped;
+            PlayerTrapable.onDetached += DisableTrapped;
             _alive = true;
             _playerMesh = GameObject.Find("PlayerMesh");
             _stateMachine = new StateMachine(this, states);
@@ -66,11 +69,20 @@ namespace PlayerController
             _turnWithCamera = _playerMesh.GetComponent<TurnWithCamera>();
         }
 
+        private void EnableTrapped()
+        {
+            _isTrapped = true;
+        }
+        private void DisableTrapped()
+        {
+            _isTrapped = false;
+        }
+
         private void HandlePushEvent(IPushable pushable)
         {
             var location = pushable.GetPushLocation(transform.position);
             if (currentPushableObject == null && location != Vector3.zero &&
-                Vector3.Distance(transform.position, location) < 0.5f)
+                Vector3.Distance(transform.position, location) < 0.5f && !_isTrapped)
             {
                 currentPushableObject = pushable;
                 _stateMachine.TransitionTo<PushingState>();
