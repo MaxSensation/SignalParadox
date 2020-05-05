@@ -2096,6 +2096,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1850180011}
+        m_MethodName: UpdateMouseInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e25dd450-5869-4a04-9097-9f1cd409bace
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
@@ -2234,6 +2245,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6443ed59bbde4cb3ae9c1ebb70510a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageTickTime: 4
+  minShakeAmount: 4.5
+  checkInterval: 0.2
+  shakeOfAmount: 10
 --- !u!95 &1850180012
 Animator:
   serializedVersion: 3
