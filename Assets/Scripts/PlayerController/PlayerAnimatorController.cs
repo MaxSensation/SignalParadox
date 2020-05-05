@@ -23,7 +23,7 @@ namespace PlayerController
             _animator = GetComponent<Animator>();
             CrouchState.onEnteredCrouchEvent += EnteredCrouch;
             CrouchState.onExitCrouchEvent += ExitedCrouch;
-            SteamController.onSteamDeath += GasDeath;
+            SteamController.onSteamDamage += GasDeath;
             LaserController.onLaserDeath += LaserDead;
             ThrowDecoyGrenade.OnAimingEvent += Aiming;
             ThrowDecoyGrenade.OnThrowEvent += Throw;
@@ -37,7 +37,7 @@ namespace PlayerController
         {
             CrouchState.onEnteredCrouchEvent -= EnteredCrouch;
             CrouchState.onExitCrouchEvent -= ExitedCrouch;
-            SteamController.onSteamDeath -= GasDeath;
+            SteamController.onSteamDamage -= GasDeath;
             LaserController.onLaserDeath -= LaserDead;
             ThrowDecoyGrenade.OnAimingEvent -= Aiming;
             ThrowDecoyGrenade.OnThrowEvent -= Throw;
