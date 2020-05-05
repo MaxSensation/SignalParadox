@@ -7,6 +7,7 @@ using System;
 using PlayerController.PlayerStateMachine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody), typeof(GameObject))]
 public class ThrowDecoyGrenade : MonoBehaviour
 {
     [SerializeField] private GameObject _grenadePrefab;

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using PlayerController;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Interactables.Button
 {
@@ -15,7 +16,8 @@ namespace Interactables.Button
         private bool _isInRangeOfPlayer;
         private bool _isInteractable;
         private WaitForSeconds buttonDelay;
-    
+
+        public UnityEvent Activate;
         public static Action<GameObject[]> onButtonPressed;
 
         private void Awake()
@@ -47,6 +49,7 @@ namespace Interactables.Button
         private void ButtonPress()
         {
             _isInteractable = false;
+            Activate?.Invoke();
             onButtonPressed?.Invoke(interactableObjects);
             StartCoroutine("ActivateButton");
         }
