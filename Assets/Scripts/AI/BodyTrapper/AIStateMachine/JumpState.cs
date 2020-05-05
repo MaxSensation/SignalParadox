@@ -34,7 +34,7 @@ namespace AI.BodyTrapper.AIStateMachine
 
         private bool Grounded()
         {
-            return Physics.Raycast(Ai.transform.position, Vector3.down, 0.3f, Ai.agent.areaMask);
+            return Physics.Raycast(Ai.transform.position, Vector3.down, 0.1f, Ai.agent.areaMask);
         }
 
         private void Jump()
