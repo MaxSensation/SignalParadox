@@ -16,7 +16,6 @@ namespace AI.BodyTrapper.AIStateMachine
         {
             base.Enter();
             Jump();
-            Ai.ActivateStun();
             Ai.canAttack = true;
         }
         
@@ -27,9 +26,9 @@ namespace AI.BodyTrapper.AIStateMachine
             
             Ai.TouchingPlayer();
             
-            if ((Grounded() && !Ai.IsStunned()) || (!Ai.isStuckOnPlayer && !Ai.canAttack))
+            if (Grounded() && Vector3.Dot(Vector3.up, Ai.rigidbody.velocity) <= 0.1 || !Ai.isStuckOnPlayer && !Ai.canAttack)
             {
-                stateMachine.TransitionTo<PatrolState>();
+                stateMachine.TransitionTo<StunState>();
             }
         }
 

@@ -13,7 +13,7 @@ namespace AI.BodyTrapper.AIStateMachine
         [SerializeField] private float jumpDistance;
         [SerializeField] private float searchingRange;
         [SerializeField] private float maxMinLookRange;
-
+        
         public override void Run()
         {
             if (Ai.isDead)
@@ -21,9 +21,14 @@ namespace AI.BodyTrapper.AIStateMachine
             
             if (!Ai.IsStunned() && Ai.agent.enabled)
                 Ai.agent.SetDestination(Ai.target.transform.position);
-            
-            if (Ai.LookingAtPlayer(Ai, maxMinLookRange) && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
+            if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance && Ai.LookingAtPlayer(Ai, maxMinLookRange))
                 stateMachine.TransitionTo<ChargeState>();
+
+            if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance){
+                var targetRotation = Quaternion.LookRotation(Ai.target.transform.position - Ai.transform.position, Vector3.up);
+                Ai.transform.rotation = Quaternion.Lerp(Ai.transform.rotation, targetRotation, Time.deltaTime * 10f);
+            }
+
             NavMesh.CalculatePath(Ai.target.transform.position, Ai.transform.position, NavMesh.AllAreas, Ai.path);
             if (Ai.path.status != NavMeshPathStatus.PathComplete || (!CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) > searchingRange))
                 stateMachine.TransitionTo<PatrolState>();
