@@ -13,9 +13,9 @@ namespace Interactables.Door
         private Animator _animator;
         private void Awake()
         {
+            _animator = GetComponent<Animator>();
             if (isOpen)
                 OpenDoor();
-            _animator = GetComponent<Animator>();
             ButtonController.onButtonPressed += OnButtonPressed;
             PlatformTrigger.onButtonPressed += OnButtonPressed;
         }
