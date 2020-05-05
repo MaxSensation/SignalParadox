@@ -92,8 +92,12 @@ namespace Interactables.Traps
             _particleSystem.Stop();
         }
 
-        private void ActivateSteamLoop() => steamLoop = StartCoroutine(SteamLoop());
-        private void DeactivateSteamLoop() => StopCoroutine(steamLoop);
+        public void ActivateSteamLoop() => steamLoop = StartCoroutine(SteamLoop());
+        public void DeactivateSteamLoop()
+        {
+            turnOffSteam.Invoke();
+            StopCoroutine(steamLoop);
+        }
 
         private IEnumerator SteamLoop()
         {
