@@ -5371,7 +5371,7 @@ GameObject:
   - component: {fileID: 98064713}
   - component: {fileID: 98064712}
   - component: {fileID: 98064711}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofLabStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9970,7 +9970,7 @@ Transform:
   - {fileID: 1675984438}
   - {fileID: 730507431}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &190466849
 PrefabInstance:
@@ -11381,6 +11381,16 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.483449
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 5.241723
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1088da6a082a8824eabf79ce4e8155dd, type: 3}
 --- !u!1001 &207122837
@@ -11538,6 +11548,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Doorway_Standard (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.7675524
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 3.8837762
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1088da6a082a8824eabf79ce4e8155dd, type: 3}
@@ -12827,7 +12847,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &243838810
 Transform:
@@ -12838,7 +12858,7 @@ Transform:
   m_GameObject: {fileID: 243838809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.0892, z: 1}
   m_Children: []
   m_Father: {fileID: 406795484}
   m_RootOrder: 0
@@ -13006,6 +13026,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1566673166, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: debugModeOn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566673167, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: frequency
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4008915943660899337, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
       propertyPath: smoothTime
@@ -13014,7 +13042,7 @@ PrefabInstance:
     - target: {fileID: 5312461777412064972, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.913
+      value: 0.96
       objectReference: {fileID: 0}
     - target: {fileID: 5312461777412064972, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
@@ -13024,7 +13052,7 @@ PrefabInstance:
     - target: {fileID: 5312461777412064972, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.22
+      value: -1.97
       objectReference: {fileID: 0}
     - target: {fileID: 5312461777412064972, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
@@ -17509,7 +17537,7 @@ GameObject:
   - component: {fileID: 332998520}
   - component: {fileID: 332998519}
   - component: {fileID: 332998518}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofUnknown (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21308,7 +21336,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &406795484
 Transform:
@@ -21327,7 +21355,7 @@ Transform:
   - {fileID: 1655159908}
   - {fileID: 1198642046}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &407890996 stripped
 Transform:
@@ -25389,7 +25417,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &501020089
 Transform:
@@ -25400,7 +25428,7 @@ Transform:
   m_GameObject: {fileID: 501020088}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.1206, z: 1}
   m_Children: []
   m_Father: {fileID: 406795484}
   m_RootOrder: 1
@@ -26321,7 +26349,7 @@ GameObject:
   - component: {fileID: 518110976}
   - component: {fileID: 518110975}
   - component: {fileID: 518110974}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofAirlock/elevator (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26337,7 +26365,7 @@ Transform:
   m_GameObject: {fileID: 518110972}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7, y: 4, z: 11}
-  m_LocalScale: {x: 4, y: 0.15, z: 4}
+  m_LocalScale: {x: 4.69, y: 0.24963, z: 4.8972}
   m_Children: []
   m_Father: {fileID: 1717254312}
   m_RootOrder: 7
@@ -26800,7 +26828,7 @@ GameObject:
   - component: {fileID: 535443417}
   - component: {fileID: 535443416}
   - component: {fileID: 535443415}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofAirlock/elevator (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34314,8 +34342,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 27.057625, y: 1, z: 49.136417}
-  m_Center: {x: 26.523891, y: -2.5, z: -13.55213}
+  m_Size: {x: 27.96664, y: 1, z: 49.7722}
+  m_Center: {x: 26.9784, y: -2.5, z: -13.581963}
 --- !u!65 &694533993
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34340,8 +34368,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 23.156157, y: 1, z: 16.180191}
-  m_Center: {x: 1.3579645, y: -0.5, z: -24.986286}
+  m_Size: {x: 23.156157, y: 1, z: 17.198544}
+  m_Center: {x: 1.3579645, y: -0.5, z: -25.495462}
 --- !u!65 &694533995
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34353,8 +34381,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 32.860123, y: 1, z: 30.035799}
-  m_Center: {x: 6.0728464, y: -0.5, z: -1.9240999}
+  m_Size: {x: 32.860123, y: 1, z: 30.251198}
+  m_Center: {x: 6.0728455, y: -0.5, z: -1.8164}
 --- !u!4 &694533996
 Transform:
   m_ObjectHideFlags: 0
@@ -45905,7 +45933,7 @@ GameObject:
   - component: {fileID: 910826692}
   - component: {fileID: 910826691}
   - component: {fileID: 910826690}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofEngineering
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49277,7 +49305,7 @@ GameObject:
   - component: {fileID: 964957994}
   - component: {fileID: 964957993}
   - component: {fileID: 964957992}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofStorageRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49353,7 +49381,7 @@ Transform:
   m_GameObject: {fileID: 964957991}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.02, y: 4, z: 4}
-  m_LocalScale: {x: 14.008055, y: 0.15, z: 6}
+  m_LocalScale: {x: 14.732271, y: 0.22059001, z: 6.7932}
   m_Children: []
   m_Father: {fileID: 1717254312}
   m_RootOrder: 0
@@ -52631,7 +52659,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1059859917
 Transform:
@@ -52642,7 +52670,7 @@ Transform:
   m_GameObject: {fileID: 1059859916}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.107, z: 1}
   m_Children: []
   m_Father: {fileID: 406795484}
   m_RootOrder: 2
@@ -54018,7 +54046,7 @@ GameObject:
   - component: {fileID: 1094858299}
   - component: {fileID: 1094858298}
   - component: {fileID: 1094858297}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofHallway2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54034,7 +54062,7 @@ Transform:
   m_GameObject: {fileID: 1094858295}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 15.01, y: 4, z: -10.81}
-  m_LocalScale: {x: 4.7644, y: 0.15, z: 12}
+  m_LocalScale: {x: 4.7644, y: 0.298125, z: 12.046801}
   m_Children: []
   m_Father: {fileID: 1717254312}
   m_RootOrder: 9
@@ -58819,7 +58847,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1198642046
 Transform:
@@ -58830,7 +58858,7 @@ Transform:
   m_GameObject: {fileID: 1198642045}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3, y: 0, z: -23}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.1446, z: 1}
   m_Children: []
   m_Father: {fileID: 406795484}
   m_RootOrder: 4
@@ -61457,7 +61485,7 @@ GameObject:
   - component: {fileID: 1256932938}
   - component: {fileID: 1256932937}
   - component: {fileID: 1256932936}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofUnknown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64759,7 +64787,7 @@ Transform:
   - {fileID: 1406368327}
   - {fileID: 1892142302}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1323088285
 PrefabInstance:
@@ -65156,7 +65184,7 @@ GameObject:
   - component: {fileID: 1332346981}
   - component: {fileID: 1332346980}
   - component: {fileID: 1332346979}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofAirlock/elevator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65171,8 +65199,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332346977}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 4, z: -2}
-  m_LocalScale: {x: 4, y: 0.15, z: 5.0016}
+  m_LocalPosition: {x: 0.96, y: 4, z: -2}
+  m_LocalScale: {x: 4.3972, y: 0.21664502, z: 5.0016}
   m_Children: []
   m_Father: {fileID: 1717254312}
   m_RootOrder: 2
@@ -69516,7 +69544,7 @@ GameObject:
   - component: {fileID: 1419886677}
   - component: {fileID: 1419886676}
   - component: {fileID: 1419886675}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofAirlock/elevator (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71941,7 +71969,7 @@ GameObject:
   - component: {fileID: 1460854259}
   - component: {fileID: 1460854258}
   - component: {fileID: 1460854257}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofAirlock/elevator (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71957,7 +71985,7 @@ Transform:
   m_GameObject: {fileID: 1460854255}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 20, y: 4, z: -3.99}
-  m_LocalScale: {x: 5.2168, y: 0.15, z: 4}
+  m_LocalScale: {x: 5.2168, y: 0.27627, z: 4}
   m_Children: []
   m_Father: {fileID: 1717254312}
   m_RootOrder: 3
@@ -75052,7 +75080,7 @@ GameObject:
   - component: {fileID: 1523837987}
   - component: {fileID: 1523837986}
   - component: {fileID: 1523837985}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofMachineRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75068,7 +75096,7 @@ Transform:
   m_GameObject: {fileID: 1523837983}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.99, y: 7, z: -10.52}
-  m_LocalScale: {x: 22.197077, y: 0.15, z: 11.2590475}
+  m_LocalScale: {x: 22.47454, y: 0.256965, z: 11.400911}
   m_Children: []
   m_Father: {fileID: 1717254312}
   m_RootOrder: 1
@@ -82203,7 +82231,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1655159908
 Transform:
@@ -82214,7 +82242,7 @@ Transform:
   m_GameObject: {fileID: 1655159907}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 25, y: 0, z: -31}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.1150215, z: 1}
   m_Children: []
   m_Father: {fileID: 406795484}
   m_RootOrder: 3
@@ -82810,6 +82838,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Doorway_Standard
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.560235
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 5.2801166
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1088da6a082a8824eabf79ce4e8155dd, type: 3}
@@ -86254,8 +86292,9 @@ Transform:
   - {fileID: 910826689}
   - {fileID: 1256932935}
   - {fileID: 332998517}
+  - {fileID: 2030963847}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1718800427
 PrefabInstance:
@@ -92757,7 +92796,7 @@ GameObject:
   - component: {fileID: 1856808485}
   - component: {fileID: 1856808484}
   - component: {fileID: 1856808483}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofAirlock/elevator (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95536,7 +95575,7 @@ GameObject:
   - component: {fileID: 1917268061}
   - component: {fileID: 1917268060}
   - component: {fileID: 1917268059}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoofHallway1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95551,8 +95590,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917268057}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.49, y: 4, z: -2.18}
-  m_LocalScale: {x: 13.8402, y: 0.15, z: 5.2974296}
+  m_LocalPosition: {x: 10.49, y: 4, z: -1.97}
+  m_LocalScale: {x: 13.8402, y: 0.282555, z: 5.766782}
   m_Children: []
   m_Father: {fileID: 1717254312}
   m_RootOrder: 8
@@ -98408,6 +98447,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.6806593
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 5.3403277
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 5.073363
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918228456916057293, guid: 1088da6a082a8824eabf79ce4e8155dd,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -2.1474845
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1088da6a082a8824eabf79ce4e8155dd, type: 3}
@@ -101410,7 +101469,7 @@ Transform:
   - {fileID: 463643283}
   - {fileID: 1895069350}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2024753307
 PrefabInstance:
@@ -101929,6 +101988,99 @@ Transform:
   m_Father: {fileID: 144615797}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2030963846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2030963847}
+  - component: {fileID: 2030963850}
+  - component: {fileID: 2030963849}
+  - component: {fileID: 2030963848}
+  m_Layer: 8
+  m_Name: RoofUnknown (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2030963847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030963846}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.85, y: 4, z: -19.27}
+  m_LocalScale: {x: 6.7861805, y: 0.47901002, z: 6.04318}
+  m_Children: []
+  m_Father: {fileID: 1717254312}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2030963848
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030963846}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &2030963849
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030963846}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &2030963850
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030963846}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &2033044258 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3992987815931757694, guid: abe00267b4c4ce94db14dd3a1b35086a,
