@@ -4,6 +4,7 @@
 using System.Linq;
 using Interactables.Button;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Interactables.Door
 {
@@ -11,6 +12,10 @@ namespace Interactables.Door
     {
         [SerializeField] private bool isOpen;
         private Animator _animator;
+
+        public UnityEvent Open;
+        public UnityEvent Close;
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -29,12 +34,14 @@ namespace Interactables.Door
         private void OpenDoor()
         {
             isOpen = true;
+            Open?.Invoke();
             _animator.SetBool("IsOpen", isOpen);
         }
     
         private void CloseDoor()
         {
             isOpen = false;
+            Close?.Invoke();
             _animator.SetBool("IsOpen", isOpen);
         }
 
