@@ -86,6 +86,7 @@ namespace AI.BodyTrapper
         private void StuckOnPlayer(GameObject bodyTrapper)
         {
             if (bodyTrapper != gameObject || isDead) return;
+            rigidbody.velocity = Vector3.zero;
             GetComponent<SphereCollider>().enabled = false;
             isStuckOnPlayer = true;
             agent.enabled = false;
