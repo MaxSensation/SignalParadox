@@ -52,7 +52,6 @@ namespace PlayerController
              var newMouseInput= _mouseInput;
              if (_lastMouseInput != null)
              {
-                 print(Vector2.Distance(_lastMouseInput, newMouseInput));
                  if (Vector2.Distance(_lastMouseInput, newMouseInput) > minShakeAmount && Vector2.Dot(_lastMouseInput, newMouseInput) < 0.9f)
                      _currentshakeOfAmount++;
                  if (_currentshakeOfAmount >= shakeOfAmount)
