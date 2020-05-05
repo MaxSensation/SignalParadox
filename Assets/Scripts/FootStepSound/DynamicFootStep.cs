@@ -8,7 +8,7 @@ namespace FootStepSound
     {
 
         private AudioSource _source;
-        public AudioClip Default;
+        public AudioClip Footsteps;
         public AudioClip Grass;
         public AudioClip Dirt;
 
@@ -70,7 +70,7 @@ namespace FootStepSound
             time = AudioSettings.dspTime;
             switch (colliderType) {
                 case "Default":
-                    _source.PlayOneShot(Default);
+                    _source.PlayOneShot(Footsteps);
                     break;
                 case "Grass":
                     _source.PlayOneShot(Grass);

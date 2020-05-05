@@ -5,15 +5,15 @@ namespace FootStepSound
 {
     public class SurfaceColliderType : MonoBehaviour
     {
-        public enum Mode {Default, Grass, Dirt}
+        public enum Mode {Footsteps, Grass, Dirt}
         public Mode terrainType;
     
         public string GetTerrainType()
         {
             var typeString = "";
             switch (terrainType) {
-                case Mode.Default:
-                    typeString = "Default";
+                case Mode.Footsteps:
+                    typeString = "Footsteps";
                     break;
                 case Mode.Grass:
                     typeString = "Grass";
