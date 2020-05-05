@@ -24,6 +24,7 @@ namespace FootStepSound
         private void Start()
         {
             _source = GetComponent<AudioSource>();
+            _source.volume = 0.2f;
             time = AudioSettings.dspTime;
             filterTime = 0.2f;
 
@@ -47,12 +48,12 @@ namespace FootStepSound
 
         private void EnteredCrouch()
         {
-            _source.volume = 0.2f;
+            _source.volume = 0.1f;
         }
 
         private void ExitedCrouch()
         {
-            _source.volume = 0.5f;
+            _source.volume = 0.2f;
         }
 
         private void OnTriggerEnter(Collider col)
