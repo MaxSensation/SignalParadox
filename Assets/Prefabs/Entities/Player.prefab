@@ -2246,8 +2246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageTickTime: 4
-  minShakeAmount: 4.5
-  checkInterval: 0.2
+  minShakeAmount: 60
+  checkInterval: 0.05
   shakeOfAmount: 10
 --- !u!95 &1850180012
 Animator:
