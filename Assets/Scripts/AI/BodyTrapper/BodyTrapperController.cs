@@ -68,7 +68,6 @@ namespace AI.BodyTrapper
             rigidbody.useGravity = true;
             transform.parent = null;
             _stateMachine.TransitionTo<StunState>();
-            // ActivateStun();
         }
 
         private void OnDestroy()
@@ -86,19 +85,16 @@ namespace AI.BodyTrapper
 
         private void StuckOnPlayer(GameObject bodyTrapper)
         {
-            if (bodyTrapper == gameObject && !isDead)
-            {
-                GetComponent<SphereCollider>().enabled = false;
-                isStuckOnPlayer = true;
-                agent.enabled = false;
-                rigidbody.useGravity = false;
-                rigidbody.velocity = Vector3.zero;
-            }
+            if (bodyTrapper != gameObject || isDead) return;
+            GetComponent<SphereCollider>().enabled = false;
+            isStuckOnPlayer = true;
+            agent.enabled = false;
+            rigidbody.useGravity = false;
+            rigidbody.velocity = Vector3.zero;
         }
 
         protected internal override void Die()
         {
-            Debug.Log("bodytrapper is dead");
             isDead = true;
             if (agent != null)
                 agent.enabled = false;
@@ -135,7 +131,7 @@ namespace AI.BodyTrapper
 
         private IEnumerator Stun()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(5f);
             _stunned = false;
             agent.enabled = true;
         }
