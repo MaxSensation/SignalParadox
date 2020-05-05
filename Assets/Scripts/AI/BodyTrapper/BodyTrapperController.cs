@@ -62,6 +62,7 @@ namespace AI.BodyTrapper
         
         private void DetachFromPlayer()
         {
+            if (!isStuckOnPlayer) return;
             GetComponent<SphereCollider>().enabled = true;
             isStuckOnPlayer = false;
             agent.enabled = true;
