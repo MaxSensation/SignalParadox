@@ -61,9 +61,10 @@ namespace FootStepSound
                 colliderType = act.GetTerrainType();
         }
 
-        private void PlayFootstepSound(int foot_number)
+        public void PlayFootstepSound()
         {
-            if(AudioSettings.dspTime < time + filterTime)
+            Debug.Log("Sound on");
+            if (AudioSettings.dspTime < time + filterTime)
         
                 return;
             time = AudioSettings.dspTime;
