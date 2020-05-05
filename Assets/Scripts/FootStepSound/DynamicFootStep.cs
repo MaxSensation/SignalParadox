@@ -8,13 +8,14 @@ namespace FootStepSound
     {
 
         private AudioSource _source;
-        public AudioClip Footsteps;
-        public AudioClip Grass;
-        public AudioClip Dirt;
+        [SerializeField] private AudioClip Footsteps;
+        [SerializeField] private AudioClip Glass;
+        [SerializeField] private AudioClip Metal;
 
         private double time;
         private float filterTime;
-        
+        private bool hasEnterd;
+
 
         private string colliderType;
 
@@ -25,7 +26,7 @@ namespace FootStepSound
             _source = GetComponent<AudioSource>();
             time = AudioSettings.dspTime;
             filterTime = 0.2f;
-            
+
 
         }
 
@@ -46,42 +47,68 @@ namespace FootStepSound
 
         private void EnteredCrouch()
         {
-            _source.volume = 0.5f;
+            _source.volume = 0.2f;
         }
 
         private void ExitedCrouch()
         {
-            _source.volume = 1f;
+            _source.volume = 0.5f;
         }
 
-        private void OnCollisionEnter(Collision col)
+        private void OnTriggerEnter(Collider col)
         {
-            var act = col.gameObject.GetComponent<Collider>().gameObject.GetComponent<SurfaceColliderType>();
-            if (act)
-                colliderType = act.GetTerrainType();
+
+            if (col.CompareTag("FootSounds"))
+            {
+                hasEnterd = true;
+                var act = col.gameObject.GetComponent<Collider>().gameObject.GetComponent<SurfaceColliderType>();
+                if (act)
+                    colliderType = act.GetTerrainType();
+            }
+
+
+
         }
+
+        private void OnTriggerExit(Collider col)
+        {
+            if (col.CompareTag("FootSounds"))
+            {
+
+                hasEnterd = false;
+
+            }
+
+
+        }
+
 
         public void PlayFootstepSound()
         {
-            Debug.Log("Sound on");
-            if (AudioSettings.dspTime < time + filterTime)
-        
-                return;
-            time = AudioSettings.dspTime;
-            switch (colliderType) {
-                case "Default":
-                    _source.PlayOneShot(Footsteps);
-                    break;
-                case "Grass":
-                    _source.PlayOneShot(Grass);
-                    break;
-                case "Dirt":
-                    _source.PlayOneShot(Dirt);
-                    break;
+
+            if (hasEnterd)
+            {
+                if (AudioSettings.dspTime < time + filterTime)
+
+                    return;
+                time = AudioSettings.dspTime;
+                switch (colliderType)
+                {
+                    case "Footsteps":
+                        _source.PlayOneShot(Footsteps);
+                        break;
+                    case "Grass":
+                        _source.PlayOneShot(Glass);
+                        break;
+                    case "Dirt":
+                        _source.PlayOneShot(Metal);
+                        break;
+                }
+
             }
         }
 
-        
+
 
 
     }

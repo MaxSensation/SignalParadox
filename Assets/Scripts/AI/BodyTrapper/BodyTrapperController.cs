@@ -34,7 +34,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
             LaserController.onLaserDeath += OnDeathByTrap;
-            SteamController.onSteamDeath += OnDeathByTrap;
+            SteamController.onSteamDamage += OnDeathByTrap;
             _soundListener = transform.GetComponentInChildren<EchoLocationReceiver>();
             _soundListener.heardSound += UpdateSoundSource;
         }
@@ -78,7 +78,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onTrapped -= StuckOnPlayer;
             PlayerTrapable.onDetached -= DetachFromPlayer;
             LaserController.onLaserDeath -= OnDeathByTrap;
-            SteamController.onSteamDeath -= OnDeathByTrap;
+            SteamController.onSteamDamage -= OnDeathByTrap;
         }
 
         private void StuckOnPlayer(GameObject bodyTrapper)

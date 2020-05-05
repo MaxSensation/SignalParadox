@@ -51,7 +51,7 @@ namespace PlayerController
             currentDirection = Vector2.zero;
             _transmitter = transform.GetComponentInChildren<SoundProvider>();
             LaserController.onLaserDeath += Die;
-            SteamController.onSteamDeath += Die;
+            SteamController.onSteamDamage += Die;
             PlayerTrapable.onPlayerTrappedEvent += Die;
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
@@ -84,7 +84,7 @@ namespace PlayerController
         private void OnDestroy()
         {
             LaserController.onLaserDeath -= Die;
-            SteamController.onSteamDeath -= Die;
+            SteamController.onSteamDamage -= Die;
             PlayerTrapable.onPlayerTrappedEvent -= Die;
             ChargerController.onCrushedPlayerEvent -= Die;
             ChargerController.CaughtPlayerEvent -= PlayerIsCharged;
