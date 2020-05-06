@@ -25,6 +25,7 @@ namespace Interactables.Traps
         private bool _interactable;
         private void Awake()
         {
+            _interactable = true;
             turnOn.AddListener(ActivateLasers);
             turnOff.AddListener(DeactivateLasers);
             _laserWallOffset = transform.Find("PositionOffset");
