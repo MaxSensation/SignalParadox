@@ -106,6 +106,8 @@ namespace AI.Charger
         internal void CaughtPlayer()
         {
             CaughtPlayerEvent?.Invoke();
+            if (rigidbody.velocity.magnitude <= 0.001f)
+                KillPlayer();
         }
 
         protected internal override void Die()
