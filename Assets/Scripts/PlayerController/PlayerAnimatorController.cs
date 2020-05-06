@@ -18,14 +18,14 @@ namespace PlayerController
         private bool _isThrowing;
         private Vector2 _movement;
         private Vector2 _newMovement;
+
+        public static Action OnDeathAnimEnd, OnDeathAnimBeginning;
         
         private void Awake()
         {
             _animator = GetComponent<Animator>();
             CrouchState.onEnteredCrouchEvent += EnteredCrouch;
             CrouchState.onExitCrouchEvent += ExitedCrouch;
-            //SteamController.onSteamDamage += GasDeath;
-            //LaserController.onLaserDeath += LaserDead;
             ThrowDecoyGrenade.OnAimingEvent += Aiming;
             ThrowDecoyGrenade.OnThrowEvent += Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent += StopAiming;
@@ -41,27 +41,37 @@ namespace PlayerController
             {
                 case HealthSystem.DamageType.Laser:
                     _animator.SetTrigger("LaserDeath");
+                    DeathAnimBeginning();
                     break;
                 case HealthSystem.DamageType.Steam:
                     _animator.SetTrigger("GasDeath");
+                    DeathAnimBeginning();
                     break;
                 case HealthSystem.DamageType.Bodytrapper:
-                    _animator.SetTrigger("LaserDeath");
+                    _animator.SetTrigger("GasDeath");
+                    DeathAnimBeginning();
                     break;
                 case HealthSystem.DamageType.Charger:
-                    _animator.SetTrigger("LaserDeath");
                     break;
                 default:
                     break;
             }
         }
 
+        private void DeathAnimEnd()
+        {
+            OnDeathAnimEnd?.Invoke();
+        }
+
+        private void DeathAnimBeginning()
+        {
+            OnDeathAnimBeginning?.Invoke();
+        }
+
         private void OnDestroy()
         {
             CrouchState.onEnteredCrouchEvent -= EnteredCrouch;
             CrouchState.onExitCrouchEvent -= ExitedCrouch;
-            //SteamController.onSteamDamage -= GasDeath;
-            //LaserController.onLaserDeath -= LaserDead;
             ThrowDecoyGrenade.OnAimingEvent -= Aiming;
             ThrowDecoyGrenade.OnThrowEvent -= Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent -= StopAiming;

@@ -51,13 +51,13 @@ namespace PlayerController
         {
             currentDirection = Vector2.zero;
             _transmitter = transform.GetComponentInChildren<SoundProvider>();
-            LaserController.onLaserDeath += Die;
-            SteamController.onSteamDamage += Die;
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
             PushableBox.onPushStateEvent += HandlePushEvent;
             PlayerTrapable.onPlayerTrappedEvent += EnableTrapped;
             PlayerTrapable.onDetached += DisableTrapped;
+            PlayerAnimatorController.OnDeathAnimBeginning += PlayerIsDying;
+            PlayerAnimatorController.OnDeathAnimEnd += Die;
             _alive = true;
             _playerMesh = GameObject.Find("PlayerMesh");
             _stateMachine = new StateMachine(this, states);
@@ -101,11 +101,13 @@ namespace PlayerController
 
         private void OnDestroy()
         {
-            LaserController.onLaserDeath -= Die;
-            SteamController.onSteamDamage -= Die;
             ChargerController.onCrushedPlayerEvent -= Die;
             ChargerController.CaughtPlayerEvent -= PlayerIsCharged;
             PushableBox.onPushStateEvent -= HandlePushEvent;
+            PlayerTrapable.onPlayerTrappedEvent -= EnableTrapped;
+            PlayerTrapable.onDetached -= DisableTrapped;
+            PlayerAnimatorController.OnDeathAnimBeginning -= PlayerIsDying;
+            PlayerAnimatorController.OnDeathAnimEnd -= Die;
         }
 
         private void Update()
@@ -132,6 +134,8 @@ namespace PlayerController
             if (context.performed)
                 Die();
         }
+
+        private void PlayerIsDying() => _stateMachine.TransitionTo<DeadState>();
         
         private void Die(GameObject o)
         {

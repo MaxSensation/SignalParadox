@@ -31,9 +31,12 @@ namespace AI.BodyTrapper
         private SphereCollider _bodyTrapperCollider;
         public static Action<GameObject> onTrappedPlayer;
         public static Action<GameObject> onDetachedFromPlayer;
+        internal bool _isPlayerAlive;
+
         private new void Awake()
         {
             base.Awake();
+            _isPlayerAlive = true;
             _bodyTrapperCollider = GetComponent<SphereCollider>();
             path = new NavMeshPath();
             chargeTime = 0f;
@@ -42,6 +45,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onDetached += DetachFromPlayer;
             LaserController.onLaserDeath += OnDeathByTrap;
             SteamController.onSteamDamage += OnDeathByTrap;
+            PlayerAnimatorController.OnDeathAnimBeginning += () => _isPlayerAlive = false;
             _soundListener = transform.GetComponentInChildren<EchoLocationReceiver>();
             _soundListener.heardSound += UpdateSoundSource;
         }
@@ -89,6 +93,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onDetached -= DetachFromPlayer;
             LaserController.onLaserDeath -= OnDeathByTrap;
             SteamController.onSteamDamage -= OnDeathByTrap;
+            PlayerAnimatorController.OnDeathAnimBeginning += () => _isPlayerAlive = false;
         }
 
         private void StuckOnPlayer(GameObject bodyTrapper)
