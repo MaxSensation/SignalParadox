@@ -12,24 +12,28 @@ namespace Interactables.Button
     public class ButtonController : MonoBehaviour
     {
         [SerializeField] internal GameObject[] interactableObjects;
+        [SerializeField] float  spamProtectionDelay;
         private StateMachine _stateMachine;
         private bool _isInRangeOfPlayer;
         private bool _isInteractable;
-        private WaitForSeconds buttonDelay;
+        private bool _spamprotectionOn;
+        private WaitForSeconds _buttonDelay;
+        private WaitForSeconds _spamProtectionDelay;
 
         public UnityEvent Activate;
         public static Action<GameObject[]> onButtonPressed;
 
         private void Awake()
         {
+            _spamProtectionDelay = new WaitForSeconds(spamProtectionDelay);
             _isInteractable = true;
-            buttonDelay = new WaitForSeconds(2);
+            _buttonDelay = new WaitForSeconds(2);
             PlayerInteractionTrigger.onInteractedEvent += OnButtonPressed;
         }
 
         private void OnButtonPressed(GameObject button)
         {
-            if (button == gameObject)
+            if (button == gameObject && !_spamprotectionOn)
             {
                 ButtonPress();
             }
@@ -42,12 +46,20 @@ namespace Interactables.Button
 
         private IEnumerator ActivateButton()
         {
-            yield return buttonDelay;
+            yield return _buttonDelay;
             _isInteractable = true;
+        }
+
+        private IEnumerator SpamProtection()
+        {
+            _spamprotectionOn = true;
+            yield return _spamProtectionDelay;
+            _spamprotectionOn = false;
         }
 
         private void ButtonPress()
         {
+            StartCoroutine(SpamProtection());
             _isInteractable = false;
             Activate?.Invoke();
             onButtonPressed?.Invoke(interactableObjects);
