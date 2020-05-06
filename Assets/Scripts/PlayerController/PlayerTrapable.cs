@@ -82,10 +82,12 @@ namespace PlayerController
             }
         }
 
-        private void DetachAllTrappers()
+        public void DetachAllTrappers()
         {
             onDetached?.Invoke();
+            if(_mouseShaker != null)
             StopCoroutine(_mouseShaker);
+            if(_damageOverTime != null)
             StopCoroutine(_damageOverTime);
             _currentshakeOfAmount = 0;
         }
