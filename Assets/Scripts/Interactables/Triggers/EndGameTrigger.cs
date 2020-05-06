@@ -23,6 +23,7 @@ public class EndGameTrigger : MonoBehaviour
     private IEnumerator EndGameTimer()
     {
         yield return _endGameDelay;
+        Application.Quit();
     }
 
     private void EndGame()
