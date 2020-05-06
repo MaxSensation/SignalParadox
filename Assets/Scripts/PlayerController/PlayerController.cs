@@ -71,6 +71,7 @@ namespace PlayerController
 
         private void EnableTrapped()
         {
+            endingPushingState = true;
             _isTrapped = true;
         }
         private void DisableTrapped()
@@ -89,7 +90,6 @@ namespace PlayerController
             }
             else
                 endingPushingState = true;
-
         }
 
         private void OnDestroy()
