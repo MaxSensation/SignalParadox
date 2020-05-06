@@ -11,24 +11,33 @@ namespace Interactables.Door
     public class DoorController : MonoBehaviour
     {
         [SerializeField] private bool isOpen;
+        [SerializeField] private bool isAutoClosing;
         private Animator _animator;
-
         public UnityEvent Open;
         public UnityEvent Close;
+        private AutoCloseTrigger _autoCloseTrigger;
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
             if (isOpen)
                 OpenDoor();
+            if (isAutoClosing)
+            {
+                _autoCloseTrigger = transform.parent.Find("AutoCloseTrigger").GetComponent<AutoCloseTrigger>();
+                _autoCloseTrigger.OnAutoClose += CloseDoor;
+            }
             ButtonController.onButtonPressed += OnButtonPressed;
             PlatformTrigger.onButtonPressed += OnButtonPressed;
+
         }
     
         private void OnDestroy()
         {
             ButtonController.onButtonPressed -= OnButtonPressed;
             PlatformTrigger.onButtonPressed -= OnButtonPressed;
+            if(isAutoClosing)
+                _autoCloseTrigger.OnAutoClose -= CloseDoor;
         }
 
         private void OpenDoor()
