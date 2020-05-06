@@ -86,6 +86,13 @@ namespace AI.Charger
             return _enemyTrigger.IsTouchingLayerObject;
         }
 
+        internal bool CheckForWallRayCast()
+        {
+            LayerMask layerMask = LayerMask.GetMask("Colliders");
+            Physics.Raycast(transform.localPosition + Vector3.up, transform.forward, out RaycastHit hit, 1f, layerMask);
+            return hit.collider;
+        }
+
         internal bool GetHasCollidedWithTaggedObjet()
         {
             return _enemyTrigger.IsTouchingTaggedObject;
@@ -106,6 +113,12 @@ namespace AI.Charger
             isDead = true;
             if (agent != null)
                 agent.enabled = false;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.localPosition + Vector3.up, transform.forward);
         }
     }
 }

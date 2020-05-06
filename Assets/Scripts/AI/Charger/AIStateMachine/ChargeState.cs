@@ -19,6 +19,7 @@ namespace AI.Charger.AIStateMachine
 
         public override void Run()
         {
+            Ai.CheckForWallRayCast();
             if (Ai.isDead)
                 stateMachine.TransitionTo<DeadState>();
 
@@ -45,7 +46,7 @@ namespace AI.Charger.AIStateMachine
 
         public void PlayerCrushed()
         {
-            if (Ai.rigidbody.velocity.magnitude <= 0.001f && Ai.GetHasCollidedWithColliders())
+            if (Ai.rigidbody.velocity.magnitude <= 0.001f && (Ai.GetHasCollidedWithColliders() || Ai.CheckForWallRayCast()))
             {
                 if (Ai.target.transform.parent == Ai.transform)
                     Ai.KillPlayer();
