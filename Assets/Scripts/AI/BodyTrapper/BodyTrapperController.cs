@@ -28,10 +28,13 @@ namespace AI.BodyTrapper
         internal EchoLocationReceiver _soundListener;
         internal Vector3 lastSoundLocation;
         private Coroutine _foundSound;
+        private SphereCollider _collider;
         public static Action<GameObject> onTrappedPlayer;
+        public static Action<GameObject> onDetachedFromPlayer;
         private new void Awake()
         {
             base.Awake();
+            _collider = GetComponent<SphereCollider>();
             path = new NavMeshPath();
             chargeTime = 0f;
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
@@ -59,13 +62,17 @@ namespace AI.BodyTrapper
         private void OnDeathByTrap(GameObject obj)
         {
             if (obj == gameObject)
+            {
+                DetachFromPlayer();
                 Die();
+            }
         }
         
         private void DetachFromPlayer()
         {
             if (!isStuckOnPlayer) return;
-            GetComponent<SphereCollider>().enabled = true;
+            onDetachedFromPlayer?.Invoke(gameObject);
+            _collider.isTrigger = false;
             isStuckOnPlayer = false;
             agent.enabled = true;
             rigidbody.useGravity = true;
@@ -89,8 +96,8 @@ namespace AI.BodyTrapper
         private void StuckOnPlayer(GameObject bodyTrapper)
         {
             if (bodyTrapper != gameObject || isDead) return;
+            _collider.isTrigger = true;
             rigidbody.velocity = Vector3.zero;
-            GetComponent<SphereCollider>().isTrigger = true;
             isStuckOnPlayer = true;
             agent.enabled = false;
             rigidbody.useGravity = false;
