@@ -16,7 +16,6 @@ public class ThrowDecoyGrenade : MonoBehaviour
     [SerializeField] private float _maxThrowHeight = 5;
     [SerializeField] private float _timeUntilDestroy = 10;
     [SerializeField] private float _gravity = -18;
-    private float _oldVerticalRange;
     private bool _shouldDrawPath;
     private bool _canThrow;
     private int _currentThrownGrenades;
@@ -31,6 +30,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private Rigidbody _thrownGrenade;
     private bool _isPushing;
 
+    //Throw Events
     public static Action OnAimingEvent;
     public static Action OnOutOfRangeEvent;
     public static Action OnThrowEvent;
@@ -46,6 +46,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
         _camera = Camera.main.gameObject;
         _storedLinePoints = new List<Vector3>();
         PickupDecoyGrenade.onGrenadePickup += IncreaseMaxThrowableGrenades;
+        //Events for when not to throw
         PushingState.OnEnterPushingStateEvent += OnPushState;
         PushingState.OnExitPushingStateEvent += OnExitPushState;
 
@@ -64,8 +65,10 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private void Update()
     {
         _storedLinePoints.Clear();
+        //clears the linerenderer
         _lineRenderer.positionCount = 0;
 
+        //Updates the throwheight
         _currentThrowHeight = SetTargetRange();
 
         if (_shouldDrawPath)
@@ -74,11 +77,13 @@ public class ThrowDecoyGrenade : MonoBehaviour
         }
     }
 
+    //on pickup increase players current amount of grenades
     private void IncreaseMaxThrowableGrenades(int pickedUpAmount)
     {
         _currentAmountOfGrenades += pickedUpAmount;
     }
 
+    //Despawn grenade after time
     private IEnumerator DespawnGrenade(Rigidbody thrownGrenade)
     {
         yield return new WaitForSeconds(_timeUntilDestroy);
@@ -91,6 +96,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
     public void HandleInput(InputAction.CallbackContext context)
     {
+        //remove the previous grenade if you throw again
         if (context.started && _thrownGrenade != null && _currentAmountOfGrenades > 0 && !_isPushing)
         {
             Destroy(_thrownGrenade.gameObject);
@@ -138,7 +144,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
             return new LaunchData(velocityXZ + velocityY * -Mathf.Sign(_gravity), time);
         }
-        else
+        else //if aiming out of range return a zeroed launchData
         {
             OnOutOfRangeEvent?.Invoke();
             return new LaunchData(Vector3.zero, 0f);
@@ -151,7 +157,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
         Vector3 previousDrawPoint = _hand.position;
 
         int resolution = 30;
-
+        
         if (launchData.initialVelocity != Vector3.zero && launchData.timeToTarget != 0f)
         {
             OnAimingEvent?.Invoke();
@@ -171,12 +177,13 @@ public class ThrowDecoyGrenade : MonoBehaviour
                 _canThrow = true;
             }
         }
-        else
+        else //if launchdata is zeroed you can't throw
         {
             _canThrow = false;
         }
     }
 
+    //changes the throw height depending on how high you aim
     private float SetTargetRange()
     {
         float _cameraAngle = Vector3.Angle(-_playerMeshPos.transform.up, _camera.transform.forward);
@@ -203,6 +210,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
         }
     }
 
+    //Stores the points for the linerenderer
     private void AddLinePoint(Vector3 newPoint)
     {
         _storedLinePoints.Add(newPoint);
