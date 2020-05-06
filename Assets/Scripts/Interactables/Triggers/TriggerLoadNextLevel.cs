@@ -1,5 +1,6 @@
 ﻿//Main author: Maximiliam Rosén
 
+using PlayerController;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ namespace Interactables.Triggers
         {
             if (other.CompareTag("Player"))
             {
+                HealthSaver.SaveInt(other.GetComponent<HealthSystem>().CurrentHealth);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }

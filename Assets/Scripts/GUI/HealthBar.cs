@@ -1,5 +1,6 @@
 ﻿//Main author: Maximiliam Rosén
 
+using System;
 using PlayerController;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,13 @@ public class HealthBar : MonoBehaviour
     {
         HealthSystem.onPlayerTakeDamageEvent += UpdateGui;
         _healthBarBlocks = transform.GetComponentsInChildren<Image>();
+    }
+
+
+    private void Start()
+    {
+        if (HealthSaver.LoadInt() > 0)
+            UpdateGui(HealthSaver.LoadInt());
     }
 
     private void OnDestroy() => HealthSystem.onPlayerTakeDamageEvent -= UpdateGui;

@@ -19,15 +19,13 @@ namespace Interactables.CheckPointSystem
         
         private static void SaveCheckPoint(CheckPoint checkPoint)
         {
-            if (checkPoint != null)
-            {
-                var formatter = new BinaryFormatter();
-                var path = Application.persistentDataPath + "/SaveGame.paradox";
-                var stream = new FileStream(path, FileMode.Create);
-                formatter.Serialize(stream, checkPoint);
-                stream.Close();
-                Debug.Log("CheckPoint Saved");
-            }
+            if (checkPoint == null) return;
+            var formatter = new BinaryFormatter();
+            var path = Application.persistentDataPath + "/SaveGame.paradox";
+            var stream = new FileStream(path, FileMode.Create);
+            formatter.Serialize(stream, checkPoint);
+            stream.Close();
+            Debug.Log("CheckPoint Saved");
         }
         
         private static void LoadCheckPoint()
