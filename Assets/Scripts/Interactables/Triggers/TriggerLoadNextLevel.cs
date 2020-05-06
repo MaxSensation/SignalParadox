@@ -14,6 +14,8 @@ namespace Interactables.Triggers
             {
                 HealthSaver.SaveInt(other.GetComponent<HealthSystem>().CurrentHealth);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
         }
     }

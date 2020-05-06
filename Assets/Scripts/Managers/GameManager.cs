@@ -36,6 +36,8 @@ namespace Managers
             loadedCheckPoint = checkPoint;
             checkPointLoaded = true;
             SceneManager.LoadScene(checkPoint.currentScene);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }
