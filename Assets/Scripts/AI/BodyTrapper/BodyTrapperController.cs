@@ -10,11 +10,13 @@ using Interactables.Triggers;
 using PlayerController;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace AI.BodyTrapper
 {
     public class BodyTrapperController : AIController
     {
+        public UnityEvent onDeathEvent;
         internal bool isStuckOnPlayer;
         private EnemyTrigger _enemyTrigger;
         internal bool isCharging;
@@ -99,6 +101,7 @@ namespace AI.BodyTrapper
             isDead = true;
             if (agent != null)
                 agent.enabled = false;
+            onDeathEvent?.Invoke();
             UnregisterEvents();
         }
         
