@@ -110,6 +110,12 @@ namespace PlayerController
             PlayerAnimatorController.OnDeathAnimEnd -= Die;
         }
 
+        private void OnEnable()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         private void Update()
         {
             // Get CapsuleInfo
