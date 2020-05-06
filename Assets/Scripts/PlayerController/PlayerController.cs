@@ -42,6 +42,7 @@ namespace PlayerController
         internal bool hasInputCrouch;
         internal IPushable currentPushableObject;
         internal bool endingPushingState;
+        private HealthSystem _healthSystem;
 
         // Events
         public static Action onPlayerDeath;
@@ -50,6 +51,7 @@ namespace PlayerController
         private void Awake()
         {
             currentDirection = Vector2.zero;
+            _healthSystem = GetComponent<HealthSystem>();
             _transmitter = transform.GetComponentInChildren<SoundProvider>();
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
@@ -156,6 +158,7 @@ namespace PlayerController
             _alive = false;
             Debug.Log("Player Died");
             onPlayerDeath?.Invoke();
+            HealthSaver.SaveInt(_healthSystem.GetMaxHP());
         }
 
         internal void UpdateCapsuleInfo()
