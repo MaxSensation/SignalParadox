@@ -13599,6 +13599,16 @@ PrefabInstance:
       propertyPath: frequency
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 1227935343099177549, guid: 18a82ee408a047c4da4d7f2749b3f226,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8728852437588375595}
+    - target: {fileID: 1227935343099177549, guid: 18a82ee408a047c4da4d7f2749b3f226,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
     - target: {fileID: 4008915943660899337, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
       propertyPath: smoothTime
@@ -114694,3 +114704,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 281cc7f7770bf3045bf0097818d802a6, type: 3}
+--- !u!1 &8728852437588375595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3023095324789905391, guid: 281cc7f7770bf3045bf0097818d802a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8728852437588375594}
+  m_PrefabAsset: {fileID: 0}
