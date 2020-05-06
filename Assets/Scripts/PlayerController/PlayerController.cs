@@ -64,7 +64,6 @@ namespace PlayerController
             velocity = Vector3.zero;
             if (Camera.main != null) _camera = Camera.main.transform;
             _collider = GetComponent<CapsuleCollider>();
-            Cursor.lockState = CursorLockMode.Locked;
             Physic3D.LoadWorldParameters(world);
             _turnWithCamera = _playerMesh.GetComponent<TurnWithCamera>();
         }
