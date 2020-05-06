@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using PlayerController;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Interactables.Pushables
 {
@@ -12,8 +13,10 @@ namespace Interactables.Pushables
         [SerializeField] private Vector3 checkSize;
         [SerializeField] private float force;
         [SerializeField] private float distanceToPushLocation;
-        private Vector3 _halfCheckSize;
         public static Action<IPushable> onPushStateEvent;
+        public UnityEvent onPushEvent;
+        public UnityEvent onStopPushEvent;
+        private Vector3 _halfCheckSize;
         private BoxCollider _collider;
         private Rigidbody _rigidbody;
         private Vector3[] _pushingLocations;
@@ -58,17 +61,22 @@ namespace Interactables.Pushables
 
         private void FixedUpdate()
         {
-            if (isPushing)
-                _rigidbody.AddForce(_pushDirection.normalized * (force * Time.deltaTime));
+            if (!isPushing) return;
+            _rigidbody.AddForce(_pushDirection.normalized * (force * Time.deltaTime));
         }
 
         public void Pushing()
         {
+            if (!isPushing)
+            {
+                onPushEvent?.Invoke();   
+            }
             isPushing = true;
         }
 
         public void NotPushing()
         {
+            onStopPushEvent?.Invoke();
             isPushing = false;
         }
 
