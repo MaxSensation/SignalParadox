@@ -8,11 +8,15 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-
+        public static GameObject gameManager;
         private bool checkPointLoaded;
         private CheckPoint loadedCheckPoint;
         private void Awake()
         {
+            if (gameManager == null)
+                gameManager = gameObject;
+            if (gameManager != gameObject)
+                Destroy(gameObject);
             SaveManager.Init();
             DontDestroyOnLoad(this);
             SaveManager.onLoadCheckPoint += LoadCheckPoint;
