@@ -14,7 +14,6 @@ public class PickupDecoyGrenade : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Picked up Decoygrenade");
             onGrenadePickup?.Invoke(_grenadeAmount);
             gameObject.SetActive(!_shouldDespawnOnPickup);
         }

@@ -8,7 +8,6 @@ namespace AI.Charger.AIStateMachine
     {
         public override void Enter()
         {
-            Debug.Log("Charger is dead");
             Ai.agent.enabled = false;
             base.Enter();
         }

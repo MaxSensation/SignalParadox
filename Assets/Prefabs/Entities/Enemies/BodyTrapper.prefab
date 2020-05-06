@@ -264,10 +264,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d519529f6353ae140b640a90ccc64bb7, type: 2}
   - {fileID: 11400000, guid: 7a3222cd59601964bb7328b478de7036, type: 2}
   - {fileID: 11400000, guid: a0e7ed1781b052746808d23acd8e3a75, type: 2}
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
   visionMask:
     serializedVersion: 2
     m_Bits: 256
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6424705370161530901}
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!82 &6424705370161530901
 AudioSource:
   m_ObjectHideFlags: 0
