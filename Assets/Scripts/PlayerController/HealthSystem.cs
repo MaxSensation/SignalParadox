@@ -63,5 +63,10 @@ namespace PlayerController
             SteamController.onSteamDamage -= SteamDamage;
             LaserController.onLaserDeath -= LaserDamage;
         }
+
+        public int GetMaxHP()
+        {
+            return maxHealth;
+        }
     }
 }
