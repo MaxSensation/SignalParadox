@@ -61,11 +61,9 @@ namespace AI.BodyTrapper
 
         private void OnDeathByTrap(GameObject obj)
         {
-            if (obj == gameObject)
-            {
-                DetachFromPlayer();
-                Die();
-            }
+            if (obj != gameObject) return;
+            DetachFromPlayer();
+            Die();
         }
         
         private void DetachFromPlayer()
@@ -115,11 +113,9 @@ namespace AI.BodyTrapper
         
         internal void TouchingPlayer()
         {
-            if (_enemyTrigger.IsTouchingTaggedObject && !isStuckOnPlayer && canAttack)
-            {
-                canAttack = false;
-                onTrappedPlayer?.Invoke(gameObject);
-            }
+            if (!_enemyTrigger.IsTouchingTaggedObject || isStuckOnPlayer || !canAttack) return;
+            canAttack = false;
+            onTrappedPlayer?.Invoke(gameObject);
         }
 
         public void StartCharge(float chargeTime)
