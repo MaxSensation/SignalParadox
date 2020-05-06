@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EndGameTrigger : MonoBehaviour
 {
@@ -7,7 +8,9 @@ public class EndGameTrigger : MonoBehaviour
     [SerializeField] private Animator textAnimation;
     [SerializeField] private Animator imageAnimation;
     [SerializeField] private float endGameDelay;
+    [SerializeField] private AudioSource _audioSource;
     private WaitForSeconds _endGameDelay;
+    private bool triggerd;
 
     private void Awake()
     {
@@ -28,8 +31,18 @@ public class EndGameTrigger : MonoBehaviour
 
     private void EndGame()
     {
+        triggerd = true;
+        _audioSource.Play();
         StartCoroutine("EndGameTimer");
         textAnimation.SetBool("ReachedEnd", true);
         imageAnimation.SetBool("ReachedEnd", true);
+    }
+
+    private void HandleInput(InputAction.CallbackContext context)
+    {
+        if (triggerd && context.performed)
+        {
+            Application.Quit();
+        }
     }
 }
