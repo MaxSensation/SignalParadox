@@ -45,7 +45,7 @@ namespace PlayerController
         {
             while (true)
             {
-                playerHealthSystem.TakeDamage();
+                playerHealthSystem.BodyTrapperDamage(gameObject);
                 yield return _damageTickTime;
             }
         }

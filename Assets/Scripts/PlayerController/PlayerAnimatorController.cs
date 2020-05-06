@@ -1,6 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
+using System;
 using Interactables.Traps;
 using PlayerController.PlayerStateMachine;
 using UnityEngine;
@@ -23,30 +24,53 @@ namespace PlayerController
             _animator = GetComponent<Animator>();
             CrouchState.onEnteredCrouchEvent += EnteredCrouch;
             CrouchState.onExitCrouchEvent += ExitedCrouch;
-            SteamController.onSteamDamage += GasDeath;
-            LaserController.onLaserDeath += LaserDead;
+            //SteamController.onSteamDamage += GasDeath;
+            //LaserController.onLaserDeath += LaserDead;
             ThrowDecoyGrenade.OnAimingEvent += Aiming;
             ThrowDecoyGrenade.OnThrowEvent += Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent += StopAiming;
             PushingState.OnEnterPushingStateEvent += HandleEnterPushing;
             PushingState.OnExitPushingStateEvent += HandleExitPushing;
             PushingState.OnPushingStateEvent += HandlePushing;
+            HealthSystem.OnPlayerDeath += PlayerDeath;
+        }
+
+        private void PlayerDeath(HealthSystem.DamageType dT)
+        {
+            switch (dT)
+            {
+                case HealthSystem.DamageType.Laser:
+                    _animator.SetTrigger("LaserDeath");
+                    break;
+                case HealthSystem.DamageType.Steam:
+                    _animator.SetTrigger("GasDeath");
+                    break;
+                case HealthSystem.DamageType.Bodytrapper:
+                    _animator.SetTrigger("LaserDeath");
+                    break;
+                case HealthSystem.DamageType.Charger:
+                    _animator.SetTrigger("LaserDeath");
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void OnDestroy()
         {
             CrouchState.onEnteredCrouchEvent -= EnteredCrouch;
             CrouchState.onExitCrouchEvent -= ExitedCrouch;
-            SteamController.onSteamDamage -= GasDeath;
-            LaserController.onLaserDeath -= LaserDead;
+            //SteamController.onSteamDamage -= GasDeath;
+            //LaserController.onLaserDeath -= LaserDead;
             ThrowDecoyGrenade.OnAimingEvent -= Aiming;
             ThrowDecoyGrenade.OnThrowEvent -= Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent -= StopAiming;
             PushingState.OnEnterPushingStateEvent -= HandleEnterPushing;
             PushingState.OnExitPushingStateEvent -= HandleExitPushing;
             PushingState.OnPushingStateEvent -= HandlePushing;
+            HealthSystem.OnPlayerDeath -= PlayerDeath;
         }
-        
+
         private void HandlePushing(bool pushing)
         {
             _animator.SetBool("Pushing", pushing);
@@ -76,24 +100,6 @@ namespace PlayerController
         {
             _isAiming = false;
             _isThrowing = true;
-        }
-
-        //Här är test metoderna för de olika death anims
-        private void LaserDead(GameObject go)
-        {
-            if (go == gameObject)
-            {
-                _animator.SetTrigger("LaserDeath");
-            }  
-            
-        }
-
-        private void GasDeath(GameObject go)
-        {
-            if(go == gameObject)
-            {
-                _animator.SetTrigger("GasDeath");
-            }   
         }
 
         private void EnteredCrouch()
