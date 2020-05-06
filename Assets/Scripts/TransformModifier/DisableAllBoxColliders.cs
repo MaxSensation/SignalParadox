@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Interactables.Button;
 using UnityEngine;
 
@@ -7,6 +8,11 @@ public class DisableAllBoxColliders : MonoBehaviour
     private void Awake()
     {
         ButtonController.onButtonPressed += Disable;
+    }
+
+    private void OnDestroy()
+    {
+        ButtonController.onButtonPressed -= Disable;
     }
 
     private void Disable(GameObject[] interactable)

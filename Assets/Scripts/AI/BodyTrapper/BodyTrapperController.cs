@@ -90,7 +90,7 @@ namespace AI.BodyTrapper
         {
             if (bodyTrapper != gameObject || isDead) return;
             rigidbody.velocity = Vector3.zero;
-            GetComponent<SphereCollider>().enabled = false;
+            GetComponent<SphereCollider>().isTrigger = true;
             isStuckOnPlayer = true;
             agent.enabled = false;
             rigidbody.useGravity = false;
@@ -103,6 +103,7 @@ namespace AI.BodyTrapper
                 agent.enabled = false;
             onDeathEvent?.Invoke();
             UnregisterEvents();
+            _stateMachine.TransitionTo<DeadState>();
         }
         
         internal void TouchingPlayer()
