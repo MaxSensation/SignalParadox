@@ -68,6 +68,14 @@ namespace PlayerController
             _turnWithCamera = _playerMesh.GetComponent<TurnWithCamera>();
         }
 
+        private void Start()
+        {
+            if (HealthSaver.LoadInt() > 0)
+            {
+                GameObject.Find("Player").GetComponent<HealthSystem>().SetHealth(HealthSaver.LoadInt());   
+            }
+        }
+
         private void EnableTrapped()
         {
             endingPushingState = true;
