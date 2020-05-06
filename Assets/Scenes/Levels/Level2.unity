@@ -32623,7 +32623,7 @@ PrefabInstance:
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.694
+      value: -8.336
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
@@ -32633,27 +32633,27 @@ PrefabInstance:
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.872
+      value: -7.77
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
@@ -32668,7 +32668,7 @@ PrefabInstance:
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
@@ -32693,12 +32693,12 @@ PrefabInstance:
     - target: {fileID: 2051061910063280988, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_Size.y
-      value: 2.1624951
+      value: 2.138565
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280988, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_Center.y
-      value: 0.58124757
+      value: 0.56928253
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280988, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
@@ -32713,12 +32713,12 @@ PrefabInstance:
     - target: {fileID: 2051061910063280988, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.3527012
+      value: 0.21203423
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280988, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.07082176
+      value: 0.14115524
       objectReference: {fileID: 0}
     - target: {fileID: 2051061910063280989, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
@@ -41554,13 +41554,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771996659}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.069, y: 1.403, z: -8.856}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -8.319, y: 1.403, z: -8.106001}
   m_LocalScale: {x: 0.74800986, y: 0.80659235, z: 0.28351697}
   m_Children: []
   m_Father: {fileID: 443358651}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &771996661
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -102326,8 +102326,8 @@ GameObject:
   - component: {fileID: 1947505480}
   - component: {fileID: 1947505485}
   - component: {fileID: 1947505484}
-  - component: {fileID: 1947505483}
   - component: {fileID: 1947505482}
+  - component: {fileID: 1947505483}
   m_Layer: 8
   m_Name: Colliders
   m_TagString: Untagged
@@ -102399,8 +102399,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.0632935, y: 1.2704039, z: 0.13121796}
-  m_Center: {x: -10.154758, y: 1.6136706, z: -0.049643517}
+  m_Size: {x: 1.9795675, y: 1.277673, z: 0.16783428}
+  m_Center: {x: -10.21427, y: 1.6022469, z: -0.019080639}
 --- !u!65 &1947505484
 BoxCollider:
   m_ObjectHideFlags: 0
