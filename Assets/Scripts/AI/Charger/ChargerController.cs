@@ -11,14 +11,14 @@ namespace AI.Charger
 {
     public class ChargerController : AIController
     {
+        [SerializeField] private int _chargeUpTime = 1;
+        [SerializeField] private float _stunTime = 0.5f;
         public static Action onCrushedPlayerEvent;
         public static Action CaughtPlayerEvent;
         private bool hasChargedUp;
         internal bool charging;
         private Vector3 _chargeDirection;
         private EnemyTrigger _enemyTrigger;
-        [SerializeField] private int _chargeUpTime = 1;
-        [SerializeField] private float _stunTime = 0.5f;
 
         private new void Awake()
         {
@@ -50,7 +50,6 @@ namespace AI.Charger
             if (agent.enabled)
                 agent.isStopped = false;
             hasChargedUp = true;
-            //StopCoroutine("ChargeTime");
         }
         internal void ChargeUp()
         {
