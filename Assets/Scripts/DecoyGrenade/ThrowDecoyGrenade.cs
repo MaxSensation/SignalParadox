@@ -6,6 +6,8 @@ using UnityEngine;
 using System;
 using PlayerController.PlayerStateMachine;
 using UnityEngine.InputSystem;
+using PlayerController;
+using AI.Charger;
 
 [RequireComponent(typeof(Rigidbody), typeof(GameObject))]
 public class ThrowDecoyGrenade : MonoBehaviour
@@ -18,6 +20,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     [SerializeField] private float _gravity = -18;
     private bool _shouldDrawPath;
     private bool _canThrow;
+    private bool _throwIsStopped;
     private int _currentThrownGrenades;
     private Rigidbody _grenadeRigidBody;
     private LineRenderer _lineRenderer;
@@ -28,7 +31,6 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private float _currentThrowHeight;
     private List<Vector3> _storedLinePoints;
     private Rigidbody _thrownGrenade;
-    private bool _isPushing;
 
     //Throw Events
     public static Action OnAimingEvent;
@@ -47,19 +49,23 @@ public class ThrowDecoyGrenade : MonoBehaviour
         _storedLinePoints = new List<Vector3>();
         PickupDecoyGrenade.onGrenadePickup += IncreaseMaxThrowableGrenades;
         //Events for when not to throw
-        PushingState.OnEnterPushingStateEvent += OnPushState;
-        PushingState.OnExitPushingStateEvent += OnExitPushState;
-
+        PushingState.OnEnterPushingStateEvent += StopThrow;
+        PushingState.OnExitPushingStateEvent += ResumeThrow;
+        PlayerAnimatorController.OnDeathAnimBeginning += StopThrow;
+        ChargerController.onCrushedPlayerEvent += StopThrow;
     }
 
-    private void OnExitPushState()
+    private void ResumeThrow()
     {
-        _isPushing = false;
+        _throwIsStopped = false;
     }
 
-    private void OnPushState()
+    private void StopThrow()
     {
-        _isPushing = true;
+        _throwIsStopped = true;
+        _shouldDrawPath = false;
+        _canThrow = false;
+        OnOutOfRangeEvent?.Invoke();
     }
 
     private void Update()
@@ -97,12 +103,12 @@ public class ThrowDecoyGrenade : MonoBehaviour
     public void HandleInput(InputAction.CallbackContext context)
     {
         //remove the previous grenade if you throw again
-        if (context.started && _thrownGrenade != null && _currentAmountOfGrenades > 0 && !_isPushing)
+        if (context.started && _thrownGrenade != null && _currentAmountOfGrenades > 0 && !_throwIsStopped)
         {
             Destroy(_thrownGrenade.gameObject);
             _currentThrownGrenades--;
         }
-        if (context.started && _currentThrownGrenades < _currentAmountOfGrenades && !_isPushing)
+        if (context.started && _currentThrownGrenades < _currentAmountOfGrenades && !_throwIsStopped)
         {
             _shouldDrawPath = true;
         }
@@ -114,7 +120,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
     private void Throw()
     {
-        if (_canThrow && _currentThrownGrenades < _currentAmountOfGrenades && !_isPushing)
+        if (_canThrow && _currentThrownGrenades < _currentAmountOfGrenades && !_throwIsStopped)
         {
             OnThrowEvent?.Invoke();
             _thrownGrenade = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
@@ -221,7 +227,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private void OnDestroy()
     {
         PickupDecoyGrenade.onGrenadePickup -= IncreaseMaxThrowableGrenades;
-        PushingState.OnEnterPushingStateEvent -= OnPushState;
-        PushingState.OnExitPushingStateEvent -= OnExitPushState;
+        PushingState.OnEnterPushingStateEvent -= StopThrow;
+        PushingState.OnExitPushingStateEvent -= ResumeThrow;
     }
 }
