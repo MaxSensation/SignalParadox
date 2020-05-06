@@ -96,9 +96,9 @@ namespace PlayerController
         {
             onDetached?.Invoke();
             if(_mouseShaker != null)
-            StopCoroutine(_mouseShaker);
+                StopCoroutine(_mouseShaker);
             if(_damageOverTime != null)
-            StopCoroutine(_damageOverTime);
+                StopCoroutine(_damageOverTime);
             _currentshakeOfAmount = 0;
         }
         
