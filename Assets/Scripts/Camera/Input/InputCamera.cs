@@ -5,14 +5,7 @@ public class InputCamera : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity = 1.0f;
     
-    // private string mouseHorizontalAxis, mouseVerticalAxis;
     private Vector2 _mouseInput;
-
-    private void Awake()
-    {
-        // mouseHorizontalAxis = "Mouse X";
-        // mouseVerticalAxis = "Mouse Y";
-    }
 
     public void UpdateCameraInput(InputAction.CallbackContext context)
     {
