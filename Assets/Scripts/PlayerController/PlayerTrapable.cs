@@ -59,13 +59,11 @@ namespace PlayerController
              {
                  if (Gamepad.current != null)
                  {
-                     print("Gamepad");
                      if (Vector2.Distance(_lastMouseInput, newMouseInput) > controllerminShakeAmount && Vector2.Dot(_lastMouseInput, newMouseInput) < 0.9f)
                          _currentshakeOfAmount++;
                  }
                  else
                  {
-                     print("Keypad");
                      if (Vector2.Distance(_lastMouseInput, newMouseInput) > minShakeAmount && Vector2.Dot(_lastMouseInput, newMouseInput) < 0.9f)
                          _currentshakeOfAmount++;
                  }
