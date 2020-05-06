@@ -18,8 +18,7 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        if (HealthSaver.LoadInt() > 0)
-            UpdateGui(HealthSaver.LoadInt());
+        UpdateGui(HealthSaver.LoadInt());
     }
 
     private void OnDestroy() => HealthSystem.onPlayerTakeDamageEvent -= UpdateGui;

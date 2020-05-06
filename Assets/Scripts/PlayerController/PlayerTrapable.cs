@@ -25,10 +25,12 @@ namespace PlayerController
         public static Action<GameObject> onTrapped;
         public static Action onPlayerTrappedEvent;
         public static Action onDetached;
+        private PlayerController _player;
         
 
         private void Awake()
         {
+            _player = GetComponent<PlayerController>();
             _damageTickTime = new WaitForSeconds(damageTickTime);
             _checkInterval = new WaitForSeconds(checkInterval);
             BodyTrapperController.onTrappedPlayer += TrapPlayer;
@@ -45,7 +47,7 @@ namespace PlayerController
 
         private IEnumerator DamageOverTime()
         {
-            while (true)
+            while (_player._isTrapped)
             {
                 playerHealthSystem.BodyTrapperDamage(gameObject);
                 yield return _damageTickTime;
@@ -85,7 +87,7 @@ namespace PlayerController
 
         private IEnumerator MouseShaker()
         {
-            while (true)
+            while (_player._isTrapped)
             {
                 CheckMouseCheck();
                 yield return _checkInterval;
@@ -95,10 +97,8 @@ namespace PlayerController
         public void DetachAllTrappers()
         {
             onDetached?.Invoke();
-            if(_mouseShaker != null)
-                StopCoroutine(_mouseShaker);
-            if(_damageOverTime != null)
-                StopCoroutine(_damageOverTime);
+            StopCoroutine(_mouseShaker);
+            StopCoroutine(_damageOverTime);
             _currentshakeOfAmount = 0;
         }
         

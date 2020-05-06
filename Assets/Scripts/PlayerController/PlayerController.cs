@@ -6,7 +6,6 @@ using System.Collections;
 using AI.Charger;
 using EchoLocation;
 using Interactables.Pushables;
-using Interactables.Traps;
 using PlayerController.PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -46,7 +45,7 @@ namespace PlayerController
 
         // Events
         public static Action onPlayerDeath;
-        private bool _isTrapped;
+        internal bool _isTrapped;
 
         private void Awake()
         {
@@ -74,7 +73,8 @@ namespace PlayerController
         {
             if (HealthSaver.LoadInt() > 0)
             {
-                GameObject.Find("Player").GetComponent<HealthSystem>().SetHealth(HealthSaver.LoadInt());   
+                GameObject.Find("Player").GetComponent<HealthSystem>().SetHealth(HealthSaver.LoadInt());  
+                
             }
         }
 
@@ -157,8 +157,8 @@ namespace PlayerController
         {
             _alive = false;
             Debug.Log("Player Died");
-            onPlayerDeath?.Invoke();
             HealthSaver.SaveInt(_healthSystem.GetMaxHP());
+            onPlayerDeath?.Invoke();
         }
 
         internal void UpdateCapsuleInfo()

@@ -1,5 +1,6 @@
 ﻿//Main author: Maximiliam Rosén
 
+using System;
 using Interactables.CheckPointSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,11 @@ namespace Managers
             DontDestroyOnLoad(this);
             SaveManager.onLoadCheckPoint += LoadCheckPoint;
             SceneManager.sceneLoaded += LoadPlayerData;
+        }
+
+        private void Start()
+        {
+            HealthSaver.SaveInt(4);
         }
 
         private void LoadPlayerData(Scene arg0, LoadSceneMode arg1)
