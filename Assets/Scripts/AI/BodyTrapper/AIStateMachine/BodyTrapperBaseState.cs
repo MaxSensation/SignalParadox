@@ -15,7 +15,7 @@ namespace AI.AIStateMachine
 
         public override void Enter()
         { 
-            _renderer.material = material;
+            //_renderer.material = material;
         }
 
         protected bool CanSeePlayer()
