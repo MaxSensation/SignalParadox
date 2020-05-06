@@ -1,6 +1,5 @@
 ﻿//Main author: Maximiliam Rosén
 
-using System;
 using PlayerController;
 using UnityEngine;
 using UnityEngine.UI;
