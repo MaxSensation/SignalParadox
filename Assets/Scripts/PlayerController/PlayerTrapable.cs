@@ -10,7 +10,9 @@ namespace PlayerController
 {
     public class PlayerTrapable : MonoBehaviour
     {
-        [SerializeField] private float damageTickTime, minShakeAmount, checkInterval;
+        [SerializeField] private float damageTickTime;
+        [SerializeField] private float minShakeAmount, checkInterval;
+        [SerializeField] private float controllerminShakeAmount;
         [SerializeField] private int shakeOfAmount;
         private int _currentshakeOfAmount;
         private int amountOfTrappedBodyTrappers;
@@ -55,8 +57,16 @@ namespace PlayerController
              var newMouseInput= _mouseInput;
              if (_lastMouseInput != null)
              {
-                 if (Vector2.Distance(_lastMouseInput, newMouseInput) > minShakeAmount && Vector2.Dot(_lastMouseInput, newMouseInput) < 0.9f)
-                     _currentshakeOfAmount++;
+                 if (Gamepad.current != null)
+                 {
+                     if (Vector2.Distance(_lastMouseInput, newMouseInput) > controllerminShakeAmount && Vector2.Dot(_lastMouseInput, newMouseInput) < 0.9f)
+                         _currentshakeOfAmount++;
+                 }
+                 else
+                 {
+                     if (Vector2.Distance(_lastMouseInput, newMouseInput) > minShakeAmount && Vector2.Dot(_lastMouseInput, newMouseInput) < 0.9f)
+                         _currentshakeOfAmount++;
+                 }
                  if (_currentshakeOfAmount >= shakeOfAmount)
                      DetachAllTrappers();
              } 
