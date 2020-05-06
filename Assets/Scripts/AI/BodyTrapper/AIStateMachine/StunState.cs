@@ -12,7 +12,6 @@ namespace AI.BodyTrapper.AIStateMachine
         {
             base.Enter();
             Ai.rigidbody.velocity = Vector3.zero;
-            Ai.GetComponent<SphereCollider>().enabled = false;
             Ai.agent.enabled = false;
             Ai.rigidbody.useGravity = false;
             Ai.ActivateStun();
@@ -30,7 +29,6 @@ namespace AI.BodyTrapper.AIStateMachine
         public override void Exit()
         {
             base.Exit();
-            Ai.GetComponent<SphereCollider>().enabled = true;
             Ai.rigidbody.useGravity = true;
             Ai.agent.enabled = true;
         }

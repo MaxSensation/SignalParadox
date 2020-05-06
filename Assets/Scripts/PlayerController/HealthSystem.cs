@@ -22,5 +22,10 @@ namespace PlayerController
             onPlayerTakeDamageEvent?.Invoke(CurrentHealth);
             Debug.Log("Damaged Player");
         }
+
+        public void SetHealth(int health)
+        {
+            CurrentHealth = health;
+        }
     }
 }

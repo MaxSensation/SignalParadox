@@ -13,6 +13,7 @@ namespace PlayerController
         [SerializeField] private float damageTickTime, minShakeAmount, checkInterval;
         [SerializeField] private int shakeOfAmount;
         private int _currentshakeOfAmount;
+        private int amountOfTrappedBodyTrappers;
         private HealthSystem playerHealthSystem;
         private Transform playerMesh;
         private WaitForSeconds _damageTickTime, _checkInterval;
@@ -29,13 +30,15 @@ namespace PlayerController
             _damageTickTime = new WaitForSeconds(damageTickTime);
             _checkInterval = new WaitForSeconds(checkInterval);
             BodyTrapperController.onTrappedPlayer += TrapPlayer;
+            BodyTrapperController.onDetachedFromPlayer += DetachFromPlayer;
             playerHealthSystem = GetComponent<HealthSystem>();
             playerMesh = transform.Find("PlayerMesh");
         }
-        
+
         private void OnDestroy()
         {
             BodyTrapperController.onTrappedPlayer -= TrapPlayer;
+            BodyTrapperController.onDetachedFromPlayer -= DetachFromPlayer;
         }
 
         private IEnumerator DamageOverTime()
@@ -62,6 +65,7 @@ namespace PlayerController
 
         private void TrapPlayer(GameObject bodyTrapper)
         {
+            amountOfTrappedBodyTrappers++;
             bodyTrapper.transform.parent = playerMesh;
             onTrapped?.Invoke(bodyTrapper);
             onPlayerTrappedEvent?.Invoke();
@@ -84,6 +88,16 @@ namespace PlayerController
             StopCoroutine(_mouseShaker);
             StopCoroutine(_damageOverTime);
             _currentshakeOfAmount = 0;
+        }
+        
+        private void DetachFromPlayer(GameObject obj)
+        {
+            amountOfTrappedBodyTrappers--;
+            if (amountOfTrappedBodyTrappers == 0)
+            {
+                StopCoroutine(_mouseShaker);
+                StopCoroutine(_damageOverTime);
+            }
         }
 
         public void UpdateMouseInput(InputAction.CallbackContext context)
