@@ -22,6 +22,7 @@ namespace Interactables.Traps
         private Transform _laserWallOffset;
         private Transform _laserWallMesh;
         private bool _isLaserOn;
+        private bool _interactable;
         private void Awake()
         {
             turnOn.AddListener(ActivateLasers);
@@ -59,7 +60,7 @@ namespace Interactables.Traps
 
         private void OnButtonPressed(GameObject[] interactables)
         {
-            if (!interactables.Contains(gameObject)) return;
+            if (!interactables.Contains(gameObject) || !_interactable) return;
             if (_isLaserOn)
                 DeactivateLasers();
             else
@@ -90,28 +91,32 @@ namespace Interactables.Traps
 
         private void ActivateLasers()
         {
-            StartCoroutine("ActivateWithDelay");
+            if (!_isLaserOn)
+                StartCoroutine("ActivateWithDelay");
         }
 
         private void DeactivateLasers()
         {
-            StartCoroutine("DeactivateWithDelay");
+            if (_isLaserOn)
+                StartCoroutine("DeactivateWithDelay");
         }
 
         private IEnumerator ActivateWithDelay()
         {
+            _interactable = false;
             foreach (var l in _lasers)
             {
                 l.turnOn.Invoke();
                 yield return new WaitForSeconds(betweenLaserDelay);
             }
-
             _isLaserOn = true;
             onStartLaserWallOn = true;
+            _interactable = true;
         }
     
         private IEnumerator DeactivateWithDelay()
         {
+            _interactable = false;
             for (var index = _lasers.Length - 1; index >= 0; index--)
             {
                 var l = _lasers[index];
@@ -120,6 +125,7 @@ namespace Interactables.Traps
             }
             _isLaserOn = false;
             onStartLaserWallOn = false;
+            _interactable = true;
         }
     }
 }
