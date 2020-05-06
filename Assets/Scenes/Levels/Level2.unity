@@ -52040,8 +52040,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 700238038}
-  - {fileID: 770925226}
   - {fileID: 950258484}
+  - {fileID: 770925226}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -100819,6 +100819,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 994005050}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1913117273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4472456871743136949, guid: fc50f2e03176c9649b5d1ab9c9fc445e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1372764441}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1913638146
 GameObject:
   m_ObjectHideFlags: 0
@@ -114630,11 +114636,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 965777505}
     m_Modifications:
+    - target: {fileID: 5040055752315558049, guid: 8867a2b9d0bca024e87f1d7e38b1c2ed,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.55306655
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040055752315558049, guid: 8867a2b9d0bca024e87f1d7e38b1c2ed,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.31081983
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040055752315558049, guid: 8867a2b9d0bca024e87f1d7e38b1c2ed,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.12026883
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040055752315558049, guid: 8867a2b9d0bca024e87f1d7e38b1c2ed,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.25946242
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040055752315558050, guid: 8867a2b9d0bca024e87f1d7e38b1c2ed,
+        type: 3}
+      propertyPath: interactableObjects.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5040055752315558050, guid: 8867a2b9d0bca024e87f1d7e38b1c2ed,
         type: 3}
       propertyPath: interactableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 635018641}
+    - target: {fileID: 5040055752315558050, guid: 8867a2b9d0bca024e87f1d7e38b1c2ed,
+        type: 3}
+      propertyPath: spamProtectionDelay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040055752315558050, guid: 8867a2b9d0bca024e87f1d7e38b1c2ed,
+        type: 3}
+      propertyPath: interactableObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 1913117273}
     - target: {fileID: 5040055752315558051, guid: 8867a2b9d0bca024e87f1d7e38b1c2ed,
         type: 3}
       propertyPath: m_Name
