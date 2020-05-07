@@ -150,11 +150,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequency: 0
-  xResolution: 8
-  yResolution: 8
+  xResolution: 15
+  yResolution: 15
   maxBounces: 10
-  bouncesDecay: 0.1
-  airDecay: 0.01
+  bouncesDecay: 0
+  airDecay: 0
   minStrengthTolerance: 0
   bounceLayer:
     serializedVersion: 2
