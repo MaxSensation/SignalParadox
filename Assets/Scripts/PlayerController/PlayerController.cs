@@ -18,8 +18,8 @@ namespace PlayerController
         public State[] states;
         [Header("PlayerSettings")]
         [SerializeField] [Range(1f, 500f)] private float terminalVelocity;
-        [SerializeField] [Range(0f, 1f)] private float staticFriction;
-        [SerializeField] [Range(0f, 1f)] private float dynamicFriction;
+        [SerializeField] [Range(0f, 10f)] private float staticFriction;
+        [SerializeField] [Range(0f, 10f)] private float dynamicFriction;
         [SerializeField] [Range(0f, 1f)] private float skinWidth;
         [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
         [SerializeField] [Range(0f, 100f)] private float overlayColliderResistant;

@@ -9,6 +9,8 @@ namespace PlayerController.PlayerStateMachine
     public class InAirState : PlayerBaseState
     {
         [SerializeField] private float accelerationSpeed;
+        [SerializeField] private float decelerateSpeed;
+        [SerializeField] private float decelerateThreshold;
 
         public override void Enter()
         {
@@ -34,8 +36,8 @@ namespace PlayerController.PlayerStateMachine
             // If any directional inputs accelerate with the accelerateSpeed added with turnSpeed 
             if (inputVector.magnitude > 0) 
                 Velocity += Physic3D.GetAcceleration(inputVector, accelerationSpeed + Physic3D.GetTurnVelocity(inputVector, Velocity.normalized));
-            // else
-            //     Velocity -= Physic3D.GetDeceleration(Velocity, decelerateSpeed, decelerateThreshold);
+            else
+                 Velocity -= Physic3D.GetDeceleration(Velocity, decelerateSpeed, decelerateThreshold);
         }
     }
 }

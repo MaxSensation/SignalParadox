@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbff01a336b5a146983ae953a7b521e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 0.1
+  mouseSensitivity: 0.2
 --- !u!114 &1045748207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2209,9 +2209,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e9ce5a6decfce15449b3f0e72a436e9f, type: 2}
   - {fileID: 11400000, guid: 6a0a63cb45b836d40a96c55822255415, type: 2}
   - {fileID: 11400000, guid: 8e3fc9a628f0c414eab20368b0163a9a, type: 2}
-  terminalVelocity: 2.5
-  staticFriction: 0.8
-  dynamicFriction: 0.6
+  terminalVelocity: 3
+  staticFriction: 0.9
+  dynamicFriction: 0.3
   skinWidth: 0.05
   groundCheckDistance: 0.05
   overlayColliderResistant: 20
