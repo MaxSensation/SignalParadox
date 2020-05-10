@@ -16,24 +16,26 @@ namespace AI.BodyTrapper
 {
     public class BodyTrapperController : AIController
     {
+        [SerializeField][Tooltip("Tid tills bodytrapper går tillbaks till patrolState")] private float ignoreTime;
         public UnityEvent onDeathEvent;
-        internal bool isStuckOnPlayer;
         private EnemyTrigger _enemyTrigger;
-        internal bool isCharging;
         private float chargeTime;
-        internal Vector3 jumpDirection;
-        internal bool canAttack;
         private bool _enemyWithinPlayerMelee;
-        internal NavMeshPath path;
-        internal EchoLocationReceiver _soundListener;
-        internal Vector3 lastSoundLocation;
         private Coroutine _foundSound;
         private Coroutine _ignorePlayer;
         private SphereCollider _bodyTrapperCollider;
         public static Action<GameObject> onTrappedPlayer;
         public static Action<GameObject> onDetachedFromPlayer;
+        internal Vector3 lastSoundLocation;
+        internal Vector3 jumpDirection;
+        internal EchoLocationResult _echoLocationResult;
+        internal EchoLocationReceiver _soundListener;
+        internal NavMeshPath path;
+        internal bool _hasHeardDecoy;
         internal bool _isPlayerAlive;
-        private bool _hasHeardDecoy;
+        internal bool canAttack;
+        internal bool isStuckOnPlayer;
+        internal bool isCharging;
 
         private new void Awake()
         {
@@ -54,6 +56,7 @@ namespace AI.BodyTrapper
 
         private void UpdateSoundSource(EchoLocationResult echoLocationResult)
         {
+            _echoLocationResult = echoLocationResult;
             if (echoLocationResult.Transmitter.CompareTag("Decoy"))
             {
                 if (_ignorePlayer != null) StopCoroutine(_ignorePlayer);
@@ -69,13 +72,13 @@ namespace AI.BodyTrapper
 
         private IEnumerator FoundSound()
         {
-            yield return new WaitForSeconds(15f);
+            yield return new WaitForSeconds(ignoreTime);
             lastSoundLocation = Vector3.zero;
         }
 
         private IEnumerator IgnorePlayer()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
             _hasHeardDecoy = false;
         }
 
