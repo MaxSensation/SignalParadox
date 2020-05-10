@@ -28,10 +28,12 @@ namespace AI.BodyTrapper
         internal EchoLocationReceiver _soundListener;
         internal Vector3 lastSoundLocation;
         private Coroutine _foundSound;
+        private Coroutine _ignorePlayer;
         private SphereCollider _bodyTrapperCollider;
         public static Action<GameObject> onTrappedPlayer;
         public static Action<GameObject> onDetachedFromPlayer;
         internal bool _isPlayerAlive;
+        private bool _hasHeardDecoy;
 
         private new void Awake()
         {
@@ -52,7 +54,15 @@ namespace AI.BodyTrapper
 
         private void UpdateSoundSource(EchoLocationResult echoLocationResult)
         {
-            lastSoundLocation = echoLocationResult.Transmitter.transform.position;
+            if (echoLocationResult.Transmitter.CompareTag("Decoy"))
+            {
+                if (_ignorePlayer != null) StopCoroutine(_ignorePlayer);
+                _ignorePlayer = StartCoroutine(IgnorePlayer());
+                lastSoundLocation = echoLocationResult.Transmitter.transform.position;
+                _hasHeardDecoy = true;
+            }
+            if (!_hasHeardDecoy && echoLocationResult.Transmitter.CompareTag("Player"))
+                lastSoundLocation = echoLocationResult.Transmitter.transform.position;
             if (_foundSound != null) StopCoroutine(_foundSound);
             _foundSound = StartCoroutine(FoundSound());
         }
@@ -61,6 +71,12 @@ namespace AI.BodyTrapper
         {
             yield return new WaitForSeconds(15f);
             lastSoundLocation = Vector3.zero;
+        }
+
+        private IEnumerator IgnorePlayer()
+        {
+            yield return new WaitForSeconds(2f);
+            _hasHeardDecoy = false;
         }
 
         private void OnDeathByTrap(GameObject obj)
