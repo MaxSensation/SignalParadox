@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dacc7f9401eafa04b82f566fa57971c6, type: 3}
   m_Name: CrouchState
   m_EditorClassIdentifier: 
-  accelerationSpeed: 40
+  accelerationSpeed: 50
   terminalVelocity: 1.5
-  decelerateSpeed: 40
-  decelerateThreshold: 0.5
+  decelerateSpeed: 50
+  decelerateThreshold: 0.1
