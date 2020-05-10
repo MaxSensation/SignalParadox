@@ -333,6 +333,26 @@ PrefabInstance:
       propertyPath: isAutoClosing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3832576381926726591, guid: 2a7b9b49ffa631b4fb4e8745381ba1c6,
+        type: 3}
+      propertyPath: playerCheckSize.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832576381926726591, guid: 2a7b9b49ffa631b4fb4e8745381ba1c6,
+        type: 3}
+      propertyPath: playerCheckSize.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832576381926726591, guid: 2a7b9b49ffa631b4fb4e8745381ba1c6,
+        type: 3}
+      propertyPath: playerCheckSize.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3832576381926726591, guid: 2a7b9b49ffa631b4fb4e8745381ba1c6,
+        type: 3}
+      propertyPath: playerCheckPosition.y
+      value: -3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a7b9b49ffa631b4fb4e8745381ba1c6, type: 3}
 --- !u!1 &790026998399926365 stripped

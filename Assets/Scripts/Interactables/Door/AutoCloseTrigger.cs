@@ -16,4 +16,5 @@ public class AutoCloseTrigger : MonoBehaviour
             _hasClosed = true;
         }
     }
+    internal void SetHasClosed(bool hasClosed) => _hasClosed = hasClosed;
 }
