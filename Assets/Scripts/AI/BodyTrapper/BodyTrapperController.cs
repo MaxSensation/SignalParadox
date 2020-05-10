@@ -17,7 +17,7 @@ namespace AI.BodyTrapper
     public class BodyTrapperController : AIController
     {
         [SerializeField][Tooltip("Tid tills bodytrapper går tillbaks till patrolState")] private float ignoreTime;
-        public UnityEvent onDeathEvent;
+        [SerializeField] private AudioClip trappedPlayerSound;
         private EnemyTrigger _enemyTrigger;
         private float chargeTime;
         private bool _enemyWithinPlayerMelee;
@@ -31,6 +31,7 @@ namespace AI.BodyTrapper
         internal EchoLocationResult _echoLocationResult;
         internal EchoLocationReceiver _soundListener;
         internal NavMeshPath path;
+        internal AudioSource audioSource;
         internal bool _hasHeardDecoy;
         internal bool _isPlayerAlive;
         internal bool canAttack;
@@ -42,6 +43,7 @@ namespace AI.BodyTrapper
             base.Awake();
             _isPlayerAlive = true;
             _bodyTrapperCollider = GetComponent<SphereCollider>();
+            audioSource = GetComponent<AudioSource>();
             path = new NavMeshPath();
             chargeTime = 0f;
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
@@ -52,6 +54,7 @@ namespace AI.BodyTrapper
             PlayerAnimatorController.OnDeathAnimBeginning += () => _isPlayerAlive = false;
             _soundListener = transform.GetComponentInChildren<EchoLocationReceiver>();
             _soundListener.heardSound += UpdateSoundSource;
+            audioSource.Play();
         }
 
         private void UpdateSoundSource(EchoLocationResult echoLocationResult)
@@ -130,7 +133,7 @@ namespace AI.BodyTrapper
             isDead = true;
             if (agent != null)
                 agent.enabled = false;
-            onDeathEvent?.Invoke();
+            audioSource.Stop();
             UnregisterEvents();
             _stateMachine.TransitionTo<DeadState>();
         }
@@ -139,6 +142,7 @@ namespace AI.BodyTrapper
         {
             if (!_enemyTrigger.IsTouchingTaggedObject || isStuckOnPlayer || !canAttack) return;
             canAttack = false;
+            audioSource.PlayOneShot(trappedPlayerSound);
             onTrappedPlayer?.Invoke(gameObject);
         }
 

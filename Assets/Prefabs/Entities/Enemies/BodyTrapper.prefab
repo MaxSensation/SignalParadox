@@ -271,6 +271,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   ignoreTime: 10
+  trappedPlayerSound: {fileID: 8300000, guid: b2b3e1ff635aa5446bf52fd3c3f04b71, type: 3}
   onDeathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -297,7 +298,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b00ee163c9ea5e14bb2e159339605783, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.1
   m_Pitch: 1.08
   Loop: 1
   Mute: 0
