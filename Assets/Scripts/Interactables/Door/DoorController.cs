@@ -12,13 +12,15 @@ namespace Interactables.Door
     {
         [SerializeField] private bool isOpen;
         [SerializeField] private bool isAutoClosing;
+        [SerializeField] private AudioClip openSound;
+        [SerializeField] private AudioClip closeSound;
         private Animator _animator;
-        public UnityEvent Open;
-        public UnityEvent Close;
         private AutoCloseTrigger _autoCloseTrigger;
+        private AudioSource _audioSource;
 
         private void Awake()
         {
+            _audioSource = GetComponent<AudioSource>();
             _animator = GetComponent<Animator>();
             if (isOpen)
                 OpenDoor();
@@ -43,14 +45,14 @@ namespace Interactables.Door
         private void OpenDoor()
         {
             isOpen = true;
-            Open?.Invoke();
+            _audioSource.PlayOneShot(openSound);
             _animator.SetBool("IsOpen", isOpen);
         }
     
         private void CloseDoor()
         {
             isOpen = false;
-            Close?.Invoke();
+            _audioSource.PlayOneShot(closeSound);
             _animator.SetBool("IsOpen", isOpen);
         }
 
