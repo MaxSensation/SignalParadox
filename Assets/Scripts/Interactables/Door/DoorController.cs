@@ -65,15 +65,6 @@ namespace Interactables.Door
             _animator.SetBool("IsOpen", isOpen);
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            if (_renderer != null)
-            {
-                Gizmos.DrawWireCube(_renderer.bounds.center + playerCheckPosition, playerCheckSize);
-            }
-        }
-
         private void OpenDoor()
         {
             isOpen = true;
