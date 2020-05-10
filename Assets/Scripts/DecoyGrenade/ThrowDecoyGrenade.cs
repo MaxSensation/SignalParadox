@@ -12,12 +12,12 @@ using AI.Charger;
 [RequireComponent(typeof(Rigidbody), typeof(GameObject))]
 public class ThrowDecoyGrenade : MonoBehaviour
 {
-    [SerializeField] private GameObject _grenadePrefab;
-    [SerializeField] private int _currentAmountOfGrenades = 1;
-    [SerializeField] private float _throwTargetRange = 20;
-    [SerializeField] private float _maxThrowHeight = 5;
-    [SerializeField] private float _timeUntilDestroy = 10;
-    [SerializeField] private float _gravity = -18;
+    [SerializeField] private GameObject grenadePrefab;
+    [SerializeField] private int currentAmountOfGrenades = 0;
+    [SerializeField] private float throwTargetRange = 20;
+    [SerializeField] private float maxThrowHeight = 5;
+    [SerializeField] private float timeUntilDestroy = 10;
+    [SerializeField] private float gravity = -9.6f;
     private bool _shouldDrawPath;
     private bool _canThrow;
     private bool _throwIsStopped;
@@ -41,7 +41,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     {
         _lineRenderer = gameObject.GetComponent<LineRenderer>();
         _lineRenderer.useWorldSpace = true;
-        _grenadeRigidBody = _grenadePrefab.GetComponent<Rigidbody>();
+        _grenadeRigidBody = grenadePrefab.GetComponent<Rigidbody>();
         _playerMeshPos = transform.Find("PlayerMesh").transform;
         _cameraPosition = Camera.main.transform;
         _hand = GameObject.Find("mixamorig:RightHand").transform;
@@ -86,13 +86,13 @@ public class ThrowDecoyGrenade : MonoBehaviour
     //on pickup increase players current amount of grenades
     private void IncreaseMaxThrowableGrenades(int pickedUpAmount)
     {
-        _currentAmountOfGrenades += pickedUpAmount;
+        currentAmountOfGrenades = pickedUpAmount;
     }
 
     //Despawn grenade after time
     private IEnumerator DespawnGrenade(Rigidbody thrownGrenade)
     {
-        yield return new WaitForSeconds(_timeUntilDestroy);
+        yield return new WaitForSeconds(timeUntilDestroy);
         if (thrownGrenade != null)
         {
             Destroy(thrownGrenade.gameObject);
@@ -103,16 +103,16 @@ public class ThrowDecoyGrenade : MonoBehaviour
     public void HandleInput(InputAction.CallbackContext context)
     {
         //remove the previous grenade if you throw again
-        if (context.started && _thrownGrenade != null && _currentAmountOfGrenades > 0 && !_throwIsStopped)
+        if (context.started && _thrownGrenade != null && currentAmountOfGrenades > 0 && !_throwIsStopped)
         {
             Destroy(_thrownGrenade.gameObject);
             _currentThrownGrenades--;
         }
-        if (context.started && _currentThrownGrenades < _currentAmountOfGrenades && !_throwIsStopped)
+        if (context.started && _currentThrownGrenades < currentAmountOfGrenades && !_throwIsStopped)
         {
             _shouldDrawPath = true;
         }
-        if (!context.canceled || _currentThrownGrenades > _currentAmountOfGrenades) return;
+        if (!context.canceled || _currentThrownGrenades > currentAmountOfGrenades || _throwIsStopped) return;
 
         _shouldDrawPath = false;
         Throw();
@@ -120,14 +120,14 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
     private void Throw()
     {
-        if (_canThrow && _currentThrownGrenades < _currentAmountOfGrenades && !_throwIsStopped)
+        if (_canThrow)
         {
             OnThrowEvent?.Invoke();
             _thrownGrenade = Instantiate(_grenadeRigidBody, _hand.position, _hand.rotation);
-            _thrownGrenade.AddForce(Vector3.up * _gravity);
+            _thrownGrenade.AddForce(Vector3.up * gravity);
             _thrownGrenade.velocity = CalculateLaunchData().initialVelocity;
             _currentThrownGrenades++;
-            _currentAmountOfGrenades--;
+            currentAmountOfGrenades--;
             StartCoroutine("DespawnGrenade", _thrownGrenade);
         }
     }
@@ -142,13 +142,13 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
             Vector3 displacementXZ = new Vector3(_newTarget.x - _hand.position.x, 0, _newTarget.z - _hand.position.z);
 
-            float time = Mathf.Sqrt(-2 * _currentThrowHeight / _gravity) + Mathf.Sqrt(2 * (displacementY - _currentThrowHeight) / _gravity);
+            float time = Mathf.Sqrt(-2 * _currentThrowHeight / gravity) + Mathf.Sqrt(2 * (displacementY - _currentThrowHeight) / gravity);
 
-            Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * _gravity * _currentThrowHeight);
+            Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * _currentThrowHeight);
 
             Vector3 velocityXZ = displacementXZ / time;
 
-            return new LaunchData(velocityXZ + velocityY * -Mathf.Sign(_gravity), time);
+            return new LaunchData(velocityXZ + velocityY * -Mathf.Sign(gravity), time);
         }
         else //if aiming out of range return a zeroed launchData
         {
@@ -173,7 +173,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
                 float simulationTime = i / (float)resolution * launchData.timeToTarget;
 
-                Vector3 displacement = launchData.initialVelocity * simulationTime + Vector3.up * _gravity * simulationTime * simulationTime / 2f;
+                Vector3 displacement = launchData.initialVelocity * simulationTime + Vector3.up * gravity * simulationTime * simulationTime / 2f;
 
                 Vector3 drawPoint = _hand.position + displacement;
 
@@ -194,13 +194,13 @@ public class ThrowDecoyGrenade : MonoBehaviour
     {
         float _cameraAngle = Vector3.Angle(-_playerMeshPos.transform.up, _camera.transform.forward);
         float currentAngle = _cameraAngle / 150f;
-        return currentAngle * _maxThrowHeight;
+        return currentAngle * maxThrowHeight;
     }
 
     private RaycastHit GetTarget()
     {
         LayerMask mask = LayerMask.GetMask("Colliders");
-        Physics.Raycast(_cameraPosition.transform.position, _cameraPosition.forward, out RaycastHit hit, _throwTargetRange, mask);
+        Physics.Raycast(_cameraPosition.transform.position, _cameraPosition.forward, out RaycastHit hit, throwTargetRange, mask);
         return hit;
     }
 

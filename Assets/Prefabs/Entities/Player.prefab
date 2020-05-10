@@ -2405,13 +2405,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420bec629a99fab4081af351ddc3251a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grenadePrefab: {fileID: 4610478889220799681, guid: 169a45f25fa8e604ba072d8c1cba848a,
+  grenadePrefab: {fileID: 4610478889220799681, guid: 169a45f25fa8e604ba072d8c1cba848a,
     type: 3}
-  _currentAmountOfGrenades: 0
-  _throwTargetRange: 20
-  _maxThrowHeight: 5
-  _timeUntilDestroy: 10
-  _gravity: -9.6
+  currentAmountOfGrenades: 0
+  throwTargetRange: 20
+  maxThrowHeight: 5
+  timeUntilDestroy: 10
+  gravity: -9.6
 --- !u!114 &1191298332394515432
 MonoBehaviour:
   m_ObjectHideFlags: 0
