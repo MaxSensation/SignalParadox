@@ -19,12 +19,15 @@ namespace AI.Charger
         internal bool charging;
         private Vector3 _chargeDirection;
         private EnemyTrigger _enemyTrigger;
+        private AudioSource audioSource;
 
         private new void Awake()
         {
             base.Awake();
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
+            audioSource = GetComponent<AudioSource>();
             LaserController.onLaserDeath += OnDeathByLaser;
+            audioSource.Play();
         }
 
         private void OnDestroy()
@@ -115,6 +118,7 @@ namespace AI.Charger
             isDead = true;
             if (agent != null)
                 agent.enabled = false;
+            audioSource.Stop();
         }
 
         private void OnDrawGizmos()
