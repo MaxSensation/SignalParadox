@@ -84,7 +84,7 @@ namespace AI.Charger
             return _chargeDirection;
         }
 
-        internal bool GetHasCollidedWithColliders()
+        internal bool HasCollidedWithLayerObject()
         {
             return _enemyTrigger.IsTouchingLayerObject;
         }
@@ -96,7 +96,7 @@ namespace AI.Charger
             return hit.collider;
         }
 
-        internal bool GetHasCollidedWithTaggedObjet()
+        internal bool HasCollidedWithTaggedObjet()
         {
             return _enemyTrigger.IsTouchingTaggedObject;
         }
@@ -119,12 +119,6 @@ namespace AI.Charger
             if (agent != null)
                 agent.enabled = false;
             audioSource.Stop();
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(transform.localPosition + Vector3.up, transform.forward);
         }
     }
 }
