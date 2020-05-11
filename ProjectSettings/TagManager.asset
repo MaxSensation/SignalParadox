@@ -11,6 +11,7 @@ TagManager:
   - SoundEmitter
   - Receiver
   - FootSounds
+  - Decoy
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - 
   - 
   - Colliders
-  - Projectil
+  - DecoyPassThru
   - PlayerTriggers
   - Player
   - Enemies
