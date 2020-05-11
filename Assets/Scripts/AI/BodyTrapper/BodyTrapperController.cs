@@ -10,7 +10,6 @@ using Interactables.Triggers;
 using PlayerController;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 namespace AI.BodyTrapper
 {

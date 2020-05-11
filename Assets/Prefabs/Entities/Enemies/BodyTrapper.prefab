@@ -87,6 +87,8 @@ GameObject:
   - component: {fileID: 2406172352836302119}
   - component: {fileID: 784020310989350099}
   - component: {fileID: 4567168946708866366}
+  - component: {fileID: 4217766552786361249}
+  - component: {fileID: 6684718032585791822}
   m_Layer: 12
   m_Name: BodyTrapperMesh
   m_TagString: Enemy
@@ -155,6 +157,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845644103435970022}
   m_Mesh: {fileID: 7392388547632463440, guid: d77107c22e919dc43bd3982fa2e65c72, type: 3}
+--- !u!95 &4217766552786361249
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845644103435970022}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 953a31787fae0b3478a808da50230636, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6684718032585791822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845644103435970022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e739a6136c90074697f0acbc08dba48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5772861337741434719
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,20 +305,6 @@ MonoBehaviour:
     m_Bits: 256
   ignoreTime: 10
   trappedPlayerSound: {fileID: 8300000, guid: b2b3e1ff635aa5446bf52fd3c3f04b71, type: 3}
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6424705370161530901}
-        m_MethodName: Stop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!82 &6424705370161530901
 AudioSource:
   m_ObjectHideFlags: 0
