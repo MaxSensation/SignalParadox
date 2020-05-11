@@ -1,5 +1,5 @@
 ﻿//Main author: Maximiliam Rosén
-
+using System;
 using AI.AIStateMachine;
 using UnityEngine;
 
@@ -8,12 +8,15 @@ namespace AI.BodyTrapper.AIStateMachine
     [CreateAssetMenu(menuName = "AIStates/BodyTrapper/StunState")]
     public class StunState : BodyTrapperBaseState
     {
+        public static Action<GameObject> onLandEvent;
+
         public override void Enter()
         {
             base.Enter();
             Ai.rigidbody.velocity = Vector3.zero;
             Ai.agent.enabled = false;
             Ai.rigidbody.useGravity = false;
+            onLandEvent?.Invoke(Ai.gameObject);
             Ai.ActivateStun();
         }
 
