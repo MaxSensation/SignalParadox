@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8414704556964112630}
+  - component: {fileID: 5109229435894252891}
   m_Layer: 0
   m_Name: GlassCrackWall
   m_TagString: Untagged
@@ -41,6 +42,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5109229435894252891
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806323038625397882}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d37c801eb65ea994f907f6df279efe8e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1863530394598787518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48,6 +68,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8414704556964112630}
     m_Modifications:
+    - target: {fileID: 4659703773714105408, guid: 9a86d25633783504197fcd46cd70983b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     - target: {fileID: 6935614667737993721, guid: 9a86d25633783504197fcd46cd70983b,
         type: 3}
       propertyPath: m_Name
@@ -128,6 +154,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlassCrack04
       objectReference: {fileID: 0}
+    - target: {fileID: 7472629311672907335, guid: 68082368464a76d499d2e1419e0ab1bf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     - target: {fileID: 9072310903526900222, guid: 68082368464a76d499d2e1419e0ab1bf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -258,6 +290,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlassCrack07
       objectReference: {fileID: 0}
+    - target: {fileID: 3047956321870132520, guid: 0e4af3aa093b0b346a79ff7fc51f0677,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e4af3aa093b0b346a79ff7fc51f0677, type: 3}
 --- !u!4 &2786205986704995609 stripped
@@ -333,6 +371,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlassCrack01
       objectReference: {fileID: 0}
+    - target: {fileID: 4512979342201019733, guid: c7fbad3b6f6783e46ba721d67d0c3766,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7fbad3b6f6783e46ba721d67d0c3766, type: 3}
 --- !u!4 &4332760158937982354 stripped
@@ -348,6 +392,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8414704556964112630}
     m_Modifications:
+    - target: {fileID: 2440777256465570012, guid: 3bc9ac4a6616f7d4e89800446de9c0ad,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     - target: {fileID: 9065532082559983540, guid: 3bc9ac4a6616f7d4e89800446de9c0ad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -428,6 +478,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlassCrack03
       objectReference: {fileID: 0}
+    - target: {fileID: 2393348678494904577, guid: b16764feab7d1e743b5e54b7072dd96e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     - target: {fileID: 7203174878075561451, guid: b16764feab7d1e743b5e54b7072dd96e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -503,6 +559,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlassCrackMid
       objectReference: {fileID: 0}
+    - target: {fileID: 6664841854565216424, guid: afebe2748ca72a7459e52c49bc0e6146,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     - target: {fileID: 8103387400688643247, guid: afebe2748ca72a7459e52c49bc0e6146,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -578,6 +640,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlassCrack05
       objectReference: {fileID: 0}
+    - target: {fileID: 1895963012717066781, guid: 279b7b168256c1c40bad34c2bad25280,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     - target: {fileID: 6237282671345247066, guid: 279b7b168256c1c40bad34c2bad25280,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -653,6 +721,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlassCrack09
       objectReference: {fileID: 0}
+    - target: {fileID: 1838550713517437527, guid: a97ce43695c4fef4db5ef33239df5da5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     - target: {fileID: 4414061240462772814, guid: a97ce43695c4fef4db5ef33239df5da5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -723,6 +797,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8414704556964112630}
     m_Modifications:
+    - target: {fileID: 177153246418272025, guid: 17e35c238852817419dceb9109c39a47,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     - target: {fileID: 6252936721666709581, guid: 17e35c238852817419dceb9109c39a47,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -858,6 +938,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4886881472044920912, guid: a33dc416e9cd2ac44a33fa6a22177375,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 8659303113356582851, guid: bf0d7805d7857c74d9eb8e3ea1e62c06,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a33dc416e9cd2ac44a33fa6a22177375, type: 3}
 --- !u!4 &5696605397300458298 stripped

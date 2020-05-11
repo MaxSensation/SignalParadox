@@ -25,7 +25,7 @@ namespace AI.Charger.AIStateMachine
 
             if (!Ai.IsStunned())
                 Charge();
-            if (Ai.GetHasCollidedWithTaggedObjet())
+            if (Ai.HasCollidedWithTaggedObjet())
             {
                 Ai.target.transform.parent = Ai.transform;
                 Ai.CaughtPlayer();
@@ -46,7 +46,7 @@ namespace AI.Charger.AIStateMachine
 
         public void PlayerCrushed()
         {
-            if (Ai.rigidbody.velocity.magnitude <= 0.001f && (Ai.GetHasCollidedWithColliders() || Ai.CheckForWallRayCast()))
+            if (Ai.rigidbody.velocity.magnitude <= 0.001f && (Ai.HasCollidedWithLayerObject() || Ai.CheckForWallRayCast()))
             {
                 if (Ai.target.transform.parent == Ai.transform)
                     Ai.KillPlayer();
