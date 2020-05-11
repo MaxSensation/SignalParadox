@@ -1,4 +1,5 @@
 ﻿using System;
+using AI.BodyTrapper;
 using AI.BodyTrapper.AIStateMachine;
 using Interactables.Traps;
 using PlayerController;
@@ -19,12 +20,12 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         SteamController.onSteamDamage += Die;
         JumpState.onJumpEvent += Jump;
         JumpState.onLandEvent += Land;
-        PlayerTrapable.onDetached += DetachFromPlayer;
+        BodyTrapperController.onDetachedFromPlayer += DetachFromPlayer;
     }
 
-    private void DetachFromPlayer()
+    private void DetachFromPlayer(GameObject obj)
     {
-        if(animator != null)
+        if (bodytrapper != obj) return;
         animator.SetTrigger("Landed");
     }
 
@@ -52,6 +53,6 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         SteamController.onSteamDamage -= Die;
         JumpState.onJumpEvent -= Jump;
         JumpState.onLandEvent -= Land;
-        PlayerTrapable.onDetached -= DetachFromPlayer;
+        BodyTrapperController.onDetachedFromPlayer -= DetachFromPlayer;
     }
 }
