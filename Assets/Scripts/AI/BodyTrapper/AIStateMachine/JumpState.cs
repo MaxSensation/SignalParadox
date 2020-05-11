@@ -12,7 +12,6 @@ namespace AI.BodyTrapper.AIStateMachine
         [SerializeField] private float jumpHeight;
         [SerializeField] private float jumpLength;
         public static Action<GameObject> onJumpEvent;
-        public static Action<GameObject> onLandEvent;
 
         public override void Enter()
         {
@@ -32,7 +31,6 @@ namespace AI.BodyTrapper.AIStateMachine
             if (Grounded() && Vector3.Dot(Vector3.up, Ai.rigidbody.velocity) <= 0 || !Ai.isStuckOnPlayer && !Ai.canAttack)
             {
                 stateMachine.TransitionTo<StunState>();
-                onLandEvent?.Invoke(Ai.gameObject);
             }
         }
 

@@ -19,20 +19,13 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         LaserController.onLaserDeath += Die;
         SteamController.onSteamDamage += Die;
         JumpState.onJumpEvent += Jump;
-        JumpState.onLandEvent += Land;
-        BodyTrapperController.onDetachedFromPlayer += DetachFromPlayer;
-    }
-
-    private void DetachFromPlayer(GameObject obj)
-    {
-        if (bodytrapper != obj) return;
-        animator.SetTrigger("Landed");
+        StunState.onLandEvent += Land;
     }
 
     private void Land(GameObject obj)
     {
         if (bodytrapper != obj) return;
-        animator.SetTrigger("FailedJumpAttack");
+        animator.SetTrigger("Landed");
     }
 
     private void Jump(GameObject obj)
@@ -52,7 +45,6 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         LaserController.onLaserDeath -= Die;
         SteamController.onSteamDamage -= Die;
         JumpState.onJumpEvent -= Jump;
-        JumpState.onLandEvent -= Land;
-        BodyTrapperController.onDetachedFromPlayer -= DetachFromPlayer;
+        StunState.onLandEvent -= Land;
     }
 }
