@@ -75,7 +75,7 @@ namespace PlayerController.PlayerStateMachine
 
         private bool CanStand()
         {
-            return !Player.GetRayCast(Vector3.up, 0.5f).collider;
+            return !Physics.CapsuleCast(Player._point1, Player._point2, Player._collider.radius, Vector3.up, 1f);
         }
 
         private void LimitVelocity()
