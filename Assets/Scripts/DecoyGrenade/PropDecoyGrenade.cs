@@ -13,7 +13,7 @@ public class PropDecoyGrenade : MonoBehaviour
         ThrowDecoyGrenade.OnThrowEvent += Deactivate;
     }
 
-    private void Activate(int obj)
+    public void Activate(int obj)
     {
         propGrenade.enabled = true;
     }

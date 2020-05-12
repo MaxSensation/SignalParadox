@@ -1,7 +1,9 @@
 ﻿//Main author: Maximiliam Rosén
 
 using System;
-using Interactables.CheckPointSystem;
+using PlayerController;
+using SaveSystem;
+using SaveSystem.CheckPointSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,8 +12,7 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         private static GameObject _gameManager;
-        private bool checkPointLoaded;
-        private CheckPoint loadedCheckPoint;
+        private static CheckPoint _currentCheckPoint;
         private void Awake()
         {
             if (_gameManager == null)
@@ -20,30 +21,17 @@ namespace Managers
                 Destroy(gameObject);
             SaveManager.Init();
             DontDestroyOnLoad(this);
-            SaveManager.onLoadCheckPoint += LoadCheckPoint;
-            SceneManager.sceneLoaded += LoadPlayerData;
         }
 
         private void Start()
         {
-            HealthSaver.SaveInt(4);
+            SceneManager.sceneLoaded += GivePlayerMaxHP;
         }
 
-        private void LoadPlayerData(Scene arg0, LoadSceneMode arg1)
+        private void GivePlayerMaxHP(Scene arg0, LoadSceneMode arg1)
         {
-            if (!checkPointLoaded) return;
-            var player = GameObject.FindWithTag("Player");
-            player.transform.position = new Vector3(loadedCheckPoint.playerPosition[0], loadedCheckPoint.playerPosition[1], loadedCheckPoint.playerPosition[2]);
-            checkPointLoaded = false;
-        }
-
-        private void LoadCheckPoint(CheckPoint checkPoint)
-        {
-            loadedCheckPoint = checkPoint;
-            checkPointLoaded = true;
-            SceneManager.LoadScene(checkPoint.currentScene);
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+                GameObject.Find("Player").GetComponent<HealthSystem>().ResetHealth();
+                SceneManager.sceneLoaded -= GivePlayerMaxHP;
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿//Main author: Maximiliam Rosén
 
 using System;
-using Interactables.CheckPointSystem;
+using Managers;
+using SaveSystem;
 using UnityEngine;
 
 namespace Interactables.Triggers
@@ -14,12 +15,8 @@ namespace Interactables.Triggers
         {
             if (_checkPointUsed || !other.CompareTag("Player")) return;
             Debug.Log("CheckpointTrigger activated");
-            var checkPoint = CheckPointGenerator.Generate();
-            if (checkPoint != null)
-            {
-                onTriggerCheckPoint?.Invoke(checkPoint);
-                _checkPointUsed = true;
-            }
+            onTriggerCheckPoint?.Invoke(new CheckPoint(transform));
+            _checkPointUsed = true;
         }
     }
 }

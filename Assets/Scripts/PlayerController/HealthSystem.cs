@@ -11,6 +11,7 @@ namespace PlayerController
         [SerializeField] private int maxHealth;
         public static Action<int> onPlayerTakeDamageEvent;
         public static Action<DamageType> OnPlayerDeath;
+        public static Action<int> onInitEvent;
         public int CurrentHealth { get; private set; }
         public enum DamageType { Laser, Steam, Bodytrapper, Charger }
 
@@ -22,7 +23,7 @@ namespace PlayerController
 
         private void Start()
         {
-            CurrentHealth = maxHealth;
+            onInitEvent?.Invoke(CurrentHealth);
         }
 
         public void SteamDamage(GameObject o)
@@ -56,6 +57,12 @@ namespace PlayerController
         public void SetHealth(int health)
         {
             CurrentHealth = health;
+            onInitEvent?.Invoke(CurrentHealth);
+        }
+
+        public void ResetHealth()
+        {
+            CurrentHealth = maxHealth;
         }
 
         private void OnDestroy()
