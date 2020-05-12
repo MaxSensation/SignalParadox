@@ -18,6 +18,8 @@ namespace Interactables.Traps
         [SerializeField] private bool onStartLaserWallOn;
         [SerializeField] private float betweenLaserDelay;
         [SerializeField] private float startDelay;
+        [SerializeField] private Color laserColorStart;
+        [SerializeField] private Color laserColorEnd;
         private LaserController[] _lasers;
         private Transform _laserWallOffset;
         private Transform _laserWallMesh;
@@ -77,7 +79,9 @@ namespace Interactables.Traps
                 var laserPos = new Vector3(position.x, position.y + laserDensity * i, position.z);
                 var laser = Instantiate(laserPrefab, laserPos, transform1.rotation);
                 laser.transform.parent = transform;
-                _lasers[i - 1] = laser.GetComponent<LaserController>();
+                var laserController = laser.GetComponent<LaserController>();
+                laserController.SetColors(laserColorStart, laserColorEnd);
+                _lasers[i - 1] = laserController;
             }
         }
 
