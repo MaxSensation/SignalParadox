@@ -48,11 +48,13 @@ public class ThrowDecoyGrenade : MonoBehaviour
         _camera = Camera.main.gameObject;
         _storedLinePoints = new List<Vector3>();
         PickupDecoyGrenade.onGrenadePickup += IncreaseMaxThrowableGrenades;
-        //Events for when not to throw
+        //Events for when not to throw and to resume Throw
         PushingState.OnEnterPushingStateEvent += StopThrow;
         PushingState.OnExitPushingStateEvent += ResumeThrow;
         PlayerAnimatorController.OnDeathAnimBeginning += StopThrow;
         ChargerController.onCrushedPlayerEvent += StopThrow;
+        PlayerTrapable.onPlayerTrappedEvent += StopThrow;
+        PlayerTrapable.onDetached += ResumeThrow;
     }
 
     private void ResumeThrow()
@@ -229,5 +231,9 @@ public class ThrowDecoyGrenade : MonoBehaviour
         PickupDecoyGrenade.onGrenadePickup -= IncreaseMaxThrowableGrenades;
         PushingState.OnEnterPushingStateEvent -= StopThrow;
         PushingState.OnExitPushingStateEvent -= ResumeThrow;
+        PlayerAnimatorController.OnDeathAnimBeginning -= StopThrow;
+        ChargerController.onCrushedPlayerEvent -= StopThrow;
+        PlayerTrapable.onPlayerTrappedEvent -= StopThrow;
+        PlayerTrapable.onDetached -= ResumeThrow;
     }
 }

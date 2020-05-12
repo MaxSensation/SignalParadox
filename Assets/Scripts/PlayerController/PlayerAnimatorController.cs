@@ -33,6 +33,8 @@ namespace PlayerController
             PushingState.OnExitPushingStateEvent += HandleExitPushing;
             PushingState.OnPushingStateEvent += HandlePushing;
             HealthSystem.OnPlayerDeath += PlayerDeath;
+            PlayerTrapable.onPlayerTrappedEvent += OnTrapped;
+            PlayerTrapable.onDetached += OnDetached;
         }
 
         private void PlayerDeath(HealthSystem.DamageType dT)
@@ -79,6 +81,8 @@ namespace PlayerController
             PushingState.OnExitPushingStateEvent -= HandleExitPushing;
             PushingState.OnPushingStateEvent -= HandlePushing;
             HealthSystem.OnPlayerDeath -= PlayerDeath;
+            PlayerTrapable.onPlayerTrappedEvent -= OnTrapped;
+            PlayerTrapable.onDetached -= OnDetached;
         }
 
         private void HandlePushing(bool pushing)
@@ -120,6 +124,16 @@ namespace PlayerController
         private void ExitedCrouch()
         {
             _isCrouching = false;
+        }
+
+        private void OnTrapped()
+        {
+            _animator.SetTrigger("Trapped");
+        }
+
+        private void OnDetached()
+        {
+            _animator.SetTrigger("Detached");
         }
 
         public void UpdateMovementInput(InputAction.CallbackContext context)
