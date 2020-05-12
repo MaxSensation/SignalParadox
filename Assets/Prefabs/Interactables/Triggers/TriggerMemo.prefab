@@ -110,7 +110,7 @@ GameObject:
   m_Layer: 0
   m_Name: TriggerMemo
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd6b8a34496a6945a4c6a83bf94f2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  memo: {fileID: 8300000, guid: 52b4f6b1b5b3ec64987eccd53c4ce62a, type: 3}
+  memo: {fileID: 8300000, guid: 331bf8a9b92aa5847b67aa4dbd11a1c3, type: 3}
 --- !u!65 &4214955195819395081
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -239,9 +239,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
