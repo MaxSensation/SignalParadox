@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8483215553295808490
 Transform:
@@ -48,6 +48,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DecoyGrenade (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5701059947435268470, guid: 51b53dc9536d20d43bba4cfa2fcab861,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8738498447029627749, guid: 51b53dc9536d20d43bba4cfa2fcab861,
         type: 3}
@@ -124,6 +129,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DecoyGrenade (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5701059947435268470, guid: 51b53dc9536d20d43bba4cfa2fcab861,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 8738498447029627749, guid: 51b53dc9536d20d43bba4cfa2fcab861,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -199,6 +209,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DecoyGrenade
       objectReference: {fileID: 0}
+    - target: {fileID: 5701059947435268470, guid: 51b53dc9536d20d43bba4cfa2fcab861,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 8738498447029627749, guid: 51b53dc9536d20d43bba4cfa2fcab861,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -273,6 +288,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DecoyGrenade (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5701059947435268470, guid: 51b53dc9536d20d43bba4cfa2fcab861,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8738498447029627749, guid: 51b53dc9536d20d43bba4cfa2fcab861,
         type: 3}
@@ -404,6 +424,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DecoyBoxTop
       objectReference: {fileID: 0}
+    - target: {fileID: 4024411847612644163, guid: ce5bf8a12d00b7d4e901278e64fbebeb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce5bf8a12d00b7d4e901278e64fbebeb, type: 3}
 --- !u!4 &5488197410262857249 stripped
@@ -423,6 +448,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DecoyGrenade (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5701059947435268470, guid: 51b53dc9536d20d43bba4cfa2fcab861,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8738498447029627749, guid: 51b53dc9536d20d43bba4cfa2fcab861,
         type: 3}
@@ -498,6 +528,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DecoyBoxBottom
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869030253179206767, guid: 39d6b2a085a874244add9f83dc7d74ee,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 3434971924892126844, guid: 39d6b2a085a874244add9f83dc7d74ee,
         type: 3}
