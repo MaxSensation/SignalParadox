@@ -27,11 +27,11 @@ namespace PlayerController
         [SerializeField] private Vector3 velocity;
         private BoxCollider _interactTrigger;
         private StateMachine _stateMachine;
-        private CapsuleCollider _collider;
+        internal CapsuleCollider _collider;
         private Transform _camera;
         private RaycastHit _cameraCast;
-        private Vector3 _point1;
-        private Vector3 _point2;
+        internal Vector3 _point1;
+        internal Vector3 _point2;
         internal GameObject _playerMesh;
         private bool _alive;
         private bool isPlayerCharged;
