@@ -1,5 +1,6 @@
 ﻿//Main author: Maximiliam Rosén
 
+using System;
 using PlayerController;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,17 +12,16 @@ public class HealthBar : MonoBehaviour
     private Image[] _healthBarBlocks;
     private void Awake()
     {
+        HealthSystem.onInitEvent += UpdateGui;
         HealthSystem.onPlayerTakeDamageEvent += UpdateGui;
         _healthBarBlocks = transform.GetComponentsInChildren<Image>();
     }
 
-
-    private void Start()
+    private void OnDestroy()
     {
-        UpdateGui(HealthSaver.LoadInt());
+        HealthSystem.onInitEvent -= UpdateGui;
+        HealthSystem.onPlayerTakeDamageEvent -= UpdateGui;
     }
-
-    private void OnDestroy() => HealthSystem.onPlayerTakeDamageEvent -= UpdateGui;
 
     private void UpdateGui(int currentHealth)
     {

@@ -68,16 +68,7 @@ namespace PlayerController
             Physic3D.LoadWorldParameters(world);
             _turnWithCamera = _playerMesh.GetComponent<TurnWithCamera>();
         }
-
-        private void Start()
-        {
-            if (HealthSaver.LoadInt() > 0)
-            {
-                GameObject.Find("Player").GetComponent<HealthSystem>().SetHealth(HealthSaver.LoadInt());  
-                
-            }
-        }
-
+        
         private void EnableTrapped()
         {
             endingPushingState = true;
@@ -116,6 +107,7 @@ namespace PlayerController
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            
         }
 
         private void Update()
@@ -157,7 +149,6 @@ namespace PlayerController
         {
             _alive = false;
             Debug.Log("Player Died");
-            HealthSaver.SaveInt(_healthSystem.GetMaxHP());
             onPlayerDeath?.Invoke();
         }
 

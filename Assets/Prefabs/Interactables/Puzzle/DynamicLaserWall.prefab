@@ -150,6 +150,8 @@ MonoBehaviour:
   onStartLaserWallOn: 1
   betweenLaserDelay: 0.2
   startDelay: 1
+  laserColorStart: {r: 0, g: 1, b: 1, a: 0}
+  laserColorEnd: {r: 0, g: 1, b: 1, a: 0}
 --- !u!1 &7146868348599294425
 GameObject:
   m_ObjectHideFlags: 0

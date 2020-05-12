@@ -13,7 +13,7 @@ using AI.Charger;
 public class ThrowDecoyGrenade : MonoBehaviour
 {
     [SerializeField] private GameObject grenadePrefab;
-    [SerializeField] private int currentAmountOfGrenades = 0;
+    [SerializeField] private int currentAmountOfGrenades;
     [SerializeField] private float throwTargetRange = 20;
     [SerializeField] private float maxThrowHeight = 5;
     [SerializeField] private float timeUntilDestroy = 10;
@@ -236,4 +236,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
         PlayerTrapable.onPlayerTrappedEvent -= StopThrow;
         PlayerTrapable.onDetached -= ResumeThrow;
     }
+
+    public int GetCurrentAmountOfGrenades() => currentAmountOfGrenades;
+    public void SetCurrentAmountOfGrenades(int amount) => currentAmountOfGrenades = amount;
 }
