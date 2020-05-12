@@ -67,8 +67,9 @@ namespace Interactables.Door
 
         public void OpenDoor()
         {
+            if (isAutoClosing)
+                _autoCloseTrigger.SetHasClosed(false);
             isOpen = true;
-            _autoCloseTrigger.SetHasClosed(false);
             _animator.SetBool("IsOpen", isOpen);
             _audioSource.PlayOneShot(openSound);
         }
