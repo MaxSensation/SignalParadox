@@ -2,7 +2,6 @@
 //Secondary author: Andreas Berzelius
 
 using System;
-using Interactables.Traps;
 using PlayerController.PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -129,11 +128,13 @@ namespace PlayerController
         private void OnTrapped()
         {
             _animator.SetTrigger("Trapped");
+            _animator.ResetTrigger("Detached");
         }
 
         private void OnDetached()
         {
             _animator.SetTrigger("Detached");
+            _animator.ResetTrigger("Trapped");
         }
 
         public void UpdateMovementInput(InputAction.CallbackContext context)
