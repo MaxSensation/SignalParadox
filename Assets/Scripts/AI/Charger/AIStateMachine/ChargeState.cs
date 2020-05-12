@@ -10,6 +10,8 @@ namespace AI.Charger.AIStateMachine
     {
         [SerializeField] private float chargeSpeed;
         [SerializeField] private LayerMask layerMask;
+        [SerializeField] private AudioClip hitWallSound;
+
         private Vector3 _chargeDirection;
         public override void Enter()
         {
@@ -50,6 +52,7 @@ namespace AI.Charger.AIStateMachine
             {
                 if (Ai.target.transform.parent == Ai.transform)
                     Ai.KillPlayer();
+                Ai.audioSource.PlayOneShot(hitWallSound);
                 Ai.target.transform.parent = null;
                 Ai.agent.enabled = true;
                 Ai.ActivateOnlyStun();
