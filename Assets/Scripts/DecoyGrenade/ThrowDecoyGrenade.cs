@@ -13,11 +13,11 @@ using AI.Charger;
 public class ThrowDecoyGrenade : MonoBehaviour
 {
     [SerializeField] private GameObject grenadePrefab;
-    [SerializeField] private int currentAmountOfGrenades;
-    [SerializeField] private float throwTargetRange = 20;
-    [SerializeField] private float maxThrowHeight = 5;
-    [SerializeField] private float timeUntilDestroy = 10;
-    [SerializeField] private float gravity = -9.6f;
+    [SerializeField] [Tooltip("Players currrent amount of grenades")] private int currentAmountOfGrenades;
+    [SerializeField] [Tooltip("How far can the player throw")] private float throwTargetRange = 20;
+    [SerializeField] [Tooltip("How high should the player be able to throw")] private float maxThrowHeight = 5;
+    [SerializeField] [Tooltip("Time until grenade despawns")] private float timeUntilDestroy = 10;
+    [SerializeField] [Tooltip("The gravity on the thrown grenade")] private float gravity = -9.6f;
     private bool _shouldDrawPath;
     private bool _canThrow;
     private bool _throwIsStopped;
@@ -32,6 +32,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     private List<Vector3> _storedLinePoints;
     private Rigidbody _thrownGrenade;
 
+    public static Action OnPickedUpGrenade;
     //Throw Events
     public static Action OnAimingEvent;
     public static Action OnOutOfRangeEvent;
@@ -88,7 +89,9 @@ public class ThrowDecoyGrenade : MonoBehaviour
     //on pickup increase players current amount of grenades
     private void IncreaseMaxThrowableGrenades(int pickedUpAmount)
     {
+        if (currentAmountOfGrenades >= pickedUpAmount) return;
         currentAmountOfGrenades = pickedUpAmount;
+        OnPickedUpGrenade?.Invoke();
     }
 
     //Despawn grenade after time

@@ -15,6 +15,7 @@ namespace PlayerController
         private bool _isCrouching;
         private bool _isAiming;
         private bool _isThrowing;
+        private bool hasDecoy;
         private Vector2 _movement;
         private Vector2 _newMovement;
 
@@ -28,6 +29,7 @@ namespace PlayerController
             ThrowDecoyGrenade.OnAimingEvent += Aiming;
             ThrowDecoyGrenade.OnThrowEvent += Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent += StopAiming;
+            PickupDecoyGrenade.onGrenadePickup += OnPickedUpDecoy;
             PushingState.OnEnterPushingStateEvent += HandleEnterPushing;
             PushingState.OnExitPushingStateEvent += HandleExitPushing;
             PushingState.OnPushingStateEvent += HandlePushing;
@@ -76,6 +78,7 @@ namespace PlayerController
             ThrowDecoyGrenade.OnAimingEvent -= Aiming;
             ThrowDecoyGrenade.OnThrowEvent -= Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent -= StopAiming;
+            PickupDecoyGrenade.onGrenadePickup -= OnPickedUpDecoy;
             PushingState.OnEnterPushingStateEvent -= HandleEnterPushing;
             PushingState.OnExitPushingStateEvent -= HandleExitPushing;
             PushingState.OnPushingStateEvent -= HandlePushing;
@@ -113,6 +116,8 @@ namespace PlayerController
         {
             _isAiming = false;
             _isThrowing = true;
+            hasDecoy = false;
+            _animator.ResetTrigger("TryPickupDecoy");
         }
 
         private void EnteredCrouch()
@@ -140,6 +145,15 @@ namespace PlayerController
         public void UpdateMovementInput(InputAction.CallbackContext context)
         {
             _newMovement = context.ReadValue<Vector2>();
+        }
+
+        private void OnPickedUpDecoy(int ignore)
+        {
+            if (!hasDecoy)
+            {
+                _animator.SetTrigger("TryPickupDecoy");
+                hasDecoy = true;
+            }
         }
 
         private void Update()
