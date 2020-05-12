@@ -9,8 +9,14 @@ namespace Interactables.Triggers
     {
         [SerializeField] private AudioClip memo;
         private bool hasPlayed;
-
+        private AudioSource _audioSource;
         public static Action<AudioClip> onMemoPickup;
+
+        private void Start()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (!hasPlayed && other.CompareTag("Player"))
@@ -18,6 +24,7 @@ namespace Interactables.Triggers
                 Debug.Log("Memo Found");
                 hasPlayed = true;
                 onMemoPickup?.Invoke(memo);
+                _audioSource.Stop();
             }
         }
     }
