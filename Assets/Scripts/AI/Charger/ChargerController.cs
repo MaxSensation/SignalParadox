@@ -19,7 +19,7 @@ namespace AI.Charger
         internal bool charging;
         private Vector3 _chargeDirection;
         private EnemyTrigger _enemyTrigger;
-        private AudioSource audioSource;
+        internal AudioSource audioSource;
 
         private new void Awake()
         {
