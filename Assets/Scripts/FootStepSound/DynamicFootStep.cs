@@ -48,7 +48,7 @@ namespace FootStepSound
 
         private void EnteredCrouch()
         {
-            _source.volume = 0.1f;
+            _source.volume = 0.01f;
         }
 
         private void ExitedCrouch()
