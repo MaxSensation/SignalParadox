@@ -65,14 +65,14 @@ namespace Interactables.Door
             _animator.SetBool("IsOpen", isOpen);
         }
 
-        private void OpenDoor()
+        public void OpenDoor()
         {
             isOpen = true;
             _animator.SetBool("IsOpen", isOpen);
             _audioSource.PlayOneShot(openSound);
         }
     
-        private void CloseDoor()
+        public void CloseDoor()
         {
             isOpen = false;
             _animator.Play("DoorOpen", 0, 1f);

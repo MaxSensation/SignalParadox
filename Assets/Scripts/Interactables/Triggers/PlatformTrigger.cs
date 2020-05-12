@@ -8,10 +8,11 @@ namespace Interactables
 {
     public class PlatformTrigger : MonoBehaviour
     {
-        private Animator _animator;
+        [SerializeField] private bool triggerOnes;
         [SerializeField] private Material on;
         [SerializeField] private Material off;
         [SerializeField] private GameObject[] interactables;
+        private Animator _animator;
         private MeshRenderer _meshRenderer;
         private static readonly int IsPressed = Animator.StringToHash("IsPressed");
         public UnityEvent isOn;
@@ -40,6 +41,7 @@ namespace Interactables
 
         private void OnTriggerExit(Collider other)
         {
+            if (triggerOnes) return;
             if ((!other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable"))) return;
             objectsOnButton--;
             if (objectsOnButton != 0) return;

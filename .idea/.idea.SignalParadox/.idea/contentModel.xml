@@ -4,7 +4,9 @@
     <e p="C:\GitHub\SignalParadox" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="GlassWallTrigger.cs" t="Include" />
+        <e p="ActivateAllPlatformTriggers.cs" t="Include" />
+        <e p="DisablePlattforms.cs" t="Include" />
+        <e p="DisablePlattformsListener.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="AI" t="Include">
             <e p="AIController.cs" t="Include" />
@@ -40,6 +42,7 @@
             <e p="Input" t="Include">
               <e p="InputCamera.cs" t="Include" />
             </e>
+            <e p="TurnHeadWithCamera.cs" t="Include" />
             <e p="TurnWithCamera.cs" t="Include" />
           </e>
           <e p="DecoyGrenade" t="Include">
@@ -78,7 +81,6 @@
               <e p="AutoCloseTrigger.cs" t="Include" />
               <e p="DoorController.cs" t="Include" />
             </e>
-            <e p="PlatformTrigger.cs" t="Include" />
             <e p="Pushables" t="Include">
               <e p="IPushable.cs" t="Include" />
               <e p="PushableBox.cs" t="Include" />
@@ -91,6 +93,8 @@
             <e p="Triggers" t="Include">
               <e p="EndGameTrigger.cs" t="Include" />
               <e p="EnemyTrigger.cs" t="Include" />
+              <e p="GlassWallTrigger.cs" t="Include" />
+              <e p="PlatformTrigger.cs" t="Include" />
               <e p="TriggerCheckPoint.cs" t="Include" />
               <e p="TriggerLoadNextLevel.cs" t="Include" />
               <e p="TriggerMemo.cs" t="Include" />
@@ -131,7 +135,6 @@
             <e p="RotationSmooth.cs" t="Include" />
           </e>
         </e>
-        <e p="TurnHeadWithCamera.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
