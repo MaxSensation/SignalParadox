@@ -11,6 +11,8 @@ namespace AI.BodyTrapper.AIStateMachine
     {
         [SerializeField] private float jumpHeight;
         [SerializeField] private float jumpLength;
+        [SerializeField] private AudioClip jumpSound;
+
         public static Action<GameObject> onJumpEvent;
 
         public override void Enter()
@@ -41,6 +43,7 @@ namespace AI.BodyTrapper.AIStateMachine
 
         private void Jump()
         {
+            Ai.audioSource.PlayOneShot(jumpSound);
             Ai.rigidbody.velocity = Ai.jumpDirection * jumpLength + Vector3.up * (jumpHeight);
         }
     }
