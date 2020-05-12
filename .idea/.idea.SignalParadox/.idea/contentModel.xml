@@ -4,6 +4,7 @@
     <e p="C:\GitHub\SignalParadox" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="GlassWallTrigger.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="AI" t="Include">
             <e p="AIController.cs" t="Include" />
@@ -18,6 +19,7 @@
                 <e p="SeekingState.cs" t="Include" />
                 <e p="StunState.cs" t="Include" />
               </e>
+              <e p="BodyTrapperAnimatorController.cs" t="Include" />
               <e p="BodyTrapperController.cs" t="Include" />
             </e>
             <e p="Charger" t="Include">
@@ -129,6 +131,7 @@
             <e p="RotationSmooth.cs" t="Include" />
           </e>
         </e>
+        <e p="TurnHeadWithCamera.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
