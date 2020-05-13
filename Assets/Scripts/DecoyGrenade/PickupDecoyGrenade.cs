@@ -14,7 +14,7 @@ public class PickupDecoyGrenade : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        ThrowDecoyGrenade.OnPickedUpGrenade += () => audioSource.Play();
+        ThrowDecoyGrenade.OnPickedUpGrenade += Pickup;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,9 +26,13 @@ public class PickupDecoyGrenade : MonoBehaviour
         }
     }
 
-    //probably wont happen but..
     private void OnDestroy()
     {
-        ThrowDecoyGrenade.OnPickedUpGrenade -= () => audioSource.Play();
+        ThrowDecoyGrenade.OnPickedUpGrenade -= Pickup;
+    }
+
+    private void Pickup()
+    {
+        audioSource.Play();
     }
 }
