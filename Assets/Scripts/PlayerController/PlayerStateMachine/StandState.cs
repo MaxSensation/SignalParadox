@@ -8,9 +8,10 @@ namespace PlayerController.PlayerStateMachine
     [CreateAssetMenu(menuName = "PlayerState/StandState")]
     public class StandState : PlayerBaseState
     {
+        [SerializeField] private float soundStrength;
         public override void Enter()
         {
-            Player._transmitter.SetSoundStrength(0.99f);
+            Player._transmitter.SetSoundStrength(1 - soundStrength);
         }
         public override void Run()
         {

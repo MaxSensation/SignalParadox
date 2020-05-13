@@ -12,6 +12,7 @@ namespace PlayerController.PlayerStateMachine
         [SerializeField] private float terminalVelocity;
         [SerializeField] private float decelerateSpeed;
         [SerializeField] private float decelerateThreshold;
+        [SerializeField] private float soundStrength;
         private Vector3 _oldCameraOffset;
         private float _oldColliderHeight;
         private bool _isCrouching;
@@ -23,7 +24,7 @@ namespace PlayerController.PlayerStateMachine
         {
             if (!_isCrouching)
             {
-                Player._transmitter.SetSoundStrength(0.98f);
+                Player._transmitter.SetSoundStrength(1 - soundStrength);
                 onEnteredCrouchEvent?.Invoke();
                 Debug.Log("Entered Crouch State");
                 _oldColliderHeight = PlayerCollider.height;

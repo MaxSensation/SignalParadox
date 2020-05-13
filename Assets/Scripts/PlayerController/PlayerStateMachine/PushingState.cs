@@ -11,12 +11,13 @@ namespace PlayerController.PlayerStateMachine
         public static Action OnEnterPushingStateEvent;
         public static Action OnExitPushingStateEvent;
         public static Action<Boolean> OnPushingStateEvent;
+        [SerializeField] private float soundStrength;
         private Transform _pushableTransform;
         public override void Enter()
         {
             base.Enter();
             OnEnterPushingStateEvent?.Invoke();
-            Player._transmitter.SetSoundStrength(0.2f);
+            Player._transmitter.SetSoundStrength(1 - soundStrength);
             Velocity = Vector3.zero;
             _pushableTransform = Player.currentPushableObject.GetPushableTransform();
             Player._turnWithCamera.enabled = false;

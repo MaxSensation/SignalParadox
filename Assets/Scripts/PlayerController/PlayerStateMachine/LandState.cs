@@ -8,9 +8,10 @@ namespace PlayerController.PlayerStateMachine
     [CreateAssetMenu(menuName = "PlayerState/LandState")]
     public class LandState : PlayerBaseState
     {
+        [SerializeField] private float soundStrength;
         public override void Enter()
         {
-            Player._transmitter.SetSoundStrength(0.0f);
+            Player._transmitter.SetSoundStrength(1 - soundStrength);
             if (Player.GetIsPlayerCharged())
                 stateMachine.TransitionTo<ChargedState>();
             //Debug.Log("Entered Land State");

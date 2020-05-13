@@ -11,10 +11,11 @@ namespace PlayerController.PlayerStateMachine
         [SerializeField] private float accelerationSpeed;
         [SerializeField] private float decelerateSpeed;
         [SerializeField] private float decelerateThreshold;
+        [SerializeField] private float soundStrength;
 
         public override void Enter()
         {
-            Player._transmitter.SetSoundStrength(0.99f);
+            Player._transmitter.SetSoundStrength(1 - soundStrength);
             //Debug.Log("Entered InAir State");
         }
         
