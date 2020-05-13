@@ -289,6 +289,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6327066}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6352304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9213580012494043738, guid: ee8b5951cc2316a4caee6348b8b4050e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1684687117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &6352305
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6352304}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.2470515, z: 0.099999994}
+  m_Center: {x: -0.5, y: 0.62352574, z: -0.049999997}
 --- !u!4 &6352307 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5298045072222079049, guid: ee8b5951cc2316a4caee6348b8b4050e,
@@ -16585,6 +16604,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railing_120 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213580012494043738, guid: ee8b5951cc2316a4caee6348b8b4050e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee8b5951cc2316a4caee6348b8b4050e, type: 3}
 --- !u!1001 &289228100
@@ -19788,6 +19812,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 351189117}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &354215520 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9213580012494043738, guid: ee8b5951cc2316a4caee6348b8b4050e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2116660867}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &354215521
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354215520}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.2470515, z: 0.099999994}
+  m_Center: {x: -0.5, y: 0.62352574, z: -0.049999997}
 --- !u!4 &354215523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5298045072222079049, guid: ee8b5951cc2316a4caee6348b8b4050e,
@@ -33404,6 +33447,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Railing_120
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213580012494043738, guid: ee8b5951cc2316a4caee6348b8b4050e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee8b5951cc2316a4caee6348b8b4050e, type: 3}
@@ -90144,6 +90192,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Railing_120 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213580012494043738, guid: ee8b5951cc2316a4caee6348b8b4050e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213580012494043738, guid: ee8b5951cc2316a4caee6348b8b4050e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee8b5951cc2316a4caee6348b8b4050e, type: 3}
 --- !u!1001 &1685059965
@@ -114150,6 +114208,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Railing_120 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213580012494043738, guid: ee8b5951cc2316a4caee6348b8b4050e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213580012494043738, guid: ee8b5951cc2316a4caee6348b8b4050e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee8b5951cc2316a4caee6348b8b4050e, type: 3}
