@@ -15,7 +15,7 @@ namespace Interactables.Triggers
         {
             if (_checkPointUsed || !other.CompareTag("Player")) return;
             Debug.Log("CheckpointTrigger activated");
-            onTriggerCheckPoint?.Invoke(new CheckPoint(transform));
+            onTriggerCheckPoint?.Invoke(new CheckPoint(other.gameObject, transform));
             _checkPointUsed = true;
         }
     }

@@ -9,7 +9,6 @@ namespace SaveSystem
 {
     public static class SaveManager
     {
-        private static bool _hasPlayerData;
         public static void Init()
         {
             TriggerLoadNextLevel.onWantToLoadNextLevelEvent += SavePlayerData;
@@ -17,7 +16,8 @@ namespace SaveSystem
             PlayerController.PlayerController.onPlayerDeath += LoadCheckPoint;
         }
 
-
+        private static CheckPoint _checkPoint;
+        
         private static void SavePlayerData(PlayerData playerData)
         {
             var formatter = new BinaryFormatter();
@@ -25,11 +25,10 @@ namespace SaveSystem
             var stream = new FileStream(path, FileMode.Create);
             formatter.Serialize(stream, playerData);
             stream.Close();
-            _hasPlayerData = true;
             Debug.Log("PlayerData Saved");
         }
         
-        public static void LoadPlayerData()
+        public static void LoadPlayerData(GameObject player)
         {
             var path = Application.persistentDataPath + "/PlayerData.paradox";
             if (File.Exists(path))
@@ -39,7 +38,7 @@ namespace SaveSystem
                 if (stream.Length > 0)
                 {
                     var playerData = formatter.Deserialize(stream) as PlayerData;
-                    playerData?.Load();
+                    playerData?.Load(player);
                     Debug.Log("PlayerData Loaded");
                 }
                 stream.Close();
@@ -60,7 +59,7 @@ namespace SaveSystem
             Debug.Log("CheckPoint Saved");
         }
         
-        private static void LoadCheckPoint()
+        public static void LoadCheckPoint()
         {
             var path = Application.persistentDataPath + "/CheckPoint.paradox";
             if (File.Exists(path))
@@ -69,8 +68,8 @@ namespace SaveSystem
                 var stream = new FileStream(path, FileMode.Open);
                 if (stream.Length > 0)
                 {
-                    var checkPoint = formatter.Deserialize(stream) as CheckPoint;
-                    checkPoint?.WaitForLoaded();
+                    _checkPoint = formatter.Deserialize(stream) as CheckPoint;
+                    _checkPoint?.Load();
                     Debug.Log("CheckPoint Loaded");
                 }
                 stream.Close();
@@ -81,9 +80,9 @@ namespace SaveSystem
             }
         }
 
-        public static bool HasPlayerData()
+        public static void LoadPlayerCheckPointData(GameObject player)
         {
-            return _hasPlayerData;
+            _checkPoint.LoadPlayerData(player);
         }
     }
 }

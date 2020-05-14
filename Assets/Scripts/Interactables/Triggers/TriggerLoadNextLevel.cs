@@ -14,7 +14,7 @@ namespace Interactables.Triggers
         {
             if (other.CompareTag("Player"))
             {
-                var playerData = new PlayerData(false);
+                var playerData = new PlayerData(other.gameObject, false);
                 onWantToLoadNextLevelEvent?.Invoke(playerData);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 Cursor.visible = false;

@@ -8,6 +8,7 @@ using EchoLocation;
 using Interactables.Pushables;
 using Managers;
 using PlayerController.PlayerStateMachine;
+using SaveSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -42,16 +43,15 @@ namespace PlayerController
         internal bool hasInputCrouch;
         internal IPushable currentPushableObject;
         internal bool endingPushingState;
-        private HealthSystem _healthSystem;
 
         // Events
         public static Action onPlayerDeath;
+        public static Action<GameObject> onPlayerInit;
         internal bool _isTrapped;
 
         private void Awake()
         {
             currentDirection = Vector2.zero;
-            _healthSystem = GetComponent<HealthSystem>();
             _transmitter = transform.GetComponentInChildren<SoundProvider>();
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
@@ -72,7 +72,7 @@ namespace PlayerController
 
         private void Start()
         {
-            GameManager.UpdatePlayer(gameObject);
+            onPlayerInit?.Invoke(gameObject);
         }
 
         private void EnableTrapped()
@@ -142,14 +142,6 @@ namespace PlayerController
         }
 
         private void PlayerIsDying() => _stateMachine.TransitionTo<DeadState>();
-        
-        private void Die(GameObject o)
-        {
-            if (gameObject == o && _alive)
-            {
-                Die();
-            }
-        }
 
         private void Die()
         {

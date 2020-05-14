@@ -14,24 +14,22 @@ namespace SaveSystem
         private readonly float[] position;
         private readonly float[] rotation;
 
-        public void WaitForLoaded()
+        public void Load()
         {
             SceneManager.LoadScene(currentScene);
-            SceneManager.sceneLoaded += Load;
         }
 
-        private void Load(Scene arg0, LoadSceneMode arg1)
+        public void LoadPlayerData(GameObject player)
         {
-            playerData.Load();
-            playerData.LoadPosition(
+            playerData.Load(player);
+            playerData.LoadPosition(player,
                 new Vector3(position[0], position[1], position[2]), 
                 new Quaternion(rotation[0], rotation[1], rotation[2], rotation[3]));
-            SceneManager.sceneLoaded -= Load;
         }
 
-        public CheckPoint(Transform checkPointTransform)
+        public CheckPoint(GameObject player, Transform checkPointTransform)
         {
-            playerData = new PlayerData(true);
+            playerData = new PlayerData(player, true);
             var checkPointPosition = checkPointTransform.position;
             var checkPointRotation = checkPointTransform.rotation;
             position = new []{checkPointPosition.x, checkPointPosition.y, checkPointPosition.z};
