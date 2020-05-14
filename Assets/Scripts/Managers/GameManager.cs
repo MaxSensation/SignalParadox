@@ -11,8 +11,8 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         private static GameObject _gameManager;
-        private static CheckPoint _currentCheckPoint;
-        private static GameObject _player;
+        private static bool _LoadingCheckPointNextSpawn, firstLoad;
+
         private void Awake()
         {
             if (_gameManager == null)
@@ -21,37 +21,35 @@ namespace Managers
                 Destroy(gameObject);
             SaveManager.Init();
             DontDestroyOnLoad(this);
+            _LoadingCheckPointNextSpawn = false;
+            firstLoad = true;
+            PlayerController.PlayerController.onPlayerInit += LoadCheckPointOrPlayerData;
+            PlayerController.PlayerController.onPlayerDeath += LoadCheckPointNextSpawn;
         }
 
-        private void Start()
+        private static void LoadCheckPointOrPlayerData(GameObject player)
         {
-            SceneManager.sceneLoaded += GivePlayerMaxHP;
-            SceneManager.sceneLoaded += LoadPlayerData;
-        }
-
-        private void LoadPlayerData(Scene arg0, LoadSceneMode arg1)
-        {
-            if (SaveManager.HasPlayerData())
+            if (!firstLoad)
             {
-                UpdatePlayer(GameObject.Find("Player"));
-                SaveManager.LoadPlayerData();
+                if (_LoadingCheckPointNextSpawn)
+                {
+                    SaveManager.LoadPlayerCheckPointData(player);
+                }else
+                    SaveManager.LoadPlayerData(player);
+                _LoadingCheckPointNextSpawn = false;
             }
+            else
+            {
+                player.GetComponent<HealthSystem>().ResetHealth();
+            }
+            firstLoad = false;
         }
 
-        private void GivePlayerMaxHP(Scene arg0, LoadSceneMode arg1)
-        {
-                GameObject.Find("Player").GetComponent<HealthSystem>().ResetHealth();
-                SceneManager.sceneLoaded -= GivePlayerMaxHP;
-        }
+        
 
-        public static void UpdatePlayer(GameObject player)
+        private static void LoadCheckPointNextSpawn()
         {
-            _player = player;
-        }
-
-        public static GameObject GetPlayer()
-        {
-            return _player;
+            _LoadingCheckPointNextSpawn = true;
         }
     }
 }

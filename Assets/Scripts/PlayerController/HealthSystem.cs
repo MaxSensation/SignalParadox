@@ -63,6 +63,7 @@ namespace PlayerController
         public void ResetHealth()
         {
             CurrentHealth = maxHealth;
+            onInitEvent?.Invoke(CurrentHealth);
         }
 
         private void OnDestroy()
