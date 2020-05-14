@@ -11,7 +11,7 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         private static GameObject _gameManager;
-        private static bool _LoadingCheckPointNextSpawn, firstLoad;
+        private static bool _loadingCheckPointNextSpawn, _firstLoad;
 
         private void Awake()
         {
@@ -21,35 +21,35 @@ namespace Managers
                 Destroy(gameObject);
             SaveManager.Init();
             DontDestroyOnLoad(this);
-            _LoadingCheckPointNextSpawn = false;
-            firstLoad = true;
+            _loadingCheckPointNextSpawn = false;
+            _firstLoad = true;
             PlayerController.PlayerController.onPlayerInit += LoadCheckPointOrPlayerData;
             PlayerController.PlayerController.onPlayerDeath += LoadCheckPointNextSpawn;
         }
 
         private static void LoadCheckPointOrPlayerData(GameObject player)
         {
-            if (!firstLoad)
+            if (!_firstLoad)
             {
-                if (_LoadingCheckPointNextSpawn)
+                if (_loadingCheckPointNextSpawn)
                 {
                     SaveManager.LoadPlayerCheckPointData(player);
                 }else
                     SaveManager.LoadPlayerData(player);
-                _LoadingCheckPointNextSpawn = false;
+                _loadingCheckPointNextSpawn = false;
             }
             else
             {
                 player.GetComponent<HealthSystem>().ResetHealth();
             }
-            firstLoad = false;
+            _firstLoad = false;
         }
 
         
 
         private static void LoadCheckPointNextSpawn()
         {
-            _LoadingCheckPointNextSpawn = true;
+            _loadingCheckPointNextSpawn = true;
         }
     }
 }
