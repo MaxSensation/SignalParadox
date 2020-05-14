@@ -61,7 +61,7 @@ namespace PlayerController
             PlayerAnimatorController.OnDeathAnimBeginning += PlayerIsDying;
             PlayerAnimatorController.OnDeathAnimEnd += Die;
             _alive = true;
-            _playerMesh = GameObject.Find("PlayerMesh");
+            _playerMesh = transform.Find("PlayerMesh").gameObject;
             _stateMachine = new StateMachine(this, states);
             velocity = Vector3.zero;
             if (Camera.main != null) _camera = Camera.main.transform;
