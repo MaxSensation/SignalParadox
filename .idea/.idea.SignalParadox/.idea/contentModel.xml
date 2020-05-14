@@ -124,10 +124,8 @@
           </e>
           <e p="SaveSystem" t="Include">
             <e p="CheckPoint.cs" t="Include" />
-            <e p="CheckPointSystem" t="Include">
-              <e p="SaveManager.cs" t="Include" />
-            </e>
             <e p="PlayerData.cs" t="Include" />
+            <e p="SaveManager.cs" t="Include" />
           </e>
           <e p="TransformModifier" t="Include">
             <e p="DisableAllBoxColliders.cs" t="Include" />

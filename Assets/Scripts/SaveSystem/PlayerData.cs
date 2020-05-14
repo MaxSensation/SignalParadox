@@ -1,6 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 
 using System;
+using Managers;
 using PlayerController;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,7 +16,7 @@ namespace SaveSystem
         
         public PlayerData(bool savedAtCheckpoint)
         {
-            var player = GameObject.FindWithTag("Player");
+            var player = GameManager.GetPlayer();
             var healthSystem = player.GetComponent<HealthSystem>();
             health = savedAtCheckpoint ? healthSystem.GetMaxHP() : healthSystem.CurrentHealth;
             amountOfDecoys = player.GetComponent<ThrowDecoyGrenade>().GetCurrentAmountOfGrenades();
@@ -34,7 +35,7 @@ namespace SaveSystem
 
         public void Load()
         {
-            var player = GameObject.FindWithTag("Player");
+            var player = GameManager.GetPlayer();
             player.GetComponent<HealthSystem>().SetHealth(health);
             player.GetComponent<ThrowDecoyGrenade>().SetCurrentAmountOfGrenades(amountOfDecoys);
             if (amountOfDecoys > 0)

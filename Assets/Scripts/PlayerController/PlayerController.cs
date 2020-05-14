@@ -6,6 +6,7 @@ using System.Collections;
 using AI.Charger;
 using EchoLocation;
 using Interactables.Pushables;
+using Managers;
 using PlayerController.PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -68,7 +69,12 @@ namespace PlayerController
             Physic3D.LoadWorldParameters(world);
             _turnWithCamera = _playerMesh.GetComponent<TurnWithCamera>();
         }
-        
+
+        private void Start()
+        {
+            GameManager.UpdatePlayer(gameObject);
+        }
+
         private void EnableTrapped()
         {
             endingPushingState = true;

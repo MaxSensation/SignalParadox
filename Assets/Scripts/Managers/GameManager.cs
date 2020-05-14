@@ -3,7 +3,6 @@
 using System;
 using PlayerController;
 using SaveSystem;
-using SaveSystem.CheckPointSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +12,7 @@ namespace Managers
     {
         private static GameObject _gameManager;
         private static CheckPoint _currentCheckPoint;
+        private static GameObject _player;
         private void Awake()
         {
             if (_gameManager == null)
@@ -26,12 +26,32 @@ namespace Managers
         private void Start()
         {
             SceneManager.sceneLoaded += GivePlayerMaxHP;
+            SceneManager.sceneLoaded += LoadPlayerData;
+        }
+
+        private void LoadPlayerData(Scene arg0, LoadSceneMode arg1)
+        {
+            if (SaveManager.HasPlayerData())
+            {
+                UpdatePlayer(GameObject.Find("Player"));
+                SaveManager.LoadPlayerData();
+            }
         }
 
         private void GivePlayerMaxHP(Scene arg0, LoadSceneMode arg1)
         {
                 GameObject.Find("Player").GetComponent<HealthSystem>().ResetHealth();
                 SceneManager.sceneLoaded -= GivePlayerMaxHP;
+        }
+
+        public static void UpdatePlayer(GameObject player)
+        {
+            _player = player;
+        }
+
+        public static GameObject GetPlayer()
+        {
+            return _player;
         }
     }
 }

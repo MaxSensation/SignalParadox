@@ -9,16 +9,16 @@ namespace Interactables.Triggers
 {
     public class TriggerLoadNextLevel : MonoBehaviour
     {
-        public static Action<PlayerData> onLoadedNextLevelEvent;
+        public static Action<PlayerData> onWantToLoadNextLevelEvent;
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
+                var playerData = new PlayerData(false);
+                onWantToLoadNextLevelEvent?.Invoke(playerData);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
-                var playerData = new PlayerData(false);
-                onLoadedNextLevelEvent?.Invoke(playerData);
             }
         }
     }
