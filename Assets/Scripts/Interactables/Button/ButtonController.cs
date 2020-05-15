@@ -53,8 +53,11 @@ namespace Interactables.Button
         {
             _spamprotectionOn = true;
             yield return _spamProtectionDelay;
-            currentState = ButtonStates.Standby;
-            onStateChangeEvent?.Invoke(currentState);
+            if (currentState != ButtonStates.Locked)
+            {
+                currentState = ButtonStates.Standby;
+                onStateChangeEvent?.Invoke(currentState);   
+            }
             _spamprotectionOn = false;
         }
         
