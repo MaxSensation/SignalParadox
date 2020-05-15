@@ -65,6 +65,7 @@ namespace Interactables.Door
             _animator.SetBool("IsOpen", isOpen);
         }
 
+        [ContextMenu("Open")]
         private void OpenDoor()
         {
             if (isAutoClosing)
@@ -74,6 +75,7 @@ namespace Interactables.Door
             _audioSource.PlayOneShot(openSound);
         }
 
+        [ContextMenu("Close")]
         private void CloseDoor()
         {
             if (!isOpen) return;

@@ -70,7 +70,8 @@ namespace Interactables.Button
             onButtonPressed?.Invoke(interactableObjects);
         }
         
-        public void Lock()
+        [ContextMenu("Lock")]
+        private void Lock()
         {
             currentState = ButtonStates.Locked;
             onStateChangeEvent?.Invoke(currentState);

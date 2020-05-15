@@ -31,6 +31,19 @@ namespace Interactables
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable")) return;
+            Activate();
+        }
+        
+        private void OnTriggerExit(Collider other)
+        {
+            if (triggerOnes) return;
+            if ((!other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable"))) return;
+            Deactivate();
+        }
+        
+        [ContextMenu("Activate")]
+        private void Activate()
+        {
             objectsOnButton++;
             if (objectsOnButton != 1) return;
             _animator.SetBool(IsPressed, true);
@@ -38,11 +51,9 @@ namespace Interactables
             isOn.Invoke();
             onButtonPressed?.Invoke(interactables);
         }
-
-        private void OnTriggerExit(Collider other)
+        [ContextMenu("Deactivate")]
+        private void Deactivate()
         {
-            if (triggerOnes) return;
-            if ((!other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable"))) return;
             objectsOnButton--;
             if (objectsOnButton != 0) return;
             _animator.SetBool(IsPressed, false);
