@@ -1,20 +1,21 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoCloseTrigger : MonoBehaviour
+namespace Interactables.Door
 {
-    public Action OnAutoClose;
-    private bool _hasClosed;
-
-    private void OnTriggerExit(Collider other)
+    public class AutoCloseTrigger : MonoBehaviour
     {
-        if (other.CompareTag("Player") && !_hasClosed)
+        public Action onAutoCloseEvent;
+        private bool _hasClosed;
+
+        private void OnTriggerExit(Collider other)
         {
-            OnAutoClose?.Invoke();
-            _hasClosed = true;
+            if (other.CompareTag("Player") && !_hasClosed)
+            {
+                onAutoCloseEvent?.Invoke();
+                _hasClosed = true;
+            }
         }
+        internal void SetHasClosed(bool hasClosed) => _hasClosed = hasClosed;
     }
-    internal void SetHasClosed(bool hasClosed) => _hasClosed = hasClosed;
 }

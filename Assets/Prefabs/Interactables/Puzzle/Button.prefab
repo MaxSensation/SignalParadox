@@ -108,23 +108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9ae9b04557a864e9d3e0f0814c2a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   interactableObjects:
   - {fileID: 0}
   spamProtectionDelay: 3
-  Activate:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1332863173}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  accessGrantedSound: {fileID: 8300000, guid: 4781a8a5461cb544d967ad16eba15019, type: 3}
+  accessDeniedSound: {fileID: 8300000, guid: 7406aed2691a4d3488f25d6581b09379, type: 3}
 --- !u!54 &1798079271
 Rigidbody:
   m_ObjectHideFlags: 0

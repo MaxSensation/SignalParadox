@@ -5,65 +5,68 @@ using System;
 using System.Collections;
 using PlayerController;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Interactables.Button
 {
     public class ButtonController : MonoBehaviour
     {
-        [SerializeField] internal GameObject[] interactableObjects;
-        [SerializeField] float  spamProtectionDelay;
-        private StateMachine _stateMachine;
-        private bool _isInRangeOfPlayer;
-        private bool _isInteractable;
-        private bool _spamprotectionOn;
-        private WaitForSeconds _buttonDelay;
+        [SerializeField] private ButtonStates currentState;
+        [SerializeField] private GameObject[] interactableObjects;
+        [SerializeField] private float  spamProtectionDelay;
+        [Tooltip("SoundEffects")][SerializeField] private AudioClip accessGrantedSound, accessDeniedSound;
+        private bool _isInRangeOfPlayer, _spamprotectionOn;
+        private AudioSource _audioSource;
         private WaitForSeconds _spamProtectionDelay;
 
-        public UnityEvent Activate;
         public static Action<GameObject[]> onButtonPressed;
-
+        public Action<ButtonStates> onStateChangeEvent;
+        public enum ButtonStates { Standby, Activated, Locked }
+        
         private void Awake()
         {
+            _audioSource = GetComponent<AudioSource>();
             _spamProtectionDelay = new WaitForSeconds(spamProtectionDelay);
-            _isInteractable = true;
-            _buttonDelay = new WaitForSeconds(2);
             PlayerInteractionTrigger.onInteractedEvent += OnButtonPressed;
+            if (currentState == ButtonStates.Locked)
+                onStateChangeEvent?.Invoke(currentState);
         }
-
-        private void OnButtonPressed(GameObject button)
-        {
-            if (button == gameObject && !_spamprotectionOn)
-            {
-                ButtonPress();
-            }
-        }
-
+        
         private void OnDestroy()
         {
             PlayerInteractionTrigger.onInteractedEvent -= OnButtonPressed;
         }
 
-        private IEnumerator ActivateButton()
+        private void OnButtonPressed(GameObject button)
         {
-            yield return _buttonDelay;
-            _isInteractable = true;
+            if (button != gameObject || _spamprotectionOn) return;
+            if (currentState != ButtonStates.Locked)
+                ButtonPress();
+            else
+                _audioSource.PlayOneShot(accessDeniedSound);
+            StartCoroutine(SpamProtection());
         }
-
+        
         private IEnumerator SpamProtection()
         {
             _spamprotectionOn = true;
             yield return _spamProtectionDelay;
+            currentState = ButtonStates.Standby;
+            onStateChangeEvent?.Invoke(currentState);
             _spamprotectionOn = false;
         }
 
         private void ButtonPress()
         {
-            StartCoroutine(SpamProtection());
-            _isInteractable = false;
-            Activate?.Invoke();
+            _audioSource.PlayOneShot(accessGrantedSound);
+            currentState = ButtonStates.Activated;
+            onStateChangeEvent?.Invoke(currentState);
             onButtonPressed?.Invoke(interactableObjects);
-            StartCoroutine("ActivateButton");
+        }
+        
+        public void Lock()
+        {
+            currentState = ButtonStates.Locked;
+            onStateChangeEvent?.Invoke(currentState);
         }
     }
 }

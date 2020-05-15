@@ -1,6 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
+using System;
 using System.Linq;
 using Interactables.Button;
 using UnityEngine;
@@ -26,16 +27,15 @@ namespace Interactables.Door
             _animator = GetComponent<Animator>();
             _renderer = GetComponent<MeshRenderer>();
             _audioSource = GetComponent<AudioSource>();
-            if (isOpen)
-                OpenDoor();
             if (isAutoClosing)
             {
-                _autoCloseTrigger = transform.parent.Find("AutoCloseTrigger").GetComponent<AutoCloseTrigger>();
-                _autoCloseTrigger.OnAutoClose += CloseDoor;
+                _autoCloseTrigger = transform.GetComponentInChildren<AutoCloseTrigger>();
+                _autoCloseTrigger.onAutoCloseEvent += CloseDoor;
             }
+            if (isOpen)
+                OpenDoor();
             ButtonController.onButtonPressed += OnButtonPressed;
             PlatformTrigger.onButtonPressed += OnButtonPressed;
-
         }
     
         private void OnDestroy()
@@ -43,7 +43,7 @@ namespace Interactables.Door
             ButtonController.onButtonPressed -= OnButtonPressed;
             PlatformTrigger.onButtonPressed -= OnButtonPressed;
             if(isAutoClosing)
-                _autoCloseTrigger.OnAutoClose -= CloseDoor;
+                _autoCloseTrigger.onAutoCloseEvent -= CloseDoor;
         }
 
         private bool CheckForPlayer()
@@ -65,7 +65,7 @@ namespace Interactables.Door
             _animator.SetBool("IsOpen", isOpen);
         }
 
-        public void OpenDoor()
+        private void OpenDoor()
         {
             if (isAutoClosing)
                 _autoCloseTrigger.SetHasClosed(false);
@@ -73,8 +73,8 @@ namespace Interactables.Door
             _animator.SetBool("IsOpen", isOpen);
             _audioSource.PlayOneShot(openSound);
         }
-    
-        public void CloseDoor()
+
+        private void CloseDoor()
         {
             if (!isOpen) return;
             isOpen = false;
