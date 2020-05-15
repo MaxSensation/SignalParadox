@@ -109,23 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9ae9b04557a864e9d3e0f0814c2a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   interactableObjects:
   - {fileID: 0}
-  spamProtectionDelay: 0
-  Activate:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6451184296714095416}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  spamProtectionDelay: 3
+  accessGrantedSound: {fileID: 8300000, guid: 4781a8a5461cb544d967ad16eba15019, type: 3}
+  accessDeniedSound: {fileID: 8300000, guid: 7406aed2691a4d3488f25d6581b09379, type: 3}
 --- !u!54 &6451184296247273690
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -249,6 +238,7 @@ GameObject:
   - component: {fileID: 6451184296305122142}
   - component: {fileID: 6451184296305122128}
   - component: {fileID: 6451184296305122143}
+  - component: {fileID: 4015519782899150341}
   m_Layer: 0
   m_Name: ButtonScreen (1)
   m_TagString: Untagged
@@ -317,3 +307,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4015519782899150341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6451184296305122141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7c9652ff1bd5c14db12a27c7016aebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  standbyColor: {r: 0, g: 1, b: 1, a: 1}
+  activatedColor: {r: 0, g: 1, b: 0, a: 1}
+  lockedColor: {r: 1, g: 0, b: 0, a: 1}
