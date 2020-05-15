@@ -11,8 +11,10 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] private float chargeSpeed;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private AudioClip hitWallSound;
-
         private Vector3 _chargeDirection;
+        private float previousFrameSpeed;
+        private bool hasCaughtPlayer;
+
         public override void Enter()
         {
             base.Enter();
@@ -21,18 +23,27 @@ namespace AI.Charger.AIStateMachine
 
         public override void Run()
         {
-            Ai.CheckForWallRayCast();
-            if (Ai.isDead)
-                stateMachine.TransitionTo<DeadState>();
+            //Debug.Log(previousFrameSpeed - Ai.rigidbody.velocity.magnitude);
 
-            if (!Ai.IsStunned())
-                Charge();
-            if (Ai.HasCollidedWithTaggedObjet())
+            if (!Ai.isDead)
             {
-                Ai.target.transform.parent = Ai.transform;
-                Ai.CaughtPlayer();
+                if ((previousFrameSpeed - Ai.rigidbody.velocity.magnitude) > 1f)
+                    ChargeEnded();
+
+                if (!Ai.IsStunned())
+                    Charge();
+
+                if (Ai.HasCollidedWithTaggedObjet())
+                {
+                    Debug.Log("bruh" + hasCaughtPlayer);
+                    Ai.target.transform.parent = Ai.transform;
+                    Ai.CaughtPlayer();
+                    hasCaughtPlayer = true;
+                }
+
             }
-            PlayerCrushed();
+            else
+                stateMachine.TransitionTo<DeadState>();
         }
 
         private bool TouchingPlayer()
@@ -42,23 +53,22 @@ namespace AI.Charger.AIStateMachine
 
         private void Charge()
         {
+            previousFrameSpeed = Ai.rigidbody.velocity.magnitude;
             _chargeDirection = Ai.GetChargeDirection();
-            Ai.rigidbody.AddForce(_chargeDirection.normalized * chargeSpeed);
+            Ai.rigidbody.AddForce(_chargeDirection.normalized * chargeSpeed * Time.deltaTime);
         }
 
-        public void PlayerCrushed()
+        public void ChargeEnded()
         {
-            if (Ai.rigidbody.velocity.magnitude <= 0.001f && (Ai.HasCollidedWithLayerObject() || Ai.CheckForWallRayCast()))
-            {
-                if (Ai.target.transform.parent == Ai.transform)
-                    Ai.KillPlayer();
+            if ((previousFrameSpeed - Ai.rigidbody.velocity.magnitude) > 10f)
                 Ai.audioSource.PlayOneShot(hitWallSound);
-                Ai.target.transform.parent = null;
-                Ai.agent.enabled = true;
-                Ai.ActivateOnlyStun();
-                stateMachine.TransitionTo<HuntState>();
-            }
+            previousFrameSpeed = 0f;
+            if (hasCaughtPlayer || Ai.target.transform.parent == Ai.transform || Ai.target.transform.IsChildOf(Ai.transform)) //Icke fungerade även fast spelaren är child till chargern
+                Ai.KillPlayer();
+            Ai.target.transform.parent = null;
+            Ai.agent.enabled = true;
+            Ai.ActivateStun();
+            stateMachine.TransitionTo<HuntState>();
         }
-
     }
 }

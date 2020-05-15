@@ -12,18 +12,23 @@ namespace AI.Charger
     public class ChargerController : AIController
     {
         [SerializeField] private int _chargeUpTime = 1;
-        [SerializeField] private float _stunTime = 0.5f;
-        public static Action onCrushedPlayerEvent;
-        public static Action CaughtPlayerEvent;
+        [SerializeField] private float _stunnedTime = 0.5f;
         private bool hasChargedUp;
-        internal bool charging;
         private Vector3 _chargeDirection;
         private EnemyTrigger _enemyTrigger;
+        private Coroutine onlyStunTime, chargeTime;
+        private WaitForSeconds chargeUpTime, stunTime;
+
+        internal bool charging;
         internal AudioSource audioSource;
+        public static Action onCrushedPlayerEvent;
+        public static Action CaughtPlayerEvent;
 
         private new void Awake()
         {
             base.Awake();
+            chargeUpTime = new WaitForSeconds(_chargeUpTime);
+            stunTime = new WaitForSeconds(_stunnedTime);
             _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             audioSource = GetComponent<AudioSource>();
             LaserController.onLaserDeath += OnDeathByLaser;
@@ -41,30 +46,33 @@ namespace AI.Charger
                 Die();
         }
 
-        private IEnumerator OnlyStunTime()
+        private IEnumerator StunTime()
         {
-            yield return new WaitForSeconds(_stunTime);
+            yield return stunTime;
             _stunned = false;
+            StopCoroutine(onlyStunTime);
         }
 
         private IEnumerator ChargeTime()
         {
-            yield return new WaitForSeconds(_chargeUpTime);
+            yield return chargeUpTime;
             if (agent.enabled)
                 agent.isStopped = false;
             hasChargedUp = true;
+            StopCoroutine(chargeTime);
         }
+
         internal void ChargeUp()
         {
             agent.isStopped = true;
             hasChargedUp = false;
-            StartCoroutine("ChargeTime");
+            chargeTime = StartCoroutine(ChargeTime());
         }
 
-        internal void ActivateOnlyStun()
+        internal void ActivateStun()
         {
             _stunned = true;
-            StartCoroutine("OnlyStunTime");
+            onlyStunTime = StartCoroutine(StunTime());
         }
 
         internal bool GetHasChargedUp()
@@ -109,8 +117,6 @@ namespace AI.Charger
         internal void CaughtPlayer()
         {
             CaughtPlayerEvent?.Invoke();
-            if (rigidbody.velocity.magnitude <= 0.001f)
-                KillPlayer();
         }
 
         protected internal override void Die()
@@ -120,5 +126,30 @@ namespace AI.Charger
                 agent.enabled = false;
             audioSource.Stop();
         }
+
+
+        //private void OnDrawGizmos()
+        //{
+        //    if (_collider != null)
+        //    {
+        //        var currentForward = transform.forward + transform.position;
+        //        var capsulePosition = new Vector3(currentForward.x, currentForward.y, currentForward.z- 1f) + _collider.center;
+        //        var distanceToPoints = (_collider.height / 2) - _collider.radius;
+        //        var point1 = capsulePosition + Vector3.up * distanceToPoints;
+        //        var point2 = capsulePosition + Vector3.down * distanceToPoints;
+        //        Physics.CapsuleCast(point1, point2, _collider.radius, transform.forward.normalized, out var hit, 0.1f, visionMask);
+
+        //        if (hit.collider)
+        //        {
+        //            Gizmos.color = Color.red;
+        //            //Gizmos.DrawWireSphere(point1 + point2, hit.point.x);
+        //            Gizmos.DrawRay(point1, hit.point);
+        //        }
+        //        else
+        //            Gizmos.color = Color.green;
+        //        Gizmos.DrawWireSphere(point1, _collider.radius);
+        //        Gizmos.DrawWireSphere(point2, _collider.radius);
+        //    }
+        //}
     }
 }

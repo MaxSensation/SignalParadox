@@ -188,7 +188,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _chargeUpTime: 1
-  _stunTime: 0.5
+  _stunnedTime: 0.5
 --- !u!82 &4300840741976561570
 AudioSource:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 10
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
