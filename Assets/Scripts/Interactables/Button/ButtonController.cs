@@ -27,10 +27,13 @@ namespace Interactables.Button
             _audioSource = GetComponent<AudioSource>();
             _spamProtectionDelay = new WaitForSeconds(spamProtectionDelay);
             PlayerInteractionTrigger.onInteractedEvent += OnButtonPressed;
-            if (currentState == ButtonStates.Locked)
-                onStateChangeEvent?.Invoke(currentState);
         }
-        
+
+        private void Start()
+        {
+            onStateChangeEvent?.Invoke(currentState);
+        }
+
         private void OnDestroy()
         {
             PlayerInteractionTrigger.onInteractedEvent -= OnButtonPressed;
