@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DisablePlattforms : MonoBehaviour
 {
-    public static Action OnDisablePlattformsEvent;
+    public static Action onDisablePlattformsEvent;
     private bool hasBeenActivated;
 
     private void Start()
@@ -24,6 +24,6 @@ public class DisablePlattforms : MonoBehaviour
     public void Disable()
     {
         hasBeenActivated = true;
-        OnDisablePlattformsEvent?.Invoke();
+        onDisablePlattformsEvent?.Invoke();
     }
 }

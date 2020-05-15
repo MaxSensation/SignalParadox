@@ -11,12 +11,14 @@ namespace SaveSystem
     {
         public static void Init()
         {
+            _worldData = new WorldData();
             TriggerLoadNextLevel.onWantToLoadNextLevelEvent += SavePlayerData;
             TriggerCheckPoint.onTriggerCheckPoint += SaveCheckPoint;
             PlayerController.PlayerController.onPlayerDeath += LoadCheckPoint;
         }
 
         private static CheckPoint _checkPoint;
+        public static WorldData _worldData;
         
         private static void SavePlayerData(PlayerData playerData)
         {

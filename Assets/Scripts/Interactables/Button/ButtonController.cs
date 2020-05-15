@@ -62,7 +62,7 @@ namespace Interactables.Button
         }
         
         [ContextMenu("PressButton")]
-        private void ButtonPress()
+        public void ButtonPress()
         {
             _audioSource.PlayOneShot(accessGrantedSound);
             currentState = ButtonStates.Activated;
@@ -71,7 +71,7 @@ namespace Interactables.Button
         }
         
         [ContextMenu("Lock")]
-        private void Lock()
+        public void Lock()
         {
             currentState = ButtonStates.Locked;
             onStateChangeEvent?.Invoke(currentState);

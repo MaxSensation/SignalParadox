@@ -7,14 +7,14 @@ public class DisablePlattformsListener : MonoBehaviour
     private BoxCollider _collider;
     private void Start()
     {
-        DisablePlattforms.OnDisablePlattformsEvent += DisablePlattform;
+        DisablePlattforms.onDisablePlattformsEvent += DisablePlattform;
         _renderer = transform.parent.GetChild(0).GetComponent<MeshRenderer>();
         _collider = GetComponent<BoxCollider>();
     }
 
     private void OnDestroy()
     {
-        DisablePlattforms.OnDisablePlattformsEvent -= DisablePlattform;
+        DisablePlattforms.onDisablePlattformsEvent -= DisablePlattform;
     }
     
     private void DisablePlattform()

@@ -47,7 +47,7 @@ namespace PlayerController
 
         private IEnumerator DamageOverTime()
         {
-            while (_player._isTrapped)
+            while (_player.isTrapped)
             {
                 playerHealthSystem.BodyTrapperDamage(gameObject);
                 yield return _damageTickTime;
@@ -87,7 +87,7 @@ namespace PlayerController
 
         private IEnumerator MouseShaker()
         {
-            while (_player._isTrapped)
+            while (_player.isTrapped)
             {
                 CheckMouseCheck();
                 yield return _checkInterval;

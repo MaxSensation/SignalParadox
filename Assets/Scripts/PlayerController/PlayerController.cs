@@ -47,7 +47,7 @@ namespace PlayerController
         // Events
         public static Action onPlayerDeath;
         public static Action<GameObject> onPlayerInit;
-        internal bool _isTrapped;
+        internal bool isTrapped;
 
         private void Awake()
         {
@@ -72,24 +72,25 @@ namespace PlayerController
 
         private void Start()
         {
+            Debug.Log(SaveManager._worldData.PuzzleLabyrinthCompleted);
             onPlayerInit?.Invoke(gameObject);
         }
 
         private void EnableTrapped()
         {
             endingPushingState = true;
-            _isTrapped = true;
+            isTrapped = true;
         }
         private void DisableTrapped()
         {
-            _isTrapped = false;
+            isTrapped = false;
         }
 
         private void HandlePushEvent(IPushable pushable)
         {
             var location = pushable.GetPushLocation(transform.position);
             if (currentPushableObject == null && location != Vector3.zero &&
-                Vector3.Distance(transform.position, location) < 0.5f && !_isTrapped)
+                Vector3.Distance(transform.position, location) < 0.5f && !isTrapped)
             {
                 currentPushableObject = pushable;
                 _stateMachine.TransitionTo<PushingState>();

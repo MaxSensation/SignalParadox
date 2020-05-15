@@ -17,12 +17,15 @@ namespace Managers
                 _gameManager = gameObject;
             if (_gameManager != gameObject)
                 Destroy(gameObject);
-            SaveManager.Init();
-            DontDestroyOnLoad(this);
-            _loadingCheckPointNextSpawn = false;
-            _firstLoad = true;
-            PlayerController.PlayerController.onPlayerInit += LoadCheckPointOrPlayerData;
-            PlayerController.PlayerController.onPlayerDeath += LoadCheckPointNextSpawn;
+            else
+            {
+                SaveManager.Init();
+                DontDestroyOnLoad(this);
+                _loadingCheckPointNextSpawn = false;
+                _firstLoad = true;
+                PlayerController.PlayerController.onPlayerInit += LoadCheckPointOrPlayerData;
+                PlayerController.PlayerController.onPlayerDeath += LoadCheckPointNextSpawn;   
+            }
         }
 
         private static void LoadCheckPointOrPlayerData(GameObject player)
