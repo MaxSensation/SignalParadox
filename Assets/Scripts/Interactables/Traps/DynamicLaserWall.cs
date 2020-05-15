@@ -94,13 +94,13 @@ namespace Interactables.Traps
                 DeactivateLasers();
         }
 
-        private void ActivateLasers()
+        public void ActivateLasers()
         {
             if (!_isLaserOn)
                 StartCoroutine("ActivateWithDelay");
         }
 
-        private void DeactivateLasers()
+        public void DeactivateLasers()
         {
             if (_isLaserOn)
                 StartCoroutine("DeactivateWithDelay");

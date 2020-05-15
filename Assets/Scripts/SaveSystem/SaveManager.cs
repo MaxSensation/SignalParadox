@@ -56,7 +56,6 @@ namespace SaveSystem
             var stream = new FileStream(path, FileMode.Create);
             formatter.Serialize(stream, checkPoint);
             stream.Close();
-            Debug.Log("CheckPoint Saved");
         }
         
         public static void LoadCheckPoint()
@@ -70,7 +69,6 @@ namespace SaveSystem
                 {
                     _checkPoint = formatter.Deserialize(stream) as CheckPoint;
                     _checkPoint?.Load();
-                    Debug.Log("CheckPoint Loaded");
                 }
                 stream.Close();
             }

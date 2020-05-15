@@ -1,10 +1,8 @@
 ﻿//Main author: Maximiliam Rosén
 
-using System;
 using PlayerController;
 using SaveSystem;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Managers
 {

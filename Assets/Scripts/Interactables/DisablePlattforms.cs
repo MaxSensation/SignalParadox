@@ -1,13 +1,29 @@
 ﻿using System;
+using Interactables.Button;
 using UnityEngine;
 
 public class DisablePlattforms : MonoBehaviour
 {
     public static Action OnDisablePlattformsEvent;
+    private bool hasBeenActivated;
+
+    private void Start()
+    {
+        GetComponent<ButtonController>().onStateChangeEvent += Disable;
+    }
+
+    private void Disable(ButtonController.ButtonStates state)
+    {
+        if (state == ButtonController.ButtonStates.Activated && !hasBeenActivated)
+        {
+            Disable();
+        }
+    }
 
     [ContextMenu("Disable All Plattforms")]
     public void Disable()
     {
+        hasBeenActivated = true;
         OnDisablePlattformsEvent?.Invoke();
     }
 }

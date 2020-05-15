@@ -38,7 +38,7 @@ namespace Interactables.Button
         {
             PlayerInteractionTrigger.onInteractedEvent -= OnButtonPressed;
         }
-
+        
         private void OnButtonPressed(GameObject button)
         {
             if (button != gameObject || _spamprotectionOn) return;
@@ -57,7 +57,8 @@ namespace Interactables.Button
             onStateChangeEvent?.Invoke(currentState);
             _spamprotectionOn = false;
         }
-
+        
+        [ContextMenu("PressButton")]
         private void ButtonPress()
         {
             _audioSource.PlayOneShot(accessGrantedSound);
