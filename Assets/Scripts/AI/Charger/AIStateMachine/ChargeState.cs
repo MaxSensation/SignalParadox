@@ -62,6 +62,7 @@ namespace AI.Charger.AIStateMachine
         {
             if ((previousFrameSpeed - Ai.rigidbody.velocity.magnitude) > 10f)
                 Ai.audioSource.PlayOneShot(hitWallSound);
+            Ai.rigidbody.velocity = Vector3.zero;
             previousFrameSpeed = 0f;
             if (hasCaughtPlayer || Ai.target.transform.parent == Ai.transform || Ai.target.transform.IsChildOf(Ai.transform)) //Icke fungerade även fast spelaren är child till chargern
                 Ai.KillPlayer();
