@@ -13,7 +13,7 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] protected Material material;
 
         public override void Enter()
-        { 
+        {
             //_renderer.material = material;
         }
 

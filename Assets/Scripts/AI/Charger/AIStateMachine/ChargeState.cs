@@ -9,12 +9,9 @@ namespace AI.Charger.AIStateMachine
     public class ChargeState : ChargerBaseState
     {
         [SerializeField] private float chargeSpeed;
-        [SerializeField] private LayerMask layerMask;
         [SerializeField] private AudioClip hitWallSound;
         private Vector3 _chargeDirection;
         private float previousFrameSpeed;
-        private bool hasCaughtPlayer;
-
         public override void Enter()
         {
             base.Enter();
@@ -23,32 +20,17 @@ namespace AI.Charger.AIStateMachine
 
         public override void Run()
         {
-            //Debug.Log(previousFrameSpeed - Ai.rigidbody.velocity.magnitude);
 
             if (!Ai.isDead)
             {
-                if ((previousFrameSpeed - Ai.rigidbody.velocity.magnitude) > 1f)
+                if ((previousFrameSpeed - Ai.rigidbody.velocity.magnitude) > 0f)
                     ChargeEnded();
 
                 if (!Ai.IsStunned())
                     Charge();
-
-                if (Ai.HasCollidedWithTaggedObjet())
-                {
-                    Debug.Log("bruh" + hasCaughtPlayer);
-                    Ai.target.transform.parent = Ai.transform;
-                    Ai.CaughtPlayer();
-                    hasCaughtPlayer = true;
-                }
-
             }
             else
                 stateMachine.TransitionTo<DeadState>();
-        }
-
-        private bool TouchingPlayer()
-        {
-            return Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < 2f;
         }
 
         private void Charge()
@@ -56,15 +38,22 @@ namespace AI.Charger.AIStateMachine
             previousFrameSpeed = Ai.rigidbody.velocity.magnitude;
             _chargeDirection = Ai.GetChargeDirection();
             Ai.rigidbody.AddForce(_chargeDirection.normalized * chargeSpeed * Time.deltaTime);
+            if (Ai.HasCollidedWithTaggedObjet())
+            {
+                Ai.target.transform.parent = Ai.transform;
+                Ai.CaughtPlayer();
+            }
         }
 
         public void ChargeEnded()
         {
             if ((previousFrameSpeed - Ai.rigidbody.velocity.magnitude) > 10f)
+            {
                 Ai.audioSource.PlayOneShot(hitWallSound);
-            Ai.rigidbody.velocity = Vector3.zero;
+                Ai.rigidbody.velocity = Vector3.zero;
+            }
             previousFrameSpeed = 0f;
-            if (hasCaughtPlayer || Ai.target.transform.parent == Ai.transform || Ai.target.transform.IsChildOf(Ai.transform)) //Icke fungerade även fast spelaren är child till chargern
+            if (Ai.target.transform.IsChildOf(Ai.transform))
                 Ai.KillPlayer();
             Ai.target.transform.parent = null;
             Ai.agent.enabled = true;
