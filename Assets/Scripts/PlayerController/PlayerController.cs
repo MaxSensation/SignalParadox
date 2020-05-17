@@ -72,7 +72,6 @@ namespace PlayerController
 
         private void Start()
         {
-            Debug.Log(SaveManager._worldData.PuzzleLabyrinthCompleted);
             onPlayerInit?.Invoke(gameObject);
         }
 

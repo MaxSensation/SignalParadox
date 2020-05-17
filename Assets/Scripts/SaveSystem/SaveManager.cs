@@ -11,78 +11,55 @@ namespace SaveSystem
     {
         public static void Init()
         {
-            _worldData = new WorldData();
+            WorldData = new WorldData();
             TriggerLoadNextLevel.onWantToLoadNextLevelEvent += SavePlayerData;
             TriggerCheckPoint.onTriggerCheckPoint += SaveCheckPoint;
             PlayerController.PlayerController.onPlayerDeath += LoadCheckPoint;
         }
 
+        public static bool HasSaveGame { get; private set; }
+        public static WorldData WorldData { get; private set; }
         private static CheckPoint _checkPoint;
-        public static WorldData _worldData;
+        private static PlayerData _playerData;
+
+        private static void SavePlayerData(PlayerData playerData) => _playerData = playerData;
+        public static void LoadPlayerData(GameObject player) => _playerData?.Load(player);
+        private static void SaveCheckPoint(CheckPoint checkPoint) => _checkPoint = checkPoint;
+        public static void LoadCheckPoint() => _checkPoint?.Load();
+        public static void LoadPlayerCheckPointData(GameObject player) => _checkPoint.LoadPlayerData(player);
         
-        private static void SavePlayerData(PlayerData playerData)
+        public static void SaveGame()
         {
             var formatter = new BinaryFormatter();
-            var path = Application.persistentDataPath + "/PlayerData.paradox";
+            var path = Application.persistentDataPath + "/SaveGame.paradox";
             var stream = new FileStream(path, FileMode.Create);
-            formatter.Serialize(stream, playerData);
+            formatter.Serialize(stream, new SaveGame(WorldData, _checkPoint, _playerData));
             stream.Close();
-            Debug.Log("PlayerData Saved");
         }
         
-        public static void LoadPlayerData(GameObject player)
+        public static void LoadSaveGame()
         {
-            var path = Application.persistentDataPath + "/PlayerData.paradox";
+            var path = Application.persistentDataPath + "/SaveGame.paradox";
             if (File.Exists(path))
             {
                 var formatter = new BinaryFormatter();
                 var stream = new FileStream(path, FileMode.Open);
                 if (stream.Length > 0)
                 {
-                    var playerData = formatter.Deserialize(stream) as PlayerData;
-                    playerData?.Load(player);
-                    Debug.Log("PlayerData Loaded");
+                    if (formatter.Deserialize(stream) is SaveGame saveGame)
+                    {
+                        WorldData = saveGame.WorldData;
+                        _checkPoint = saveGame.CheckPoint;
+                        _playerData = saveGame.PlayerData;
+                        HasSaveGame = true;
+                    }
                 }
                 stream.Close();
             }
             else
             {
-                Debug.Log("Save file not found! Are any checkpoint triggers placed on the level?");
+                Debug.Log("Save file not found!");
             }
-        }
-
-        private static void SaveCheckPoint(CheckPoint checkPoint)
-        {
-            var formatter = new BinaryFormatter();
-            var path = Application.persistentDataPath + "/CheckPoint.paradox";
-            var stream = new FileStream(path, FileMode.Create);
-            formatter.Serialize(stream, checkPoint);
-            stream.Close();
-        }
-        
-        public static void LoadCheckPoint()
-        {
-            var path = Application.persistentDataPath + "/CheckPoint.paradox";
-            if (File.Exists(path))
-            {
-                var formatter = new BinaryFormatter();
-                var stream = new FileStream(path, FileMode.Open);
-                if (stream.Length > 0)
-                {
-                    _checkPoint = formatter.Deserialize(stream) as CheckPoint;
-                    _checkPoint?.Load();
-                }
-                stream.Close();
-            }
-            else
-            {
-                Debug.Log("Save file not found! Are any checkpoint triggers placed on the level?");
-            }
-        }
-
-        public static void LoadPlayerCheckPointData(GameObject player)
-        {
-            _checkPoint.LoadPlayerData(player);
         }
     }
 }

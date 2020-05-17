@@ -4,6 +4,7 @@
     <e p="C:\GitHub\SignalParadox" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="ContinueButton.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="AI" t="Include">
             <e p="AIController.cs" t="Include" />
@@ -128,6 +129,7 @@
             <e p="CompleteGlassRoom.cs" t="Include" />
             <e p="CompleteLabyrinth.cs" t="Include" />
             <e p="PlayerData.cs" t="Include" />
+            <e p="SaveGame.cs" t="Include" />
             <e p="SaveManager.cs" t="Include" />
             <e p="WorldData.cs" t="Include" />
           </e>

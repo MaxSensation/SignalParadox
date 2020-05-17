@@ -1,4 +1,5 @@
 ﻿using System;
+using SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class ExitGame : MonoBehaviour
     private void EndGame()
     {
         print("Exited Game");
+        SaveManager.SaveGame();
         Application.Quit();
     }
 }

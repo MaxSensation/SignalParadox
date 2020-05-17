@@ -46,11 +46,15 @@ namespace Managers
             _firstLoad = false;
         }
 
-        
 
-        private static void LoadCheckPointNextSpawn()
+        internal static void LoadCheckPointNextSpawn()
         {
             _loadingCheckPointNextSpawn = true;
+        }
+
+        internal static void DisableFirstLoad()
+        {
+            _firstLoad = false;
         }
     }
 }
