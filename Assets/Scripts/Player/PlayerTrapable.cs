@@ -6,7 +6,7 @@ using AI.BodyTrapper;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PlayerController
+namespace Player
 {
     public class PlayerTrapable : MonoBehaviour
     {

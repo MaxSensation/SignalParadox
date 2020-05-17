@@ -8,8 +8,8 @@ public class CompleteLabyrinth : MonoBehaviour
     [SerializeField] private ButtonController _buttonController;
     private void Awake()
     {
-        DisablePlattforms.onDisablePlattformsEvent += () => SaveManager.WorldData.PuzzleLabyrinthCompleted = true;
-        if (SaveManager.WorldData.PuzzleLabyrinthCompleted)
+        DisablePlattforms.onDisablePlattformsEvent += () => SaveManager.WorldEventsData.PuzzleLabyrinthCompleted = true;
+        if (SaveManager.WorldEventsData.PuzzleLabyrinthCompleted)
             StartCoroutine(ActivateButton());
     }
 

@@ -528,9 +528,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'EXIT
-
-'
+  m_Text: EXIT
 --- !u!222 &530493002
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2697,8 +2695,9 @@ GameObject:
   - component: {fileID: 1983759953}
   - component: {fileID: 1983759952}
   - component: {fileID: 1983759955}
+  - component: {fileID: 1983759956}
   m_Layer: 5
-  m_Name: StartButton
+  m_Name: NewGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2816,6 +2815,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelToLoad: Level1
+--- !u!114 &1983759956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983759950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 966e16606b4f87748a440f02752b0553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2057643351
 GameObject:
   m_ObjectHideFlags: 0

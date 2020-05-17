@@ -2,7 +2,7 @@
 using AI.BodyTrapper;
 using AI.BodyTrapper.AIStateMachine;
 using Interactables.Traps;
-using PlayerController;
+using Player;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]

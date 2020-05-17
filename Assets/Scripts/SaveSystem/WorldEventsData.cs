@@ -3,7 +3,7 @@
 namespace SaveSystem
 {
     [Serializable]
-    public class WorldData
+    public class WorldEventsData
     {
         //Level 3 Special Events
         public bool PuzzleLabyrinthCompleted { get; set; }

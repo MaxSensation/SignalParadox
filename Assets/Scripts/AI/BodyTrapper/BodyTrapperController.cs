@@ -7,7 +7,7 @@ using AI.BodyTrapper.AIStateMachine;
 using EchoLocation;
 using Interactables.Traps;
 using Interactables.Triggers;
-using PlayerController;
+using Player;
 using UnityEngine;
 using UnityEngine.AI;
 

@@ -1,6 +1,5 @@
 ﻿//Main author: Maximiliam Rosén
 
-using PlayerController;
 using SaveSystem;
 using UnityEngine;
 
@@ -9,7 +8,6 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         private static GameObject _gameManager;
-        private static bool _loadingCheckPointNextSpawn, _firstLoad;
 
         private void Awake()
         {
@@ -21,40 +19,7 @@ namespace Managers
             {
                 SaveManager.Init();
                 DontDestroyOnLoad(this);
-                _loadingCheckPointNextSpawn = false;
-                _firstLoad = true;
-                PlayerController.PlayerController.onPlayerInit += LoadCheckPointOrPlayerData;
-                PlayerController.PlayerController.onPlayerDeath += LoadCheckPointNextSpawn;   
             }
-        }
-
-        private static void LoadCheckPointOrPlayerData(GameObject player)
-        {
-            if (!_firstLoad)
-            {
-                if (_loadingCheckPointNextSpawn)
-                {
-                    SaveManager.LoadPlayerCheckPointData(player);
-                }else
-                    SaveManager.LoadPlayerData(player);
-                _loadingCheckPointNextSpawn = false;
-            }
-            else
-            {
-                player.GetComponent<HealthSystem>().ResetHealth();
-            }
-            _firstLoad = false;
-        }
-
-
-        internal static void LoadCheckPointNextSpawn()
-        {
-            _loadingCheckPointNextSpawn = true;
-        }
-
-        internal static void DisableFirstLoad()
-        {
-            _firstLoad = false;
         }
     }
 }

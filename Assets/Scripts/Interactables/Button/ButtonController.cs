@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections;
-using PlayerController;
+using Player;
 using UnityEngine;
 
 namespace Interactables.Button

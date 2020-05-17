@@ -4,11 +4,11 @@ using Interactables.Traps;
 using System;
 using UnityEngine;
 
-namespace PlayerController
+namespace Player
 {
     public class HealthSystem : MonoBehaviour
     {
-        [SerializeField] private int maxHealth;
+        private static readonly int maxHealth = 4;
         public static Action<int> onPlayerTakeDamageEvent;
         public static Action<DamageType> OnPlayerDeath;
         public static Action<int> onInitEvent;
@@ -72,7 +72,7 @@ namespace PlayerController
             LaserController.onLaserDeath -= LaserDamage;
         }
 
-        public int GetMaxHP()
+        public static int GetMaxHP()
         {
             return maxHealth;
         }

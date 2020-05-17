@@ -2,11 +2,11 @@
 //Secondary author: Andreas Berzelius
 
 using System;
-using PlayerController.PlayerStateMachine;
+using Player.PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PlayerController
+namespace Player
 {
     public class PlayerAnimatorController : MonoBehaviour
     {

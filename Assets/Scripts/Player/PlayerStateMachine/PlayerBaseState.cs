@@ -2,12 +2,12 @@
 
 using UnityEngine;
 
-namespace PlayerController.PlayerStateMachine
+namespace Player.PlayerStateMachine
 {
     public abstract class PlayerBaseState : State
     {
         private PlayerController _player;
-        protected PlayerController Player => _player = _player ? _player : (global::PlayerController.PlayerController)owner;
+        protected PlayerController Player => _player = _player ? _player : (global::Player.PlayerController)owner;
         protected Vector3 Velocity { get => Player.GetVelocity(); set => Player.SetVelocity(value); }
         protected CapsuleCollider PlayerCollider => Player.GetPlayerCollider();
         protected Vector3 Position { get => Player.GetPosition(); set => Player.SetPosition(value); }

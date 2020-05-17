@@ -1,6 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 
 using System;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,12 +15,12 @@ namespace SaveSystem
         private readonly float[] position;
         private readonly float[] rotation;
 
-        public void Load()
+        public void LoadScene()
         {
             SceneManager.LoadScene(currentScene);
         }
 
-        public void LoadPlayerData(GameObject player)
+        public void Load(GameObject player)
         {
             playerData.Load(player);
             playerData.LoadPosition(player,
@@ -29,12 +30,14 @@ namespace SaveSystem
 
         public CheckPoint(GameObject player, Transform checkPointTransform)
         {
-            playerData = new PlayerData(player, true);
+            playerData = new PlayerData(player);
             var checkPointPosition = checkPointTransform.position;
             var checkPointRotation = checkPointTransform.rotation;
             position = new []{checkPointPosition.x, checkPointPosition.y, checkPointPosition.z};
             rotation = new []{checkPointRotation.x, checkPointRotation.y, checkPointRotation.z, checkPointRotation.w};
             currentScene = SceneManager.GetActiveScene().name;
         }
+
+        public void ResetHealth() => playerData.Health = HealthSystem.GetMaxHP();
     }
 }

@@ -3,7 +3,7 @@
 using System;
 using UnityEngine;
 
-namespace PlayerController.PlayerStateMachine
+namespace Player.PlayerStateMachine
 {
     [CreateAssetMenu(menuName = "PlayerState/PushingState")]
     public class PushingState : PlayerBaseState

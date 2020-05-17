@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace PlayerController.PlayerStateMachine
+namespace Player.PlayerStateMachine
 {
     [CreateAssetMenu(menuName = "PlayerState/LandState")]
     public class LandState : PlayerBaseState

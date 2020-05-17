@@ -26,7 +26,7 @@ namespace AI
             _collider = GetComponent<CapsuleCollider>();
             aihRenderer = transform.GetChild(0).GetComponent<Renderer>();
             rigidbody = GetComponent<Rigidbody>();
-            target = FindObjectOfType<PlayerController.PlayerController>().gameObject;
+            target = FindObjectOfType<Player.PlayerController>().gameObject;
             agent = GetComponent<NavMeshAgent>();
             _stateMachine = new StateMachine(this, states);
         }

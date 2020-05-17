@@ -1,7 +1,7 @@
 ﻿//Main author: Ferreira Dos Santos Keziah
 
 using UnityEngine;
-using PlayerController.PlayerStateMachine;
+using Player.PlayerStateMachine;
 namespace FootStepSound
 {
     public class DynamicFootStep : MonoBehaviour

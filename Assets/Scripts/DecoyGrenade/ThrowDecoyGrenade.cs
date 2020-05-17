@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using PlayerController.PlayerStateMachine;
+using Player.PlayerStateMachine;
 using UnityEngine.InputSystem;
-using PlayerController;
+using Player;
 using AI.Charger;
 
 [RequireComponent(typeof(Rigidbody), typeof(GameObject))]

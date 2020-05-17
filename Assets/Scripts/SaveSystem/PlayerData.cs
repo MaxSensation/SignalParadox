@@ -1,7 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 
 using System;
-using PlayerController;
+using Player;
 using UnityEngine;
 
 namespace SaveSystem
@@ -9,19 +9,19 @@ namespace SaveSystem
     [Serializable]
     public class PlayerData
     {
-        private readonly int health;
+        public int Health { get; set; }
         private readonly int amountOfDecoys;
         
-        public PlayerData(GameObject player, bool savedAtCheckpoint)
+        public PlayerData(GameObject player)
         {
             var healthSystem = player.GetComponent<HealthSystem>();
-            health = savedAtCheckpoint ? healthSystem.GetMaxHP() : healthSystem.CurrentHealth;
+            Health = healthSystem.CurrentHealth;
             amountOfDecoys = player.GetComponent<ThrowDecoyGrenade>().GetCurrentAmountOfGrenades();
         }
 
         public void Load(GameObject player)
         {
-            player.GetComponent<HealthSystem>().SetHealth(health);
+            player.GetComponent<HealthSystem>().SetHealth(Health);
             player.GetComponent<ThrowDecoyGrenade>().SetCurrentAmountOfGrenades(amountOfDecoys);
             if (amountOfDecoys > 0)
                 GameObject.Find("DecoyGrenadeProp").GetComponent<PropDecoyGrenade>().Activate(1);

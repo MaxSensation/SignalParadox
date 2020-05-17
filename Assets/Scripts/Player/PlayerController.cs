@@ -7,12 +7,12 @@ using AI.Charger;
 using EchoLocation;
 using Interactables.Pushables;
 using Managers;
-using PlayerController.PlayerStateMachine;
+using Player.PlayerStateMachine;
 using SaveSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PlayerController
+namespace Player
 {
     public class PlayerController : MonoBehaviour
     {

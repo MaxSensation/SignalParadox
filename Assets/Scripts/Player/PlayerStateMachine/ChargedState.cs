@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace PlayerController.PlayerStateMachine
+namespace Player.PlayerStateMachine
 {
     [CreateAssetMenu(menuName = "PlayerState/ChargedState")]
     public class ChargedState : PlayerBaseState

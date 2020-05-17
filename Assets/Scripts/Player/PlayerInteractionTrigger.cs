@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace PlayerController
+namespace Player
 {
     public class PlayerInteractionTrigger : MonoBehaviour
     {

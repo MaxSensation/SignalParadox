@@ -9,14 +9,14 @@ public class CompleteGlassRoom : MonoBehaviour
     private void Awake()
     {
         GetComponent<ButtonController>().onStateChangeEvent += Save;
-        if (SaveManager.WorldData.PuzzleGlassRoomCompleted)
+        if (SaveManager.WorldEventsData.PuzzleGlassRoomCompleted)
             StartCoroutine(ActivateButton());
     }
 
     private void Save(ButtonController.ButtonStates state)
     {
         if (state == ButtonController.ButtonStates.Activated)
-            SaveManager.WorldData.PuzzleGlassRoomCompleted = true;
+            SaveManager.WorldEventsData.PuzzleGlassRoomCompleted = true;
     }
 
     private IEnumerator ActivateButton()
