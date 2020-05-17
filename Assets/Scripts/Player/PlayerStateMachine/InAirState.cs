@@ -42,8 +42,6 @@ namespace Player.PlayerStateMachine
                 var deceleration = Physic3D.GetDeceleration(Velocity, decelerateSpeed, decelerateThreshold);
                 if (deceleration != Vector3.zero)
                     Velocity -= deceleration;
-                else
-                    Velocity = Vector3.zero;
             }
         }
     }
