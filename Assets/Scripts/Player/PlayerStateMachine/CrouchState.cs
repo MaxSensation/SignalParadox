@@ -69,7 +69,13 @@ namespace Player.PlayerStateMachine
             if (inputVector.magnitude > 0) 
                 Velocity += Physic3D.GetAcceleration(inputVector, accelerationSpeed + Physic3D.GetTurnVelocity(inputVector, Velocity.normalized));
             else
-                Velocity -= Physic3D.GetDeceleration(Velocity, decelerateSpeed, decelerateThreshold);
+            {
+                var deceleration = Physic3D.GetDeceleration(Velocity, decelerateSpeed, decelerateThreshold);
+                if (deceleration != Vector3.zero)
+                    Velocity -= deceleration;
+                else
+                    Velocity = Vector3.zero;
+            }
 
             LimitVelocity();
         }

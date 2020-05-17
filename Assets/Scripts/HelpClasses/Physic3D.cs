@@ -37,8 +37,7 @@ public static class Physic3D
         decelerateVector.y = 0;
         if (decelerateVector.magnitude > decelerateThreshold)
             return decelerateVector.normalized * (decelerateSpeedCoefficient * Time.deltaTime);
-        else
-            return velocity = Vector3.zero;
+        return Vector3.zero;
     }
 
     public static float GetTurnVelocity(Vector3 forces, Vector3 velocity)

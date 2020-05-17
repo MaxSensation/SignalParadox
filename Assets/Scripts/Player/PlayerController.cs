@@ -122,7 +122,6 @@ namespace Player
             UpdateCapsuleInfo();
             // Run CurrentState
             _stateMachine.Run();
-            //Ta bort efter spelredovisning
             // Add gravity to velocity
             velocity += Physic3D.GetGravity();
             // Limit the velocity to terminalVelocity
