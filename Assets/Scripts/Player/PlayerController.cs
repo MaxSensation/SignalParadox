@@ -113,7 +113,6 @@ namespace Player
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            
         }
 
         private void Update()
@@ -128,8 +127,6 @@ namespace Player
             LimitVelocity();
             // Add Air resistant to the player
             velocity *= Physic3D.GetAirResistant();
-            // Fix weird collision clips
-            AddOverLayCorrection();
             // Only Move Player as close as possible to the collision
             transform.position += FixCollision();
         }
@@ -210,23 +207,7 @@ namespace Player
             // Else just return the direction
             return direction * (accelerationSpeed * Time.deltaTime);
         }
-
-        private void AddOverLayCorrection()
-        {
-            // Get all collides overlapping with the player collider 
-            var overlapCollides = Physics.OverlapCapsule(_point1, _point2, _collider.radius, collisionLayer);
-            // Loop thru all colliders
-            foreach (var overlapCollider in overlapCollides)
-            {
-                // Get the closest point on the player to the collider
-                var playerClosestPointOnBounds = _collider.ClosestPointOnBounds(overlapCollider.transform.position);
-                // Get the closest point on the collider to the player
-                var colliderOverLapClosestPointOnBounds = overlapCollider.ClosestPointOnBounds(playerClosestPointOnBounds);
-                // Add force to the player in the direction from collision point on player to collider
-                velocity += -velocity.normalized * ((colliderOverLapClosestPointOnBounds.magnitude + overlayColliderResistant * 100.0f) * Time.deltaTime);
-            }
-        }
-
+        
         private Vector3 CorrectInputVectorFromCamera(Vector3 inputVector)
         {
             // Get the horizontal projection velocity
