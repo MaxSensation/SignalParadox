@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//Main author: Maximiliam Rosén
+
+using System.Collections;
 using Interactables.Button;
 using SaveSystem;
 using UnityEngine;
