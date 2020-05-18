@@ -42,7 +42,6 @@ namespace SaveSystem
         private static void SpawnWithFullHealth(GameObject player)
         {
             player.GetComponent<HealthSystem>().ResetHealth();
-            Debug.Log("Test");
             PlayerController.onPlayerInit -= SpawnWithFullHealth;
         }
 
