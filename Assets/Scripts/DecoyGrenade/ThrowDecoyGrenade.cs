@@ -173,7 +173,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
         {
             OnAimingEvent?.Invoke();
 
-            for (int i = 0; i < resolution; i++)
+            for (int i = 0; i <= resolution; i++)
             {
 
                 float simulationTime = i / (float)resolution * launchData.timeToTarget;
