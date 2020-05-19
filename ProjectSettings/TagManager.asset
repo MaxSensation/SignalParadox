@@ -4,7 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Shootable
+  - PushableBox
+  - Button
+  - Enemy
+  - Interactable
+  - SoundEmitter
+  - Receiver
+  - FootSounds
+  - Decoy
   layers:
   - Default
   - TransparentFX
@@ -14,15 +21,15 @@ TagManager:
   - UI
   - 
   - 
-  - Lighting
-  - Ground
-  - Postprocessing
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Colliders
+  - DecoyPassThru
+  - PlayerTriggers
+  - Player
+  - Enemies
+  - PostProcess
+  - Receivers
+  - Traps
+  - GrenadeLayer
   - 
   - 
   - 
@@ -39,9 +46,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Fire
-    uniqueID: 3804908061
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
