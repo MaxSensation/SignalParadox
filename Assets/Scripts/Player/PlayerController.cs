@@ -6,9 +6,7 @@ using System.Collections;
 using AI.Charger;
 using EchoLocation;
 using Interactables.Pushables;
-using Managers;
 using Player.PlayerStateMachine;
-using SaveSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +22,6 @@ namespace Player
         [SerializeField] [Range(0f, 10f)] private float dynamicFriction;
         [SerializeField] [Range(0f, 1f)] private float skinWidth;
         [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
-        [SerializeField] [Range(0f, 100f)] private float overlayColliderResistant;
         [SerializeField] private LayerMask collisionLayer;
         [SerializeField] private Vector3 velocity;
         private BoxCollider _interactTrigger;
@@ -43,6 +40,7 @@ namespace Player
         internal bool hasInputCrouch;
         internal IPushable currentPushableObject;
         internal bool endingPushingState;
+        public bool InCinimatic { get; set; }
 
         // Events
         public static Action onPlayerDeath;
@@ -188,6 +186,7 @@ namespace Player
 
         public void UpdateInputVector(InputAction.CallbackContext context)
         {
+            if (InCinimatic) return;
             var value = context.ReadValue<Vector2>();
             currentDirection = new Vector3(value.x, 0, value.y);
         }
