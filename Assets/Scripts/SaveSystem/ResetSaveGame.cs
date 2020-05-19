@@ -21,7 +21,7 @@ namespace SaveSystem
 
         private static void InvokeLoadLevelEvent()
         {
-            SaveManager.SpawnWithFullHealthNextPlayerInstance();
+            SaveManager.Reset();
         }
     }
 }

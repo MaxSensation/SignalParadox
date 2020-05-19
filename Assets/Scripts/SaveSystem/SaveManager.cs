@@ -95,5 +95,11 @@ namespace SaveSystem
             var path = Application.persistentDataPath + "/SaveGame.paradox";
             return File.Exists(path);
         }
+
+        public static void Reset()
+        {
+            SpawnWithFullHealthNextPlayerInstance();
+            WorldEventsData = new WorldEventsData();
+        }
     }
 }
