@@ -6,12 +6,11 @@ using Player;
 
 public class PickupDecoyGrenade : MonoBehaviour
 {
-    [SerializeField] private int _grenadeAmount = 1;
     [SerializeField] private bool _shouldDespawnOnPickup = true;
     private AudioSource audioSource;
     private bool hasGrenade;
 
-    public static Action<int> onGrenadePickup;
+    public static Action onGrenadePickup;
 
     private void Awake()
     {
@@ -36,7 +35,7 @@ public class PickupDecoyGrenade : MonoBehaviour
         if (gameObject == obj && !hasGrenade)
         {
             audioSource.Play();
-            onGrenadePickup?.Invoke(_grenadeAmount);
+            onGrenadePickup?.Invoke();
             gameObject.SetActive(!_shouldDespawnOnPickup);
         }
     }

@@ -87,10 +87,10 @@ public class ThrowDecoyGrenade : MonoBehaviour
     }
 
     //on pickup increase players current amount of grenades
-    private void IncreaseMaxThrowableGrenades(int pickedUpAmount)
+    private void IncreaseMaxThrowableGrenades()
     {
-        if (currentAmountOfGrenades >= pickedUpAmount) return;
-        currentAmountOfGrenades = pickedUpAmount;
+        if (currentAmountOfGrenades >= 1) return;
+        currentAmountOfGrenades = 1;
         OnPickedUpGrenade?.Invoke();
     }
 

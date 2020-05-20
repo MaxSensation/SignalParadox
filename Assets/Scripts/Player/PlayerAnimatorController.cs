@@ -147,7 +147,7 @@ namespace Player
             _newMovement = context.ReadValue<Vector2>();
         }
 
-        private void OnPickedUpDecoy(int ignore)
+        private void OnPickedUpDecoy()
         {
             if (!hasDecoy)
             {

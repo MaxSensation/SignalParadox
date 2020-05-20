@@ -24,7 +24,7 @@ namespace SaveSystem
             player.GetComponent<HealthSystem>().SetHealth(Health);
             player.GetComponent<ThrowDecoyGrenade>().SetCurrentAmountOfGrenades(amountOfDecoys);
             if (amountOfDecoys > 0)
-                GameObject.Find("DecoyGrenadeProp").GetComponent<PropDecoyGrenade>().Activate(1);
+                GameObject.Find("DecoyGrenadeProp").GetComponent<PropDecoyGrenade>().Activate();
         }
 
         public void LoadPosition(GameObject player, Vector3 position, Quaternion rotation)
