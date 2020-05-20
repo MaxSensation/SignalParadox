@@ -2,25 +2,40 @@
 
 using UnityEngine;
 using System;
+using Player;
 
 public class PickupDecoyGrenade : MonoBehaviour
 {
     [SerializeField] private int _grenadeAmount = 1;
     [SerializeField] private bool _shouldDespawnOnPickup = true;
     private AudioSource audioSource;
+    private bool hasGrenade;
 
     public static Action<int> onGrenadePickup;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        ThrowDecoyGrenade.OnPickedUpGrenade += Pickup;
+        PlayerInteractionTrigger.onInteractedEvent += Pickup;
+        ThrowDecoyGrenade.OnPickedUpGrenade += PickedUpGrenade;
+        ThrowDecoyGrenade.OnThrowEvent += ThrownGrenade;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void ThrownGrenade()
     {
-        if (other.CompareTag("Player"))
+        hasGrenade = false;
+    }
+
+    private void PickedUpGrenade()
+    {
+        hasGrenade = true;
+    }
+
+    private void Pickup(GameObject obj)
+    {
+        if (gameObject == obj && !hasGrenade)
         {
+            audioSource.Play();
             onGrenadePickup?.Invoke(_grenadeAmount);
             gameObject.SetActive(!_shouldDespawnOnPickup);
         }
@@ -28,11 +43,8 @@ public class PickupDecoyGrenade : MonoBehaviour
 
     private void OnDestroy()
     {
-        ThrowDecoyGrenade.OnPickedUpGrenade -= Pickup;
-    }
-
-    private void Pickup()
-    {
-        audioSource.Play();
+        PlayerInteractionTrigger.onInteractedEvent -= Pickup;
+        ThrowDecoyGrenade.OnPickedUpGrenade -= PickedUpGrenade;
+        ThrowDecoyGrenade.OnThrowEvent -= ThrownGrenade;
     }
 }
