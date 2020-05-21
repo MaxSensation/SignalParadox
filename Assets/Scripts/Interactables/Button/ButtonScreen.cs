@@ -32,6 +32,8 @@ public class ButtonScreen : MonoBehaviour
 
     private void UpdateColor(ButtonController.ButtonStates state)
     {
-        _renderer.material.color = _colorMap[state];
+        var block = new MaterialPropertyBlock();
+        block.SetColor("_BaseColor", _colorMap[state]);
+        _renderer.SetPropertyBlock(block);
     }
 }

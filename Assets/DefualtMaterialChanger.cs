@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿//Main author: Maximiliam Rosén
+
+using UnityEditor;
 using UnityEngine;
 
 public class DefaultMaterialChanger : EditorWindow
