@@ -15,7 +15,7 @@ namespace Player.PlayerStateMachine
         }
         public override void Run()
         {
-            if (Player.GetIsPlayerCharged())
+            if (Ischarged)
                 stateMachine.TransitionTo<ChargedState>();
 
             // If any move Input then change to MoveState

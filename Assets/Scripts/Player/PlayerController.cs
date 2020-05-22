@@ -15,7 +15,7 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         // Events
-        [Header("PlayerSettings")] 
+        [Header("PlayerSettings")]
         [SerializeField] [Range(1f, 500f)] private float terminalVelocity;
         [SerializeField] [Range(0f, 10f)] private float dynamicFriction;
         [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
@@ -25,32 +25,31 @@ namespace Player
         [SerializeField] private World world;
         public static Action onPlayerDeath;
         public static Action<GameObject> onPlayerInit;
-        public State[] states;        
+        public State[] states;
         internal CapsuleCollider PlayerCollider { get; private set; }
         internal GameObject PlayerMesh { get; private set; }
         internal Vector3 Point1 { get; private set; }
         internal Vector3 Point2 { get; private set; }
         internal Vector3 CurrentDirection { get; private set; }
         internal SoundProvider Transmitter { get; private set; }
-        internal IPushable CurrentPushableObject{ get; set; }
+        internal IPushable CurrentPushableObject { get; set; }
         internal bool IsTrapped { get; private set; }
         internal bool HasInputCrouch { get; private set; }
-        internal bool EndingPushingState{ get; set; }
+        internal bool EndingPushingState { get; set; }
+        internal bool IsPlayerCharged { get; private set; }
+        internal Vector3 Velocity { get; set; }
         private bool InCinematic { get; set; }
-        private bool isPlayerCharged;
         private StateMachine stateMachine;
         private Transform cameraTransform;
-        private Vector3 velocity;
 
         private void Awake()
-        {        
+        {
             Transmitter = transform.GetComponentInChildren<SoundProvider>();
             PlayerMesh = transform.Find("PlayerMesh").gameObject;
             stateMachine = new StateMachine(this, states);
-            velocity = Vector3.zero;
             if (Camera.main != null) cameraTransform = Camera.main.transform;
             PlayerCollider = GetComponent<CapsuleCollider>();
-            Physic3D.LoadWorldParameters(world);           
+            Physic3D.LoadWorldParameters(world);
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
             PushableBox.onPushStateEvent += HandlePushEvent;
@@ -115,11 +114,11 @@ namespace Player
             // Run CurrentState
             stateMachine.Run();
             // Add gravity to velocity
-            velocity += Physic3D.GetGravity();
+            Velocity += Physic3D.GetGravity();
             // Limit the velocity to terminalVelocity
             LimitVelocity();
             // Add Air resistant to the player
-            velocity *= Physic3D.GetAirResistant();
+            Velocity *= Physic3D.GetAirResistant();
             // Only Move Player as close as possible to the collision
             transform.position += FixCollision();
         }
@@ -152,31 +151,31 @@ namespace Player
         private void LimitVelocity()
         {
             // If currentVelocity is greater then terminalVelocity then set the currentVelocity to terminalVelocity
-            if (velocity.magnitude > terminalVelocity)
-                velocity = velocity.normalized * terminalVelocity;
+            if (Velocity.magnitude > terminalVelocity)
+                Velocity = Velocity.normalized * terminalVelocity;
         }
 
         private Vector3 FixCollision()
         {
             // Get totalMovement possible per frame
-            var movementPerFrame = velocity * Time.deltaTime;
+            var movementPerFrame = Velocity * Time.deltaTime;
             while (true)
             {
                 // Get hit from CapsuleCast in the direction as Velocity
-                var hit = GetRayCast(velocity.normalized, float.PositiveInfinity);
+                var hit = GetRayCast(Velocity.normalized, float.PositiveInfinity);
                 // If any collision continue 
                 if (!hit.collider) break;
                 // If AllowedDistance is greater then MovementPerFrame magnitude continue
                 if (hit.distance + skinWidth / Vector3.Dot(movementPerFrame.normalized, hit.normal) >=
                     movementPerFrame.magnitude) break;
                 // Get NormalForce
-                var normalForce = Physic3D.GetNormalForce(velocity, hit.normal);
+                var normalForce = Physic3D.GetNormalForce(Velocity, hit.normal);
                 // Add NormalForce To velocity
-                velocity += normalForce;
+                Velocity += normalForce;
                 // Add Friction to Velocity
-                velocity = Physic3D.GetFriction(velocity, normalForce.magnitude, dynamicFriction, staticFriction);
+                Velocity = Physic3D.GetFriction(Velocity, normalForce.magnitude, dynamicFriction, staticFriction);
                 // Add the new MovementPerFrame
-                movementPerFrame = velocity * Time.deltaTime;
+                movementPerFrame = Velocity * Time.deltaTime;
             }
 
             // Return the possible movement per frame based on collisions
@@ -226,41 +225,13 @@ namespace Player
             return hit;
         }
 
+        private void PlayerIsCharged() => IsPlayerCharged = true;
 
-        internal float GetGroundCheckDistance()
-        {
-            return groundCheckDistance;
-        }
+        internal float GetGroundCheckDistance() => groundCheckDistance;
 
-        internal float GetSkinWidth()
-        {
-            return skinWidth;
-        }
+        internal float GetSkinWidth() => skinWidth;
 
-        internal Vector3 GetVelocity()
-        {
-            return velocity;
-        }
-
-        internal void SetVelocity(Vector3 velocity)
-        {
-            this.velocity = velocity;
-        }
-        
-        internal bool GetIsPlayerCharged()
-        {
-            return isPlayerCharged;
-        }
-
-        private void PlayerIsCharged()
-        {
-            isPlayerCharged = true;
-        }
-
-        internal void StartEndingPushingState()
-        {
-            StartCoroutine("EndPushingState");
-        }
+        internal void StartEndingPushingState() => StartCoroutine("EndPushingState");
 
         private IEnumerator EndPushingState()
         {

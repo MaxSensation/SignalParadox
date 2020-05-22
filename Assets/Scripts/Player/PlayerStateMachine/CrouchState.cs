@@ -48,7 +48,7 @@ namespace Player.PlayerStateMachine
         public override void Run()
         {
 
-            if (Player.GetIsPlayerCharged())
+            if (Ischarged)
                 stateMachine.TransitionTo<ChargedState>();
             
 

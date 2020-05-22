@@ -20,7 +20,7 @@ namespace Player.PlayerStateMachine
         
         public override void Run()
         {
-            if (Player.GetIsPlayerCharged())
+            if (Ischarged)
                 stateMachine.TransitionTo<ChargedState>();
 
             // If Player is not grounded then change state to In Air State

@@ -12,7 +12,7 @@ namespace Player.PlayerStateMachine
         public override void Enter()
         {
             Player.Transmitter.SetSoundStrength(1 - soundStrength);
-            if (Player.GetIsPlayerCharged())
+            if (Ischarged)
                 stateMachine.TransitionTo<ChargedState>();
             //Debug.Log("Entered Land State");
             if ( Velocity.magnitude <= 0f || Vector3.Dot(Velocity, Vector3.down) > 0.5f)
