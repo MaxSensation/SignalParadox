@@ -45,7 +45,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
         _grenadeRigidBody = grenadePrefab.GetComponent<Rigidbody>();
         _playerMeshPos = transform.Find("PlayerMesh").transform;
         _cameraPosition = Camera.main.transform;
-        _hand = GameObject.Find("mixamorig:RightHand").transform;
+        _hand = GameObject.Find("Character1_RightHand").transform;
         _camera = Camera.main.gameObject;
         _storedLinePoints = new List<Vector3>();
         PickupDecoyGrenade.onGrenadePickup += IncreaseMaxThrowableGrenades;
