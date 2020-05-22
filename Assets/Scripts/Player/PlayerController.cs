@@ -41,6 +41,8 @@ namespace Player
         private bool InCinematic { get; set; }
         private StateMachine stateMachine;
         private Transform cameraTransform;
+        
+        private void Start() => onPlayerInit?.Invoke(gameObject);
 
         private void Awake()
         {
@@ -70,11 +72,6 @@ namespace Player
             PlayerAnimatorController.OnDeathAnimEnd -= Die;
         }
 
-        private void Start()
-        {
-            onPlayerInit?.Invoke(gameObject);
-        }
-
         private void EnableTrapped()
         {
             EndingPushingState = true;
@@ -95,10 +92,8 @@ namespace Player
                 CurrentPushableObject = pushable;
                 stateMachine.TransitionTo<PushingState>();
             }
-            else
-            {
-                EndingPushingState = true;
-            }
+            else            
+                EndingPushingState = true;            
         }
 
         private void OnEnable()
@@ -129,16 +124,10 @@ namespace Player
                 Die();
         }
 
-        private void PlayerIsDying()
-        {
-            stateMachine.TransitionTo<DeadState>();
-        }
+        private void PlayerIsDying() => stateMachine.TransitionTo<DeadState>();
+        
 
-        private void Die()
-        {
-            Debug.Log("Player Died");
-            onPlayerDeath?.Invoke();
-        }
+        private void Die() => onPlayerDeath?.Invoke();        
 
         internal void UpdateCapsuleInfo()
         {
@@ -189,10 +178,8 @@ namespace Player
             CurrentDirection = new Vector3(value.x, 0, value.y);
         }
 
-        public void OnInputCrouch(InputAction.CallbackContext context)
-        {
-            HasInputCrouch = context.performed;
-        }
+        public void OnInputCrouch(InputAction.CallbackContext context) => HasInputCrouch = context.performed;
+        
 
         internal Vector3 GetInputVector(float accelerationSpeed)
         {
