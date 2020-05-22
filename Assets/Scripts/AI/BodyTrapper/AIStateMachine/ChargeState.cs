@@ -1,6 +1,5 @@
 ﻿//Main author: Maximiliam Rosén
 
-using AI.AIStateMachine;
 using UnityEngine;
 
 namespace AI.BodyTrapper.AIStateMachine

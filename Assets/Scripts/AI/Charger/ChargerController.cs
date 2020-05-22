@@ -13,7 +13,6 @@ namespace AI.Charger
     {
         [SerializeField] private int chargeUpTime = 1;
         [SerializeField] private float stunnedTime = 0.5f;
-        private bool hasChargedUp;
         private Vector3 chargeDirection;
         private EnemyTrigger enemyTrigger;
         private Coroutine onlyStunTime, chargeTime;
@@ -53,14 +52,13 @@ namespace AI.Charger
             yield return chargeUpTimeSeconds;
             if (agent.enabled)
                 agent.isStopped = false;
-            hasChargedUp = true;
+            stateMachine.TransitionTo<AIStateMachine.ChargeState>();
             StopCoroutine(chargeTime);
         }
 
         internal void ChargeUp()
         {
             agent.isStopped = true;
-            hasChargedUp = false;
             chargeTime = StartCoroutine(ChargeTime());
         }
 
@@ -68,11 +66,6 @@ namespace AI.Charger
         {
             isStunned = true;
             onlyStunTime = StartCoroutine(StunTime());
-        }
-
-        internal bool GetHasChargedUp()
-        {
-            return hasChargedUp;
         }
 
         internal void SetChargeDirection()
