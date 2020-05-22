@@ -30,7 +30,7 @@ namespace AI.BodyTrapper.AIStateMachine
             
             Ai.TouchingPlayer();
             
-            if (Grounded() && Vector3.Dot(Vector3.up, Ai.rigidbody.velocity) <= 0 || !Ai.isStuckOnPlayer && !Ai.canAttack)
+            if (Grounded() && Vector3.Dot(Vector3.up, Ai.aiRigidbody.velocity) <= 0 || !Ai.isStuckOnPlayer && !Ai.canAttack)
             {
                 stateMachine.TransitionTo<StunState>();
             }
@@ -44,7 +44,7 @@ namespace AI.BodyTrapper.AIStateMachine
         private void Jump()
         {
             Ai.audioSource.PlayOneShot(jumpSound);
-            Ai.rigidbody.velocity = Ai.jumpDirection * jumpLength + Vector3.up * (jumpHeight);
+            Ai.aiRigidbody.velocity = Ai.jumpDirection * jumpLength + Vector3.up * (jumpHeight);
         }
     }
 }

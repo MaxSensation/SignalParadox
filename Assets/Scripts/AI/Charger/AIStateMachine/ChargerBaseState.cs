@@ -8,8 +8,7 @@ namespace AI.Charger.AIStateMachine
     {
         private ChargerController _ai;
         protected ChargerController Ai => _ai = _ai ? _ai : (ChargerController)owner;
-        protected Renderer _renderer => Ai.GetRenderer();
-        protected CapsuleCollider AiCollider => Ai.GetCollider();
+        protected CapsuleCollider AiCollider => Ai.AiCollider;
         [SerializeField] protected Material material;
 
         public override void Enter()

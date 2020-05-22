@@ -98,9 +98,9 @@ namespace AI.BodyTrapper
             _bodyTrapperCollider.isTrigger = false;
             isStuckOnPlayer = false;
             agent.enabled = true;
-            rigidbody.useGravity = true;
+            aiRigidbody.useGravity = true;
             transform.parent = null;
-            _stateMachine.TransitionTo<StunState>();
+            stateMachine.TransitionTo<StunState>();
         }
 
         private void OnDestroy()
@@ -121,20 +121,20 @@ namespace AI.BodyTrapper
         {
             if (bodyTrapper != gameObject || isDead) return;
             _bodyTrapperCollider.isTrigger = true;
-            rigidbody.velocity = Vector3.zero;
+            aiRigidbody.velocity = Vector3.zero;
             isStuckOnPlayer = true;
             agent.enabled = false;
-            rigidbody.useGravity = false;
+            aiRigidbody.useGravity = false;
         }
 
-        protected internal override void Die()
+        protected override void Die()
         {
             isDead = true;
             if (agent != null)
                 agent.enabled = false;
             audioSource.Stop();
             UnregisterEvents();
-            _stateMachine.TransitionTo<DeadState>();
+            stateMachine.TransitionTo<DeadState>();
         }
         
         internal void TouchingPlayer()
@@ -160,14 +160,14 @@ namespace AI.BodyTrapper
 
         public void ActivateStun()
         {
-            _stunned = true;
+            isStunned = true;
             StartCoroutine(Stun());
         }
 
         private IEnumerator Stun()
         {
             yield return new WaitForSeconds(5f);
-            _stunned = false;
+            isStunned = false;
             agent.enabled = true;
         }
     }

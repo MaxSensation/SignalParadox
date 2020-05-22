@@ -11,9 +11,9 @@ namespace Player.PlayerStateMachine
         public override void Enter()
         {
             base.Enter();
-            Player._transmitter.SetSoundStrength(1 - soundStrength);
+            Player.Transmitter.SetSoundStrength(1 - soundStrength);
             Debug.Log("Entered DeadState");
-            Player._turnWithCamera.enabled = false;
+            TurnWithCamera.Active = false;
             Velocity = Vector3.zero;
         }
 
