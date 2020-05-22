@@ -20,6 +20,13 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         SteamController.onSteamDamage += Die;
         JumpState.onJumpEvent += Jump;
         StunState.onLandEvent += Land;
+        HuntState.OnHuntingEvent += Hunting;
+    }
+
+    private void Hunting(GameObject obj)
+    {
+        if (bodytrapper != obj) return;
+        animator.SetTrigger("Hunting");
     }
 
     private void Land(GameObject obj)
@@ -46,5 +53,6 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         SteamController.onSteamDamage -= Die;
         JumpState.onJumpEvent -= Jump;
         StunState.onLandEvent -= Land;
+        HuntState.OnHuntingEvent -= Hunting;
     }
 }

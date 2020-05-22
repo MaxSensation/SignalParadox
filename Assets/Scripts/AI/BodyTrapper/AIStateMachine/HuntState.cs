@@ -1,6 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +13,15 @@ namespace AI.BodyTrapper.AIStateMachine
         [SerializeField] private float jumpDistance;
         [SerializeField] private float searchingRange;
         [SerializeField] private float maxMinLookRange;
-        
+
+        public static Action<GameObject> OnHuntingEvent; 
+
+        public override void Enter()
+        {
+            base.Enter();
+            OnHuntingEvent?.Invoke(Ai.gameObject);
+        }
+
         public override void Run()
         {
             if (Ai.isDead)
