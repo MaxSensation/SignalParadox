@@ -15,7 +15,6 @@ namespace AI.Charger.AIStateMachine
         public override void Enter()
         {
             base.Enter();
-            Ai.charging = true;
         }
 
         public override void Run()
@@ -49,7 +48,7 @@ namespace AI.Charger.AIStateMachine
         {
             if ((previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude) > 10f)
             {
-                Ai.audioSource.PlayOneShot(hitWallSound);
+                Ai.AudioSource.PlayOneShot(hitWallSound);
                 Ai.aiRigidbody.velocity = Vector3.zero;
             }
             previousFrameSpeed = 0f;
