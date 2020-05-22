@@ -27,9 +27,9 @@ namespace Player.PlayerStateMachine
                 Player.Transmitter.SetSoundStrength(1 - soundStrength);
                 onEnteredCrouchEvent?.Invoke();
                 Debug.Log("Entered Crouch State");
-                _oldColliderHeight = PlayerCollider.height;
-                PlayerCollider.center = new Vector3(0, -0.35f, 0);
-                PlayerCollider.height = 1.1f;
+                _oldColliderHeight = Player.PlayerCollider.height;
+                Player.PlayerCollider.center = new Vector3(0, -0.35f, 0);
+                Player.PlayerCollider.height = 1.1f;
                 Player.UpdateCapsuleInfo();   
             }
         }
@@ -40,8 +40,8 @@ namespace Player.PlayerStateMachine
             {
                 onExitCrouchEvent?.Invoke();
                 Debug.Log("Exit Crouch State");
-                PlayerCollider.center = Vector3.zero;
-                PlayerCollider.height = _oldColliderHeight;
+                Player.PlayerCollider.center = Vector3.zero;
+                Player.PlayerCollider.height = _oldColliderHeight;
             }
         }
 
@@ -82,7 +82,7 @@ namespace Player.PlayerStateMachine
 
         private bool CanStand()
         {
-            return !Physics.CapsuleCast(Player.Point1, Player.Point2, Player.playerCollider.radius, Vector3.up, 1f, LayerMask.GetMask("Colliders"));
+            return !Physics.CapsuleCast(Player.Point1, Player.Point2, Player.PlayerCollider.radius, Vector3.up, 1f, LayerMask.GetMask("Colliders"));
         }
 
         private void LimitVelocity()

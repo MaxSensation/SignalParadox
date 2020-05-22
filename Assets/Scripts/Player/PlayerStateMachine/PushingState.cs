@@ -58,7 +58,7 @@ namespace Player.PlayerStateMachine
 
         private void CorrectRotation()
         {
-            Player.playerMesh.transform.rotation = Quaternion.Lerp(Player.playerMesh.transform.rotation, Quaternion.LookRotation(_pushableTransform.position - Player.transform.position, Vector3.up), Time.deltaTime * 5f);
+            Player.PlayerMesh.transform.rotation = Quaternion.Lerp(Player.PlayerMesh.transform.rotation, Quaternion.LookRotation(_pushableTransform.position - Player.transform.position, Vector3.up), Time.deltaTime * 5f);
         }
 
         public override void Exit()

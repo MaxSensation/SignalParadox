@@ -25,9 +25,9 @@ namespace Player
         [SerializeField] private World world;
         public static Action onPlayerDeath;
         public static Action<GameObject> onPlayerInit;
-        public State[] states;
-        internal CapsuleCollider playerCollider;
-        internal GameObject playerMesh;
+        public State[] states;        
+        internal CapsuleCollider PlayerCollider { get; private set; }
+        internal GameObject PlayerMesh { get; private set; }
         internal Vector3 Point1 { get; private set; }
         internal Vector3 Point2 { get; private set; }
         internal Vector3 CurrentDirection { get; private set; }
@@ -45,11 +45,11 @@ namespace Player
         private void Awake()
         {        
             Transmitter = transform.GetComponentInChildren<SoundProvider>();
-            playerMesh = transform.Find("PlayerMesh").gameObject;
+            PlayerMesh = transform.Find("PlayerMesh").gameObject;
             stateMachine = new StateMachine(this, states);
             velocity = Vector3.zero;
             if (Camera.main != null) cameraTransform = Camera.main.transform;
-            playerCollider = GetComponent<CapsuleCollider>();
+            PlayerCollider = GetComponent<CapsuleCollider>();
             Physic3D.LoadWorldParameters(world);           
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
@@ -143,8 +143,8 @@ namespace Player
 
         internal void UpdateCapsuleInfo()
         {
-            var capsulePosition = transform.position + playerCollider.center;
-            var distanceToPoints = playerCollider.height / 2 - playerCollider.radius;
+            var capsulePosition = transform.position + PlayerCollider.center;
+            var distanceToPoints = PlayerCollider.height / 2 - PlayerCollider.radius;
             Point1 = capsulePosition + Vector3.up * distanceToPoints;
             Point2 = capsulePosition + Vector3.down * distanceToPoints;
         }
@@ -221,7 +221,7 @@ namespace Player
         internal RaycastHit GetRayCast(Vector3 direction, float magnitude)
         {
             // Return a Raycast Hit in the direction and magnitude specific
-            Physics.CapsuleCast(Point1, Point2, playerCollider.radius, direction.normalized, out var hit, magnitude,
+            Physics.CapsuleCast(Point1, Point2, PlayerCollider.radius, direction.normalized, out var hit, magnitude,
                 collisionLayer);
             return hit;
         }
@@ -246,32 +246,7 @@ namespace Player
         {
             this.velocity = velocity;
         }
-
-        internal Vector3 GetPosition()
-        {
-            return transform.position;
-        }
-
-        internal void SetPosition(Vector3 value)
-        {
-            transform.position = value;
-        }
-
-        internal Quaternion GetRotation()
-        {
-            return playerMesh.transform.rotation;
-        }
-
-        internal void SetRotation(Quaternion value)
-        {
-            transform.rotation = value;
-        }
-
-        internal CapsuleCollider GetPlayerCollider()
-        {
-            return playerCollider;
-        }
-
+        
         internal bool GetIsPlayerCharged()
         {
             return isPlayerCharged;
