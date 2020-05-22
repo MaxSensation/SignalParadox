@@ -24,7 +24,7 @@ namespace Player.PlayerStateMachine
         {
             if (!_isCrouching)
             {
-                Player._transmitter.SetSoundStrength(1 - soundStrength);
+                Player.Transmitter.SetSoundStrength(1 - soundStrength);
                 onEnteredCrouchEvent?.Invoke();
                 Debug.Log("Entered Crouch State");
                 _oldColliderHeight = PlayerCollider.height;
@@ -53,7 +53,7 @@ namespace Player.PlayerStateMachine
             
 
             // Enter Crouch if Control is pressed 
-            if (!Player.hasInputCrouch && CanStand())
+            if (!Player.HasInputCrouch && CanStand())
             {
                 _isCrouching = false;
                 stateMachine.TransitionTo<StandState>();
@@ -82,7 +82,7 @@ namespace Player.PlayerStateMachine
 
         private bool CanStand()
         {
-            return !Physics.CapsuleCast(Player._point1, Player._point2, Player._collider.radius, Vector3.up, 1f, LayerMask.GetMask("Colliders"));
+            return !Physics.CapsuleCast(Player.Point1, Player.Point2, Player.playerCollider.radius, Vector3.up, 1f, LayerMask.GetMask("Colliders"));
         }
 
         private void LimitVelocity()

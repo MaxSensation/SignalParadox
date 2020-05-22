@@ -11,7 +11,7 @@ namespace Player.PlayerStateMachine
         [SerializeField] private float soundStrength;
         public override void Enter()
         {
-            Player._transmitter.SetSoundStrength(1 - soundStrength);
+            Player.Transmitter.SetSoundStrength(1 - soundStrength);
             if (Player.GetIsPlayerCharged())
                 stateMachine.TransitionTo<ChargedState>();
             //Debug.Log("Entered Land State");

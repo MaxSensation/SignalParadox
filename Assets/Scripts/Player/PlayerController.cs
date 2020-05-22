@@ -14,43 +14,43 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        public World world;
-        public State[] states;
-        [Header("PlayerSettings")]
-        [SerializeField] [Range(1f, 500f)] private float terminalVelocity;
-        [SerializeField] [Range(0f, 10f)] private float staticFriction;
-        [SerializeField] [Range(0f, 10f)] private float dynamicFriction;
-        [SerializeField] [Range(0f, 1f)] private float skinWidth;
-        [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
-        [SerializeField] private LayerMask collisionLayer;
-        [SerializeField] private Vector3 velocity;
-        private BoxCollider _interactTrigger;
-        private StateMachine _stateMachine;
-        internal CapsuleCollider _collider;
-        private Transform _camera;
-        private RaycastHit _cameraCast;
-        internal Vector3 _point1;
-        internal Vector3 _point2;
-        internal GameObject _playerMesh;
-        private bool _alive;
-        private bool isPlayerCharged;
-        internal TurnWithCamera _turnWithCamera; 
-        internal SoundProvider _transmitter;
-        internal Vector3 currentDirection;
-        internal bool hasInputCrouch;
-        internal IPushable currentPushableObject;
-        internal bool endingPushingState;
-        public bool InCinimatic { get; set; }
-
         // Events
+        [Header("PlayerSettings")] 
+        [SerializeField] [Range(1f, 500f)] private float terminalVelocity;
+        [SerializeField] [Range(0f, 10f)] private float dynamicFriction;
+        [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
+        [SerializeField] [Range(0f, 1f)] private float skinWidth;
+        [SerializeField] [Range(0f, 10f)] private float staticFriction;
+        [SerializeField] private LayerMask collisionLayer;
+        [SerializeField] private World world;
         public static Action onPlayerDeath;
         public static Action<GameObject> onPlayerInit;
-        internal bool isTrapped;
+        public State[] states;
+        internal CapsuleCollider playerCollider;
+        internal GameObject playerMesh;
+        internal Vector3 Point1 { get; private set; }
+        internal Vector3 Point2 { get; private set; }
+        internal Vector3 CurrentDirection { get; private set; }
+        internal SoundProvider Transmitter { get; private set; }
+        internal IPushable CurrentPushableObject{ get; set; }
+        internal bool IsTrapped { get; private set; }
+        internal bool HasInputCrouch { get; private set; }
+        internal bool EndingPushingState{ get; set; }
+        private bool InCinematic { get; set; }
+        private bool isPlayerCharged;
+        private StateMachine stateMachine;
+        private Transform cameraTransform;
+        private Vector3 velocity;
 
         private void Awake()
-        {
-            currentDirection = Vector2.zero;
-            _transmitter = transform.GetComponentInChildren<SoundProvider>();
+        {        
+            Transmitter = transform.GetComponentInChildren<SoundProvider>();
+            playerMesh = transform.Find("PlayerMesh").gameObject;
+            stateMachine = new StateMachine(this, states);
+            velocity = Vector3.zero;
+            if (Camera.main != null) cameraTransform = Camera.main.transform;
+            playerCollider = GetComponent<CapsuleCollider>();
+            Physic3D.LoadWorldParameters(world);           
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.CaughtPlayerEvent += PlayerIsCharged;
             PushableBox.onPushStateEvent += HandlePushEvent;
@@ -58,42 +58,6 @@ namespace Player
             PlayerTrapable.onDetached += DisableTrapped;
             PlayerAnimatorController.OnDeathAnimBeginning += PlayerIsDying;
             PlayerAnimatorController.OnDeathAnimEnd += Die;
-            _alive = true;
-            _playerMesh = transform.Find("PlayerMesh").gameObject;
-            _stateMachine = new StateMachine(this, states);
-            velocity = Vector3.zero;
-            if (Camera.main != null) _camera = Camera.main.transform;
-            _collider = GetComponent<CapsuleCollider>();
-            Physic3D.LoadWorldParameters(world);
-            _turnWithCamera = _playerMesh.GetComponent<TurnWithCamera>();
-        }
-
-        private void Start()
-        {
-            onPlayerInit?.Invoke(gameObject);
-        }
-
-        private void EnableTrapped()
-        {
-            endingPushingState = true;
-            isTrapped = true;
-        }
-        private void DisableTrapped()
-        {
-            isTrapped = false;
-        }
-
-        private void HandlePushEvent(IPushable pushable)
-        {
-            var location = pushable.GetPushLocation(transform.position);
-            if (currentPushableObject == null && location != Vector3.zero &&
-                Vector3.Distance(transform.position, location) < 0.5f && !isTrapped)
-            {
-                currentPushableObject = pushable;
-                _stateMachine.TransitionTo<PushingState>();
-            }
-            else
-                endingPushingState = true;
         }
 
         private void OnDestroy()
@@ -107,6 +71,37 @@ namespace Player
             PlayerAnimatorController.OnDeathAnimEnd -= Die;
         }
 
+        private void Start()
+        {
+            onPlayerInit?.Invoke(gameObject);
+        }
+
+        private void EnableTrapped()
+        {
+            EndingPushingState = true;
+            IsTrapped = true;
+        }
+
+        private void DisableTrapped()
+        {
+            IsTrapped = false;
+        }
+
+        private void HandlePushEvent(IPushable pushable)
+        {
+            var location = pushable.GetPushLocation(transform.position);
+            if (CurrentPushableObject == null && location != Vector3.zero &&
+                Vector3.Distance(transform.position, location) < 0.5f && !IsTrapped)
+            {
+                CurrentPushableObject = pushable;
+                stateMachine.TransitionTo<PushingState>();
+            }
+            else
+            {
+                EndingPushingState = true;
+            }
+        }
+
         private void OnEnable()
         {
             Cursor.visible = false;
@@ -118,7 +113,7 @@ namespace Player
             // Get CapsuleInfo
             UpdateCapsuleInfo();
             // Run CurrentState
-            _stateMachine.Run();
+            stateMachine.Run();
             // Add gravity to velocity
             velocity += Physic3D.GetGravity();
             // Limit the velocity to terminalVelocity
@@ -135,21 +130,23 @@ namespace Player
                 Die();
         }
 
-        private void PlayerIsDying() => _stateMachine.TransitionTo<DeadState>();
+        private void PlayerIsDying()
+        {
+            stateMachine.TransitionTo<DeadState>();
+        }
 
         private void Die()
         {
-            _alive = false;
             Debug.Log("Player Died");
             onPlayerDeath?.Invoke();
         }
 
         internal void UpdateCapsuleInfo()
         {
-            var capsulePosition = transform.position + _collider.center;
-            var distanceToPoints = (_collider.height / 2) - _collider.radius;
-            _point1 = capsulePosition + Vector3.up * distanceToPoints;
-            _point2 = capsulePosition + Vector3.down * distanceToPoints;
+            var capsulePosition = transform.position + playerCollider.center;
+            var distanceToPoints = playerCollider.height / 2 - playerCollider.radius;
+            Point1 = capsulePosition + Vector3.up * distanceToPoints;
+            Point2 = capsulePosition + Vector3.down * distanceToPoints;
         }
 
         private void LimitVelocity()
@@ -170,7 +167,8 @@ namespace Player
                 // If any collision continue 
                 if (!hit.collider) break;
                 // If AllowedDistance is greater then MovementPerFrame magnitude continue
-                if (hit.distance + (skinWidth / Vector3.Dot(movementPerFrame.normalized, hit.normal)) >= movementPerFrame.magnitude) break;
+                if (hit.distance + skinWidth / Vector3.Dot(movementPerFrame.normalized, hit.normal) >=
+                    movementPerFrame.magnitude) break;
                 // Get NormalForce
                 var normalForce = Physic3D.GetNormalForce(velocity, hit.normal);
                 // Add NormalForce To velocity
@@ -180,50 +178,54 @@ namespace Player
                 // Add the new MovementPerFrame
                 movementPerFrame = velocity * Time.deltaTime;
             }
+
             // Return the possible movement per frame based on collisions
             return movementPerFrame;
         }
 
         public void UpdateInputVector(InputAction.CallbackContext context)
         {
-            if (InCinimatic) return;
+            if (InCinematic) return;
             var value = context.ReadValue<Vector2>();
-            currentDirection = new Vector3(value.x, 0, value.y);
+            CurrentDirection = new Vector3(value.x, 0, value.y);
         }
 
         public void OnInputCrouch(InputAction.CallbackContext context)
         {
-            hasInputCrouch = context.performed;
+            HasInputCrouch = context.performed;
         }
 
         internal Vector3 GetInputVector(float accelerationSpeed)
         {
             // Correct the input based on camera
-            var direction = CorrectInputVectorFromCamera(currentDirection);
+            var direction = CorrectInputVectorFromCamera(CurrentDirection);
             // If magnitude is greater then 1 normalize the value
             if (direction.magnitude > 1)
                 return direction.normalized * (accelerationSpeed * Time.deltaTime);
             // Else just return the direction
             return direction * (accelerationSpeed * Time.deltaTime);
         }
-        
+
         private Vector3 CorrectInputVectorFromCamera(Vector3 inputVector)
         {
             // Get the horizontal projection velocity
-            var projectHorizontal = Vector3.ProjectOnPlane(_camera.rotation * inputVector, Vector3.up);
+            var projectHorizontal = Vector3.ProjectOnPlane(cameraTransform.rotation * inputVector, Vector3.up);
             // Do a cast in the down direction to check if the player is standing on the ground
             var hit = GetRayCast(Vector3.down, groundCheckDistance + skinWidth);
             // If any collision then project that speed to that normal of that collision else project horizontal only
-            return hit.collider ? Vector3.ProjectOnPlane(projectHorizontal, hit.normal).normalized : projectHorizontal.normalized;
+            return hit.collider
+                ? Vector3.ProjectOnPlane(projectHorizontal, hit.normal).normalized
+                : projectHorizontal.normalized;
         }
 
         internal RaycastHit GetRayCast(Vector3 direction, float magnitude)
         {
             // Return a Raycast Hit in the direction and magnitude specific
-            Physics.CapsuleCast(_point1, _point2, _collider.radius, direction.normalized, out var hit, magnitude, collisionLayer);
+            Physics.CapsuleCast(Point1, Point2, playerCollider.radius, direction.normalized, out var hit, magnitude,
+                collisionLayer);
             return hit;
         }
-        
+
 
         internal float GetGroundCheckDistance()
         {
@@ -257,7 +259,7 @@ namespace Player
 
         internal Quaternion GetRotation()
         {
-            return _playerMesh.transform.rotation;
+            return playerMesh.transform.rotation;
         }
 
         internal void SetRotation(Quaternion value)
@@ -267,7 +269,7 @@ namespace Player
 
         internal CapsuleCollider GetPlayerCollider()
         {
-            return _collider;
+            return playerCollider;
         }
 
         internal bool GetIsPlayerCharged()
@@ -280,7 +282,7 @@ namespace Player
             isPlayerCharged = true;
         }
 
-        internal void EndingPushingState()
+        internal void StartEndingPushingState()
         {
             StartCoroutine("EndPushingState");
         }
@@ -288,7 +290,7 @@ namespace Player
         private IEnumerator EndPushingState()
         {
             yield return new WaitForSeconds(0.2f);
-            _stateMachine.TransitionTo<StandState>();
+            stateMachine.TransitionTo<StandState>();
         }
     }
 }

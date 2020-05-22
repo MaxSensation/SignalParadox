@@ -15,7 +15,7 @@ namespace Player.PlayerStateMachine
 
         public override void Enter()
         {
-            Player._transmitter.SetSoundStrength(1 - soundStrength);
+            Player.Transmitter.SetSoundStrength(1 - soundStrength);
         }
         
         public override void Run()
@@ -29,7 +29,7 @@ namespace Player.PlayerStateMachine
             
             
             // Enter Crouch if Control is pressed 
-            if (Player.hasInputCrouch)
+            if (Player.HasInputCrouch)
             {
                 stateMachine.TransitionTo<CrouchState>();
             }

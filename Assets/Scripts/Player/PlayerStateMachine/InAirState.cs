@@ -15,7 +15,7 @@ namespace Player.PlayerStateMachine
 
         public override void Enter()
         {
-            Player._transmitter.SetSoundStrength(1 - soundStrength);
+            Player.Transmitter.SetSoundStrength(1 - soundStrength);
             //Debug.Log("Entered InAir State");
         }
         
