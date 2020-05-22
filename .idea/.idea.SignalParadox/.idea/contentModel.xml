@@ -6,26 +6,6 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="DefualtMaterialChanger.cs" t="Include" />
-        <e p="EffectExamples" t="Include">
-          <e p="Magic Effects" t="Include">
-            <e p="Shaders" t="Include">
-              <e p="Ice.shader" t="Include" />
-            </e>
-          </e>
-          <e p="Misc Effects" t="Include">
-            <e p="Prefabs" t="Include">
-              <e p="Readme_Dissolve_Respawn_.txt" t="Include" />
-            </e>
-            <e p="Scripts" t="Include">
-              <e p="SpawnEffect.cs" t="Include" />
-            </e>
-            <e p="Shaders" t="Include">
-              <e p="Dissolve.shader" t="Include" />
-              <e p="FireFly.shader" t="Include" />
-              <e p="Respawn.shader" t="Include" />
-            </e>
-          </e>
-        </e>
         <e p="Scripts" t="Include">
           <e p="AI" t="Include">
             <e p="AIController.cs" t="Include" />
@@ -202,6 +182,34 @@
               <e p="TMPro.cginc" t="Include" />
               <e p="TMPro_Properties.cginc" t="Include" />
               <e p="TMPro_Surface.cginc" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="VFX" t="Include">
+          <e p="Scripts" t="Include">
+            <e p="Editor" t="Include">
+              <e p="MeshMerger" t="Include">
+                <e p="MeshMerger.cs" t="Include" />
+              </e>
+              <e p="WireImporter" t="Include">
+                <e p="WireMeshImporter.cs" t="Include" />
+              </e>
+            </e>
+            <e p="ParameterBinders" t="Include">
+              <e p="MultiPosOrientedParameterBinder.cs" t="Include" />
+            </e>
+            <e p="VFXVolumeMixer" t="Include">
+              <e p="Editor" t="Include">
+                <e p="VFXVolumeMixerEditor.cs" t="Include" />
+                <e p="VFXVolumeMixerPropertyDrawer.cs" t="Include" />
+                <e p="VFXVolumeMixerSettings.cs" t="Include" />
+              </e>
+              <e p="VFXVolumeMixer.cs" t="Include" />
+              <e p="VFXVolumeMixerColorPropertyBinder.cs" t="Include" />
+              <e p="VFXVolumeMixerFloatPropertyBinder.cs" t="Include" />
+              <e p="VFXVolumeMixerPropertyAttribute.cs" t="Include" />
+              <e p="VFXVolumeMixerPropertyBinderBase.cs" t="Include" />
+              <e p="VFXVolumeMixerVectorPropertyBinder.cs" t="Include" />
             </e>
           </e>
         </e>
