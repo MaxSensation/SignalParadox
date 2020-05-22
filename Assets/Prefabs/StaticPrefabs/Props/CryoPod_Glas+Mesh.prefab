@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1768670394851855606}
   - component: {fileID: 4774969126682258153}
   - component: {fileID: 6218655891744479185}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CryoPod_Comb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 7878718126315026572}
   - component: {fileID: 7870590187228102517}
   - component: {fileID: 6818680464291075133}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CryoPod_Glas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8188026060920835363}
-  m_Layer: 0
+  - component: {fileID: 621036531535417522}
+  m_Layer: 8
   m_Name: CryoPod_Glas+Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,3 +191,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &621036531535417522
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5186721300802256688}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8489842, y: 3.7136524, z: 1.8411932}
+  m_Center: {x: -0.032022357, y: 1.8315719, z: -0.002377987}
