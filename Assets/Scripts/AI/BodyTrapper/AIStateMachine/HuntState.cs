@@ -1,7 +1,6 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
-using AI.AIStateMachine;
 using UnityEngine;
 using UnityEngine.AI;
 

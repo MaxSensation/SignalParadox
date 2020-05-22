@@ -10,8 +10,9 @@ namespace AI.Charger.AIStateMachine
     {
         [SerializeField] private float chargeSpeed;
         [SerializeField] private AudioClip hitWallSound;
-        private Vector3 _chargeDirection;
+        private Vector3 chargeDirection;
         private float previousFrameSpeed;
+
         public override void Enter()
         {
             base.Enter();
@@ -35,8 +36,8 @@ namespace AI.Charger.AIStateMachine
         private void Charge()
         {
             previousFrameSpeed = Ai.aiRigidbody.velocity.magnitude;
-            _chargeDirection = Ai.GetChargeDirection();
-            Ai.aiRigidbody.AddForce(_chargeDirection.normalized * chargeSpeed * Time.deltaTime);
+            chargeDirection = Ai.GetChargeDirection();
+            Ai.aiRigidbody.AddForce(chargeDirection.normalized * chargeSpeed * Time.deltaTime);
             if (Ai.HasCollidedWithTaggedObjet())
             {
                 Ai.target.transform.parent = Ai.transform;

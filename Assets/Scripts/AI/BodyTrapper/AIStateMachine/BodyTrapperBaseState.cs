@@ -1,10 +1,9 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
-using AI.BodyTrapper;
 using UnityEngine;
 
-namespace AI.AIStateMachine
+namespace AI.BodyTrapper.AIStateMachine
 {
     public abstract class BodyTrapperBaseState : State
     {

@@ -2,7 +2,6 @@
 
 using UnityEngine;
 
-
 namespace AI.Charger.AIStateMachine
 {
     [CreateAssetMenu(menuName = "AIStates/Charger/ChargeUpState")]
@@ -20,11 +19,6 @@ namespace AI.Charger.AIStateMachine
         {
             if (Ai.isDead)
                 stateMachine.TransitionTo<DeadState>();
-
-            if (Ai.GetHasChargedUp())
-            {
-                stateMachine.TransitionTo<ChargeState>();
-            }
         }
 
     }
