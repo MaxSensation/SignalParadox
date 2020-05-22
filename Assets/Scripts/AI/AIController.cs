@@ -12,46 +12,31 @@ namespace AI
         [SerializeField] internal Transform[] waypoints;
         [SerializeField] internal LayerMask visionMask;
 
-        protected StateMachine _stateMachine;
-        protected internal bool _stunned;
-        private Renderer aihRenderer;
+        protected StateMachine stateMachine;
+        protected bool isStunned;
         internal GameObject target;
         internal NavMeshAgent agent;
-        internal Rigidbody rigidbody;
-        internal CapsuleCollider _collider;
+        internal Rigidbody aiRigidbody;
         internal bool isDead;
+        internal CapsuleCollider AiCollider { get; private set; }
 
         protected void Awake()
         {
-            _collider = GetComponent<CapsuleCollider>();
-            aihRenderer = transform.GetChild(0).GetComponent<Renderer>();
-            rigidbody = GetComponent<Rigidbody>();
+            AiCollider = GetComponent<CapsuleCollider>();
+            aiRigidbody = GetComponent<Rigidbody>();
             target = FindObjectOfType<Player.PlayerController>().gameObject;
             agent = GetComponent<NavMeshAgent>();
-            _stateMachine = new StateMachine(this, states);
+            stateMachine = new StateMachine(this, states);
         }
 
         private void Update()
         {
-            _stateMachine.Run();
+            stateMachine.Run();
         }
 
-        protected internal bool IsStunned()
-        {
-            return _stunned;
-        }
+        internal bool IsStunned() { return isStunned; }
 
-        protected internal virtual void Die() { }
-
-        protected internal Renderer GetRenderer()
-        {
-            return aihRenderer;
-        }
-
-        protected internal CapsuleCollider GetCollider()
-        {
-            return _collider;
-        }
+        protected virtual void Die() { }
 
         internal bool LookingAtPlayer(AIController Ai, float maxMinLookRange)
         {

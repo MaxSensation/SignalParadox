@@ -49,7 +49,7 @@ namespace AI.Charger
         private IEnumerator StunTime()
         {
             yield return stunTime;
-            _stunned = false;
+            isStunned = false;
             StopCoroutine(onlyStunTime);
         }
 
@@ -71,7 +71,7 @@ namespace AI.Charger
 
         internal void ActivateStun()
         {
-            _stunned = true;
+            isStunned = true;
             onlyStunTime = StartCoroutine(StunTime());
         }
 
@@ -119,7 +119,7 @@ namespace AI.Charger
             CaughtPlayerEvent?.Invoke();
         }
 
-        protected internal override void Die()
+        protected override void Die()
         {
             isDead = true;
             if (agent != null)
