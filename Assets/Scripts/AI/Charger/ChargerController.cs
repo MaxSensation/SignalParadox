@@ -29,14 +29,11 @@ namespace AI.Charger
             stunTimeSeconds = new WaitForSeconds(stunnedTime);
             enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             AudioSource = GetComponent<AudioSource>();
-            LaserController.onLaserDeath += OnDeathByLaser;
             AudioSource.Play();
+            LaserController.onLaserDeath += OnDeathByLaser;
         }
 
-        private void OnDestroy()
-        {
-            LaserController.onLaserDeath -= OnDeathByLaser;
-        }
+        private void OnDestroy() => LaserController.onLaserDeath -= OnDeathByLaser;
 
         private void OnDeathByLaser(GameObject obj)
         {
