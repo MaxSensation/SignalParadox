@@ -14,9 +14,9 @@ namespace AI.BodyTrapper.AIStateMachine
         public override void Enter()
         {
             base.Enter();
-            Ai.rigidbody.velocity = Vector3.zero;
+            Ai.aiRigidbody.velocity = Vector3.zero;
             Ai.agent.enabled = false;
-            Ai.rigidbody.useGravity = false;
+            Ai.aiRigidbody.useGravity = false;
             onLandEvent?.Invoke(Ai.gameObject);
             Ai.audioSource.PlayOneShot(stunnedSound,1f);
             Ai.ActivateStun();
@@ -24,8 +24,8 @@ namespace AI.BodyTrapper.AIStateMachine
 
         public override void Run()
         {
-            Ai.rigidbody.velocity = Vector3.zero;
-            if (!Ai._stunned)
+            Ai.aiRigidbody.velocity = Vector3.zero;
+            if (!Ai.IsStunned())
             {
                 stateMachine.TransitionTo<PatrolState>();
             }
@@ -34,7 +34,7 @@ namespace AI.BodyTrapper.AIStateMachine
         public override void Exit()
         {
             base.Exit();
-            Ai.rigidbody.useGravity = true;
+            Ai.aiRigidbody.useGravity = true;
             Ai.agent.enabled = true;
         }
     }

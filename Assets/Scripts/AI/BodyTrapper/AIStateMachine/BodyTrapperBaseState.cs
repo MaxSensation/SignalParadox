@@ -10,7 +10,6 @@ namespace AI.AIStateMachine
     {
         private BodyTrapperController _ai;
         protected BodyTrapperController Ai => _ai = _ai ? _ai : (BodyTrapperController)owner;
-        protected Renderer _renderer => Ai.GetRenderer();
         [SerializeField] protected Material material;
 
         public override void Enter()

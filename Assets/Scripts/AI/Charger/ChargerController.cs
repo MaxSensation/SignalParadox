@@ -11,34 +11,29 @@ namespace AI.Charger
 {
     public class ChargerController : AIController
     {
-        [SerializeField] private int _chargeUpTime = 1;
-        [SerializeField] private float _stunnedTime = 0.5f;
+        [SerializeField] private int chargeUpTime = 1;
+        [SerializeField] private float stunnedTime = 0.5f;
         private bool hasChargedUp;
-        private Vector3 _chargeDirection;
-        private EnemyTrigger _enemyTrigger;
+        private Vector3 chargeDirection;
+        private EnemyTrigger enemyTrigger;
         private Coroutine onlyStunTime, chargeTime;
-        private WaitForSeconds chargeUpTime, stunTime;
+        private WaitForSeconds chargeUpTimeSeconds, stunTimeSeconds;
 
-        internal bool charging;
-        internal AudioSource audioSource;
-        public static Action onCrushedPlayerEvent;
-        public static Action CaughtPlayerEvent;
+        internal AudioSource AudioSource { get; private set; }
+        public static Action onCrushedPlayerEvent, CaughtPlayerEvent;
 
         private new void Awake()
         {
             base.Awake();
-            chargeUpTime = new WaitForSeconds(_chargeUpTime);
-            stunTime = new WaitForSeconds(_stunnedTime);
-            _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
-            audioSource = GetComponent<AudioSource>();
+            chargeUpTimeSeconds = new WaitForSeconds(chargeUpTime);
+            stunTimeSeconds = new WaitForSeconds(stunnedTime);
+            enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
+            AudioSource = GetComponent<AudioSource>();
+            AudioSource.Play();
             LaserController.onLaserDeath += OnDeathByLaser;
-            audioSource.Play();
         }
 
-        private void OnDestroy()
-        {
-            LaserController.onLaserDeath -= OnDeathByLaser;
-        }
+        private void OnDestroy() => LaserController.onLaserDeath -= OnDeathByLaser;
 
         private void OnDeathByLaser(GameObject obj)
         {
@@ -48,14 +43,14 @@ namespace AI.Charger
 
         private IEnumerator StunTime()
         {
-            yield return stunTime;
-            _stunned = false;
+            yield return stunTimeSeconds;
+            isStunned = false;
             StopCoroutine(onlyStunTime);
         }
 
         private IEnumerator ChargeTime()
         {
-            yield return chargeUpTime;
+            yield return chargeUpTimeSeconds;
             if (agent.enabled)
                 agent.isStopped = false;
             hasChargedUp = true;
@@ -71,7 +66,7 @@ namespace AI.Charger
 
         internal void ActivateStun()
         {
-            _stunned = true;
+            isStunned = true;
             onlyStunTime = StartCoroutine(StunTime());
         }
 
@@ -84,17 +79,17 @@ namespace AI.Charger
         {
             Vector3 enemyPosition = transform.position;
             Vector3 playerPosition = target.transform.position;
-            _chargeDirection = (new Vector3(playerPosition.x, 0, playerPosition.z) - new Vector3(enemyPosition.x, 0, enemyPosition.z)).normalized;
+            chargeDirection = (new Vector3(playerPosition.x, 0, playerPosition.z) - new Vector3(enemyPosition.x, 0, enemyPosition.z)).normalized;
         }
 
         internal Vector3 GetChargeDirection()
         {
-            return _chargeDirection;
+            return chargeDirection;
         }
 
         internal bool HasCollidedWithLayerObject()
         {
-            return _enemyTrigger.IsTouchingLayerObject;
+            return enemyTrigger.IsTouchingLayerObject;
         }
 
         internal bool CheckForWallRayCast()
@@ -106,7 +101,7 @@ namespace AI.Charger
 
         internal bool HasCollidedWithTaggedObjet()
         {
-            return _enemyTrigger.IsTouchingTaggedObject;
+            return enemyTrigger.IsTouchingTaggedObject;
         }
 
         internal void KillPlayer()
@@ -119,37 +114,12 @@ namespace AI.Charger
             CaughtPlayerEvent?.Invoke();
         }
 
-        protected internal override void Die()
+        protected override void Die()
         {
             isDead = true;
             if (agent != null)
                 agent.enabled = false;
-            audioSource.Stop();
+            AudioSource.Stop();
         }
-
-
-        //private void OnDrawGizmos()
-        //{
-        //    if (_collider != null)
-        //    {
-        //        var currentForward = transform.forward + transform.position;
-        //        var capsulePosition = new Vector3(currentForward.x, currentForward.y, currentForward.z- 1f) + _collider.center;
-        //        var distanceToPoints = (_collider.height / 2) - _collider.radius;
-        //        var point1 = capsulePosition + Vector3.up * distanceToPoints;
-        //        var point2 = capsulePosition + Vector3.down * distanceToPoints;
-        //        Physics.CapsuleCast(point1, point2, _collider.radius, transform.forward.normalized, out var hit, 0.1f, visionMask);
-
-        //        if (hit.collider)
-        //        {
-        //            Gizmos.color = Color.red;
-        //            //Gizmos.DrawWireSphere(point1 + point2, hit.point.x);
-        //            Gizmos.DrawRay(point1, hit.point);
-        //        }
-        //        else
-        //            Gizmos.color = Color.green;
-        //        Gizmos.DrawWireSphere(point1, _collider.radius);
-        //        Gizmos.DrawWireSphere(point2, _collider.radius);
-        //    }
-        //}
     }
 }

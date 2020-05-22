@@ -17,35 +17,35 @@ namespace Player.PlayerStateMachine
         {
             base.Enter();
             OnEnterPushingStateEvent?.Invoke();
-            Player._transmitter.SetSoundStrength(1 - soundStrength);
+            Player.Transmitter.SetSoundStrength(1 - soundStrength);
             Velocity = Vector3.zero;
-            _pushableTransform = Player.currentPushableObject.GetPushableTransform();
-            Player._turnWithCamera.enabled = false;
+            _pushableTransform = Player.CurrentPushableObject.GetPushableTransform();
+            TurnWithCamera.Active = false;
             Player.transform.parent =  _pushableTransform;
         }
 
         public override void Run()
         {
-            if (!Player.endingPushingState)
+            if (!Player.EndingPushingState)
             {
                 base.Run();
                 CorrectRotation();
                 CorrectPosition();
-                if (Player.currentDirection.z > 0)
+                if (Player.CurrentDirection.z > 0)
                 {
                     OnPushingStateEvent?.Invoke(true);
-                    Player.currentPushableObject.Pushing();
+                    Player.CurrentPushableObject.Pushing();
                 }
                 else
                 {
-                    Player.currentPushableObject.NotPushing();
+                    Player.CurrentPushableObject.NotPushing();
                     OnPushingStateEvent?.Invoke(false);
                 }
             }
             else{
                 OnPushingStateEvent?.Invoke(false);
                 OnExitPushingStateEvent?.Invoke();
-                Player.EndingPushingState();
+                Player.StartEndingPushingState();
             }
         }
 
@@ -53,22 +53,22 @@ namespace Player.PlayerStateMachine
         {
             var transform = Player.transform;
             var position = transform.position;
-            Player.transform.position = Vector3.Lerp(position, Player.currentPushableObject.GetPushLocation(position), Time.deltaTime * 5f);
+            Player.transform.position = Vector3.Lerp(position, Player.CurrentPushableObject.GetPushLocation(position), Time.deltaTime * 5f);
         }
 
         private void CorrectRotation()
         {
-            Player._playerMesh.transform.rotation = Quaternion.Lerp(Player._playerMesh.transform.rotation, Quaternion.LookRotation(_pushableTransform.position - Player.transform.position, Vector3.up), Time.deltaTime * 5f);
+            Player.PlayerMesh.transform.rotation = Quaternion.Lerp(Player.PlayerMesh.transform.rotation, Quaternion.LookRotation(_pushableTransform.position - Player.transform.position, Vector3.up), Time.deltaTime * 5f);
         }
 
         public override void Exit()
         {
             base.Exit();
-            Player.currentPushableObject.NotPushing();
-            Player._turnWithCamera.enabled = true;
+            Player.CurrentPushableObject.NotPushing();
+            TurnWithCamera.Active = true;
             Player.transform.parent =  null;
-            Player.currentPushableObject = null;
-            Player.endingPushingState = false;
+            Player.CurrentPushableObject = null;
+            Player.EndingPushingState = false;
             OnPushingStateEvent?.Invoke(false);
             OnExitPushingStateEvent?.Invoke();
         }

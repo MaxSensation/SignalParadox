@@ -24,12 +24,12 @@ namespace Player.PlayerStateMachine
         {
             if (!_isCrouching)
             {
-                Player._transmitter.SetSoundStrength(1 - soundStrength);
+                Player.Transmitter.SetSoundStrength(1 - soundStrength);
                 onEnteredCrouchEvent?.Invoke();
                 Debug.Log("Entered Crouch State");
-                _oldColliderHeight = PlayerCollider.height;
-                PlayerCollider.center = new Vector3(0, -0.35f, 0);
-                PlayerCollider.height = 1.1f;
+                _oldColliderHeight = Player.PlayerCollider.height;
+                Player.PlayerCollider.center = new Vector3(0, -0.35f, 0);
+                Player.PlayerCollider.height = 1.1f;
                 Player.UpdateCapsuleInfo();   
             }
         }
@@ -40,20 +40,20 @@ namespace Player.PlayerStateMachine
             {
                 onExitCrouchEvent?.Invoke();
                 Debug.Log("Exit Crouch State");
-                PlayerCollider.center = Vector3.zero;
-                PlayerCollider.height = _oldColliderHeight;
+                Player.PlayerCollider.center = Vector3.zero;
+                Player.PlayerCollider.height = _oldColliderHeight;
             }
         }
 
         public override void Run()
         {
 
-            if (Player.GetIsPlayerCharged())
+            if (Ischarged)
                 stateMachine.TransitionTo<ChargedState>();
             
 
             // Enter Crouch if Control is pressed 
-            if (!Player.hasInputCrouch && CanStand())
+            if (!Player.HasInputCrouch && CanStand())
             {
                 _isCrouching = false;
                 stateMachine.TransitionTo<StandState>();
@@ -82,7 +82,7 @@ namespace Player.PlayerStateMachine
 
         private bool CanStand()
         {
-            return !Physics.CapsuleCast(Player._point1, Player._point2, Player._collider.radius, Vector3.up, 1f, LayerMask.GetMask("Colliders"));
+            return !Physics.CapsuleCast(Player.Point1, Player.Point2, Player.PlayerCollider.radius, Vector3.up, 1f, LayerMask.GetMask("Colliders"));
         }
 
         private void LimitVelocity()

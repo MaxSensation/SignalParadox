@@ -15,12 +15,12 @@ namespace Player.PlayerStateMachine
 
         public override void Enter()
         {
-            Player._transmitter.SetSoundStrength(1 - soundStrength);
+            Player.Transmitter.SetSoundStrength(1 - soundStrength);
         }
         
         public override void Run()
         {
-            if (Player.GetIsPlayerCharged())
+            if (Ischarged)
                 stateMachine.TransitionTo<ChargedState>();
 
             // If Player is not grounded then change state to In Air State
@@ -29,7 +29,7 @@ namespace Player.PlayerStateMachine
             
             
             // Enter Crouch if Control is pressed 
-            if (Player.hasInputCrouch)
+            if (Player.HasInputCrouch)
             {
                 stateMachine.TransitionTo<CrouchState>();
             }

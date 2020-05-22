@@ -15,7 +15,6 @@ namespace AI.Charger.AIStateMachine
         public override void Enter()
         {
             base.Enter();
-            Ai.charging = true;
         }
 
         public override void Run()
@@ -23,7 +22,7 @@ namespace AI.Charger.AIStateMachine
 
             if (!Ai.isDead)
             {
-                if ((previousFrameSpeed - Ai.rigidbody.velocity.magnitude) > 0f)
+                if ((previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude) > 0f)
                     ChargeEnded();
 
                 if (!Ai.IsStunned())
@@ -35,9 +34,9 @@ namespace AI.Charger.AIStateMachine
 
         private void Charge()
         {
-            previousFrameSpeed = Ai.rigidbody.velocity.magnitude;
+            previousFrameSpeed = Ai.aiRigidbody.velocity.magnitude;
             _chargeDirection = Ai.GetChargeDirection();
-            Ai.rigidbody.AddForce(_chargeDirection.normalized * chargeSpeed * Time.deltaTime);
+            Ai.aiRigidbody.AddForce(_chargeDirection.normalized * chargeSpeed * Time.deltaTime);
             if (Ai.HasCollidedWithTaggedObjet())
             {
                 Ai.target.transform.parent = Ai.transform;
@@ -47,10 +46,10 @@ namespace AI.Charger.AIStateMachine
 
         public void ChargeEnded()
         {
-            if ((previousFrameSpeed - Ai.rigidbody.velocity.magnitude) > 10f)
+            if ((previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude) > 10f)
             {
-                Ai.audioSource.PlayOneShot(hitWallSound);
-                Ai.rigidbody.velocity = Vector3.zero;
+                Ai.AudioSource.PlayOneShot(hitWallSound);
+                Ai.aiRigidbody.velocity = Vector3.zero;
             }
             previousFrameSpeed = 0f;
             if (Ai.target.transform.IsChildOf(Ai.transform))

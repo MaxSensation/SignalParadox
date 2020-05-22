@@ -40,13 +40,13 @@ namespace AI.Charger.AIStateMachine
 
         private bool CanCharge()
         {
-            var capsulePosition = Ai.transform.position + Ai._collider.center;
-            var distanceToPoints = (Ai._collider.height / 2) - Ai._collider.radius;
+            var capsulePosition = Ai.transform.position + Ai.AiCollider.center;
+            var distanceToPoints = (Ai.AiCollider.height / 2) - Ai.AiCollider.radius;
             var point1 = capsulePosition + Vector3.up * distanceToPoints;
             var point2 = capsulePosition + Vector3.down * distanceToPoints;
             Physics.CapsuleCast(point1, point2, AiCollider.radius, Ai.transform.forward.normalized, out var hit, (Ai.target.transform.position - Ai.transform.position).magnitude, Ai.visionMask);
             //if very close to player canCharge is true
-            if ((Ai.target.transform.position - Ai.transform.position).magnitude < Ai._collider.radius * 3)
+            if ((Ai.target.transform.position - Ai.transform.position).magnitude < Ai.AiCollider.radius * 3)
                 return true;
             else
             return !(hit.collider);
