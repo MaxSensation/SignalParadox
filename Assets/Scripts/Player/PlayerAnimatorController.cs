@@ -11,25 +11,29 @@ namespace Player
     public class PlayerAnimatorController : MonoBehaviour
     {
         [SerializeField] private float smoothTime;
-        private Animator _animator;
-        private bool _isCrouching;
-        private bool _isAiming;
-        private bool _isThrowing;
+        private Animator animator;
+        private bool isCrouching;
+        private bool isAiming;
+        private bool isThrowing;
         private bool hasDecoy;
-        private Vector2 _movement;
-        private Vector2 _newMovement;
+        private GameObject currentPickedUpDecoy;
+        private Vector2 movement;
+        private Vector2 newMovement;
 
         public static Action OnDeathAnimEnd, OnDeathAnimBeginning;
+        public static Action<GameObject> onTouchedGrenade;
         
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
+            animator = GetComponent<Animator>();
             CrouchState.onEnteredCrouchEvent += EnteredCrouch;
             CrouchState.onExitCrouchEvent += ExitedCrouch;
             ThrowDecoyGrenade.OnAimingEvent += Aiming;
             ThrowDecoyGrenade.OnThrowEvent += Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent += StopAiming;
-            PickupDecoyGrenade.onGrenadePickup += OnPickedUpDecoy;
+            //PickupDecoyGrenade.onGrenadePickup += OnPickedUpDecoy;
+            PlayerInteractionTrigger.onInteractedEvent += OnPickedUpDecoy;
+
             PushingState.OnEnterPushingStateEvent += HandleEnterPushing;
             PushingState.OnExitPushingStateEvent += HandleExitPushing;
             PushingState.OnPushingStateEvent += HandlePushing;
@@ -43,15 +47,15 @@ namespace Player
             switch (dT)
             {
                 case HealthSystem.DamageType.Laser:
-                    _animator.SetTrigger("LaserDeath");
+                    animator.SetTrigger("LaserDeath");
                     DeathAnimBeginning();
                     break;
                 case HealthSystem.DamageType.Steam:
-                    _animator.SetTrigger("GasDeath");
+                    animator.SetTrigger("GasDeath");
                     DeathAnimBeginning();
                     break;
                 case HealthSystem.DamageType.Bodytrapper:
-                    _animator.SetTrigger("GasDeath");
+                    animator.SetTrigger("GasDeath");
                     DeathAnimBeginning();
                     break;
                 case HealthSystem.DamageType.Charger:
@@ -71,6 +75,11 @@ namespace Player
             OnDeathAnimBeginning?.Invoke();
         }
 
+        private void ActivateDecoyProp()
+        {
+            onTouchedGrenade?.Invoke(currentPickedUpDecoy);
+        }
+
         private void OnDestroy()
         {
             CrouchState.onEnteredCrouchEvent -= EnteredCrouch;
@@ -78,7 +87,9 @@ namespace Player
             ThrowDecoyGrenade.OnAimingEvent -= Aiming;
             ThrowDecoyGrenade.OnThrowEvent -= Throw;
             ThrowDecoyGrenade.OnOutOfRangeEvent -= StopAiming;
-            PickupDecoyGrenade.onGrenadePickup -= OnPickedUpDecoy;
+            //PickupDecoyGrenade.onGrenadePickup -= OnPickedUpDecoy;
+            PlayerInteractionTrigger.onInteractedEvent -= OnPickedUpDecoy;
+
             PushingState.OnEnterPushingStateEvent -= HandleEnterPushing;
             PushingState.OnExitPushingStateEvent -= HandleExitPushing;
             PushingState.OnPushingStateEvent -= HandlePushing;
@@ -89,81 +100,82 @@ namespace Player
 
         private void HandlePushing(bool pushing)
         {
-            _animator.SetBool("Pushing", pushing);
+            animator.SetBool("Pushing", pushing);
         }
         private void HandleEnterPushing()
         {
-            _animator.SetBool("EnteredPushing", true);
+            animator.SetBool("EnteredPushing", true);
         }
         
         private void HandleExitPushing()
         {
-            _animator.SetBool("EnteredPushing", false);
+            animator.SetBool("EnteredPushing", false);
         }
 
         private void StopAiming()
         {
-            _isAiming = false;
+            isAiming = false;
         }
 
         private void Aiming()
         {
-            _isAiming = true;
-            _isThrowing = false;
+            isAiming = true;
+            isThrowing = false;
         }
 
         private void Throw()
         {
-            _isAiming = false;
-            _isThrowing = true;
+            isAiming = false;
+            isThrowing = true;
             hasDecoy = false;
-            _animator.ResetTrigger("TryPickupDecoy");
+            animator.ResetTrigger("TryPickupDecoy");
         }
 
         private void EnteredCrouch()
         {
-            _isCrouching = true;
+            isCrouching = true;
         }
 
         private void ExitedCrouch()
         {
-            _isCrouching = false;
+            isCrouching = false;
         }
 
         private void OnTrapped()
         {
-            _animator.SetTrigger("Trapped");
-            _animator.ResetTrigger("Detached");
+            animator.SetTrigger("Trapped");
+            animator.ResetTrigger("Detached");
         }
 
         private void OnDetached()
         {
-            _animator.SetTrigger("Detached");
-            _animator.ResetTrigger("Trapped");
+            animator.SetTrigger("Detached");
+            animator.ResetTrigger("Trapped");
         }
 
         public void UpdateMovementInput(InputAction.CallbackContext context)
         {
-            _newMovement = context.ReadValue<Vector2>();
+            newMovement = context.ReadValue<Vector2>();
         }
 
-        private void OnPickedUpDecoy()
+        private void OnPickedUpDecoy(GameObject pickUpDecoy)
         {
             if (!hasDecoy)
             {
-                _animator.SetTrigger("TryPickupDecoy");
+                animator.SetTrigger("TryPickupDecoy");
                 hasDecoy = true;
+                currentPickedUpDecoy = pickUpDecoy;
             }
         }
 
         private void Update()
         {
-            _movement = Vector2.Lerp(_movement, _newMovement, Time.deltaTime * smoothTime);
-            _animator.SetFloat("Vertical", _movement.y);
-            _animator.SetFloat("Horizontal", _movement.x);
-            _animator.SetBool("Crouch", _isCrouching);
-            _animator.SetBool("Aim", _isAiming);
-            _animator.SetBool("Throw", _isThrowing);           
+            movement = Vector2.Lerp(movement, newMovement, Time.deltaTime * smoothTime);
+            animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetBool("Crouch", isCrouching);
+            animator.SetBool("Aim", isAiming);
+            animator.SetBool("Throw", isThrowing);           
         }
     }
 }
