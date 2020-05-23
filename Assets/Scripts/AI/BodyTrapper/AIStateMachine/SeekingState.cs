@@ -16,8 +16,8 @@ namespace AI.BodyTrapper.AIStateMachine
                 if (Ai.agent.enabled && Ai.agent.isStopped == false)
                 {
                     Ai.agent.destination = Ai.lastSoundLocation;
-                    if (Ai._echoLocationResult.Transmitter != null)
-                        if (!Ai._hasHeardDecoy && Ai._echoLocationResult.Transmitter.CompareTag("Player") && Ai._echoLocationResult.BestSoundStrength > 0.95f)
+                    if (Ai.echoLocationResult.Transmitter != null)
+                        if (!Ai.hasHeardDecoy && Ai.echoLocationResult.Transmitter.CompareTag("Player") && Ai.echoLocationResult.BestSoundStrength > 0.95f)
                         {
                             stateMachine.TransitionTo<HuntState>();
                         }

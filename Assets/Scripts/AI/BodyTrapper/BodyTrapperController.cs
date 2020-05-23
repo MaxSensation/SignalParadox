@@ -17,59 +17,51 @@ namespace AI.BodyTrapper
     {
         [SerializeField][Tooltip("Tid tills bodytrapper går tillbaks till patrolState")] private float ignoreTime;
         [SerializeField] private AudioClip trappedPlayerSound;
-        private EnemyTrigger _enemyTrigger;
+        private EnemyTrigger enemyTrigger;
         private float chargeTime;
-        private bool _enemyWithinPlayerMelee;
-        private Coroutine _foundSound;
-        private Coroutine _ignorePlayer;
-        private SphereCollider _bodyTrapperCollider;
-        public static Action<GameObject> onTrappedPlayer;
-        public static Action<GameObject> onDetachedFromPlayer;
-        internal Vector3 lastSoundLocation;
-        internal Vector3 jumpDirection;
-        internal EchoLocationResult _echoLocationResult;
-        internal EchoLocationReceiver _soundListener;
+        private Coroutine foundSound, ignorePlayer;
+        private SphereCollider bodyTrapperCollider;
+        public static Action<GameObject> onTrappedPlayer, onDetachedFromPlayer;
+        internal Vector3 lastSoundLocation, jumpDirection;
+        internal EchoLocationResult echoLocationResult;
+        internal EchoLocationReceiver soundListener;
         internal NavMeshPath path;
         internal AudioSource audioSource;
-        internal bool _hasHeardDecoy;
-        internal bool _isPlayerAlive;
-        internal bool canAttack;
-        internal bool isStuckOnPlayer;
-        internal bool isCharging;
+        internal bool hasHeardDecoy, isPlayerAlive ,canAttack ,isStuckOnPlayer ,isCharging;
 
         private new void Awake()
         {
             base.Awake();
-            _isPlayerAlive = true;
-            _bodyTrapperCollider = GetComponent<SphereCollider>();
+            isPlayerAlive = true;
+            bodyTrapperCollider = GetComponent<SphereCollider>();
             audioSource = GetComponent<AudioSource>();
             path = new NavMeshPath();
             chargeTime = 0f;
-            _enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
+            enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
+            soundListener = transform.GetComponentInChildren<EchoLocationReceiver>();
+            soundListener.heardSound += UpdateSoundSource;
+            audioSource.Play();
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
             LaserController.onLaserDeath += OnDeathByTrap;
             SteamController.onSteamDamage += OnDeathByTrap;
-            PlayerAnimatorController.OnDeathAnimBeginning += () => _isPlayerAlive = false;
-            _soundListener = transform.GetComponentInChildren<EchoLocationReceiver>();
-            _soundListener.heardSound += UpdateSoundSource;
-            audioSource.Play();
+            PlayerAnimatorController.OnDeathAnimBeginning += () => isPlayerAlive = false;
         }
 
         private void UpdateSoundSource(EchoLocationResult echoLocationResult)
         {
-            _echoLocationResult = echoLocationResult;
+            this.echoLocationResult = echoLocationResult;
             if (echoLocationResult.Transmitter.CompareTag("Decoy"))
             {
-                if (_ignorePlayer != null) StopCoroutine(_ignorePlayer);
-                _ignorePlayer = StartCoroutine(IgnorePlayer());
+                if (ignorePlayer != null) StopCoroutine(ignorePlayer);
+                ignorePlayer = StartCoroutine(IgnorePlayer());
                 lastSoundLocation = echoLocationResult.Transmitter.transform.position;
-                _hasHeardDecoy = true;
+                hasHeardDecoy = true;
             }
-            if (!_hasHeardDecoy && echoLocationResult.Transmitter.CompareTag("Player"))
+            if (!hasHeardDecoy && echoLocationResult.Transmitter.CompareTag("Player"))
                 lastSoundLocation = echoLocationResult.Transmitter.transform.position;
-            if (_foundSound != null) StopCoroutine(_foundSound);
-            _foundSound = StartCoroutine(FoundSound());
+            if (foundSound != null) StopCoroutine(foundSound);
+            foundSound = StartCoroutine(FoundSound());
         }
 
         private IEnumerator FoundSound()
@@ -81,7 +73,7 @@ namespace AI.BodyTrapper
         private IEnumerator IgnorePlayer()
         {
             yield return new WaitForSeconds(0.5f);
-            _hasHeardDecoy = false;
+            hasHeardDecoy = false;
         }
 
         private void OnDeathByTrap(GameObject obj)
@@ -95,7 +87,7 @@ namespace AI.BodyTrapper
         {
             if (!isStuckOnPlayer) return;
             onDetachedFromPlayer?.Invoke(gameObject);
-            _bodyTrapperCollider.isTrigger = false;
+            bodyTrapperCollider.isTrigger = false;
             isStuckOnPlayer = false;
             agent.enabled = true;
             aiRigidbody.useGravity = true;
@@ -114,13 +106,13 @@ namespace AI.BodyTrapper
             PlayerTrapable.onDetached -= DetachFromPlayer;
             LaserController.onLaserDeath -= OnDeathByTrap;
             SteamController.onSteamDamage -= OnDeathByTrap;
-            PlayerAnimatorController.OnDeathAnimBeginning += () => _isPlayerAlive = false;
+            PlayerAnimatorController.OnDeathAnimBeginning += () => isPlayerAlive = false;
         }
 
         private void StuckOnPlayer(GameObject bodyTrapper)
         {
             if (bodyTrapper != gameObject || isDead) return;
-            _bodyTrapperCollider.isTrigger = true;
+            bodyTrapperCollider.isTrigger = true;
             aiRigidbody.velocity = Vector3.zero;
             isStuckOnPlayer = true;
             agent.enabled = false;
@@ -139,13 +131,13 @@ namespace AI.BodyTrapper
         
         internal void TouchingPlayer()
         {
-            if (!_enemyTrigger.IsTouchingTaggedObject || isStuckOnPlayer || !canAttack) return;
+            if (!enemyTrigger.IsTouchingTaggedObject || isStuckOnPlayer || !canAttack) return;
             canAttack = false;
             audioSource.PlayOneShot(trappedPlayerSound);
             onTrappedPlayer?.Invoke(gameObject);
         }
 
-        public void StartCharge(float chargeTime)
+        internal void StartCharge(float chargeTime)
         {
             this.chargeTime = chargeTime;
             isCharging = true;

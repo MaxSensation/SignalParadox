@@ -29,7 +29,7 @@ namespace AI.BodyTrapper.AIStateMachine
             
             if (!Ai.IsStunned() && Ai.agent.enabled)
                 Ai.agent.SetDestination(Ai.target.transform.position);
-            if (Ai._isPlayerAlive && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance && Ai.LookingAtPlayer(Ai, maxMinLookRange))
+            if (Ai.isPlayerAlive && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance && Ai.LookingAtPlayer(Ai, maxMinLookRange))
                 stateMachine.TransitionTo<ChargeState>();
 
             if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
