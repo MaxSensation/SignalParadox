@@ -1,8 +1,6 @@
 ﻿using System;
-using AI.BodyTrapper;
 using AI.BodyTrapper.AIStateMachine;
 using Interactables.Traps;
-using Player;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -21,6 +19,20 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         JumpState.onJumpEvent += Jump;
         StunState.onLandEvent += Land;
         HuntState.OnHuntingEvent += Hunting;
+        SeekingState.onStoppedEvent += Stopped;
+        SeekingState.onMovingEvent += Walk;
+    }
+
+    private void Walk(GameObject obj)
+    {
+        if (bodytrapper != obj) return;
+        animator.SetBool("Moving", true);
+    }
+
+    private void Stopped(GameObject obj)
+    {
+        if (bodytrapper != obj) return;
+        animator.SetBool("Moving", false);
     }
 
     private void Hunting(GameObject obj)
@@ -54,5 +66,7 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         JumpState.onJumpEvent -= Jump;
         StunState.onLandEvent -= Land;
         HuntState.OnHuntingEvent -= Hunting;
+        SeekingState.onStoppedEvent -= Stopped;
+        SeekingState.onMovingEvent -= Walk;
     }
 }
