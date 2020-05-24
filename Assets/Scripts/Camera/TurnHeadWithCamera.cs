@@ -23,8 +23,6 @@ public class TurnHeadWithCamera : MonoBehaviour
         var wantedLocalEulerXAngle = ClampAngle(newLookXRotation.eulerAngles.x, -maxAngle, maxAngle);
         var wantedLocalEulerAngles = new Vector3(wantedLocalEulerXAngle, currentLocalEulerAngles.y, currentLocalEulerAngles.z);
         objectTransform.localEulerAngles = wantedLocalEulerAngles;
-        // var newRotation = Quaternion.Euler(wantedLocalEulerAngles);
-        // objectTransform.localRotation = Quaternion.Lerp(objectTransform.localRotation, newRotation, Time.deltaTime * smoothSpeed);
     }
     
     private static float ClampAngle(float eulerAngle, float min, float max)
