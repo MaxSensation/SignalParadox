@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Main author: Andreas Berzelius
+
 using AI.BodyTrapper.AIStateMachine;
 using Interactables.Traps;
 using UnityEngine;

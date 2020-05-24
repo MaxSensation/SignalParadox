@@ -1,5 +1,5 @@
-﻿//Main author: Maximiliam Rosén
-//Secondary author: Andreas Berzelius
+﻿//Main author: Andreas Berzelius
+//Secondary author: Maximiliam Rosén
 
 using UnityEngine;
 

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Main author: Andreas Berzelius
+
+using UnityEngine;
 
 public class PropDecoyGrenade : MonoBehaviour
 {

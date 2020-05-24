@@ -18,7 +18,7 @@ public class ThrowDecoyGrenade : MonoBehaviour
     [SerializeField] [Tooltip("How high should the player be able to throw")] private float maxThrowHeight = 5;
     [SerializeField] [Tooltip("Time until grenade despawns")] private float timeUntilDestroy = 10;
     [SerializeField] [Tooltip("The gravity on the thrown grenade")] private float gravity = -9.6f;
-    private bool shouldDrawPath, canThrow, throwIsStopped;
+    private bool shouldDrawPath, canThrow, IsThrowStopped;
     private int currentThrownGrenades;
     private Rigidbody grenadeRigidBody, thrownGrenade;
     private Transform playerMeshPos, cameraPosition, hand;
@@ -51,12 +51,12 @@ public class ThrowDecoyGrenade : MonoBehaviour
 
     private void ResumeThrow()
     {
-        throwIsStopped = false;
+        IsThrowStopped = false;
     }
 
     private void StopThrow()
     {
-        throwIsStopped = true;
+        IsThrowStopped = true;
         shouldDrawPath = false;
         canThrow = false;
         OnOutOfRangeEvent?.Invoke();
@@ -99,16 +99,16 @@ public class ThrowDecoyGrenade : MonoBehaviour
     public void HandleInput(InputAction.CallbackContext context)
     {
         //remove the previous grenade if you throw again
-        if (context.started && thrownGrenade != null && currentAmountOfGrenades > 0 && !throwIsStopped)
+        if (context.started && thrownGrenade != null && currentAmountOfGrenades > 0 && !IsThrowStopped)
         {
             Destroy(thrownGrenade.gameObject);
             currentThrownGrenades--;
         }
-        if (context.started && currentThrownGrenades < currentAmountOfGrenades && !throwIsStopped)
+        if (context.started && currentThrownGrenades < currentAmountOfGrenades && !IsThrowStopped)
         {
             shouldDrawPath = true;
         }
-        if (!context.canceled || currentThrownGrenades > currentAmountOfGrenades || throwIsStopped) return;
+        if (!context.canceled || currentThrownGrenades > currentAmountOfGrenades || IsThrowStopped) return;
 
         shouldDrawPath = false;
         Throw();
