@@ -176,7 +176,7 @@ Rigidbody:
   m_GameObject: {fileID: 5772861337741434719}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.5
+  m_Drag: 1
   m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -220,7 +220,9 @@ MonoBehaviour:
   visionMask:
     serializedVersion: 2
     m_Bits: 256
-  ignoreTime: 10
+  stunnedTime: 5
+  seekTime: 10
+  ignorePlayerFrekvence: 0.5
   trappedPlayerSound: {fileID: 8300000, guid: b2b3e1ff635aa5446bf52fd3c3f04b71, type: 3}
 --- !u!82 &6424705370161530901
 AudioSource:

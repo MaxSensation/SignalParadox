@@ -11,38 +11,30 @@ namespace AI.BodyTrapper.AIStateMachine
     public class HuntState : BodyTrapperBaseState
     {
         [SerializeField] private float jumpDistance;
-        [SerializeField] private float searchingRange;
         [SerializeField] private float maxMinLookRange;
 
-        public static Action<GameObject> OnHuntingEvent; 
+        public static Action<GameObject> onHuntEvent; 
 
         public override void Enter()
         {
             base.Enter();
-            OnHuntingEvent?.Invoke(Ai.gameObject);
+            onHuntEvent?.Invoke(Ai.gameObject);
         }
 
         public override void Run()
         {
-            if (Ai.isDead)
-                stateMachine.TransitionTo<DeadState>();
-            
-            if (!Ai.IsStunned() && Ai.agent.enabled)
+            if (!Ai.IsStunned && Ai.agent.enabled)
                 Ai.agent.SetDestination(Ai.target.transform.position);
-            if (Ai.isPlayerAlive && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance && Ai.LookingAtPlayer(Ai, maxMinLookRange))
+            
+            if (Ai.isPlayerAlive && Ai.PlayerInSight() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance && Ai.LookingAtPlayer(Ai, maxMinLookRange))
                 stateMachine.TransitionTo<ChargeState>();
 
-            if (CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
+            if (Ai.PlayerInSight() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
             {
-                var e = (Ai.target.transform.position - Ai.transform.position);
-                var targetRotation = Quaternion.LookRotation(new Vector3(e.x, 0, e.z), Vector3.up);
+                var directionToPlayer = (Ai.target.transform.position - Ai.transform.position);
+                var targetRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z), Vector3.up);
                 Ai.transform.rotation = Quaternion.Lerp(Ai.transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
-
-            NavMesh.CalculatePath(Ai.target.transform.position, Ai.transform.position, NavMesh.AllAreas, Ai.path);
-            if (Ai.path.status != NavMeshPathStatus.PathComplete || (!CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) > searchingRange))
-                stateMachine.TransitionTo<PatrolState>();
-            
         }
     }
 }

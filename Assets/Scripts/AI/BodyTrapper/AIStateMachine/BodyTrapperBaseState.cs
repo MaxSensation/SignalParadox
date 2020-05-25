@@ -7,19 +7,11 @@ namespace AI.BodyTrapper.AIStateMachine
 {
     public abstract class BodyTrapperBaseState : State
     {
-        private BodyTrapperController _ai;
-        protected BodyTrapperController Ai => _ai = _ai ? _ai : (BodyTrapperController)owner;
+        private BodyTrapperController ai;
+        protected BodyTrapperController Ai => ai = ai ? ai : (BodyTrapperController)owner;
         [SerializeField] protected Material material;
 
-        public override void Enter()
-        {
-            //_renderer.material = material;
-        }
-
-        protected bool CanSeePlayer()
-        {
-            return !Physics.Linecast(Ai.transform.position, Ai.target.transform.position, Ai.visionMask);
-        }
+        //public override void Enter() => _renderer.material = material;
     }
 }
 

@@ -9,38 +9,38 @@ using Interactables.Traps;
 using Interactables.Triggers;
 using Player;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace AI.BodyTrapper
 {
     public class BodyTrapperController : AIController
     {
-        [SerializeField][Tooltip("Tid tills bodytrapper går tillbaks till patrolState")] private float ignoreTime;
+        public static Action<GameObject> onTrappedPlayer, onDetachedFromPlayer;
+        [SerializeField][Tooltip("Tid tills bodytrapper går tillbaks till patrolState")] private float seekTime;
+        [SerializeField][Tooltip("Frekvens på hur ofta den checkar efter en Decoy")] private float ignorePlayerFrekvence;
         [SerializeField] private AudioClip trappedPlayerSound;
+        internal Vector3 lastSoundLocation, jumpDirection;
+        internal EchoLocationResult echoLocationResult;
+        internal AudioSource audioSource;
+        internal bool hasHeardDecoy, isPlayerAlive ,canAttack ,isStuckOnPlayer ,isCharging;
         private EnemyTrigger enemyTrigger;
         private float chargeTime;
         private Coroutine foundSound, ignorePlayer;
         private SphereCollider bodyTrapperCollider;
-        public static Action<GameObject> onTrappedPlayer, onDetachedFromPlayer;
-        internal Vector3 lastSoundLocation, jumpDirection;
-        internal EchoLocationResult echoLocationResult;
-        internal EchoLocationReceiver soundListener;
-        internal NavMeshPath path;
-        internal AudioSource audioSource;
-        internal bool hasHeardDecoy, isPlayerAlive ,canAttack ,isStuckOnPlayer ,isCharging;
+        private EchoLocationReceiver soundListener;
+        private WaitForSeconds ignoreTimeSeconds, seekTimeSeconds;
 
         private new void Awake()
         {
             base.Awake();
+            ignoreTimeSeconds = new WaitForSeconds(ignorePlayerFrekvence);
+            seekTimeSeconds = new WaitForSeconds(seekTime);
             isPlayerAlive = true;
             bodyTrapperCollider = GetComponent<SphereCollider>();
             audioSource = GetComponent<AudioSource>();
-            path = new NavMeshPath();
-            chargeTime = 0f;
             enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             soundListener = transform.GetComponentInChildren<EchoLocationReceiver>();
+            
             soundListener.heardSound += UpdateSoundSource;
-            audioSource.Play();
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
             LaserController.onLaserDeath += OnDeathByTrap;
@@ -48,31 +48,43 @@ namespace AI.BodyTrapper
             PlayerAnimatorController.OnDeathAnimBeginning += () => isPlayerAlive = false;
         }
 
-        private void UpdateSoundSource(EchoLocationResult echoLocationResult)
+        private void OnDestroy()
         {
-            this.echoLocationResult = echoLocationResult;
-            if (echoLocationResult.Transmitter.CompareTag("Decoy"))
+            PlayerTrapable.onTrapped -= StuckOnPlayer;
+            PlayerTrapable.onDetached -= DetachFromPlayer;
+            LaserController.onLaserDeath -= OnDeathByTrap;
+            SteamController.onSteamDamage -= OnDeathByTrap;
+            PlayerAnimatorController.OnDeathAnimBeginning -= () => isPlayerAlive = false;
+        }
+        
+
+        private void UpdateSoundSource(EchoLocationResult soundData)
+        {
+            echoLocationResult = soundData;
+            if (soundData.Transmitter.CompareTag("Decoy"))
             {
-                if (ignorePlayer != null) StopCoroutine(ignorePlayer);
+                if (ignorePlayer != null) 
+                    StopCoroutine(ignorePlayer);
                 ignorePlayer = StartCoroutine(IgnorePlayer());
-                lastSoundLocation = echoLocationResult.Transmitter.transform.position;
+                lastSoundLocation = soundData.Transmitter.transform.position;
                 hasHeardDecoy = true;
             }
-            if (!hasHeardDecoy && echoLocationResult.Transmitter.CompareTag("Player"))
-                lastSoundLocation = echoLocationResult.Transmitter.transform.position;
-            if (foundSound != null) StopCoroutine(foundSound);
+            if (!hasHeardDecoy && soundData.Transmitter.CompareTag("Player"))
+                lastSoundLocation = soundData.Transmitter.transform.position;
+            if (foundSound != null) 
+                StopCoroutine(foundSound);
             foundSound = StartCoroutine(FoundSound());
         }
 
         private IEnumerator FoundSound()
         {
-            yield return new WaitForSeconds(ignoreTime);
+            yield return seekTimeSeconds;
             lastSoundLocation = Vector3.zero;
         }
 
         private IEnumerator IgnorePlayer()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return ignoreTimeSeconds;
             hasHeardDecoy = false;
         }
 
@@ -95,23 +107,9 @@ namespace AI.BodyTrapper
             stateMachine.TransitionTo<StunState>();
         }
 
-        private void OnDestroy()
-        {
-            UnregisterEvents();
-        }
-
-        private void UnregisterEvents()
-        {
-            PlayerTrapable.onTrapped -= StuckOnPlayer;
-            PlayerTrapable.onDetached -= DetachFromPlayer;
-            LaserController.onLaserDeath -= OnDeathByTrap;
-            SteamController.onSteamDamage -= OnDeathByTrap;
-            PlayerAnimatorController.OnDeathAnimBeginning += () => isPlayerAlive = false;
-        }
-
         private void StuckOnPlayer(GameObject bodyTrapper)
         {
-            if (bodyTrapper != gameObject || isDead) return;
+            if (bodyTrapper != gameObject) return;
             bodyTrapperCollider.isTrigger = true;
             aiRigidbody.velocity = Vector3.zero;
             isStuckOnPlayer = true;
@@ -121,11 +119,10 @@ namespace AI.BodyTrapper
 
         protected override void Die()
         {
-            isDead = true;
+            DetachFromPlayer();
             if (agent != null)
                 agent.enabled = false;
             audioSource.Stop();
-            UnregisterEvents();
             stateMachine.TransitionTo<DeadState>();
         }
         
@@ -148,19 +145,6 @@ namespace AI.BodyTrapper
         {
             yield return new WaitForSeconds(chargeTime);
             isCharging = false;
-        }
-
-        public void ActivateStun()
-        {
-            isStunned = true;
-            StartCoroutine(Stun());
-        }
-
-        private IEnumerator Stun()
-        {
-            yield return new WaitForSeconds(5f);
-            isStunned = false;
-            agent.enabled = true;
         }
     }
 }

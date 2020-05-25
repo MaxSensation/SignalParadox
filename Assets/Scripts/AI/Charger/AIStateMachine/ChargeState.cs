@@ -10,44 +10,28 @@ namespace AI.Charger.AIStateMachine
     {
         [SerializeField] private float chargeSpeed;
         [SerializeField] private AudioClip hitWallSound;
-        private Vector3 chargeDirection;
+        [SerializeField] private float wallSoundThreshold = 10f;
         private float previousFrameSpeed;
-
-        public override void Enter()
-        {
-            base.Enter();
-        }
-
+        
         public override void Run()
         {
-
-            if (!Ai.isDead)
-            {
-                if ((previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude) > 0f)
-                    ChargeEnded();
-
-                if (!Ai.IsStunned())
-                    Charge();
-            }
-            else
-                stateMachine.TransitionTo<DeadState>();
+            if (previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude > 0f)
+                ChargeEnded();
+            Charge();
         }
 
         private void Charge()
         {
             previousFrameSpeed = Ai.aiRigidbody.velocity.magnitude;
-            chargeDirection = Ai.GetChargeDirection();
-            Ai.aiRigidbody.AddForce(chargeDirection.normalized * chargeSpeed * Time.deltaTime);
-            if (Ai.HasCollidedWithTaggedObjet())
-            {
-                Ai.target.transform.parent = Ai.transform;
-                Ai.CaughtPlayer();
-            }
+            Ai.aiRigidbody.AddForce(Ai.ChargeDirection.normalized * (chargeSpeed * Time.deltaTime));
+            if (!Ai.EnemyTrigger.IsTouchingTaggedObject) return;
+            Ai.target.transform.parent = Ai.transform;
+            Ai.CaughtPlayer();
         }
 
-        public void ChargeEnded()
+        private void ChargeEnded()
         {
-            if ((previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude) > 10f)
+            if (previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude > wallSoundThreshold)
             {
                 Ai.AudioSource.PlayOneShot(hitWallSound);
                 Ai.aiRigidbody.velocity = Vector3.zero;
@@ -57,8 +41,7 @@ namespace AI.Charger.AIStateMachine
                 Ai.KillPlayer();
             Ai.target.transform.parent = null;
             Ai.agent.enabled = true;
-            Ai.ActivateStun();
-            stateMachine.TransitionTo<HuntState>();
+            stateMachine.TransitionTo<StunState>();
         }
     }
 }

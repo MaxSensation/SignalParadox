@@ -53,7 +53,7 @@ namespace Player
             PlayerCollider = GetComponent<CapsuleCollider>();
             Physic3D.LoadWorldParameters(world);
             ChargerController.onCrushedPlayerEvent += Die;
-            ChargerController.CaughtPlayerEvent += PlayerIsCharged;
+            ChargerController.onCaughtPlayerEvent += PlayerIsCharged;
             PushableBox.onPushStateEvent += HandlePushEvent;
             PlayerTrapable.onPlayerTrappedEvent += EnableTrapped;
             PlayerTrapable.onDetached += DisableTrapped;
@@ -64,7 +64,7 @@ namespace Player
         private void OnDestroy()
         {
             ChargerController.onCrushedPlayerEvent -= Die;
-            ChargerController.CaughtPlayerEvent -= PlayerIsCharged;
+            ChargerController.onCaughtPlayerEvent -= PlayerIsCharged;
             PushableBox.onPushStateEvent -= HandlePushEvent;
             PlayerTrapable.onPlayerTrappedEvent -= EnableTrapped;
             PlayerTrapable.onDetached -= DisableTrapped;

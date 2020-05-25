@@ -7,15 +7,15 @@ namespace AI.BodyTrapper.AIStateMachine
     [CreateAssetMenu(menuName = "AIStates/BodyTrapper/StunState")]
     public class StunState : BodyTrapperBaseState
     {
-        public static Action<GameObject> onLandEvent;
         [SerializeField] private AudioClip stunnedSound;
+        
+        public static Action<GameObject> onLandEvent;
 
         public override void Enter()
         {
             base.Enter();
             Ai.aiRigidbody.velocity = Vector3.zero;
             Ai.agent.enabled = false;
-            //Ai.aiRigidbody.useGravity = false;
             onLandEvent?.Invoke(Ai.gameObject);
             Ai.audioSource.PlayOneShot(stunnedSound,1f);
             Ai.ActivateStun();
@@ -23,11 +23,8 @@ namespace AI.BodyTrapper.AIStateMachine
 
         public override void Run()
         {
-            //Ai.aiRigidbody.velocity = Vector3.zero;
-            if (!Ai.IsStunned())
-            {
+            if (!Ai.IsStunned)
                 stateMachine.TransitionTo<PatrolState>();
-            }
         }
 
         public override void Exit()

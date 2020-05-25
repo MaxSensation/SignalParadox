@@ -183,12 +183,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 662263246ae7e774b932c15dd1fb171a, type: 2}
   - {fileID: 11400000, guid: 8e05ff3fa9d76a94eacbbab7f42ff776, type: 2}
   - {fileID: 11400000, guid: f25dfb306ea0f36418aa0743c1139bf9, type: 2}
+  - {fileID: 11400000, guid: 03c76f1be84b9f24c9a7d3bb79353ed6, type: 2}
   waypoints: []
   visionMask:
     serializedVersion: 2
     m_Bits: 256
-  _chargeUpTime: 1
-  _stunnedTime: 0.5
+  stunnedTime: 0.5
+  chargeUpTime: 1
 --- !u!82 &4300840741976561570
 AudioSource:
   m_ObjectHideFlags: 0
@@ -200,7 +201,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 98fca9ea8a54f5b4b802b34af0c0597c, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

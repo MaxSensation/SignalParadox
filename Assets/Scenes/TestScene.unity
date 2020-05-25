@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -608,6 +608,10 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[1]
       value: 
       objectReference: {fileID: 1095528846}
+    - target: {fileID: 249009892, guid: 2e9a93b6e706fcb4b99baf65c4b15240, type: 3}
+      propertyPath: stunnedTime
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5772861337741434719, guid: 2e9a93b6e706fcb4b99baf65c4b15240,
         type: 3}
       propertyPath: m_Name
@@ -1588,7 +1592,7 @@ PrefabInstance:
     - target: {fileID: 2278609319332266325, guid: 9f76881a68b98234a88a6847eee1e010,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.7588463
+      value: 19.16
       objectReference: {fileID: 0}
     - target: {fileID: 2278609319332266325, guid: 9f76881a68b98234a88a6847eee1e010,
         type: 3}

@@ -1,6 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,17 +12,19 @@ namespace AI
         [SerializeField] private State[] states;
         [SerializeField] internal Transform[] waypoints;
         [SerializeField] internal LayerMask visionMask;
-
+        [SerializeField] private float stunnedTime = 0.5f;
+        
         protected StateMachine stateMachine;
-        protected bool isStunned;
         internal GameObject target;
         internal NavMeshAgent agent;
         internal Rigidbody aiRigidbody;
-        internal bool isDead;
+        private WaitForSeconds stunTimeSeconds;
         internal CapsuleCollider AiCollider { get; private set; }
+        internal bool IsStunned { get; private set; }
 
         protected void Awake()
         {
+            stunTimeSeconds = new WaitForSeconds(stunnedTime);
             AiCollider = GetComponent<CapsuleCollider>();
             aiRigidbody = GetComponent<Rigidbody>();
             target = FindObjectOfType<Player.PlayerController>().gameObject;
@@ -29,14 +32,23 @@ namespace AI
             stateMachine = new StateMachine(this, states);
         }
 
-        private void Update()
+        private void Update() => stateMachine.Run();
+        
+        internal bool PlayerInSight() =>!Physics.Linecast(transform.position, target.transform.position, visionMask);
+        
+        internal void ActivateStun()
         {
-            stateMachine.Run();
+            IsStunned = true;
+            StartCoroutine(StunTime());
+        }
+        
+        private IEnumerator StunTime()
+        {
+            yield return stunTimeSeconds;
+            IsStunned = false;
         }
 
-        internal bool IsStunned() { return isStunned; }
-
-        protected virtual void Die() { }
+        protected abstract void Die();
 
         internal bool LookingAtPlayer(AIController Ai, float maxMinLookRange)
         {
