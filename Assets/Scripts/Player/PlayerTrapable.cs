@@ -109,6 +109,7 @@ namespace Player
             amountOfTrappedBodyTrappers--;
             if (amountOfTrappedBodyTrappers == 0)
             {
+                onDetached?.Invoke();
                 StopCoroutine(_mouseShaker);
                 StopCoroutine(_damageOverTime);
             }
