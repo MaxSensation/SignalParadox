@@ -48,6 +48,16 @@ namespace AI.BodyTrapper
             PlayerAnimatorController.OnDeathAnimBeginning += () => isPlayerAlive = false;
         }
 
+        private void OnDestroy()
+        {
+            PlayerTrapable.onTrapped -= StuckOnPlayer;
+            PlayerTrapable.onDetached -= DetachFromPlayer;
+            LaserController.onLaserDeath -= OnDeathByTrap;
+            SteamController.onSteamDamage -= OnDeathByTrap;
+            PlayerAnimatorController.OnDeathAnimBeginning -= () => isPlayerAlive = false;
+        }
+        
+
         private void UpdateSoundSource(EchoLocationResult soundData)
         {
             echoLocationResult = soundData;
@@ -97,20 +107,6 @@ namespace AI.BodyTrapper
             stateMachine.TransitionTo<StunState>();
         }
 
-        private void OnDestroy()
-        {
-            UnregisterEvents();
-        }
-
-        private void UnregisterEvents()
-        {
-            PlayerTrapable.onTrapped -= StuckOnPlayer;
-            PlayerTrapable.onDetached -= DetachFromPlayer;
-            LaserController.onLaserDeath -= OnDeathByTrap;
-            SteamController.onSteamDamage -= OnDeathByTrap;
-            PlayerAnimatorController.OnDeathAnimBeginning -= () => isPlayerAlive = false;
-        }
-
         private void StuckOnPlayer(GameObject bodyTrapper)
         {
             if (bodyTrapper != gameObject || isDead) return;
@@ -127,7 +123,6 @@ namespace AI.BodyTrapper
             if (agent != null)
                 agent.enabled = false;
             audioSource.Stop();
-            UnregisterEvents();
             stateMachine.TransitionTo<DeadState>();
         }
         
