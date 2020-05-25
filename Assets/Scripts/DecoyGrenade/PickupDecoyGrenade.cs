@@ -42,7 +42,7 @@ public class PickupDecoyGrenade : MonoBehaviour
 
     private void OnDestroy()
     {
-        PlayerInteractionTrigger.onInteractedEvent -= Pickup;
+        PlayerAnimatorController.onTouchedGrenade -= Pickup;
         ThrowDecoyGrenade.OnPickedUpGrenade -= PickedUpGrenade;
         ThrowDecoyGrenade.OnThrowEvent -= ThrownGrenade;
     }
