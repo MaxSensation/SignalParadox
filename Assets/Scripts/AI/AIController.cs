@@ -34,6 +34,8 @@ namespace AI
 
         private void Update() => stateMachine.Run();
         
+        internal bool PlayerInSight() =>!Physics.Linecast(transform.position, target.transform.position, visionMask);
+        
         internal void ActivateStun()
         {
             IsStunned = true;

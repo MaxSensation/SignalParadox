@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3006e404e4c9c084ea8fa7c218e97438, type: 3}
-  m_Name: HuntState
+  m_Script: {fileID: 11500000, guid: 7912b53b93c8413f8d21bd65b1c73249, type: 3}
+  m_Name: StunState
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: b238e1b757e79944e8a8a7474bb8047b, type: 2}
-  chargeDistance: 100
-  searchingRange: 20
-  maxLookAngle: 0.999
+  material: {fileID: 0}

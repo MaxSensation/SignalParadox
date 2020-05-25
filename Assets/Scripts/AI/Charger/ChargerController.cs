@@ -13,72 +13,54 @@ namespace AI.Charger
     public class ChargerController : AIController
     {
         [SerializeField] private int chargeUpTime = 1;
-        private Vector3 chargeDirection;
-        private EnemyTrigger enemyTrigger;
         private Coroutine onlyStunTime, chargeTime;
         private WaitForSeconds chargeUpTimeSeconds;
 
+        internal Vector3 ChargeDirection { get; private set; }
         internal AudioSource AudioSource { get; private set; }
-        public static Action onCrushedPlayerEvent, CaughtPlayerEvent;
+        internal EnemyTrigger EnemyTrigger { get; private set; }
+        public static Action onCrushedPlayerEvent, onCaughtPlayerEvent;
 
         private new void Awake()
         {
             base.Awake();
             chargeUpTimeSeconds = new WaitForSeconds(chargeUpTime);
-            enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
+            EnemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             AudioSource = GetComponent<AudioSource>();
-            AudioSource.Play();
             LaserController.onLaserDeath += OnDeathByLaser;
         }
 
         private void OnDestroy() => LaserController.onLaserDeath -= OnDeathByLaser;
 
-        private void OnDeathByLaser(GameObject obj)
+        private void OnDeathByLaser(GameObject entity)
         {
-            if (obj.Equals(gameObject))
+            if (entity.Equals(gameObject))
                 Die();
         }
+        
+        internal void KillPlayer() => onCrushedPlayerEvent?.Invoke();
+
+        internal void CaughtPlayer() => onCaughtPlayerEvent?.Invoke();
 
         private IEnumerator ChargeTime()
         {
             yield return chargeUpTimeSeconds;
             if (agent.enabled)
                 agent.isStopped = false;
-            stateMachine.TransitionTo<AIStateMachine.ChargeState>();
-            StopCoroutine(chargeTime);
+            stateMachine.TransitionTo<ChargeState>();
         }
 
         internal void ChargeUp()
         {
             agent.isStopped = true;
-            chargeTime = StartCoroutine(ChargeTime());
+            StartCoroutine(ChargeTime());
         }
 
         internal void SetChargeDirection()
         {
-            Vector3 enemyPosition = transform.position;
-            Vector3 playerPosition = target.transform.position;
-            chargeDirection = (new Vector3(playerPosition.x, 0, playerPosition.z) - new Vector3(enemyPosition.x, 0, enemyPosition.z)).normalized;
-        }
-
-        internal Vector3 GetChargeDirection()
-        {
-            return chargeDirection;
-        }
-
-        internal bool HasCollidedWithTaggedObjet()
-        {
-            return enemyTrigger.IsTouchingTaggedObject;
-        }
-
-        internal void KillPlayer()
-        {
-            onCrushedPlayerEvent?.Invoke();
-        }
-
-        internal void CaughtPlayer()
-        {
-            CaughtPlayerEvent?.Invoke();
+            var direction = (target.transform.position - transform.position).normalized;
+            direction.y = 0;
+            ChargeDirection = direction;
         }
 
         protected override void Die()

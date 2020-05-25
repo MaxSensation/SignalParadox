@@ -7,7 +7,6 @@ namespace AI.Charger.AIStateMachine
     [CreateAssetMenu(menuName = "AIStates/Charger/ChargeUpState")]
     public class ChargeUpState : ChargerBaseState
     {
-
         public override void Enter()
         {
             base.Enter();

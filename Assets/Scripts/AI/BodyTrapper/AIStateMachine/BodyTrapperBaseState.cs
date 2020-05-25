@@ -11,15 +11,7 @@ namespace AI.BodyTrapper.AIStateMachine
         protected BodyTrapperController Ai => ai = ai ? ai : (BodyTrapperController)owner;
         [SerializeField] protected Material material;
 
-        public override void Enter()
-        {
-            //_renderer.material = material;
-        }
-
-        protected bool CanSeePlayer()
-        {
-            return !Physics.Linecast(Ai.transform.position, Ai.target.transform.position, Ai.visionMask);
-        }
+        //public override void Enter() => _renderer.material = material;
     }
 }
 
