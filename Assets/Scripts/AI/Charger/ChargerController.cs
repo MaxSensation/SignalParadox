@@ -12,11 +12,10 @@ namespace AI.Charger
     public class ChargerController : AIController
     {
         [SerializeField] private int chargeUpTime = 1;
-        [SerializeField] private float stunnedTime = 0.5f;
         private Vector3 chargeDirection;
         private EnemyTrigger enemyTrigger;
         private Coroutine onlyStunTime, chargeTime;
-        private WaitForSeconds chargeUpTimeSeconds, stunTimeSeconds;
+        private WaitForSeconds chargeUpTimeSeconds;
 
         internal AudioSource AudioSource { get; private set; }
         public static Action onCrushedPlayerEvent, CaughtPlayerEvent;
@@ -25,7 +24,6 @@ namespace AI.Charger
         {
             base.Awake();
             chargeUpTimeSeconds = new WaitForSeconds(chargeUpTime);
-            stunTimeSeconds = new WaitForSeconds(stunnedTime);
             enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             AudioSource = GetComponent<AudioSource>();
             AudioSource.Play();
@@ -38,13 +36,6 @@ namespace AI.Charger
         {
             if (obj.Equals(gameObject))
                 Die();
-        }
-
-        private IEnumerator StunTime()
-        {
-            yield return stunTimeSeconds;
-            isStunned = false;
-            StopCoroutine(onlyStunTime);
         }
 
         private IEnumerator ChargeTime()
@@ -62,12 +53,6 @@ namespace AI.Charger
             chargeTime = StartCoroutine(ChargeTime());
         }
 
-        internal void ActivateStun()
-        {
-            isStunned = true;
-            onlyStunTime = StartCoroutine(StunTime());
-        }
-
         internal void SetChargeDirection()
         {
             Vector3 enemyPosition = transform.position;
@@ -78,18 +63,6 @@ namespace AI.Charger
         internal Vector3 GetChargeDirection()
         {
             return chargeDirection;
-        }
-
-        internal bool HasCollidedWithLayerObject()
-        {
-            return enemyTrigger.IsTouchingLayerObject;
-        }
-
-        internal bool CheckForWallRayCast()
-        {
-            LayerMask layerMask = LayerMask.GetMask("Colliders");
-            Physics.Raycast(transform.localPosition + Vector3.up, transform.forward, out RaycastHit hit, 1f, layerMask);
-            return hit.collider;
         }
 
         internal bool HasCollidedWithTaggedObjet()

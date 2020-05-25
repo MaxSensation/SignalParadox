@@ -149,18 +149,5 @@ namespace AI.BodyTrapper
             yield return new WaitForSeconds(chargeTime);
             isCharging = false;
         }
-
-        public void ActivateStun()
-        {
-            isStunned = true;
-            StartCoroutine(Stun());
-        }
-
-        private IEnumerator Stun()
-        {
-            yield return new WaitForSeconds(5f);
-            isStunned = false;
-            agent.enabled = true;
-        }
     }
 }
