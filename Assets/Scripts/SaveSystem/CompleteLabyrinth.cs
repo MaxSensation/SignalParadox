@@ -11,7 +11,7 @@ public class CompleteLabyrinth : MonoBehaviour
     private void Awake()
     {
         DisablePlattforms.onDisablePlattformsEvent += () => SaveManager.WorldEventsData.PuzzleLabyrinthCompleted = true;
-        if (SaveManager.WorldEventsData.PuzzleLabyrinthCompleted)
+        if (SaveManager.WorldEventsData != null && SaveManager.WorldEventsData.PuzzleLabyrinthCompleted)
             StartCoroutine(ActivateButton());
     }
 
