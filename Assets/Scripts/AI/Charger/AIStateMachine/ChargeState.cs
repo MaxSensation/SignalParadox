@@ -12,25 +12,13 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] private AudioClip hitWallSound;
         private Vector3 chargeDirection;
         private float previousFrameSpeed;
-
-        public override void Enter()
-        {
-            base.Enter();
-        }
-
+        
         public override void Run()
         {
-
-            if (!Ai.isDead)
-            {
-                if ((previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude) > 0f)
-                    ChargeEnded();
-
-                if (!Ai.IsStunned())
-                    Charge();
-            }
-            else
-                stateMachine.TransitionTo<DeadState>();
+            if ((previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude) > 0f)
+                ChargeEnded();
+            if (!Ai.IsStunned())
+                Charge();
         }
 
         private void Charge()

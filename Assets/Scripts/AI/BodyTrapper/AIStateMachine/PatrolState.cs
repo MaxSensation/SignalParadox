@@ -18,9 +18,6 @@ namespace AI.BodyTrapper.AIStateMachine
 
         public override void Run()
         {
-            if (Ai.isDead)
-                stateMachine.TransitionTo<DeadState>();
-
             if (Ai.waypoints.Length > 0)
             {
                 if (Ai.agent.enabled)

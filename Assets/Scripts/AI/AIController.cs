@@ -19,7 +19,6 @@ namespace AI
         internal GameObject target;
         internal NavMeshAgent agent;
         internal Rigidbody aiRigidbody;
-        internal bool isDead;
         private WaitForSeconds stunTimeSeconds;
         internal CapsuleCollider AiCollider { get; private set; }
 
@@ -33,12 +32,9 @@ namespace AI
             stateMachine = new StateMachine(this, states);
         }
 
-        private void Update()
-        {
-            stateMachine.Run();
-        }
+        private void Update() => stateMachine.Run();
 
-        internal bool IsStunned() { return isStunned; }
+        internal bool IsStunned() => isStunned;
         
         internal void ActivateStun()
         {

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using AI.Charger.AIStateMachine;
 using Interactables.Traps;
 using Interactables.Triggers;
 using UnityEngine;
@@ -82,10 +83,10 @@ namespace AI.Charger
 
         protected override void Die()
         {
-            isDead = true;
             if (agent != null)
                 agent.enabled = false;
             AudioSource.Stop();
+            stateMachine.TransitionTo<DeadState>();
         }
     }
 }

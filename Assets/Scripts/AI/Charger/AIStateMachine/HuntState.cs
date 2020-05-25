@@ -13,9 +13,6 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] private float maxMinLookRange;
         public override void Run()
         {
-            if (Ai.isDead)
-                stateMachine.TransitionTo<DeadState>();
-
             if (CanSeePlayer() && !Ai.IsStunned())
             {
                 var newRotation = Quaternion.LookRotation(Ai.target.transform.position - Ai.transform.position, Vector3.up);

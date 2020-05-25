@@ -14,12 +14,5 @@ namespace AI.Charger.AIStateMachine
             Ai.ChargeUp();
             Ai.agent.enabled = false;
         }
-
-        public override void Run()
-        {
-            if (Ai.isDead)
-                stateMachine.TransitionTo<DeadState>();
-        }
-
     }
 }

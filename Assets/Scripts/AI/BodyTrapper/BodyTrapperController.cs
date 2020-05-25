@@ -109,7 +109,7 @@ namespace AI.BodyTrapper
 
         private void StuckOnPlayer(GameObject bodyTrapper)
         {
-            if (bodyTrapper != gameObject || isDead) return;
+            if (bodyTrapper != gameObject) return;
             bodyTrapperCollider.isTrigger = true;
             aiRigidbody.velocity = Vector3.zero;
             isStuckOnPlayer = true;
@@ -119,7 +119,7 @@ namespace AI.BodyTrapper
 
         protected override void Die()
         {
-            isDead = true;
+            DetachFromPlayer();
             if (agent != null)
                 agent.enabled = false;
             audioSource.Stop();

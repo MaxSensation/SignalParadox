@@ -24,9 +24,6 @@ namespace AI.BodyTrapper.AIStateMachine
         
         public override void Run()
         {
-            if (Ai.isDead)
-                stateMachine.TransitionTo<DeadState>();
-            
             Ai.TouchingPlayer();
             
             if (Grounded() && Vector3.Dot(Vector3.up, Ai.aiRigidbody.velocity) <= 0 || !Ai.isStuckOnPlayer && !Ai.canAttack)
