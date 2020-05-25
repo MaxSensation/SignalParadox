@@ -11,7 +11,6 @@ namespace AI.BodyTrapper.AIStateMachine
     public class HuntState : BodyTrapperBaseState
     {
         [SerializeField] private float jumpDistance;
-        [SerializeField] private float searchingRange;
         [SerializeField] private float maxMinLookRange;
 
         public static Action<GameObject> OnHuntingEvent; 
@@ -38,11 +37,6 @@ namespace AI.BodyTrapper.AIStateMachine
                 var targetRotation = Quaternion.LookRotation(new Vector3(e.x, 0, e.z), Vector3.up);
                 Ai.transform.rotation = Quaternion.Lerp(Ai.transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
-
-            NavMesh.CalculatePath(Ai.target.transform.position, Ai.transform.position, NavMesh.AllAreas, Ai.path);
-            if (Ai.path.status != NavMeshPathStatus.PathComplete || (!CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) > searchingRange))
-                stateMachine.TransitionTo<PatrolState>();
-            
         }
     }
 }
