@@ -13,7 +13,7 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] private float maxMinLookRange;
         public override void Run()
         {
-            if (CanSeePlayer() && !Ai.IsStunned())
+            if (CanSeePlayer() && !Ai.IsStunned)
             {
                 var newRotation = Quaternion.LookRotation(Ai.target.transform.position - Ai.transform.position, Vector3.up);
                 newRotation.x = 0.0f;
@@ -21,12 +21,12 @@ namespace AI.Charger.AIStateMachine
                 Ai.transform.rotation = Quaternion.Slerp(Ai.transform.rotation, newRotation, Time.deltaTime * 10);
             }
 
-            if (!Ai.IsStunned())
+            if (!Ai.IsStunned)
             {
                 Ai.agent.SetDestination(Ai.target.transform.position);
             }
 
-            if (Ai.LookingAtPlayer(Ai, maxMinLookRange) && !Ai.IsStunned() && CanCharge() && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < chargeDistance)
+            if (Ai.LookingAtPlayer(Ai, maxMinLookRange) && !Ai.IsStunned && CanCharge() && CanSeePlayer() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < chargeDistance)
             {
                 stateMachine.TransitionTo<ChargeUpState>();
                 Ai.SetChargeDirection();

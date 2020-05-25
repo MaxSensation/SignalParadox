@@ -7,8 +7,8 @@ namespace AI.BodyTrapper.AIStateMachine
 {
     public abstract class BodyTrapperBaseState : State
     {
-        private BodyTrapperController _ai;
-        protected BodyTrapperController Ai => _ai = _ai ? _ai : (BodyTrapperController)owner;
+        private BodyTrapperController ai;
+        protected BodyTrapperController Ai => ai = ai ? ai : (BodyTrapperController)owner;
         [SerializeField] protected Material material;
 
         public override void Enter()

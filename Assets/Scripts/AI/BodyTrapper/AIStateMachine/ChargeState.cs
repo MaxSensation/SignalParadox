@@ -8,8 +8,7 @@ namespace AI.BodyTrapper.AIStateMachine
     public class ChargeState : BodyTrapperBaseState
     {
         [SerializeField] private float chargeTime;
-
-
+        
         public override void Enter()
         {
             base.Enter();

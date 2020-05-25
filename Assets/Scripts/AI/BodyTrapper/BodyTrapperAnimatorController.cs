@@ -19,9 +19,20 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         SteamController.onSteamDamage += Die;
         JumpState.onJumpEvent += Jump;
         StunState.onLandEvent += Land;
-        HuntState.OnHuntingEvent += Hunting;
-        SeekingState.onStoppedEvent += Stopped;
+        HuntState.onHuntEvent += Hunting;
+        SeekingState.onIdleEvent += Stopped;
         SeekingState.onMovingEvent += Walk;
+    }
+    
+    private void OnDestroy()
+    {
+        LaserController.onLaserDeath -= Die;
+        SteamController.onSteamDamage -= Die;
+        JumpState.onJumpEvent -= Jump;
+        StunState.onLandEvent -= Land;
+        HuntState.onHuntEvent -= Hunting;
+        SeekingState.onIdleEvent -= Stopped;
+        SeekingState.onMovingEvent -= Walk;
     }
 
     private void Walk(GameObject obj)
@@ -58,16 +69,5 @@ public class BodyTrapperAnimatorController : MonoBehaviour
     {
         if (bodytrapper != obj) return;
             animator.SetTrigger("Died");
-    }
-
-    private void OnDestroy()
-    {
-        LaserController.onLaserDeath -= Die;
-        SteamController.onSteamDamage -= Die;
-        JumpState.onJumpEvent -= Jump;
-        StunState.onLandEvent -= Land;
-        HuntState.OnHuntingEvent -= Hunting;
-        SeekingState.onStoppedEvent -= Stopped;
-        SeekingState.onMovingEvent -= Walk;
     }
 }

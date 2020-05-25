@@ -17,7 +17,7 @@ namespace AI.Charger.AIStateMachine
         {
             if ((previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude) > 0f)
                 ChargeEnded();
-            if (!Ai.IsStunned())
+            if (!Ai.IsStunned)
                 Charge();
         }
 

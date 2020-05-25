@@ -15,12 +15,12 @@ namespace AI
         [SerializeField] private float stunnedTime = 0.5f;
         
         protected StateMachine stateMachine;
-        protected bool isStunned;
         internal GameObject target;
         internal NavMeshAgent agent;
         internal Rigidbody aiRigidbody;
         private WaitForSeconds stunTimeSeconds;
         internal CapsuleCollider AiCollider { get; private set; }
+        internal bool IsStunned { get; private set; }
 
         protected void Awake()
         {
@@ -33,19 +33,17 @@ namespace AI
         }
 
         private void Update() => stateMachine.Run();
-
-        internal bool IsStunned() => isStunned;
         
         internal void ActivateStun()
         {
-            isStunned = true;
+            IsStunned = true;
             StartCoroutine(StunTime());
         }
         
         private IEnumerator StunTime()
         {
             yield return stunTimeSeconds;
-            isStunned = false;
+            IsStunned = false;
         }
 
         protected abstract void Die();
