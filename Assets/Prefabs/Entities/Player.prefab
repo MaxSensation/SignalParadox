@@ -1898,7 +1898,7 @@ MonoBehaviour:
   staticFriction: 0.9
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 4864
   world: {fileID: 11400000, guid: 07745e6075cd9274fb46300406d646a9, type: 2}
   states:
   - {fileID: 11400000, guid: ca4e009196d05d5448361d7ed0fbee7b, type: 2}
@@ -2105,7 +2105,6 @@ MonoBehaviour:
   lineRendererResolution: 30
   currentState: 2
   grenadeProp: {fileID: 5557396672418138925}
-  grenadePropOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1191298332394515432
 MonoBehaviour:
   m_ObjectHideFlags: 0

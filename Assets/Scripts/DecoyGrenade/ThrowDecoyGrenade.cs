@@ -81,6 +81,11 @@ namespace DecoyGrenade
             ChargerController.onCrushedPlayerEvent -= () => currentState = States.Disabled;
         }
 
+        internal void EnableGrenade()
+        {
+            currentState = States.HoldingGrenade;
+        }
+
         private void StopAiming()
         {
             shouldDrawPath = false;
