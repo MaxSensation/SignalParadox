@@ -21,14 +21,25 @@ namespace DecoyGrenade
         [SerializeField] [Tooltip("Time until grenade despawns")] private float timeUntilDestroy = 10;
         [SerializeField] [Tooltip("The gravity on the thrown grenade")] private float gravity = -9.6f;
         [SerializeField] [Tooltip("The resolution of the lineRenderer")] private int lineRendererResolution = 30;
-        private bool shouldDrawPath, canAim, isDisabled;
+        [SerializeField] [Tooltip("CurrentState")] private States currentState;
+        [SerializeField] [Tooltip("The grenadeProp in the hand")] private Transform grenadeProp;
+        private bool shouldDrawPath;
         private Rigidbody thrownGrenade;
-        private Transform playerMeshPos, cameraPosition, hand;
+        private Transform playerMeshPos, cameraPosition;
         private LineRenderer lineRenderer;
         private float currentThrowHeight;
         private List<Vector3> storedLinePoints;
         private WaitForSeconds despawnTimeSecounds;
         private Coroutine despawnGrenadeCoroutine;
+        
+        private enum States
+        {
+            Aiming,
+            HoldingGrenade,
+            HoldingNoGrenade,
+            Occupied,
+            Disabled
+        }
 
         public bool HasGrenade
         { 
@@ -45,53 +56,37 @@ namespace DecoyGrenade
             lineRenderer = gameObject.GetComponent<LineRenderer>();
             lineRenderer.useWorldSpace = true;
             playerMeshPos = transform.Find("PlayerMesh").transform;
-            hand = GameObject.Find("Character1_RightHand").transform;
             cameraPosition = Camera.main.transform;
 
 
             //Events
-            PickupDecoyGrenade.onGrenadePickup += IncreaseMaxThrowableGrenades;
-            PushingState.OnEnterPushingStateEvent += DisableDecoyGrenade;
-            PlayerTrapable.onDetached += EnableAiming;
-            PushingState.OnExitPushingStateEvent += EnableDecoyGrenade;
-            PlayerAnimatorController.OnDeathAnimBeginning += DisableDecoyGrenade;
-            ChargerController.onCrushedPlayerEvent += DisableDecoyGrenade;
-            PlayerTrapable.onPlayerTrappedEvent += StopAiming;
+            PickupDecoyGrenade.onGrenadePickup += PickupGrenade;
+            PlayerTrapable.onDetached += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
+            PushingState.OnExitPushingStateEvent += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
+            PushingState.OnEnterPushingStateEvent += () => currentState = States.Occupied;
+            PlayerTrapable.onPlayerTrappedEvent += () => currentState = States.Occupied;
+            ChargerController.onCrushedPlayerEvent += () => currentState = States.Disabled;
+            PlayerAnimatorController.OnDeathAnimBeginning += () => currentState = States.Disabled;
         }
         
         private void OnDestroy()
         {
-            PickupDecoyGrenade.onGrenadePickup -= IncreaseMaxThrowableGrenades;
-            PushingState.OnEnterPushingStateEvent -= StopAiming;
-            PushingState.OnExitPushingStateEvent -= EnableAiming;
-            PlayerAnimatorController.OnDeathAnimBeginning -= DisableDecoyGrenade;
-            ChargerController.onCrushedPlayerEvent -= DisableDecoyGrenade;
-            PlayerTrapable.onPlayerTrappedEvent -= StopAiming;
-            PlayerTrapable.onDetached -= EnableAiming;
+            PickupDecoyGrenade.onGrenadePickup -= PickupGrenade;
+            PlayerTrapable.onDetached -= () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
+            PushingState.OnExitPushingStateEvent -= () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
+            PushingState.OnEnterPushingStateEvent -= () => currentState = States.Occupied;
+            PlayerTrapable.onPlayerTrappedEvent -= () => currentState = States.Occupied;
+            PlayerAnimatorController.OnDeathAnimBeginning -= () => currentState = States.Disabled;
+            ChargerController.onCrushedPlayerEvent -= () => currentState = States.Disabled;
         }
 
-        private void EnableAiming()
-        {
-            canAim = true;
-        } 
-        
         private void StopAiming()
         {
-            canAim = false;
             shouldDrawPath = false;
             ClearThrowPath();
             onAbortAimEvent?.Invoke();
         }
-
-        private void DisableDecoyGrenade()
-        {
-            StopAiming();
-            isDisabled = true;
-        }
         
-        private void EnableDecoyGrenade() => isDisabled = false;
-        
-
         private void Update()
         {
             ClearThrowPath();
@@ -111,9 +106,9 @@ namespace DecoyGrenade
         }
 
         //on pickup increase players current amount of grenades
-        private void IncreaseMaxThrowableGrenades()
+        private void PickupGrenade()
         {
-            if (hasGrenade) return;
+            currentState = States.HoldingGrenade;
             hasGrenade = true;
             onPickedUpGrenadeEvent?.Invoke();
         }
@@ -127,40 +122,39 @@ namespace DecoyGrenade
 
         public void HandleInput(InputAction.CallbackContext context)
         {
-            if (isDisabled) return;
-            if (context.started && hasGrenade)
+            if (context.started && currentState == States.HoldingGrenade)
             {
                 shouldDrawPath = true;
             }
-            if (!context.canceled || !hasGrenade || !canAim) return;
-            shouldDrawPath = false;
-            Throw();
+            
+            if (context.canceled && currentState == States.Aiming)
+                Throw();
         }
 
         private void Throw()
         {
-            if (!canAim) return;
+            shouldDrawPath = false;
+            currentState = States.HoldingNoGrenade;
             onThrowEvent?.Invoke();
             if (thrownGrenade != null)
             {
                 Destroy(thrownGrenade.gameObject);
                 StopCoroutine(despawnGrenadeCoroutine);
             }
-            thrownGrenade = Instantiate(grenadePrefabRigidbody, hand.position, hand.rotation);
+            thrownGrenade = Instantiate(grenadePrefabRigidbody, grenadeProp.position, grenadeProp.rotation);
             thrownGrenade.AddForce(Vector3.up * gravity);
             thrownGrenade.velocity = CalculateLaunchData().initialVelocity;
-            canAim = false;
             hasGrenade = false;
             despawnGrenadeCoroutine = StartCoroutine(DespawnGrenade());
         }
 
         private LaunchData CalculateLaunchData()
         {
-            Vector3 _newTarget = GetTarget().point;
-            if (GetTarget().collider && (_newTarget.y - hand.position.y) < currentThrowHeight)
+            Vector3 newTarget = GetTarget().point;
+            if (GetTarget().collider && (newTarget.y - grenadeProp.position.y) < currentThrowHeight)
             {
-                float displacementY = _newTarget.y - hand.position.y;
-                Vector3 displacementXZ = new Vector3(_newTarget.x - hand.position.x, 0, _newTarget.z - hand.position.z);
+                float displacementY = newTarget.y - grenadeProp.position.y;
+                Vector3 displacementXZ = new Vector3(newTarget.x - grenadeProp.position.x, 0, newTarget.z - grenadeProp.position.z);
                 float time = Mathf.Sqrt(-2 * currentThrowHeight / gravity) + Mathf.Sqrt(2 * (displacementY - currentThrowHeight) / gravity);
                 Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * currentThrowHeight);
                 Vector3 velocityXZ = displacementXZ / time;
@@ -172,24 +166,29 @@ namespace DecoyGrenade
 
         private void DrawPath()
         {
+            if (currentState == States.Disabled || currentState == States.Occupied)
+            {
+                StopAiming();
+                return;
+            }
             LaunchData launchData = CalculateLaunchData();
             if (launchData.initialVelocity != Vector3.zero && launchData.timeToTarget != 0f)
             {
-                Vector3 previousDrawPoint = hand.position;
+                Vector3 previousDrawPoint = grenadeProp.position;
                 onAimingEvent?.Invoke();
                 for (int i = 0; i <= lineRendererResolution; i++)
                 {
                     float simulationTime = i / (float)lineRendererResolution * launchData.timeToTarget;
                     Vector3 displacement = launchData.initialVelocity * simulationTime + Vector3.up * gravity * simulationTime * simulationTime / 2f;
-                    Vector3 drawPoint = hand.position + displacement;
+                    Vector3 drawPoint = grenadeProp.position + displacement;
                     previousDrawPoint = drawPoint;
                     AddLinePoint(previousDrawPoint);
-                    canAim = true;
+                    currentState = States.Aiming;
                 }
             }
             else
             {
-                canAim = false;
+                currentState = States.HoldingGrenade;
                 shouldDrawPath = false;   
             }
         }

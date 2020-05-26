@@ -255,7 +255,7 @@ Transform:
   - {fileID: 4412756620791901863}
   - {fileID: 2975427476104964593}
   - {fileID: 1669256156669040759}
-  - {fileID: 7849631561525875328}
+  - {fileID: 4143216040743284066}
   m_Father: {fileID: 5437694294164821829}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -711,12 +711,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087013418240703302}
-  m_LocalRotation: {x: -0, y: -0, z: 0.00036416715, w: 0.99999994}
+  m_LocalRotation: {x: -0, y: -0, z: 0.00036416692, w: 0.99999994}
   m_LocalPosition: {x: -0.00892426, y: -0.104006566, z: 0.0123}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1857059794235366343}
-  m_RootOrder: 5
+  m_Father: {fileID: 4143216040743284066}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4779132622438223627
 MonoBehaviour:
@@ -1120,6 +1120,38 @@ Transform:
   - {fileID: 6373006106209285039}
   m_Father: {fileID: 1634245840704499120}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3512373384093486609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4143216040743284066}
+  m_Layer: 0
+  m_Name: PlayerDecoyGrenade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4143216040743284066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3512373384093486609}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7849631561525875328}
+  - {fileID: 5557396672418138925}
+  m_Father: {fileID: 1857059794235366343}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3517576870619728598
 GameObject:
@@ -2070,6 +2102,10 @@ MonoBehaviour:
   maxThrowHeight: 5
   timeUntilDestroy: 10
   gravity: -9.6
+  lineRendererResolution: 30
+  currentState: 2
+  grenadeProp: {fileID: 5557396672418138925}
+  grenadePropOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1191298332394515432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2688,6 +2724,36 @@ Transform:
   - {fileID: 5232642118397415885}
   m_Father: {fileID: 5152347968621260349}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7565101493223102688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5557396672418138925}
+  m_Layer: 0
+  m_Name: DecoyVisualPathStartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5557396672418138925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7565101493223102688}
+  m_LocalRotation: {x: -0, y: -0, z: 0.00036416692, w: 0.99999994}
+  m_LocalPosition: {x: -0.0627, y: -0.1759, z: 0.0273}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4143216040743284066}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8136119998891454285
 GameObject:

@@ -873,6 +873,18 @@ PrefabInstance:
       propertyPath: _currentAmountOfGrenades
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1943442007, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: grenadePropOffset.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943442007, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: grenadePropOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943442007, guid: 18a82ee408a047c4da4d7f2749b3f226, type: 3}
+      propertyPath: grenadePropOffset.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5312461777412064972, guid: 18a82ee408a047c4da4d7f2749b3f226,
         type: 3}
       propertyPath: m_LocalPosition.x
