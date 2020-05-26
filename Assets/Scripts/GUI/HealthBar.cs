@@ -1,20 +1,19 @@
 ﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
 
-using System;
 using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] private Color onColor;
-    [SerializeField] private Color offColor;
-    private Image[] _healthBarBlocks;
+    [SerializeField] private Color onColor, offColor;
+    private Image[] healthBarBlocks;
     private void Awake()
     {
         HealthSystem.onInitEvent += UpdateGui;
         HealthSystem.onPlayerTakeDamageEvent += UpdateGui;
-        _healthBarBlocks = transform.GetComponentsInChildren<Image>();
+        healthBarBlocks = transform.GetComponentsInChildren<Image>();
     }
 
     private void OnDestroy()
@@ -25,7 +24,7 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateGui(int currentHealth)
     {
-        for (var i = 0; i < _healthBarBlocks.Length; i++) 
-            _healthBarBlocks[i].color = i < currentHealth ? onColor : offColor;
+        for (var i = 0; i < healthBarBlocks.Length; i++) 
+            healthBarBlocks[i].color = i < currentHealth ? onColor : offColor;
     }
 }
