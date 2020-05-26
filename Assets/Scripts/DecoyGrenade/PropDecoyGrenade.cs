@@ -1,5 +1,6 @@
 ﻿//Main author: Andreas Berzelius
 
+using DecoyGrenade;
 using UnityEngine;
 
 public class PropDecoyGrenade : MonoBehaviour
@@ -12,7 +13,7 @@ public class PropDecoyGrenade : MonoBehaviour
         if (propGrenade.enabled)
             propGrenade.enabled = false;
         PickupDecoyGrenade.onGrenadePickup += Activate;
-        ThrowDecoyGrenade.OnThrowEvent += Deactivate;
+        ThrowDecoyGrenade.onThrowEvent += Deactivate;
     }
 
     public void Activate()
@@ -28,6 +29,6 @@ public class PropDecoyGrenade : MonoBehaviour
     private void OnDestroy()
     {
         PickupDecoyGrenade.onGrenadePickup -= Activate;
-        ThrowDecoyGrenade.OnThrowEvent -= Deactivate;
+        ThrowDecoyGrenade.onThrowEvent -= Deactivate;
     }
 }

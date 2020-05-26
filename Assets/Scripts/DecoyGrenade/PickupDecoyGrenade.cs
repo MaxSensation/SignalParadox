@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System;
+using DecoyGrenade;
 using Player;
 
 public class PickupDecoyGrenade : MonoBehaviour
@@ -16,8 +17,8 @@ public class PickupDecoyGrenade : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         PlayerAnimatorController.onTouchedGrenade += Pickup;
-        ThrowDecoyGrenade.OnPickedUpGrenade += PickedUpGrenade;
-        ThrowDecoyGrenade.OnThrowEvent += ThrownGrenade;
+        ThrowDecoyGrenade.onPickedUpGrenadeEvent += PickedUpGrenade;
+        ThrowDecoyGrenade.onThrowEvent += ThrownGrenade;
     }
 
     private void ThrownGrenade()
@@ -43,7 +44,7 @@ public class PickupDecoyGrenade : MonoBehaviour
     private void OnDestroy()
     {
         PlayerAnimatorController.onTouchedGrenade -= Pickup;
-        ThrowDecoyGrenade.OnPickedUpGrenade -= PickedUpGrenade;
-        ThrowDecoyGrenade.OnThrowEvent -= ThrownGrenade;
+        ThrowDecoyGrenade.onPickedUpGrenadeEvent -= PickedUpGrenade;
+        ThrowDecoyGrenade.onThrowEvent -= ThrownGrenade;
     }
 }
