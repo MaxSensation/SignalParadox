@@ -11,10 +11,12 @@ namespace AI.Charger.AIStateMachine
     {
         [SerializeField] private float seeDistance;
         private int currentWaypoint;
+        public static Action<GameObject> onPatrolEvent;
 
         public override void Enter()
         {
             base.Enter();
+            onPatrolEvent?.Invoke(Ai.gameObject);
             SetClosestWaypoint();
         }
 

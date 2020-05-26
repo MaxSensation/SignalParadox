@@ -1,4 +1,5 @@
 ﻿// Main author: Andreas Berzelius
+//Secondary author: Maximiliam Rosén
 
 using AI.BodyTrapper.AIStateMachine;
 using Interactables.Traps;

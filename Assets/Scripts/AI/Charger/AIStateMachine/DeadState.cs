@@ -1,4 +1,5 @@
 ﻿//Main author: Andreas Berzelius
+//Secondary author: Maximiliam Rosén
 
 using UnityEngine;
 

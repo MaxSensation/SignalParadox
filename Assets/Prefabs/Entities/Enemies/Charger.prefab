@@ -353,6 +353,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChargerMesh
       objectReference: {fileID: 0}
+    - target: {fileID: 3991583973675677959, guid: 8b037bf71ce365343866ffd0364e7b9f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 32621e6c7ba18a94eae2eda33be15237, type: 2}
     - target: {fileID: 6915878248880298431, guid: 8b037bf71ce365343866ffd0364e7b9f,
         type: 3}
       propertyPath: m_IsActive
