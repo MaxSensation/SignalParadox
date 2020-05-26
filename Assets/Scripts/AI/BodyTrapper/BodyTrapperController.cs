@@ -15,17 +15,16 @@ namespace AI.BodyTrapper
     public class BodyTrapperController : AIController
     {
         public static Action<GameObject> onTrappedPlayer, onDetachedFromPlayer;
-        [SerializeField][Tooltip("Tid tills bodytrapper går tillbaks till patrolState")] private float seekTime;
-        [SerializeField][Tooltip("Frekvens på hur ofta den checkar efter en Decoy")] private float ignorePlayerFrekvence;
+        [SerializeField] [Tooltip("Tid tills bodytrapper går tillbaks till patrolState")] private float seekTime;
+        [SerializeField] [Tooltip("Frekvens på hur ofta den checkar efter en Decoy")] private float ignorePlayerFrekvence;
         [SerializeField] private AudioClip trappedPlayerSound;
         internal Vector3 lastSoundLocation, jumpDirection;
         internal EchoLocationResult echoLocationResult;
         internal AudioSource audioSource;
-        internal bool hasHeardDecoy, isPlayerAlive ,canAttack ,isStuckOnPlayer ,isCharging;
+        internal bool hasHeardDecoy, isPlayerAlive, canAttack, isStuckOnPlayer, isCharging;
         private EnemyTrigger enemyTrigger;
         private float chargeTime;
         private Coroutine foundSound, ignorePlayer;
-        private SphereCollider bodyTrapperCollider;
         private EchoLocationReceiver soundListener;
         private WaitForSeconds ignoreTimeSeconds, seekTimeSeconds;
 
@@ -35,11 +34,10 @@ namespace AI.BodyTrapper
             ignoreTimeSeconds = new WaitForSeconds(ignorePlayerFrekvence);
             seekTimeSeconds = new WaitForSeconds(seekTime);
             isPlayerAlive = true;
-            bodyTrapperCollider = GetComponent<SphereCollider>();
             audioSource = GetComponent<AudioSource>();
             enemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             soundListener = transform.GetComponentInChildren<EchoLocationReceiver>();
-            
+
             soundListener.heardSound += UpdateSoundSource;
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
@@ -56,14 +54,14 @@ namespace AI.BodyTrapper
             SteamController.onSteamDamage -= OnDeathByTrap;
             PlayerAnimatorController.OnDeathAnimBeginning -= () => isPlayerAlive = false;
         }
-        
+
 
         private void UpdateSoundSource(EchoLocationResult soundData)
         {
             echoLocationResult = soundData;
             if (soundData.Transmitter.CompareTag("Decoy"))
             {
-                if (ignorePlayer != null) 
+                if (ignorePlayer != null)
                     StopCoroutine(ignorePlayer);
                 ignorePlayer = StartCoroutine(IgnorePlayer());
                 lastSoundLocation = soundData.Transmitter.transform.position;
@@ -71,7 +69,7 @@ namespace AI.BodyTrapper
             }
             if (!hasHeardDecoy && soundData.Transmitter.CompareTag("Player"))
                 lastSoundLocation = soundData.Transmitter.transform.position;
-            if (foundSound != null) 
+            if (foundSound != null)
                 StopCoroutine(foundSound);
             foundSound = StartCoroutine(FoundSound());
         }
@@ -94,12 +92,12 @@ namespace AI.BodyTrapper
             DetachFromPlayer();
             Die();
         }
-        
+
         private void DetachFromPlayer()
         {
             if (!isStuckOnPlayer) return;
             onDetachedFromPlayer?.Invoke(gameObject);
-            bodyTrapperCollider.isTrigger = false;
+            AiCollider.isTrigger = false;
             isStuckOnPlayer = false;
             agent.enabled = true;
             aiRigidbody.useGravity = true;
@@ -110,7 +108,7 @@ namespace AI.BodyTrapper
         private void StuckOnPlayer(GameObject bodyTrapper)
         {
             if (bodyTrapper != gameObject) return;
-            bodyTrapperCollider.isTrigger = true;
+            AiCollider.isTrigger = true;
             aiRigidbody.velocity = Vector3.zero;
             isStuckOnPlayer = true;
             agent.enabled = false;
@@ -122,10 +120,11 @@ namespace AI.BodyTrapper
             DetachFromPlayer();
             if (agent != null)
                 agent.enabled = false;
+            enemyTrigger.gameObject.SetActive(false);
             audioSource.Stop();
             stateMachine.TransitionTo<DeadState>();
         }
-        
+
         internal void TouchingPlayer()
         {
             if (!enemyTrigger.IsTouchingTaggedObject || isStuckOnPlayer || !canAttack) return;
@@ -146,5 +145,7 @@ namespace AI.BodyTrapper
             yield return new WaitForSeconds(chargeTime);
             isCharging = false;
         }
+
+        internal bool Grounded() => Physics.Raycast(transform.position, Vector3.down, 0.1f, agent.areaMask);
     }
 }

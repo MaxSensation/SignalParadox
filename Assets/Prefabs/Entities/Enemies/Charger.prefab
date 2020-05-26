@@ -45,8 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1245ed1be70813b4e9752807de90a671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags:
-  - Player
+  enemyTag: Player
 --- !u!65 &1047267263
 BoxCollider:
   m_ObjectHideFlags: 0
