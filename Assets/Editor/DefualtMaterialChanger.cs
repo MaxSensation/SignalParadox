@@ -25,7 +25,7 @@ public class DefaultMaterialChanger : EditorWindow
 
     private void ChangeMaterialsStartingWith(string materialName)
     {
-        object[] obj = FindSceneObjectsOfType(typeof (GameObject));
+        object[] obj = FindObjectsOfType(typeof (GameObject));
         var counter = 0;
         foreach (var o in obj)
         {
