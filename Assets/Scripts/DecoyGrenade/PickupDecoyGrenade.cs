@@ -1,50 +1,40 @@
 ﻿//Main author: Andreas Berzelius
 
-using UnityEngine;
 using System;
-using DecoyGrenade;
 using Player;
+using UnityEngine;
 
-public class PickupDecoyGrenade : MonoBehaviour
+namespace DecoyGrenade
 {
-    [SerializeField] private bool shouldDespawnOnPickup = true;
-    private AudioSource audioSource;
-    private bool hasGrenade;
-
-    public static Action onGrenadePickup;
-
-    private void Awake()
+    public class PickupDecoyGrenade : MonoBehaviour
     {
-        audioSource = GetComponent<AudioSource>();
-        PlayerAnimatorController.onTouchedGrenade += Pickup;
-        ThrowDecoyGrenade.onPickedUpGrenadeEvent += PickedUpGrenade;
-        ThrowDecoyGrenade.onThrowEvent += ThrownGrenade;
-    }
+        [SerializeField] private bool shouldDespawnOnPickup = true;
+        private AudioSource audioSource;
+        private bool hasGrenade;
 
-    private void ThrownGrenade()
-    {
-        hasGrenade = false;
-    }
+        public static Action onGrenadePickupEvent;
 
-    private void PickedUpGrenade()
-    {
-        hasGrenade = true;
-    }
-
-    private void Pickup(GameObject obj)
-    {
-        if (gameObject == obj && !hasGrenade)
+        private void Awake()
         {
+            audioSource = GetComponent<AudioSource>();
+            PlayerAnimatorController.onTouchedGrenade += Pickup;
+            ThrowDecoyGrenade.onPickedUpGrenadeEvent += () => hasGrenade = true;;
+            ThrowDecoyGrenade.onThrowEvent += () => hasGrenade = false;
+        }
+        
+        private void OnDestroy()
+        {
+            PlayerAnimatorController.onTouchedGrenade -= Pickup;
+            ThrowDecoyGrenade.onPickedUpGrenadeEvent -= () => hasGrenade = true;;
+            ThrowDecoyGrenade.onThrowEvent -= () => hasGrenade = false;
+        }
+
+        private void Pickup(GameObject obj)
+        {
+            if (gameObject != obj || hasGrenade) return;
             audioSource.Play();
-            onGrenadePickup?.Invoke();
+            onGrenadePickupEvent?.Invoke();
             gameObject.SetActive(!shouldDespawnOnPickup);
         }
-    }
-
-    private void OnDestroy()
-    {
-        PlayerAnimatorController.onTouchedGrenade -= Pickup;
-        ThrowDecoyGrenade.onPickedUpGrenadeEvent -= PickedUpGrenade;
-        ThrowDecoyGrenade.onThrowEvent -= ThrownGrenade;
     }
 }

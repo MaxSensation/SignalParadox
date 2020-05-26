@@ -1,4 +1,5 @@
 ﻿//Main author: Andreas Berzelius
+//Secondary author: Maximiliam Rosén
 
 using System;
 using System.Collections;
@@ -60,7 +61,7 @@ namespace DecoyGrenade
 
 
             //Events
-            PickupDecoyGrenade.onGrenadePickup += PickupGrenade;
+            PickupDecoyGrenade.onGrenadePickupEvent += PickupGrenade;
             PlayerTrapable.onDetached += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
             PushingState.OnExitPushingStateEvent += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
             PushingState.OnEnterPushingStateEvent += () => currentState = States.Occupied;
@@ -71,7 +72,7 @@ namespace DecoyGrenade
         
         private void OnDestroy()
         {
-            PickupDecoyGrenade.onGrenadePickup -= PickupGrenade;
+            PickupDecoyGrenade.onGrenadePickupEvent -= PickupGrenade;
             PlayerTrapable.onDetached -= () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
             PushingState.OnExitPushingStateEvent -= () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
             PushingState.OnEnterPushingStateEvent -= () => currentState = States.Occupied;
