@@ -1,6 +1,7 @@
 ﻿//Main author: Andreas Berzelius
 //Secondary author: Maximiliam Rosén
 
+using System;
 using UnityEngine;
 
 namespace AI.Charger.AIStateMachine
@@ -12,7 +13,14 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] private AudioClip hitWallSound;
         [SerializeField] private float wallSoundThreshold = 10f;
         private float previousFrameSpeed;
-        
+        public static Action<GameObject> onChargeEvent, onStunnedEvent;
+
+        public override void Enter()
+        {
+            base.Enter();
+            onChargeEvent?.Invoke(Ai.gameObject);
+        }
+
         public override void Run()
         {
             if (previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude > 0f)
@@ -34,8 +42,9 @@ namespace AI.Charger.AIStateMachine
             if (previousFrameSpeed - Ai.aiRigidbody.velocity.magnitude > wallSoundThreshold)
             {
                 Ai.AudioSource.PlayOneShot(hitWallSound);
-                Ai.aiRigidbody.velocity = Vector3.zero;
+                onStunnedEvent?.Invoke(Ai.gameObject);
             }
+            Ai.aiRigidbody.velocity = Vector3.zero;
             previousFrameSpeed = 0f;
             if (Ai.target.transform.IsChildOf(Ai.transform))
                 Ai.KillPlayer();

@@ -353,6 +353,7 @@ GameObject:
   - component: {fileID: 89981425201335063}
   - component: {fileID: 3991583973675677959}
   - component: {fileID: 5156739646730261810}
+  - component: {fileID: 9068706985092600228}
   m_Layer: 0
   m_Name: Charger
   m_TagString: Untagged
@@ -467,6 +468,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.094774276, y: -0.1846453, z: 0.46826676}
     m_Extent: {x: 1.0562125, y: 1.1078019, z: 1.1885539}
   m_DirtyAABB: 0
+--- !u!114 &9068706985092600228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3991583973675677956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9912cffc283d31b4798f995f3fe1e3ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4219080129121531570
 GameObject:
   m_ObjectHideFlags: 0
