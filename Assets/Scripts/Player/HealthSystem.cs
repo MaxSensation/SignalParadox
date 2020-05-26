@@ -1,4 +1,5 @@
 ﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
 
 using Interactables.Traps;
 using System;
@@ -9,9 +10,8 @@ namespace Player
     public class HealthSystem : MonoBehaviour
     {
         private static readonly int maxHealth = 4;
-        public static Action<int> onPlayerTakeDamageEvent;
+        public static Action<int> onPlayerTakeDamageEvent, onInitEvent;
         public static Action<DamageType> OnPlayerDeath;
-        public static Action<int> onInitEvent;
         public int CurrentHealth { get; private set; }
         public enum DamageType { Laser, Steam, Bodytrapper, Charger }
 
@@ -51,7 +51,6 @@ namespace Player
             onPlayerTakeDamageEvent?.Invoke(CurrentHealth);
             if (CurrentHealth <= 0)
                 OnPlayerDeath?.Invoke(dT);
-            Debug.Log("Damaged Player");
         }
 
         public void SetHealth(int health)
