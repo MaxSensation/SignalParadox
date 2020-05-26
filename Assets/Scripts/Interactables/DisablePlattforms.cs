@@ -15,9 +15,7 @@ public class DisablePlattforms : MonoBehaviour
     private void Disable(ButtonController.ButtonStates state)
     {
         if (state == ButtonController.ButtonStates.Activated && !hasBeenActivated)
-        {
             Disable();
-        }
     }
 
     [ContextMenu("Disable All Plattforms")]
