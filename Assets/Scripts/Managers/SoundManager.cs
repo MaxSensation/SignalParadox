@@ -7,11 +7,11 @@ namespace Managers
 {
     public class SoundManager : MonoBehaviour
     {
-        private AudioSource _audioSource;
+        private AudioSource audioSource;
 
         private void Awake()
         {
-            _audioSource = GetComponent<AudioSource>();
+            audioSource = GetComponent<AudioSource>();
             TriggerMemo.onMemoPickupEvent += PlayMemo;
         }
 
@@ -22,8 +22,8 @@ namespace Managers
 
         private void PlayMemo(AudioClip memo)
         {
-            _audioSource.clip = memo;
-            _audioSource.Play();
+            audioSource.clip = memo;
+            audioSource.Play();
         }
     }
 }
