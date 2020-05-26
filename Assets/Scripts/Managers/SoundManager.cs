@@ -12,12 +12,12 @@ namespace Managers
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
-            TriggerMemo.onMemoPickup += PlayMemo;
+            TriggerMemo.onMemoPickupEvent += PlayMemo;
         }
 
         private void OnDestroy()
         {
-            TriggerMemo.onMemoPickup -= PlayMemo;
+            TriggerMemo.onMemoPickupEvent -= PlayMemo;
         }
 
         private void PlayMemo(AudioClip memo)
