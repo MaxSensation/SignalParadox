@@ -161,12 +161,10 @@ namespace Player
 
         private void OnPickedUpDecoy(GameObject pickUpDecoy)
         {
-            if (!hasDecoy)
-            {
-                animator.SetTrigger("TryPickupDecoy");
-                hasDecoy = true;
-                currentPickedUpDecoy = pickUpDecoy;
-            }
+            if (pickUpDecoy.GetComponent<PickupDecoyGrenade>() == null || hasDecoy) return;
+            animator.SetTrigger("TryPickupDecoy");
+            hasDecoy = true;
+            currentPickedUpDecoy = pickUpDecoy;
         }
 
         private void Update()
