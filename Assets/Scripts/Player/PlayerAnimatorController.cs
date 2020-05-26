@@ -2,6 +2,7 @@
 //Secondary author: Andreas Berzelius
 
 using System;
+using DecoyGrenade;
 using Player.PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,9 +29,9 @@ namespace Player
             animator = GetComponent<Animator>();
             CrouchState.onEnteredCrouchEvent += EnteredCrouch;
             CrouchState.onExitCrouchEvent += ExitedCrouch;
-            ThrowDecoyGrenade.OnAimingEvent += Aiming;
-            ThrowDecoyGrenade.OnThrowEvent += Throw;
-            ThrowDecoyGrenade.OnOutOfRangeEvent += StopAiming;
+            ThrowDecoyGrenade.onAimingEvent += Aiming;
+            ThrowDecoyGrenade.onThrowEvent += Throw;
+            ThrowDecoyGrenade.onAbortAimEvent += StopAiming;
             //PickupDecoyGrenade.onGrenadePickup += OnPickedUpDecoy;
             PlayerInteractionTrigger.onInteractedEvent += OnPickedUpDecoy;
 
@@ -84,9 +85,9 @@ namespace Player
         {
             CrouchState.onEnteredCrouchEvent -= EnteredCrouch;
             CrouchState.onExitCrouchEvent -= ExitedCrouch;
-            ThrowDecoyGrenade.OnAimingEvent -= Aiming;
-            ThrowDecoyGrenade.OnThrowEvent -= Throw;
-            ThrowDecoyGrenade.OnOutOfRangeEvent -= StopAiming;
+            ThrowDecoyGrenade.onAimingEvent -= Aiming;
+            ThrowDecoyGrenade.onThrowEvent -= Throw;
+            ThrowDecoyGrenade.onAbortAimEvent -= StopAiming;
             //PickupDecoyGrenade.onGrenadePickup -= OnPickedUpDecoy;
             PlayerInteractionTrigger.onInteractedEvent -= OnPickedUpDecoy;
 

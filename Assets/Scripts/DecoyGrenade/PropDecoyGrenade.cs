@@ -1,33 +1,32 @@
 ﻿//Main author: Andreas Berzelius
+//Secondary author: Maximiliam Rosén
 
 using UnityEngine;
 
-public class PropDecoyGrenade : MonoBehaviour
+namespace DecoyGrenade
 {
-    private MeshRenderer propGrenade; 
-
-    private void Awake()
+    public class PropDecoyGrenade : MonoBehaviour
     {
-        propGrenade = GetComponent<MeshRenderer>();
-        if (propGrenade.enabled)
-            propGrenade.enabled = false;
-        PickupDecoyGrenade.onGrenadePickup += Activate;
-        ThrowDecoyGrenade.OnThrowEvent += Deactivate;
-    }
+        private MeshRenderer propGrenade; 
 
-    public void Activate()
-    {
-        propGrenade.enabled = true;
-    }
+        private void Awake()
+        {
+            propGrenade = GetComponent<MeshRenderer>();
+            if (propGrenade.enabled)
+                propGrenade.enabled = false;
+            PickupDecoyGrenade.onGrenadePickupEvent += Activate;
+            ThrowDecoyGrenade.onThrowEvent += () => propGrenade.enabled = false;;
+        }
+    
+        private void OnDestroy()
+        {
+            PickupDecoyGrenade.onGrenadePickupEvent -= Activate;
+            ThrowDecoyGrenade.onThrowEvent -= () => propGrenade.enabled = false;;
+        }
 
-    private void Deactivate()
-    {
-        propGrenade.enabled = false;
-    }
-
-    private void OnDestroy()
-    {
-        PickupDecoyGrenade.onGrenadePickup -= Activate;
-        ThrowDecoyGrenade.OnThrowEvent -= Deactivate;
+        public void Activate()
+        {
+            propGrenade.enabled = true;
+        }
     }
 }
