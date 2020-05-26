@@ -22,7 +22,15 @@ public class ChargerAnimatorController : MonoBehaviour
         PatrolState.onPatrolEvent += Walk;
         ChargeState.onChargeEvent += Charge;
         ChargeState.onStunnedEvent += Stunned;
+        ChargeState.onSlowChargeEvent += Idle;
         ChargeUpState.onChargeUpEvent += ChargeUp;
+    }
+
+    private void Idle(GameObject obj)
+    {
+        if (charger != obj) return;
+        animator.SetTrigger("Idle");
+        //animator.ResetTrigger("ChargeUp");
     }
 
     private void Stunned(GameObject obj)

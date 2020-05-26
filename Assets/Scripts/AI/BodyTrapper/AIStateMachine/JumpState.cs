@@ -14,7 +14,6 @@ namespace AI.BodyTrapper.AIStateMachine
 
         public static Action<GameObject> onJumpEvent;
 
-        private bool Grounded() => Physics.Raycast(Ai.transform.position, Vector3.down, 0.1f, Ai.agent.areaMask);
         private void AddJumpForce() => Ai.aiRigidbody.velocity = Ai.jumpDirection * jumpLength + Vector3.up * (jumpHeight);
 
         public override void Enter()
@@ -29,7 +28,7 @@ namespace AI.BodyTrapper.AIStateMachine
         public override void Run()
         {
             Ai.TouchingPlayer();
-            if (Grounded() && Vector3.Dot(Vector3.up, Ai.aiRigidbody.velocity) <= 0 || !Ai.isStuckOnPlayer && !Ai.canAttack)
+            if (Ai.Grounded() && Vector3.Dot(Vector3.up, Ai.aiRigidbody.velocity) <= 0 || !Ai.isStuckOnPlayer && !Ai.canAttack)
                 stateMachine.TransitionTo<StunState>();
         }
     }

@@ -13,7 +13,7 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] private AudioClip hitWallSound;
         [SerializeField] private float wallSoundThreshold = 10f;
         private float previousFrameSpeed;
-        public static Action<GameObject> onChargeEvent, onStunnedEvent;
+        public static Action<GameObject> onChargeEvent, onStunnedEvent, onSlowChargeEvent;
 
         public override void Enter()
         {
@@ -44,6 +44,8 @@ namespace AI.Charger.AIStateMachine
                 Ai.AudioSource.PlayOneShot(hitWallSound);
                 onStunnedEvent?.Invoke(Ai.gameObject);
             }
+            else
+                onSlowChargeEvent?.Invoke(Ai.gameObject);
             Ai.aiRigidbody.velocity = Vector3.zero;
             previousFrameSpeed = 0f;
             if (Ai.target.transform.IsChildOf(Ai.transform))
