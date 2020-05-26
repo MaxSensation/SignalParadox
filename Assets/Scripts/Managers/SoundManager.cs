@@ -17,7 +17,7 @@ namespace Managers
 
         private void OnDestroy()
         {
-            TriggerMemo.onMemoPickup -= PlayMemo;
+            TriggerMemo.onMemoPickupEvent -= PlayMemo;
         }
 
         private void PlayMemo(AudioClip memo)
