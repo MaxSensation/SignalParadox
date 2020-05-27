@@ -4,7 +4,7 @@ using System;
 using Player;
 using UnityEngine;
 
-namespace DecoyGrenade
+namespace Interactables.DecoyGrenade
 {
     public class PickupDecoyGrenade : MonoBehaviour
     {

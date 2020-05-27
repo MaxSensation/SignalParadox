@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using Interactables.Triggers;
+using Interactables.Triggers.EntitiesTrigger;
 using Player;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ namespace Interactables.Button
         {
             _audioSource = GetComponent<AudioSource>();
             _spamProtectionDelay = new WaitForSeconds(spamProtectionDelay);
-            PlayerInteractionTrigger.onInteractedEvent += OnButtonPressed;
+            InteractionTrigger.onInteractedEvent += OnButtonPressed;
         }
 
         private void Start()
@@ -37,7 +38,7 @@ namespace Interactables.Button
 
         private void OnDestroy()
         {
-            PlayerInteractionTrigger.onInteractedEvent -= OnButtonPressed;
+            InteractionTrigger.onInteractedEvent -= OnButtonPressed;
         }
         
         private void OnButtonPressed(GameObject button)

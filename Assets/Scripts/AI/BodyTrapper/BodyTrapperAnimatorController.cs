@@ -2,7 +2,7 @@
 //Secondary author: Maximiliam Rosén
 
 using AI.BodyTrapper.AIStateMachine;
-using Interactables.Traps;
+using Traps;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]

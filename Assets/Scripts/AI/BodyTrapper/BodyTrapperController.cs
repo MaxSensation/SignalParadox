@@ -5,9 +5,10 @@ using System;
 using System.Collections;
 using AI.BodyTrapper.AIStateMachine;
 using EchoLocation;
-using Interactables.Traps;
 using Interactables.Triggers;
+using Interactables.Triggers.EntitiesTrigger;
 using Player;
+using Traps;
 using UnityEngine;
 
 namespace AI.BodyTrapper

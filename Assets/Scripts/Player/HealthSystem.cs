@@ -1,8 +1,8 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
-using Interactables.Traps;
 using System;
+using Traps;
 using UnityEngine;
 
 namespace Player
