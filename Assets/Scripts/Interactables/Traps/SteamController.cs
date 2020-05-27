@@ -9,29 +9,28 @@ namespace Interactables.Traps
 {
     
     [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
+    [RequireComponent(typeof(ParticleSystem), typeof(AudioSource))]
     public class SteamController : MonoBehaviour
     {
-        private enum ColliderType { ParticleSystem, RegularTrigger }
-        [SerializeField] [Tooltip("Type of colliderSystem to use")] private ColliderType colliderType;
         [SerializeField] [Tooltip("If on then activate steamLoop")] private bool on;
         [SerializeField] [Tooltip("Declare a interval for the steamLoop")] private string intervalCode;
         [SerializeField] [Tooltip("Delay between each steampuff")] private float steamDelay;
         [SerializeField] [Tooltip("Delay between each damageEvent")] private float damageTickDelay;
         // Instance Events
-        public UnityEvent turnOnSteamLoop, turnOffSteamLoop, turnOnSteam, turnOffSteam;
+        public UnityEvent turnOnSteamEvent, turnOffSteamEvent;
         // Universal Events 
-        public static Action<GameObject> onSteamDamage;
+        public static Action<GameObject> onSteamDamageEvent;
         // Particle System
-        private ParticleSystem _particleSystem;
+        private ParticleSystem steamParticles;
         // List of each letter
-        private string[] _intervalCodeList;
+        private string[] intervalCodeList;
         // DelayTime
-        private WaitForSeconds _steamDelay, _damageTickDelay;
+        private WaitForSeconds steamDelaySeconds, damageTickDelaySeconds;
         // Coroutine For SteamLoop
         private Coroutine steamLoop;
         // Variable to check if the steam is on
         // Variable to check if Player can take damage
-        private bool _steamIsOn, _canDamagePlayer;
+        private bool isSteamOn, canDamageEntity;
 
         private void Awake()
         {
@@ -42,30 +41,25 @@ namespace Interactables.Traps
             if (intervalCode.Length > 0)
             {
                 // Sub events
-                turnOnSteam.AddListener(ActivateSteam);
-                turnOffSteam.AddListener(DeactivateSteam);
-                turnOnSteamLoop.AddListener(ActivateSteamLoop);
-                turnOffSteamLoop.AddListener(DeactivateSteamLoop);
+                turnOnSteamEvent.AddListener(ActivateSteam);
+                turnOffSteamEvent.AddListener(DeactivateSteam);
                 // Set damage active
-                _canDamagePlayer = true;
+                canDamageEntity = true;
                 // Declare Variables
-                _particleSystem = GetComponent<ParticleSystem>();
+                steamParticles = GetComponent<ParticleSystem>();
                 // Turn off ParticleSystem
-                _particleSystem.Stop();
-                // Disable Collision if using RegularTrigger
-                if (colliderType == ColliderType.RegularTrigger)
-                {
-                    var particleSystemCollision = _particleSystem.collision;
-                    particleSystemCollision.enabled = false;   
-                }
+                steamParticles.Stop();
+                // Use a regular trigger
+                var particleSystemCollision = steamParticles.collision;
+                particleSystemCollision.enabled = false;   
                 // Declare delay in Seconds
-                _steamDelay = new WaitForSeconds(steamDelay);
+                steamDelaySeconds = new WaitForSeconds(steamDelay);
                 // Declare Damage Tick delay
-                _damageTickDelay = new WaitForSeconds(damageTickDelay);
+                damageTickDelaySeconds = new WaitForSeconds(damageTickDelay);
                 // Create a list of each code
-                _intervalCodeList = intervalCode.Split(',');
+                intervalCodeList = intervalCode.Split(',');
                 // Turn On Steam if activated
-                if(on)turnOnSteamLoop.Invoke();
+                if (on) ActivateSteamLoop();
             }
             // If no SecretCode is declared then Give the user a error message
             else throw new MissingFieldException("SecretCode is empty!");
@@ -74,28 +68,27 @@ namespace Interactables.Traps
         private void OnDestroy()
         {
             // UnSub events
-            turnOnSteam.RemoveListener(ActivateSteam);
-            turnOffSteam.RemoveListener(DeactivateSteam);
-            turnOnSteamLoop.RemoveListener(ActivateSteamLoop);
-            turnOffSteamLoop.RemoveListener(DeactivateSteamLoop);
+            turnOnSteamEvent.RemoveListener(ActivateSteam);
+            turnOffSteamEvent.RemoveListener(DeactivateSteam);
         }
         
         private void ActivateSteam()
         {
-            _steamIsOn = true;
-            _particleSystem.Play();
+            isSteamOn = true;
+            steamParticles.Play();
         }
 
         private void DeactivateSteam()
         {
-            _steamIsOn = false;
-            _particleSystem.Stop();
+            isSteamOn = false;
+            steamParticles.Stop();
         }
 
         public void ActivateSteamLoop() => steamLoop = StartCoroutine(SteamLoop());
+        
         public void DeactivateSteamLoop()
         {
-            turnOffSteam.Invoke();
+            turnOffSteamEvent.Invoke();
             StopCoroutine(steamLoop);
         }
 
@@ -103,39 +96,26 @@ namespace Interactables.Traps
         {
             while (true)
             {
-                foreach (var letter in _intervalCodeList)
+                foreach (var letter in intervalCodeList)
                 {
-                    if (letter == "1") turnOnSteam.Invoke(); 
-                    else turnOffSteam.Invoke();
-                    yield return _steamDelay;
+                    if (letter == "1") turnOnSteamEvent.Invoke(); 
+                    else turnOffSteamEvent.Invoke();
+                    yield return steamDelaySeconds;
                 }
             }
         }
         
         private IEnumerator DamageReset()
         {
-            yield return _damageTickDelay;
-            _canDamagePlayer = true;
+            yield return damageTickDelaySeconds;
+            canDamageEntity = true;
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if (!_steamIsOn) return;
-            if (colliderType != ColliderType.RegularTrigger) return;
-            if (!other.CompareTag("Player") && !other.CompareTag("Enemy")) return;
-            if (!_canDamagePlayer) return;
-            onSteamDamage?.Invoke(other.gameObject);
-            _canDamagePlayer = false;
-            StartCoroutine(DamageReset());
-        }
-
-        private void OnParticleCollision(GameObject other)
-        {
-            if (colliderType != ColliderType.ParticleSystem) return;
-            if (!other.CompareTag("Player") && !other.CompareTag("Enemy")) return;
-            if (!_canDamagePlayer) return;
-            onSteamDamage?.Invoke(other.gameObject);
-            _canDamagePlayer = false;
+            if (!isSteamOn || !canDamageEntity || !other.CompareTag("Player") && !other.CompareTag("Enemy")) return;
+            onSteamDamageEvent?.Invoke(other.gameObject);
+            canDamageEntity = false;
             StartCoroutine(DamageReset());
         }
     }

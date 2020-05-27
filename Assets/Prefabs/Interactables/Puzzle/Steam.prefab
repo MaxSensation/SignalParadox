@@ -4709,7 +4709,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df0a9d4a1d2f26c4eb697a71ac5b82d6, type: 2}
+  - {fileID: 2100000, guid: d9c8b8c51066eb24c9119f8b25ba455c, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4748,7 +4748,7 @@ ParticleSystemRenderer:
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
-  m_VertexStreams: 000103040508
+  m_VertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -4803,18 +4803,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f125485e86573d43b848c5bb36be59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliderType: 1
   on: 1
   intervalCode: 1
   steamDelay: 1
   damageTickDelay: 1
-  turnOnSteamLoop:
-    m_PersistentCalls:
-      m_Calls: []
-  turnOffSteamLoop:
-    m_PersistentCalls:
-      m_Calls: []
-  turnOnSteam:
+  turnOnSteamEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2535694092431443278}
@@ -4828,7 +4821,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  turnOffSteam:
+  turnOffSteamEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2535694092431443278}
@@ -9532,7 +9525,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df0a9d4a1d2f26c4eb697a71ac5b82d6, type: 2}
+  - {fileID: 2100000, guid: d9c8b8c51066eb24c9119f8b25ba455c, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9571,7 +9564,7 @@ ParticleSystemRenderer:
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
-  m_VertexStreams: 000103040508
+  m_VertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
