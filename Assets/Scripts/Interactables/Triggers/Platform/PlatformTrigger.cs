@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Interactables
+namespace Interactables.Triggers.Platform
 {
     public class PlatformTrigger : MonoBehaviour
     {

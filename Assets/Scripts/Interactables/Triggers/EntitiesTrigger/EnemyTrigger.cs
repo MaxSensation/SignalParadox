@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace Interactables.Triggers
+namespace Interactables.Triggers.EntitiesTrigger
 {
     public class EnemyTrigger : MonoBehaviour
     {
