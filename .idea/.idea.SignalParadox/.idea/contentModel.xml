@@ -35,6 +35,7 @@
                 <e p="PatrolState.cs" t="Include" />
                 <e p="StunState.cs" t="Include" />
               </e>
+              <e p="ChargerAnimatorController.cs" t="Include" />
               <e p="ChargerController.cs" t="Include" />
             </e>
           </e>
@@ -100,6 +101,7 @@
               <e p="EnemyTrigger.cs" t="Include" />
               <e p="GlassWallTrigger.cs" t="Include" />
               <e p="PlatformTrigger.cs" t="Include" />
+              <e p="PlayerInteractionTrigger.cs" t="Include" />
               <e p="TriggerCheckPoint.cs" t="Include" />
               <e p="TriggerLoadNextLevel.cs" t="Include" />
               <e p="TriggerMemo.cs" t="Include" />
@@ -119,7 +121,6 @@
             <e p="HealthSystem.cs" t="Include" />
             <e p="PlayerAnimatorController.cs" t="Include" />
             <e p="PlayerController.cs" t="Include" />
-            <e p="PlayerInteractionTrigger.cs" t="Include" />
             <e p="PlayerStateMachine" t="Include">
               <e p="ChargedState.cs" t="Include" />
               <e p="CrouchState.cs" t="Include" />
