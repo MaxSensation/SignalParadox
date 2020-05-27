@@ -9,10 +9,7 @@ namespace Interactables.Triggers.Platform
         public static Action onDisablePlattformsEvent;
         private bool hasBeenActivated;
 
-        private void Start()
-        {
-            GetComponent<ButtonController>().onStateChangeEvent += Disable;
-        }
+        private void Start() => GetComponent<ButtonController>().onStateChangeEvent += Disable;
 
         private void Disable(ButtonController.ButtonStates state)
         {
