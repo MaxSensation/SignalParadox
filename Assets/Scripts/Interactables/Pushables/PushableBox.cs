@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using Interactables.Triggers;
 using Player;
 using UnityEngine;
 using UnityEngine.Events;

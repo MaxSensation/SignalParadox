@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using Interactables.Triggers;
 using Player;
 using UnityEngine;
 
