@@ -31,10 +31,7 @@ namespace Interactables.Button
             InteractionTrigger.onInteractedEvent += OnButtonPressed;
         }
 
-        private void Start()
-        {
-            onStateChangeEvent?.Invoke(currentState);
-        }
+        private void Start() => onStateChangeEvent?.Invoke(currentState);
 
         private void OnDestroy()
         {
