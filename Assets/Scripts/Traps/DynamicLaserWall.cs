@@ -3,10 +3,11 @@
 using System.Collections;
 using System.Linq;
 using Interactables.Button;
+using Interactables.Triggers.Platform;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Interactables.Traps
+namespace Traps
 {
     public class DynamicLaserWall : MonoBehaviour
     {

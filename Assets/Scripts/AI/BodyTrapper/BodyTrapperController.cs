@@ -5,9 +5,10 @@ using System;
 using System.Collections;
 using AI.BodyTrapper.AIStateMachine;
 using EchoLocation;
-using Interactables.Traps;
 using Interactables.Triggers;
+using Interactables.Triggers.EntitiesTrigger;
 using Player;
+using Traps;
 using UnityEngine;
 
 namespace AI.BodyTrapper
@@ -42,7 +43,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
             LaserController.onLaserDeath += OnDeathByTrap;
-            SteamController.onSteamDamage += OnDeathByTrap;
+            SteamController.onSteamDamageEvent += OnDeathByTrap;
             PlayerAnimatorController.OnDeathAnimBeginning += () => isPlayerAlive = false;
         }
 
@@ -51,7 +52,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onTrapped -= StuckOnPlayer;
             PlayerTrapable.onDetached -= DetachFromPlayer;
             LaserController.onLaserDeath -= OnDeathByTrap;
-            SteamController.onSteamDamage -= OnDeathByTrap;
+            SteamController.onSteamDamageEvent -= OnDeathByTrap;
             PlayerAnimatorController.OnDeathAnimBeginning -= () => isPlayerAlive = false;
         }
 

@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace DecoyGrenade
+namespace Interactables.DecoyGrenade
 {
     public class PropDecoyGrenade : MonoBehaviour
     {

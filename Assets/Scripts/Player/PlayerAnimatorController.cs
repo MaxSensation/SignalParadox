@@ -2,8 +2,9 @@
 //Secondary author: Andreas Berzelius
 
 using System;
-using DecoyGrenade;
+using Interactables.DecoyGrenade;
 using Interactables.Triggers;
+using Interactables.Triggers.EntitiesTrigger;
 using Player.PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -34,12 +35,12 @@ namespace Player
             ThrowDecoyGrenade.onThrowEvent += Throw;
             ThrowDecoyGrenade.onAbortAimEvent += StopAiming;
             //PickupDecoyGrenade.onGrenadePickup += OnPickedUpDecoy;
-            PlayerInteractionTrigger.onInteractedEvent += OnPickedUpDecoy;
+            InteractionTrigger.onInteractedEvent += OnPickedUpDecoy;
 
             PushingState.OnEnterPushingStateEvent += HandleEnterPushing;
             PushingState.OnExitPushingStateEvent += HandleExitPushing;
             PushingState.OnPushingStateEvent += HandlePushing;
-            HealthSystem.OnPlayerDeath += PlayerDeath;
+            HealthSystem.onPlayerDeathEvent += PlayerDeath;
             PlayerTrapable.onPlayerTrappedEvent += OnTrapped;
             PlayerTrapable.onDetached += OnDetached;
         }
@@ -90,12 +91,12 @@ namespace Player
             ThrowDecoyGrenade.onThrowEvent -= Throw;
             ThrowDecoyGrenade.onAbortAimEvent -= StopAiming;
             //PickupDecoyGrenade.onGrenadePickup -= OnPickedUpDecoy;
-            PlayerInteractionTrigger.onInteractedEvent -= OnPickedUpDecoy;
+            InteractionTrigger.onInteractedEvent -= OnPickedUpDecoy;
 
             PushingState.OnEnterPushingStateEvent -= HandleEnterPushing;
             PushingState.OnExitPushingStateEvent -= HandleExitPushing;
             PushingState.OnPushingStateEvent -= HandlePushing;
-            HealthSystem.OnPlayerDeath -= PlayerDeath;
+            HealthSystem.onPlayerDeathEvent -= PlayerDeath;
             PlayerTrapable.onPlayerTrappedEvent -= OnTrapped;
             PlayerTrapable.onDetached -= OnDetached;
         }

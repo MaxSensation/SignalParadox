@@ -1,12 +1,12 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
-using System;
 using System.Linq;
 using Interactables.Button;
+using Interactables.Triggers.Platform;
 using UnityEngine;
 
-namespace Interactables.Door
+namespace Door
 {
     public class DoorController : MonoBehaviour
     {

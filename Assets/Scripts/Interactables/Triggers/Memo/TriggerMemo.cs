@@ -3,7 +3,7 @@
 using System;
 using UnityEngine;
 
-namespace Interactables.Triggers
+namespace Interactables.Triggers.Memo
 {
     public class TriggerMemo : MonoBehaviour
     {

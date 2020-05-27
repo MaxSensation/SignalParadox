@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Interactables.Door
+namespace Door
 {
     public class AutoCloseTrigger : MonoBehaviour
     {

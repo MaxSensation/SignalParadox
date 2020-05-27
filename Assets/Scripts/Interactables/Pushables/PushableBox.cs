@@ -3,6 +3,7 @@
 using System;
 using System.Linq;
 using Interactables.Triggers;
+using Interactables.Triggers.EntitiesTrigger;
 using Player;
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,7 +31,7 @@ namespace Interactables.Pushables
             _rigidbody = GetComponent<Rigidbody>();
             _halfCheckSize = new Vector3(checkSize.x/2, checkSize.y/2, checkSize.z/2);
             GetPushLocations();
-            PlayerInteractionTrigger.onInteractedEvent += HandleInteract;
+            InteractionTrigger.onInteractedEvent += HandleInteract;
         }
 
         private void GetPushLocations()
@@ -51,7 +52,7 @@ namespace Interactables.Pushables
 
         private void OnDestroy()
         {
-            PlayerInteractionTrigger.onInteractedEvent -= HandleInteract;
+            InteractionTrigger.onInteractedEvent -= HandleInteract;
         }
 
         private void HandleInteract(GameObject interactable)

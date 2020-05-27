@@ -1,8 +1,8 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
-using Interactables.Traps;
 using System;
+using Traps;
 using UnityEngine;
 
 namespace Player
@@ -11,13 +11,13 @@ namespace Player
     {
         private static readonly int maxHealth = 4;
         public static Action<int> onPlayerTakeDamageEvent, onInitEvent;
-        public static Action<DamageType> OnPlayerDeath;
+        public static Action<DamageType> onPlayerDeathEvent;
         public int CurrentHealth { get; private set; }
         public enum DamageType { Laser, Steam, Bodytrapper, Charger }
 
         private void Awake()
         {
-            SteamController.onSteamDamage += SteamDamage;
+            SteamController.onSteamDamageEvent += SteamDamage;
             LaserController.onLaserDeath += LaserDamage;
         }
 
@@ -50,7 +50,7 @@ namespace Player
             CurrentHealth--;
             onPlayerTakeDamageEvent?.Invoke(CurrentHealth);
             if (CurrentHealth <= 0)
-                OnPlayerDeath?.Invoke(dT);
+                onPlayerDeathEvent?.Invoke(dT);
         }
 
         public void SetHealth(int health)
@@ -67,7 +67,7 @@ namespace Player
 
         private void OnDestroy()
         {
-            SteamController.onSteamDamage -= SteamDamage;
+            SteamController.onSteamDamageEvent -= SteamDamage;
             LaserController.onLaserDeath -= LaserDamage;
         }
 

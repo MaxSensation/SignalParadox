@@ -3,6 +3,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Interactables.Triggers;
+using Interactables.Triggers.Events;
 using Player;
 using UnityEngine;
 
