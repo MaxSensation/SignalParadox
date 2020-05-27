@@ -1,8 +1,8 @@
 ﻿//Main author: Maximiliam Rosén
+//Secondary athor: Andreas Berzelius
 
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Interactables.Triggers;
 using Interactables.Triggers.Events;
 using Player;
 using UnityEngine;
@@ -12,8 +12,8 @@ namespace SaveSystem
     public static class SaveManager
     {
         public static WorldEventsData WorldEventsData { get; private set; }
-        private static CheckPoint _checkPoint;
-        private static PlayerData _betweenLevelData;
+        private static CheckPoint checkPoint;
+        private static PlayerData betweenLevelData;
         
         public static void Init()
         {
@@ -27,16 +27,14 @@ namespace SaveSystem
         }
 
         private static void LoadCheckPointNextPlayerInstance() => PlayerController.onPlayerInit += LoadCheckPoint;
-
-        private static void SaveBetweenLevelData(PlayerData betweenLevelData) => _betweenLevelData = betweenLevelData;
-
+        private static void SaveBetweenLevelData(PlayerData betweenLevelData) => SaveManager.betweenLevelData = betweenLevelData;
         private static void LoadPlayerDataNextPlayerInstance(PlayerData playerData) => PlayerController.onPlayerInit += LoadPlayerData;
-        private static void SaveCheckPoint(CheckPoint checkPoint) => _checkPoint = checkPoint;
-        private static void LoadCheckPointScene() => _checkPoint?.LoadScene();
+        private static void SaveCheckPoint(CheckPoint checkPoint) => SaveManager.checkPoint = checkPoint;
+        private static void LoadCheckPointScene() => checkPoint?.LoadScene();
 
         public static void SpawnWithFullHealthNextPlayerInstance()
         {
-            _checkPoint?.ResetHealth();
+            checkPoint?.ResetHealth();
             PlayerController.onPlayerInit += SpawnWithFullHealth;
         }
 
@@ -49,13 +47,13 @@ namespace SaveSystem
         private static void LoadPlayerData(GameObject player)
         {
             PlayerController.onPlayerInit -= LoadPlayerData;
-            _betweenLevelData?.Load(player);
+            betweenLevelData?.Load(player);
         }
 
         private static void LoadCheckPoint(GameObject player)
         {
             PlayerController.onPlayerInit -= LoadCheckPoint;
-            _checkPoint.Load(player);
+            checkPoint.Load(player);
         }
 
         public static void SaveGame()
@@ -63,7 +61,7 @@ namespace SaveSystem
             var formatter = new BinaryFormatter();
             var path = Application.persistentDataPath + "/SaveGame.paradox";
             var stream = new FileStream(path, FileMode.Create);
-            formatter.Serialize(stream, new SaveGame(WorldEventsData, _checkPoint, _betweenLevelData));
+            formatter.Serialize(stream, new SaveGame(WorldEventsData, checkPoint, betweenLevelData));
             stream.Close();
         }
         
@@ -79,8 +77,8 @@ namespace SaveSystem
                     if (formatter.Deserialize(stream) is SaveGame saveGame)
                     {
                         WorldEventsData = saveGame.WorldEventsData;
-                        _checkPoint = saveGame.CheckPoint;
-                        _betweenLevelData = saveGame.PlayerData;
+                        checkPoint = saveGame.CheckPoint;
+                        betweenLevelData = saveGame.PlayerData;
                         LoadCheckPointNextPlayerInstance();
                         LoadCheckPointScene();
                     }
