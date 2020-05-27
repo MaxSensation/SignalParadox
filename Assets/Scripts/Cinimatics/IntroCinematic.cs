@@ -10,7 +10,8 @@ namespace Cinimatics
         private void Start()
         {
             playableDirector = GetComponent<PlayableDirector>();
-            if (SaveManager.WorldEventsData == null && SaveManager.WorldEventsData.CinematicHasPlayed) return;
+            if (SaveManager.WorldEventsData == null) return;
+            if (SaveManager.WorldEventsData.CinematicHasPlayed) return;
             playableDirector.Play();
             SaveManager.WorldEventsData.CinematicHasPlayed = true;
         }
