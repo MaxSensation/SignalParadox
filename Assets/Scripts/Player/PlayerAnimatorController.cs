@@ -39,7 +39,7 @@ namespace Player
             PushingState.OnEnterPushingStateEvent += HandleEnterPushing;
             PushingState.OnExitPushingStateEvent += HandleExitPushing;
             PushingState.OnPushingStateEvent += HandlePushing;
-            HealthSystem.OnPlayerDeath += PlayerDeath;
+            HealthSystem.onPlayerDeathEvent += PlayerDeath;
             PlayerTrapable.onPlayerTrappedEvent += OnTrapped;
             PlayerTrapable.onDetached += OnDetached;
         }
@@ -95,7 +95,7 @@ namespace Player
             PushingState.OnEnterPushingStateEvent -= HandleEnterPushing;
             PushingState.OnExitPushingStateEvent -= HandleExitPushing;
             PushingState.OnPushingStateEvent -= HandlePushing;
-            HealthSystem.OnPlayerDeath -= PlayerDeath;
+            HealthSystem.onPlayerDeathEvent -= PlayerDeath;
             PlayerTrapable.onPlayerTrappedEvent -= OnTrapped;
             PlayerTrapable.onDetached -= OnDetached;
         }

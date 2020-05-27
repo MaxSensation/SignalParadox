@@ -42,7 +42,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onTrapped += StuckOnPlayer;
             PlayerTrapable.onDetached += DetachFromPlayer;
             LaserController.onLaserDeath += OnDeathByTrap;
-            SteamController.onSteamDamage += OnDeathByTrap;
+            SteamController.onSteamDamageEvent += OnDeathByTrap;
             PlayerAnimatorController.OnDeathAnimBeginning += () => isPlayerAlive = false;
         }
 
@@ -51,7 +51,7 @@ namespace AI.BodyTrapper
             PlayerTrapable.onTrapped -= StuckOnPlayer;
             PlayerTrapable.onDetached -= DetachFromPlayer;
             LaserController.onLaserDeath -= OnDeathByTrap;
-            SteamController.onSteamDamage -= OnDeathByTrap;
+            SteamController.onSteamDamageEvent -= OnDeathByTrap;
             PlayerAnimatorController.OnDeathAnimBeginning -= () => isPlayerAlive = false;
         }
 
