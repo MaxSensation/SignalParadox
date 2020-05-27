@@ -3,6 +3,7 @@
 
 using System;
 using DecoyGrenade;
+using Interactables.Triggers;
 using Player.PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
