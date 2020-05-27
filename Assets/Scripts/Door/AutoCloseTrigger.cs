@@ -1,4 +1,7 @@
-﻿using System;
+﻿//Main author: Andreas Berzelius
+//Secondary author: Maximiliam Rosén
+
+using System;
 using UnityEngine;
 
 namespace Door
@@ -6,16 +9,14 @@ namespace Door
     public class AutoCloseTrigger : MonoBehaviour
     {
         public Action onAutoCloseEvent;
-        private bool _hasClosed;
+        private bool hasClosed;
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player") && !_hasClosed)
-            {
-                onAutoCloseEvent?.Invoke();
-                _hasClosed = true;
-            }
+            if (!other.CompareTag("Player") || hasClosed) return;
+            onAutoCloseEvent?.Invoke();
+            hasClosed = true;
         }
-        internal void SetHasClosed(bool hasClosed) => _hasClosed = hasClosed;
+        internal void SetHasClosed(bool hasClosed) => this.hasClosed = hasClosed;
     }
 }

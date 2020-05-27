@@ -17,7 +17,7 @@ namespace Interactables.Triggers.Platform
         private static readonly int IsPressed = Animator.StringToHash("IsPressed");
         public UnityEvent isOn;
         public UnityEvent isOff;
-        public static Action<GameObject[]> onButtonPressed;
+        public static Action<GameObject[]> onButtonPressedEvent;
         private int objectsOnButton;
 
         private void Awake()
@@ -49,7 +49,7 @@ namespace Interactables.Triggers.Platform
             _animator.SetBool(IsPressed, true);
             _meshRenderer.material = @on;
             isOn.Invoke();
-            onButtonPressed?.Invoke(interactables);
+            onButtonPressedEvent?.Invoke(interactables);
         }
         [ContextMenu("Deactivate")]
         private void Deactivate()
@@ -59,7 +59,7 @@ namespace Interactables.Triggers.Platform
             _animator.SetBool(IsPressed, false);
             _meshRenderer.material = off;
             isOff.Invoke();
-            onButtonPressed?.Invoke(interactables);
+            onButtonPressedEvent?.Invoke(interactables);
         }
     }
 }
