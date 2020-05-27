@@ -17,7 +17,7 @@ public class BodyTrapperAnimatorController : MonoBehaviour
         animator = GetComponent<Animator>();
         bodytrapper = transform.parent.gameObject;
         LaserController.onLaserDeath += Die;
-        SteamController.onSteamDamage += Die;
+        SteamController.onSteamDamageEvent += Die;
         JumpState.onJumpEvent += Jump;
         StunState.onLandEvent += Land;
         HuntState.onHuntEvent += Hunting;
@@ -28,7 +28,7 @@ public class BodyTrapperAnimatorController : MonoBehaviour
     private void OnDestroy()
     {
         LaserController.onLaserDeath -= Die;
-        SteamController.onSteamDamage -= Die;
+        SteamController.onSteamDamageEvent -= Die;
         JumpState.onJumpEvent -= Jump;
         StunState.onLandEvent -= Land;
         HuntState.onHuntEvent -= Hunting;
