@@ -20,7 +20,7 @@ namespace Interactables.Button
         private AudioSource _audioSource;
         private WaitForSeconds _spamProtectionDelay;
 
-        public static Action<GameObject[]> onButtonPressed;
+        public static Action<GameObject[]> onButtonPressedEvent;
         public Action<ButtonStates> onStateChangeEvent;
         public enum ButtonStates { Standby, Activated, Locked }
         
@@ -69,7 +69,7 @@ namespace Interactables.Button
             _audioSource.PlayOneShot(accessGrantedSound);
             currentState = ButtonStates.Activated;
             onStateChangeEvent?.Invoke(currentState);
-            onButtonPressed?.Invoke(interactableObjects);
+            onButtonPressedEvent?.Invoke(interactableObjects);
         }
         
         [ContextMenu("Lock")]

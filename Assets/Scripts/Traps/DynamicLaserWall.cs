@@ -44,15 +44,15 @@ namespace Traps
         private void Start()
         {
             StartCoroutine("WaitForStart");
-            ButtonController.onButtonPressed += OnButtonPressed;
-            PlatformTrigger.onButtonPressed += OnButtonPressed;
+            ButtonController.onButtonPressedEvent += OnButtonPressed;
+            PlatformTrigger.onButtonPressedEvent += OnButtonPressed;
         }
 
         private void OnDestroy()
         {
             transform.localScale = new Vector3(Berp(0f, 1f, 1f), Berp(0f, 1f, 1f), Berp(0f, 1f, 1f));
-            ButtonController.onButtonPressed -= OnButtonPressed;
-            PlatformTrigger.onButtonPressed -= OnButtonPressed;
+            ButtonController.onButtonPressedEvent -= OnButtonPressed;
+            PlatformTrigger.onButtonPressedEvent -= OnButtonPressed;
         }
         
         public float Berp(float start, float end, float value)
