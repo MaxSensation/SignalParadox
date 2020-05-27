@@ -4,9 +4,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Interactables.Triggers
+namespace Interactables.Triggers.EntitiesTrigger
 {
-    public class PlayerInteractionTrigger : MonoBehaviour
+    public class InteractionTrigger : MonoBehaviour
     {
         private BoxCollider interactionTriggerCollider;
         public static Action<GameObject> onInteractedEvent;

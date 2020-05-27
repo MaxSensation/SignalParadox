@@ -10,7 +10,7 @@ using Player.PlayerStateMachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace DecoyGrenade
+namespace Interactables.DecoyGrenade
 {
     [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(LineRenderer))]
     public class ThrowDecoyGrenade : MonoBehaviour

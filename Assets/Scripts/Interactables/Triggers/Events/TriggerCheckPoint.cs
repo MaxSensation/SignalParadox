@@ -1,11 +1,10 @@
 ﻿//Main author: Maximiliam Rosén
 
 using System;
-using Managers;
 using SaveSystem;
 using UnityEngine;
 
-namespace Interactables.Triggers
+namespace Interactables.Triggers.Events
 {
     public class TriggerCheckPoint : MonoBehaviour
     {

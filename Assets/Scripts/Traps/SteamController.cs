@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Interactables.Traps
+namespace Traps
 {
     
     [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]

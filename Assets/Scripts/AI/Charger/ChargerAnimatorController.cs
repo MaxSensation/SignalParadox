@@ -3,7 +3,7 @@
 
 using System;
 using AI.Charger.AIStateMachine;
-using Interactables.Traps;
+using Traps;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]

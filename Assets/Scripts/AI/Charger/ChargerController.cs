@@ -4,8 +4,9 @@
 using System;
 using System.Collections;
 using AI.Charger.AIStateMachine;
-using Interactables.Traps;
 using Interactables.Triggers;
+using Interactables.Triggers.EntitiesTrigger;
+using Traps;
 using UnityEngine;
 
 namespace AI.Charger

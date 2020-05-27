@@ -1,7 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 
 using System;
-using DecoyGrenade;
+using Interactables.DecoyGrenade;
 using Player;
 using UnityEngine;
 

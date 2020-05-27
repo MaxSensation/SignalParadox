@@ -5,7 +5,7 @@ using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Interactables.Triggers
+namespace Interactables.Triggers.Events
 {
     public class TriggerLoadNextLevel : MonoBehaviour
     {
