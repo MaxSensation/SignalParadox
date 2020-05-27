@@ -1,11 +1,3 @@
----
-name: Pull Request
-about: An regular Pull Request
-title: ''
-labels: ''
-assignees: ''
-
----
 <!--- Provide a general summary of your changes in the Title above -->
 
 ## Description
