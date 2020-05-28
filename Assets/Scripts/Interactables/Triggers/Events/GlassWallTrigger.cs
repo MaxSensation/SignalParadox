@@ -1,27 +1,41 @@
-﻿using System.Linq;
+﻿using AI.Charger.AIStateMachine;
 using UnityEngine;
 
 namespace Interactables.Triggers.Events
 {
     public class GlassWallTrigger : MonoBehaviour
     {
-        private BoxCollider[] _colliders;
-        private Animator _animator;
-        private AudioSource _audioSource;
-        private void Start()
+        private BoxCollider[] colliers;
+        private Animator animator;
+        private AudioSource audioSource;
+        private bool isDestroyable;
+        
+        private void Awake()
         {
-            _colliders = GetComponents<BoxCollider>();
-            _animator = GetComponent<Animator>();
-            _audioSource = GetComponent<AudioSource>();
-        }
+            colliers = GetComponents<BoxCollider>();
+            animator = GetComponent<Animator>();
+            audioSource = GetComponent<AudioSource>();
 
+            ChargeState.onChargeEvent += charger => isDestroyable = true;
+            ChargeState.onStunnedEvent += charger => isDestroyable = false;
+            ChargeState.onSlowChargeEvent += charger => isDestroyable = false;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Enemy")) return;
-            _colliders.ToList().ForEach(i => i.enabled = false);
-            _animator.SetTrigger("GlassBreak");
-            _audioSource.Play();
+            if (!isDestroyable) return;
+            if (other.CompareTag("Enemy"))
+                DestoryWall();
+        }
+
+        private void DestoryWall()
+        {
+            for (var i = 0; i < colliers.Length; i++)
+            {
+                colliers[i].enabled = false;
+            }
+            animator.SetTrigger("GlassBreak");
+            audioSource.Play();    
         }
     }
 }
