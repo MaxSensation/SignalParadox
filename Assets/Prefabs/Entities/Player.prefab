@@ -2117,9 +2117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e1404254d4d47b41819261e97206df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Footsteps: {fileID: 8300000, guid: d55ab596d3a15ef46b12a65ef64e5003, type: 3}
-  Glass: {fileID: 0}
-  Metal: {fileID: 0}
+  footsteps: {fileID: 8300000, guid: d55ab596d3a15ef46b12a65ef64e5003, type: 3}
+  glass: {fileID: 0}
+  metal: {fileID: 0}
 --- !u!82 &475798147858242819
 AudioSource:
   m_ObjectHideFlags: 0
