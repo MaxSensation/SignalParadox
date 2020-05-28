@@ -3,9 +3,7 @@
 
 using System;
 using System.Collections;
-using Interactables.Triggers;
 using Interactables.Triggers.EntitiesTrigger;
-using Player;
 using UnityEngine;
 
 namespace Interactables.Button
@@ -16,9 +14,9 @@ namespace Interactables.Button
         [SerializeField] private GameObject[] interactableObjects;
         [SerializeField] private float  spamProtectionDelay;
         [Tooltip("SoundEffects")][SerializeField] private AudioClip accessGrantedSound, accessDeniedSound;
-        private bool _isInRangeOfPlayer, _spamprotectionOn;
-        private AudioSource _audioSource;
-        private WaitForSeconds _spamProtectionDelay;
+        private bool spamprotectionOn;
+        private AudioSource audioSource;
+        private WaitForSeconds spamProtectionDelaySeconds;
 
         public static Action<GameObject[]> onButtonPressedEvent;
         public Action<ButtonStates> onStateChangeEvent;
@@ -26,47 +24,41 @@ namespace Interactables.Button
         
         private void Awake()
         {
-            _audioSource = GetComponent<AudioSource>();
-            _spamProtectionDelay = new WaitForSeconds(spamProtectionDelay);
+            audioSource = GetComponent<AudioSource>();
+            spamProtectionDelaySeconds = new WaitForSeconds(spamProtectionDelay);
             InteractionTrigger.onInteractedEvent += OnButtonPressed;
         }
 
-        private void Start()
-        {
-            onStateChangeEvent?.Invoke(currentState);
-        }
+        private void Start() => onStateChangeEvent?.Invoke(currentState);
 
-        private void OnDestroy()
-        {
-            InteractionTrigger.onInteractedEvent -= OnButtonPressed;
-        }
+        private void OnDestroy() => InteractionTrigger.onInteractedEvent -= OnButtonPressed;
         
         private void OnButtonPressed(GameObject button)
         {
-            if (button != gameObject || _spamprotectionOn) return;
+            if (button != gameObject || spamprotectionOn) return;
             if (currentState != ButtonStates.Locked)
                 ButtonPress();
             else
-                _audioSource.PlayOneShot(accessDeniedSound);
+                audioSource.PlayOneShot(accessDeniedSound);
             StartCoroutine(SpamProtection());
         }
         
         private IEnumerator SpamProtection()
         {
-            _spamprotectionOn = true;
-            yield return _spamProtectionDelay;
+            spamprotectionOn = true;
+            yield return spamProtectionDelaySeconds;
             if (currentState != ButtonStates.Locked)
             {
                 currentState = ButtonStates.Standby;
                 onStateChangeEvent?.Invoke(currentState);   
             }
-            _spamprotectionOn = false;
+            spamprotectionOn = false;
         }
         
         [ContextMenu("PressButton")]
         public void ButtonPress()
         {
-            _audioSource.PlayOneShot(accessGrantedSound);
+            audioSource.PlayOneShot(accessGrantedSound);
             currentState = ButtonStates.Activated;
             onStateChangeEvent?.Invoke(currentState);
             onButtonPressedEvent?.Invoke(interactableObjects);
@@ -80,7 +72,3 @@ namespace Interactables.Button
         }
     }
 }
-
-
-
-
