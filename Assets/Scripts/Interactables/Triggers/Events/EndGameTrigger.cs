@@ -6,7 +6,6 @@ namespace Interactables.Triggers.Events
 {
     public class EndGameTrigger : MonoBehaviour
     {
-
         [SerializeField] private Animator textAnimation;
         [SerializeField] private Animator imageAnimation;
         [SerializeField] private float endGameDelay;
