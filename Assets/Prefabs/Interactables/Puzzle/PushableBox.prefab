@@ -50,9 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19134ff9dbde2d246a28b04ea001e028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkSize: {x: 0.6, y: 1.7, z: 0.6}
-  force: 50000
-  distanceToPushLocation: 0.2
+  triggerCheckSize: {x: 0.6, y: 1.7, z: 0.6}
+  pushForce: 50000
+  playerDistanceToPushArea: 0.2
   onPushEvent:
     m_PersistentCalls:
       m_Calls:
