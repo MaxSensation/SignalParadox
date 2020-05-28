@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
 using Player.PlayerStateMachine;
 using UnityEngine;
 
@@ -42,15 +43,9 @@ public sealed class CameraController : MonoBehaviour
 		CrouchState.onExitCrouchEvent -= ExitCrouchCameraPosition;
 	}
 
-	private void EnterCrouchCameraPosition()
-	{
-		isCrouching = true;
-	}
+	private void EnterCrouchCameraPosition() => isCrouching = true;
 	
-	private void ExitCrouchCameraPosition()
-	{
-		isCrouching = false;
-	}
+	private void ExitCrouchCameraPosition() => isCrouching = false;
 
 	private void Update()
 	{

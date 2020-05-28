@@ -1,35 +1,39 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+
+using UnityEngine;
 
 public class CameraMover : MonoBehaviour
 {
 	[SerializeField] private LayerMask layerMask = ~0;
 	[SerializeField] private float smoothingFactor = 25f;
 	[SerializeField] private float spherecastRadius = 0.2f;
-	private Transform cameraTransform, objectTransform;
+	private Transform cameraTransform, cameraContainerTransform;
 	private float preferredDistance, currentDistance;
 	private Vector3 localCastDirection;
+
 	private void Awake () {
-		objectTransform = transform;
-		if (Camera.main != null) cameraTransform = Camera.main.transform;
-		var _cameraTransformPosition = cameraTransform.position;
-		var _objectTransformPosition = objectTransform.position;
-		preferredDistance = (_cameraTransformPosition - _objectTransformPosition).magnitude;
+		cameraContainerTransform = transform;
+        var camera = Camera.main;
+        if (camera != null) cameraTransform = camera.transform;
+		var cameraTransformPosition = cameraTransform.position;
+		var objectTransformPosition = cameraContainerTransform.position;
+		preferredDistance = (cameraTransformPosition - objectTransformPosition).magnitude;
 		currentDistance = preferredDistance;
-		localCastDirection = _cameraTransformPosition - _objectTransformPosition;
+		localCastDirection = cameraTransformPosition - objectTransformPosition;
 		localCastDirection.Normalize();
-		localCastDirection = objectTransform.worldToLocalMatrix * localCastDirection;
+		localCastDirection = cameraContainerTransform.worldToLocalMatrix * localCastDirection;
 	}
 
 	private void LateUpdate () {
-		var _distance = GetCameraDistance();
-		currentDistance = Mathf.Lerp(currentDistance, _distance, Time.deltaTime * smoothingFactor);
-		Vector3 _direction = objectTransform.localToWorldMatrix * localCastDirection;
-		cameraTransform.position = objectTransform.position + _direction * currentDistance;
+		var distance = GetCameraDistance();
+		currentDistance = Mathf.Lerp(currentDistance, distance, Time.deltaTime * smoothingFactor);
+		Vector3 direction = cameraContainerTransform.localToWorldMatrix * localCastDirection;
+		cameraTransform.position = cameraContainerTransform.position + direction * currentDistance;
 	}
 
 	private float GetCameraDistance()
 	{
-		Vector3 _direction = objectTransform.localToWorldMatrix * localCastDirection;
-		return Physics.SphereCast(new Ray(objectTransform.position, _direction), spherecastRadius, out var _hit, preferredDistance, layerMask, QueryTriggerInteraction.Ignore) ? _hit.distance : preferredDistance;
+		Vector3 direction = cameraContainerTransform.localToWorldMatrix * localCastDirection;
+		return Physics.SphereCast(new Ray(cameraContainerTransform.position, direction), spherecastRadius, out var hit, preferredDistance, layerMask, QueryTriggerInteraction.Ignore) ? hit.distance : preferredDistance;
 	}
 }

@@ -2117,9 +2117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e1404254d4d47b41819261e97206df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footsteps: {fileID: 8300000, guid: d55ab596d3a15ef46b12a65ef64e5003, type: 3}
-  glass: {fileID: 0}
-  metal: {fileID: 0}
+  surfaceSounds:
+  - {fileID: 8300000, guid: d55ab596d3a15ef46b12a65ef64e5003, type: 3}
+  - {fileID: 8300000, guid: d55ab596d3a15ef46b12a65ef64e5003, type: 3}
+  - {fileID: 8300000, guid: d55ab596d3a15ef46b12a65ef64e5003, type: 3}
+  defaultVolume: 0.2
+  crouchVolume: 0.1
 --- !u!82 &475798147858242819
 AudioSource:
   m_ObjectHideFlags: 0

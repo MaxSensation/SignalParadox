@@ -1,28 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//Main author: Maximiliam Rosén
+
 using UnityEngine;
 
 public class TurnHeadWithCamera : MonoBehaviour
 {
     [Tooltip("The max and min angle from the default state")][SerializeField] private float maxAngle;
-    private Transform cameraTransform;
-    private Transform objectTransform;
-    private Transform parentTransform;
+    private Transform cameraTransform, headTransform, parentTransform;
 
-    private void Start ()
+    private void Awake ()
     {
-        if (Camera.main != null) cameraTransform = Camera.main.transform;
-        objectTransform = transform;
-        parentTransform = objectTransform.parent;
+        var camera = Camera.main;
+        if (camera != null) cameraTransform = camera.transform;
+        headTransform = transform;
+        parentTransform = headTransform.parent;
     }
 
     private void LateUpdate() {
         if(!cameraTransform) return;
         var newLookXRotation = Quaternion.LookRotation(cameraTransform.forward, parentTransform.up);
-        var currentLocalEulerAngles = objectTransform.localEulerAngles;
+        var currentLocalEulerAngles = headTransform.localEulerAngles;
         var wantedLocalEulerXAngle = ClampAngle(newLookXRotation.eulerAngles.x, -maxAngle, maxAngle);
         var wantedLocalEulerAngles = new Vector3(wantedLocalEulerXAngle, currentLocalEulerAngles.y, currentLocalEulerAngles.z);
-        objectTransform.localEulerAngles = wantedLocalEulerAngles;
+        headTransform.localEulerAngles = wantedLocalEulerAngles;
     }
     
     private static float ClampAngle(float eulerAngle, float min, float max)
