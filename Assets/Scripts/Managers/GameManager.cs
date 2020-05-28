@@ -7,13 +7,13 @@ namespace Managers
 {
     public class GameManager : MonoBehaviour
     {
-        private static GameObject _gameManager;
+        private static GameObject gameManager;
 
         private void Awake()
         {
-            if (_gameManager == null)
-                _gameManager = gameObject;
-            if (_gameManager != gameObject)
+            if (gameManager == null)
+                gameManager = gameObject;
+            if (gameManager != gameObject)
                 Destroy(gameObject);
             else
             {
