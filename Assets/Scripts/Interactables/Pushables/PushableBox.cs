@@ -1,10 +1,9 @@
 ﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
 
 using System;
 using System.Linq;
-using Interactables.Triggers;
 using Interactables.Triggers.EntitiesTrigger;
-using Player;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,47 +11,48 @@ namespace Interactables.Pushables
 {
     public class PushableBox : MonoBehaviour, IPushable
     {
-        [SerializeField] private Vector3 checkSize;
-        [SerializeField] private float force;
-        [SerializeField] private float distanceToPushLocation;
-        public static Action<IPushable> onPushStateEvent;
-        public UnityEvent onPushEvent;
-        public UnityEvent onStopPushEvent;
-        private Vector3 _halfCheckSize;
-        private BoxCollider _collider;
-        private Rigidbody _rigidbody;
-        private Vector3[] _pushingLocations;
-        private Vector3 _pushDirection;
+        [SerializeField] private Vector3 triggerCheckSize;
+        [SerializeField] private float pushForce;
+        [SerializeField] private float playerDistanceToPushArea;
+        private Vector3 halfTriggerCheckSize, pushDirection;
+        private BoxCollider triggerCollider;
+        private Rigidbody boxRigidbody;
+        private Vector3[] pushableLocations;
         private bool isPushing;
-        
+        public UnityEvent onPushEvent, onStopPushEvent;
+        public static Action<IPushable> onPushStateEvent;
+
         private void Awake()
         {
-            _collider = GetComponent<BoxCollider>();
-            _rigidbody = GetComponent<Rigidbody>();
-            _halfCheckSize = new Vector3(checkSize.x/2, checkSize.y/2, checkSize.z/2);
-            GetPushLocations();
+            triggerCollider = GetComponent<BoxCollider>();
+            boxRigidbody = GetComponent<Rigidbody>();
+            halfTriggerCheckSize = new Vector3(triggerCheckSize.x / 2, triggerCheckSize.y / 2, triggerCheckSize.z / 2);
+            GeneratePushLocations();
             InteractionTrigger.onInteractedEvent += HandleInteract;
         }
 
-        private void GetPushLocations()
+        private void OnDestroy() => InteractionTrigger.onInteractedEvent -= HandleInteract;
+
+        private void FixedUpdate()
+        {
+            if (!isPushing) return;
+            boxRigidbody.AddForce(pushDirection.normalized * (pushForce * Time.deltaTime));
+        }
+
+        private void GeneratePushLocations()
         {
             var boxTransform = transform;
             var forward = boxTransform.forward;
             var right = boxTransform.right;
             var position = boxTransform.position;
-            var distanceFromCenter = _collider.size.x/2 + distanceToPushLocation;
-            _pushingLocations = new Vector3[]
+            var distanceFromCenter = triggerCollider.size.x / 2 + playerDistanceToPushArea;
+            pushableLocations = new Vector3[]
             {
-                position + forward * (distanceFromCenter + checkSize.z/2),
-                position + -forward * (distanceFromCenter + checkSize.z/2),
-                position + right * (distanceFromCenter + checkSize.x/2),
-                position + -right * (distanceFromCenter + checkSize.x/2)
+                position + forward * (distanceFromCenter + triggerCheckSize.z/2),
+                position + -forward * (distanceFromCenter + triggerCheckSize.z/2),
+                position + right * (distanceFromCenter + triggerCheckSize.x/2),
+                position + -right * (distanceFromCenter + triggerCheckSize.x/2)
             };
-        }
-
-        private void OnDestroy()
-        {
-            InteractionTrigger.onInteractedEvent -= HandleInteract;
         }
 
         private void HandleInteract(GameObject interactable)
@@ -61,18 +61,10 @@ namespace Interactables.Pushables
                 onPushStateEvent?.Invoke(this);
         }
 
-        private void FixedUpdate()
-        {
-            if (!isPushing) return;
-            _rigidbody.AddForce(_pushDirection.normalized * (force * Time.deltaTime));
-        }
-
         public void Pushing()
         {
             if (!isPushing)
-            {
-                onPushEvent?.Invoke();   
-            }
+                onPushEvent?.Invoke();
             isPushing = true;
         }
 
@@ -84,17 +76,17 @@ namespace Interactables.Pushables
 
         public Vector3 GetPushLocation(Vector3 pusherLocation)
         {
-            GetPushLocations();
+            GeneratePushLocations();
             var bestLocation = Vector3.zero;
             var bestDistance = float.PositiveInfinity;
-            foreach (var location in _pushingLocations)
+            for (int i = 0; i < pushableLocations.Length; i++)
             {
-                var distance = Vector3.Distance(pusherLocation, location);
+                var distance = Vector3.Distance(pusherLocation, pushableLocations[i]);
                 if (!(distance < bestDistance)) continue;
                 bestDistance = distance;
-                bestLocation = location;
+                bestLocation = pushableLocations[i];
                 var position = transform.position;
-                _pushDirection = (new Vector3(position.x, pusherLocation.y, position.z) - pusherLocation).normalized;
+                pushDirection = (new Vector3(position.x, pusherLocation.y, position.z) - pusherLocation).normalized;
             }
             return CheckIfLocationIsValid(bestLocation) ? new Vector3(bestLocation.x, pusherLocation.y, bestLocation.z) : Vector3.zero;
         }
@@ -102,23 +94,9 @@ namespace Interactables.Pushables
         private bool CheckIfLocationIsValid(Vector3 location)
         {
             var layerMask = LayerMask.NameToLayer("Colliders");
-            return Physics.OverlapBox(location, _halfCheckSize).Where(c => c.gameObject.layer.Equals(layerMask)).ToList().Count == 0;
+            return Physics.OverlapBox(location, halfTriggerCheckSize).Where(c => c.gameObject.layer.Equals(layerMask)).ToList().Count == 0;
         }
 
-        public Transform GetPushableTransform()
-        {
-            return transform;
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            if (_pushingLocations == null) return;
-            foreach (var location in _pushingLocations)
-            {
-                Gizmos.DrawWireCube(location, checkSize);
-            }
-            
-        }
+        public Transform GetPushableTransform() => transform;
     }
 }
