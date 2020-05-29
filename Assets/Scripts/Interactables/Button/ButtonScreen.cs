@@ -34,7 +34,7 @@ namespace Interactables.Button
         private void UpdateColor(ButtonController.ButtonStates state)
         {
             var block = new MaterialPropertyBlock();
-            block.SetColor("BaseColor", colorMap[state]);
+            block.SetColor("_BaseColor", colorMap[state]);
             buttonScreenrenderer.SetPropertyBlock(block);
         }
     }
