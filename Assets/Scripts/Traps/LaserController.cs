@@ -12,29 +12,29 @@ namespace Traps
         [SerializeField] private bool laserOn;
         [SerializeField] private LayerMask layermask;
         [SerializeField] private float checkFrequency;
-        public UnityEvent turnOn;
-        public UnityEvent turnOff;
-        private RaycastHit _hit;
-        private Collider _lastHit;
-        private LineRenderer _lineRenderer;
-        private ParticleSystem _particleSystem;
-        private WaitForSeconds _checkFrequency;
+        private RaycastHit hit;
+        private Collider lastHit;
+        private LineRenderer laserLineRenderer;
+        private ParticleSystem impactParticleSystem;
+        private WaitForSeconds checkFrequencySeconds;
         private Coroutine laserCoroutine;
 
         // Events
+        public UnityEvent turnOn;
+        public UnityEvent turnOff;
         public static Action<GameObject> onLaserDeath;
 
         private void Awake()
         {
-            _lineRenderer = GetComponent<LineRenderer>();
-            _particleSystem = transform.Find("ImpactEffect").GetComponent<ParticleSystem>();
-            _checkFrequency = new WaitForSeconds(checkFrequency);
+            laserLineRenderer = GetComponent<LineRenderer>();
+            impactParticleSystem = transform.Find("ImpactEffect").GetComponent<ParticleSystem>();
+            checkFrequencySeconds = new WaitForSeconds(checkFrequency);
             if (laserOn)
                 ActivateLaser();
             else
                 DeactivateLaser();
         }
-
+        
         private void Start()
         {
             turnOn.AddListener(ActivateLaser);
@@ -43,21 +43,19 @@ namespace Traps
 
         private void ActivateLaser()
         {
-            _particleSystem.Play();
-            _lineRenderer.enabled = true;
+            impactParticleSystem.Play();
+            laserLineRenderer.enabled = true;
             laserOn = true;
             laserCoroutine = StartCoroutine("LaserCoroutine");
         }
     
         private void DeactivateLaser()
         {
-            _particleSystem.Stop();
-            _lineRenderer.enabled = false;
+            impactParticleSystem.Stop();
+            laserLineRenderer.enabled = false;
             laserOn = false;
             if (laserCoroutine != null)
-            {
                 StopCoroutine(laserCoroutine);
-            }
         }
 
         private IEnumerator LaserCoroutine()
@@ -65,49 +63,49 @@ namespace Traps
             while (true)
             {
                 CastLaser();
-                CreateLaserEffect();
-                CreateLaserImpactEffect();
-                CheckForImpact();
-                _lastHit = _hit.collider;
-                yield return _checkFrequency;
+                if (lastHit != hit.collider)
+                {
+                    CheckForImpact();
+                    CreateLaserEffect();
+                    CreateLaserImpactEffect();
+                    lastHit = hit.collider;
+                }
+                yield return checkFrequencySeconds;
             }
         }
 
         private void CheckForImpact()
         {
-            if (!_hit.collider) return;
-            var hit = _hit.collider.gameObject;
-            if (hit.CompareTag("Player") || hit.CompareTag("Enemy"))
-                onLaserDeath?.Invoke(hit);
+            if (!hit.collider) return;
+            var hitCollider = hit.collider.gameObject;
+            if (hitCollider.CompareTag("Player") || hitCollider.CompareTag("Enemy"))
+                onLaserDeath?.Invoke(hitCollider);
         }
 
         private void CreateLaserImpactEffect()
         {
-            if (_lastHit != _hit.collider)
-            {
-                _particleSystem.Clear();
-            }
-            _particleSystem.transform.position = _hit.point;
+            if (lastHit != hit.collider)
+                impactParticleSystem.Clear();
+            impactParticleSystem.transform.position = hit.point;
         }
 
         private void CreateLaserEffect()
         {
-            _lineRenderer.SetPosition(0, transform.position);
-            _lineRenderer.SetPosition(1, _hit.point);
+            laserLineRenderer.SetPosition(0, transform.position);
+            laserLineRenderer.SetPosition(1, hit.point);
         }
 
         private void CastLaser()
         {
-            var tf = transform;
-            Physics.Raycast(tf.position, tf.forward, out _hit, float.PositiveInfinity, layermask);
+            var laser = transform;
+            Physics.Raycast(laser.position, laser.forward, out hit, float.PositiveInfinity, layermask);
         }
 
         public void SetColors(Color startColor, Color endColor)
         {
-            _lineRenderer.endColor = startColor;
-            _lineRenderer.startColor = endColor;
+            laserLineRenderer.endColor = startColor;
+            laserLineRenderer.startColor = endColor;
             var gradient = new Gradient();
-            gradient = new Gradient();
             GradientColorKey[] colorKey;
             GradientAlphaKey[] alphaKey;
             colorKey = new GradientColorKey[2];
@@ -121,8 +119,8 @@ namespace Traps
             alphaKey[1].alpha = 1.0f;
             alphaKey[1].time = 1.0f;
             gradient.SetKeys(colorKey, alphaKey);
-            _lineRenderer.colorGradient = gradient;
-            var col = _particleSystem.colorOverLifetime;
+            laserLineRenderer.colorGradient = gradient;
+            var col = impactParticleSystem.colorOverLifetime;
             col.color = gradient;
         }
     }
