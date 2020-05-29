@@ -11,20 +11,14 @@ namespace Traps
 {
     public class DynamicLaserWall : MonoBehaviour
     {
-        [SerializeField] private UnityEvent turnOn;
-        [SerializeField] private UnityEvent turnOff;
+        [SerializeField] private UnityEvent turnOn, turnOff;
         [SerializeField] private GameObject laserPrefab;
-        [SerializeField] private float laserDensity;
-        [SerializeField] private float wallHeight;
-        [SerializeField] private float distanceFromLaserWall = 0.08f;
         [SerializeField] private bool onStartLaserWallOn;
-        [SerializeField] private float betweenLaserDelay;
-        [SerializeField] private float startDelay;
-        [SerializeField] private Color laserColorStart;
-        [SerializeField] private Color laserColorEnd;
+        [SerializeField] private float betweenLaserDelay, startDelay, laserDensity, wallHeight;
+        [SerializeField] private float distanceFromLaserWall = 0.08f;
+        [SerializeField] private Color laserColorStart, laserColorEnd;
         private LaserController[] lasers;
-        private Transform laserWallOffset;
-        private Transform laserWallMesh;
+        private Transform laserWallOffset, laserWallMesh;
         private bool isLaserOn, interactable;
         
         private void Awake()

@@ -18,10 +18,7 @@ namespace Traps
         private ParticleSystem impactParticleSystem;
         private WaitForSeconds checkFrequencySeconds;
         private Coroutine laserCoroutine;
-
-        // Events
-        public UnityEvent turnOn;
-        public UnityEvent turnOff;
+        public UnityEvent turnOn, turnOff;
         public static Action<GameObject> onLaserDeath;
 
         private void Awake()
