@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+
+using UnityEngine;
 
 namespace TransformModifier
 {
 	public class PositionSmooth : MonoBehaviour {
-		[SerializeField] private float lerpSpeed = 20f;
 		[SerializeField] private float smoothDampTime = 0.02f;
 		private Transform target;
 		private Transform objectTransform;
@@ -12,28 +13,24 @@ namespace TransformModifier
 		private Vector3 refVelocity;
 	
 		public void Awake () {
-			var _transform = transform;
-			target = _transform.parent;
-			objectTransform = _transform;
-			currentPosition = _transform.position;
+			objectTransform = transform;
+			target = objectTransform.parent;
+			currentPosition = objectTransform.position;
 			localPositionOffset = objectTransform.localPosition;
 		}
-
-		private void LateUpdate () {
-			SmoothUpdate();
-		}
+		
+		private void LateUpdate () => SmoothUpdate();
 
 		private void SmoothUpdate()
 		{
-			currentPosition = SmoothPosition (currentPosition, target.position, lerpSpeed);
+			currentPosition = SmoothPosition(currentPosition, target.position, smoothDampTime);
 			objectTransform.position = currentPosition;
 		}
 
-		private Vector3 SmoothPosition(Vector3 _start, Vector3 _target, float _smoothTime)
+		private Vector3 SmoothPosition(Vector3 startPos, Vector3 targetPos, float smoothTime)
 		{
-			Vector3 _offset = objectTransform.localToWorldMatrix * localPositionOffset;
-			_target += _offset;
-			return Vector3.SmoothDamp (_start, _target, ref refVelocity, smoothDampTime);
+			targetPos += (Vector3)(objectTransform.localToWorldMatrix * localPositionOffset);
+			return Vector3.SmoothDamp (startPos, targetPos, ref refVelocity, smoothTime);
 		}
 	}
 }
