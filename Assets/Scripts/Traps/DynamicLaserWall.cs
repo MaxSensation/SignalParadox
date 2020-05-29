@@ -11,41 +11,32 @@ namespace Traps
 {
     public class DynamicLaserWall : MonoBehaviour
     {
-        [SerializeField] private UnityEvent turnOn;
-        [SerializeField] private UnityEvent turnOff;
+        [SerializeField] private UnityEvent turnOn, turnOff;
         [SerializeField] private GameObject laserPrefab;
-        [SerializeField] private float laserDensity;
-        [SerializeField] private float wallHeight;
         [SerializeField] private bool onStartLaserWallOn;
-        [SerializeField] private float betweenLaserDelay;
-        [SerializeField] private float startDelay;
-        [SerializeField] private Color laserColorStart;
-        [SerializeField] private Color laserColorEnd;
-        private LaserController[] _lasers;
-        private Transform _laserWallOffset;
-        private Transform _laserWallMesh;
-        private bool _isLaserOn;
-        private bool _interactable;
+        [SerializeField] private float betweenLaserDelay, startDelay, laserDensity, wallHeight;
+        [SerializeField] private float distanceFromLaserWall = 0.08f;
+        [SerializeField] private Color laserColorStart, laserColorEnd;
+        private LaserController[] lasers;
+        private Transform laserWallOffset, laserWallMesh;
+        private bool isLaserOn, interactable;
+        
         private void Awake()
         {
-            _interactable = true;
+            interactable = true;
+            laserWallOffset = transform.Find("PositionOffset");
+            laserWallMesh = laserWallOffset.Find("LaserWallMesh");
+            var localScale = laserWallMesh.localScale;
+            localScale = new Vector3(localScale.x, wallHeight, localScale.z);
+            laserWallMesh.localScale = localScale;
+            laserWallOffset.localPosition = new Vector3(0,wallHeight/2, -distanceFromLaserWall);
+            lasers = new LaserController[(int)(wallHeight/laserDensity)];
+            GenerateLasers();
             turnOn.AddListener(ActivateLasers);
             turnOff.AddListener(DeactivateLasers);
-            _laserWallOffset = transform.Find("PositionOffset");
-            _laserWallMesh = _laserWallOffset.Find("LaserWallMesh");
-            var localScale = _laserWallMesh.localScale;
-            localScale = new Vector3(localScale.x, wallHeight, localScale.z);
-            _laserWallMesh.localScale = localScale;
-            _laserWallOffset.localPosition = new Vector3(0,wallHeight/2, -0.08f);
-            _lasers = new LaserController[(int)(wallHeight/laserDensity)];
-            GenerateLasers();
-        }
-
-        private void Start()
-        {
-            StartCoroutine("WaitForStart");
             ButtonController.onButtonPressedEvent += OnButtonPressed;
             PlatformTrigger.onButtonPressedEvent += OnButtonPressed;
+            StartCoroutine("WaitForStart");
         }
 
         private void OnDestroy()
@@ -54,8 +45,8 @@ namespace Traps
             ButtonController.onButtonPressedEvent -= OnButtonPressed;
             PlatformTrigger.onButtonPressedEvent -= OnButtonPressed;
         }
-        
-        public float Berp(float start, float end, float value)
+
+        private float Berp(float start, float end, float value)
         {
             value = Mathf.Clamp01(value);
             value = (Mathf.Sin(value * Mathf.PI * (0.2f + 2.5f * value * value * value)) * Mathf.Pow(1f - value, 2.2f) + value) * (1f + (1.2f * (1f - value)));
@@ -64,8 +55,8 @@ namespace Traps
 
         private void OnButtonPressed(GameObject[] interactables)
         {
-            if (!interactables.Contains(gameObject) || !_interactable) return;
-            if (_isLaserOn)
+            if (!interactables.Contains(gameObject) || !interactable) return;
+            if (isLaserOn)
                 DeactivateLasers();
             else
                 ActivateLasers();
@@ -82,7 +73,7 @@ namespace Traps
                 laser.transform.parent = transform;
                 var laserController = laser.GetComponent<LaserController>();
                 laserController.SetColors(laserColorStart, laserColorEnd);
-                _lasers[i - 1] = laserController;
+                lasers[i - 1] = laserController;
             }
         }
 
@@ -98,42 +89,42 @@ namespace Traps
         [ContextMenu("Activate")]
         public void ActivateLasers()
         {
-            if (!_isLaserOn)
+            if (!isLaserOn)
                 StartCoroutine("ActivateWithDelay");
         }
 
         [ContextMenu("Deactivate")]
         public void DeactivateLasers()
         {
-            if (_isLaserOn)
+            if (isLaserOn)
                 StartCoroutine("DeactivateWithDelay");
         }
 
         private IEnumerator ActivateWithDelay()
         {
-            _interactable = false;
-            foreach (var l in _lasers)
+            interactable = false;
+            foreach (var laser in lasers)
             {
-                l.turnOn.Invoke();
+                laser.turnOn.Invoke();
                 yield return new WaitForSeconds(betweenLaserDelay);
             }
-            _isLaserOn = true;
+            isLaserOn = true;
             onStartLaserWallOn = true;
-            _interactable = true;
+            interactable = true;
         }
     
         private IEnumerator DeactivateWithDelay()
         {
-            _interactable = false;
-            for (var index = _lasers.Length - 1; index >= 0; index--)
+            interactable = false;
+            for (var index = lasers.Length - 1; index >= 0; index--)
             {
-                var l = _lasers[index];
+                var l = lasers[index];
                 l.turnOff.Invoke();
                 yield return new WaitForSeconds(betweenLaserDelay);
             }
-            _isLaserOn = false;
+            isLaserOn = false;
             onStartLaserWallOn = false;
-            _interactable = true;
+            interactable = true;
         }
     }
 }
