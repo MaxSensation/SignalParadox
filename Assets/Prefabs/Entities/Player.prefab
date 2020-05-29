@@ -2117,10 +2117,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e1404254d4d47b41819261e97206df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  surfaceSounds:
-  - {fileID: 8300000, guid: d55ab596d3a15ef46b12a65ef64e5003, type: 3}
-  - {fileID: 8300000, guid: d55ab596d3a15ef46b12a65ef64e5003, type: 3}
-  - {fileID: 8300000, guid: d55ab596d3a15ef46b12a65ef64e5003, type: 3}
+  metalSounds:
+  - {fileID: 8300000, guid: f1bf990dc75c24e4d865d1b4565e0d4b, type: 3}
+  stairsSounds:
+  - {fileID: 8300000, guid: ba7a7e4abf86c4246bae61cbc8391283, type: 3}
+  glassSounds:
+  - {fileID: 8300000, guid: 2b22c89df41ab68418f7d1f09ef24952, type: 3}
   defaultVolume: 0.2
   crouchVolume: 0.1
 --- !u!82 &475798147858242819
