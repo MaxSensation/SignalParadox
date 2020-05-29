@@ -9,13 +9,13 @@ namespace FootStepSound
 {
     public class DynamicFootStep : MonoBehaviour
     {
+        [SerializeField] private AudioSource footstepAudioSource;
         [SerializeField] private AudioClip[] metalSounds;
         [SerializeField] private AudioClip[] stairsSounds;
         [SerializeField] private AudioClip[] glassSounds;
         [SerializeField] private float defaultVolume = 0.2f;
         [SerializeField] private float crouchVolume = 0.1f;
         private Dictionary<SurfaceColliderType.SurfaceTypes, AudioClip[]> soundDictionary;
-        private AudioSource audiosource;
         private double time;
         private float filterTime;
         private SurfaceColliderType.SurfaceTypes currentSurfaceType;
@@ -27,8 +27,7 @@ namespace FootStepSound
             soundDictionary.Add(SurfaceColliderType.SurfaceTypes.Stairs, stairsSounds);
             soundDictionary.Add(SurfaceColliderType.SurfaceTypes.Glass, glassSounds);
             currentSurfaceType = SurfaceColliderType.SurfaceTypes.Metal;
-            audiosource = GetComponent<AudioSource>();
-            audiosource.volume = 0.2f;
+            footstepAudioSource.volume = defaultVolume;
             time = AudioSettings.dspTime;
             filterTime = 0.2f;
             CrouchState.onEnteredCrouchEvent += OnEnteredCrouch;
@@ -43,18 +42,18 @@ namespace FootStepSound
             SurfaceColliderType.onEnteredSurfaceZoneEvent -= surfaceType => currentSurfaceType = surfaceType;
         }
 
-        private void OnEnteredCrouch() => audiosource.volume = crouchVolume;
+        private void OnEnteredCrouch() => footstepAudioSource.volume = crouchVolume;
 
-        private void OnExitedCrouch() => audiosource.volume = defaultVolume;
+        private void OnExitedCrouch() => footstepAudioSource.volume = defaultVolume;
 
 
-        private void PlayFootstepSound()
+        public void PlayFootstepSound()
         {
             if (AudioSettings.dspTime < time + filterTime) return;
             time = AudioSettings.dspTime;
             var soundList = soundDictionary[currentSurfaceType];
             if (soundList.Length > 0)
-                audiosource.PlayOneShot(soundList[Random.Range(0, soundList.Length)]);
+                footstepAudioSource.PlayOneShot(soundList[Random.Range(0, soundList.Length)]);
         }
     }
 }
