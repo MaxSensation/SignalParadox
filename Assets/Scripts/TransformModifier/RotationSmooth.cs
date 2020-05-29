@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+
+using UnityEngine;
 
 namespace TransformModifier
 {
@@ -10,25 +12,13 @@ namespace TransformModifier
 		private Quaternion currentRotation;
 	
 		private void Awake () {
-			target = transform.parent;
-			var _transform = transform;
-			objectTransform = _transform;
-			currentRotation = _transform.rotation;
+			var thisTransform = transform;
+			target = thisTransform.parent;
+			objectTransform = thisTransform;
+			currentRotation = thisTransform.rotation;
 		}
-
-		private void LateUpdate () {
-			SmoothUpdate();
-		}
-
-		private void SmoothUpdate()
-		{
-			currentRotation = Smooth (currentRotation, target.rotation, smoothSpeed);
-			objectTransform.rotation = currentRotation;
-		}
-
-		private Quaternion Smooth(Quaternion _currentRotation, Quaternion _targetRotation, float _smoothSpeed)
-		{
-			return Quaternion.Slerp (_currentRotation, _targetRotation, Time.deltaTime * _smoothSpeed);
-		}
+		
+		private void LateUpdate () => objectTransform.rotation = Smooth();
+		private Quaternion Smooth() => Quaternion.Slerp(currentRotation, target.rotation, Time.deltaTime * smoothSpeed);
 	}
 }
