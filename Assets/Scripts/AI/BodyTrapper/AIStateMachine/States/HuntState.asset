@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: b238e1b757e79944e8a8a7474bb8047b, type: 2}
   jumpDistance: 4
-  searchingRange: 10
   maxMinLookRange: 0.98
+  clawSnapping: {fileID: 8300000, guid: 8759ec61f9a42e4479f18003ef3a7d31, type: 3}
+  defaultSound: {fileID: 8300000, guid: b00ee163c9ea5e14bb2e159339605783, type: 3}
