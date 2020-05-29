@@ -9,10 +9,12 @@ namespace FootStepSound
 {
     public class DynamicFootStep : MonoBehaviour
     {
-        [SerializeField] private AudioClip[] surfaceSounds;
+        [SerializeField] private AudioClip[] metalSounds;
+        [SerializeField] private AudioClip[] stairsSounds;
+        [SerializeField] private AudioClip[] glassSounds;
         [SerializeField] private float defaultVolume = 0.2f;
         [SerializeField] private float crouchVolume = 0.1f;
-        private Dictionary<SurfaceColliderType.SurfaceTypes, AudioClip> soundDictionary;
+        private Dictionary<SurfaceColliderType.SurfaceTypes, AudioClip[]> soundDictionary;
         private AudioSource audiosource;
         private double time;
         private float filterTime;
@@ -20,10 +22,10 @@ namespace FootStepSound
 
         private void Awake()
         {
-            soundDictionary = new Dictionary<SurfaceColliderType.SurfaceTypes, AudioClip>();
-            soundDictionary.Add(SurfaceColliderType.SurfaceTypes.Metal, surfaceSounds[0]);
-            soundDictionary.Add(SurfaceColliderType.SurfaceTypes.Stairs, surfaceSounds[1]);
-            soundDictionary.Add(SurfaceColliderType.SurfaceTypes.Glass, surfaceSounds[2]);
+            soundDictionary = new Dictionary<SurfaceColliderType.SurfaceTypes, AudioClip[]>();
+            soundDictionary.Add(SurfaceColliderType.SurfaceTypes.Metal, metalSounds);
+            soundDictionary.Add(SurfaceColliderType.SurfaceTypes.Stairs, stairsSounds);
+            soundDictionary.Add(SurfaceColliderType.SurfaceTypes.Glass, glassSounds);
             currentSurfaceType = SurfaceColliderType.SurfaceTypes.Metal;
             audiosource = GetComponent<AudioSource>();
             audiosource.volume = 0.2f;
@@ -50,7 +52,9 @@ namespace FootStepSound
         {
             if (AudioSettings.dspTime < time + filterTime) return;
             time = AudioSettings.dspTime;
-            audiosource.PlayOneShot(soundDictionary[currentSurfaceType]);
+            var soundList = soundDictionary[currentSurfaceType];
+            if (soundList.Length > 0)
+                audiosource.PlayOneShot(soundList[Random.Range(0, soundList.Length)]);
         }
     }
 }
