@@ -17,14 +17,14 @@ namespace Interactables.DecoyGrenade
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
-            PlayerAnimatorController.onTouchedGrenade += Pickup;
+            PlayerAnimatorController.onTouchedGrenadeEvent += Pickup;
             ThrowDecoyGrenade.onPickedUpGrenadeEvent += () => hasGrenade = true;;
             ThrowDecoyGrenade.onThrowEvent += () => hasGrenade = false;
         }
         
         private void OnDestroy()
         {
-            PlayerAnimatorController.onTouchedGrenade -= Pickup;
+            PlayerAnimatorController.onTouchedGrenadeEvent -= Pickup;
             ThrowDecoyGrenade.onPickedUpGrenadeEvent -= () => hasGrenade = true;;
             ThrowDecoyGrenade.onThrowEvent -= () => hasGrenade = false;
         }

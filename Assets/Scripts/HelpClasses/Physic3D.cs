@@ -5,8 +5,8 @@ using UnityEngine;
 
 public static class Physic3D
 {
-    private static float _gravityCoefficient;
-    private static float _airResistant;
+    private static float gravityCoefficient;
+    private static float airResistant;
 
     public static Vector3 GetNormalForce(Vector3 velocity, Vector3 normal)
     {
@@ -23,7 +23,7 @@ public static class Physic3D
 
     public static float GetAirResistant()
     {
-        return Mathf.Pow(1 - _airResistant, Time.deltaTime);
+        return Mathf.Pow(1 - airResistant, Time.deltaTime);
     }
 
     public static Vector3 GetAcceleration(Vector3 velocity, float accelerationSpeedCoefficient)
@@ -47,12 +47,12 @@ public static class Physic3D
 
     public static Vector3 GetGravity()
     {
-        return Vector3.down * (_gravityCoefficient * Time.deltaTime);
+        return Vector3.down * (gravityCoefficient * Time.deltaTime);
     }
 
-    public static void LoadWorldParameters(World world)
+    public static void LoadWorldParameters(PhysicsWorld physicsWorld)
     {
-        _airResistant = world.airResistant;
-        _gravityCoefficient = world.gravityCoefficient;
+        airResistant = physicsWorld.airResistant;
+        gravityCoefficient = physicsWorld.gravityCoefficient;
     }
 }

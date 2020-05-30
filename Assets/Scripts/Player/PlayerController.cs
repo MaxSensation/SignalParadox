@@ -15,21 +15,19 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         // Events
-        [Header("PlayerSettings")]
-        [SerializeField] [Range(1f, 500f)] private float terminalVelocity;
-        [SerializeField] [Range(0f, 10f)] private float dynamicFriction;
-        [SerializeField] [Range(0f, 1f)] private float groundCheckDistance;
-        [SerializeField] [Range(0f, 1f)] private float skinWidth;
-        [SerializeField] [Range(0f, 10f)] private float staticFriction;
+        [SerializeField] [Range(0f, 500f)] private float terminalVelocity;
+        [SerializeField] [Range(0f, 10f)] private float dynamicFriction, staticFriction;
+        [SerializeField] [Range(0f, 1f)] private float groundCheckDistance, skinWidth;
         [SerializeField] private LayerMask collisionLayer;
-        [SerializeField] private World world;
-        public static Action onPlayerDeath;
-        public static Action<GameObject> onPlayerInit;
-        public State[] states;
+        [SerializeField] private PhysicsWorld physicsWorld;
+        [SerializeField] private State[] states;
+        private WaitForSeconds endPushStateSecounds;
+        public static Action onPlayerDeathEvent;
+        public static Action<GameObject> onPlayerInitEvent;
         internal CapsuleCollider PlayerCollider { get; private set; }
         internal GameObject PlayerMesh { get; private set; }
-        internal Vector3 Point1 { get; private set; }
-        internal Vector3 Point2 { get; private set; }
+        internal Vector3 CapsuleHighPoint { get; private set; }
+        internal Vector3 CapsuleLowPoint { get; private set; }
         internal Vector3 CurrentDirection { get; private set; }
         internal SoundProvider Transmitter { get; private set; }
         internal IPushable CurrentPushableObject { get; set; }
@@ -42,23 +40,24 @@ namespace Player
         private StateMachine stateMachine;
         private Transform cameraTransform;
         
-        private void Start() => onPlayerInit?.Invoke(gameObject);
+        private void Start() => onPlayerInitEvent?.Invoke(gameObject);
 
         private void Awake()
         {
+            endPushStateSecounds = new WaitForSeconds(0.2f);
             Transmitter = transform.GetComponentInChildren<SoundProvider>();
             PlayerMesh = transform.Find("PlayerMesh").gameObject;
             stateMachine = new StateMachine(this, states);
             if (Camera.main != null) cameraTransform = Camera.main.transform;
             PlayerCollider = GetComponent<CapsuleCollider>();
-            Physic3D.LoadWorldParameters(world);
+            Physic3D.LoadWorldParameters(physicsWorld);
             ChargerController.onCrushedPlayerEvent += Die;
             ChargerController.onCaughtPlayerEvent += PlayerIsCharged;
             PushableBox.onPushStateEvent += HandlePushEvent;
             PlayerTrapable.onPlayerTrappedEvent += EnableTrapped;
-            PlayerTrapable.onDetached += DisableTrapped;
-            PlayerAnimatorController.OnDeathAnimBeginning += PlayerIsDying;
-            PlayerAnimatorController.OnDeathAnimEnd += Die;
+            PlayerTrapable.onDetachedEvent += DisableTrapped;
+            PlayerAnimatorController.OnDeathAnimBeginningEvent += PlayerIsDying;
+            PlayerAnimatorController.OnDeathAnimEndEvent += Die;
         }
 
         private void OnDestroy()
@@ -67,9 +66,9 @@ namespace Player
             ChargerController.onCaughtPlayerEvent -= PlayerIsCharged;
             PushableBox.onPushStateEvent -= HandlePushEvent;
             PlayerTrapable.onPlayerTrappedEvent -= EnableTrapped;
-            PlayerTrapable.onDetached -= DisableTrapped;
-            PlayerAnimatorController.OnDeathAnimBeginning -= PlayerIsDying;
-            PlayerAnimatorController.OnDeathAnimEnd -= Die;
+            PlayerTrapable.onDetachedEvent -= DisableTrapped;
+            PlayerAnimatorController.OnDeathAnimBeginningEvent -= PlayerIsDying;
+            PlayerAnimatorController.OnDeathAnimEndEvent -= Die;
         }
 
         private void EnableTrapped()
@@ -78,10 +77,7 @@ namespace Player
             IsTrapped = true;
         }
 
-        private void DisableTrapped()
-        {
-            IsTrapped = false;
-        }
+        private void DisableTrapped() => IsTrapped = false;
 
         private void HandlePushEvent(IPushable pushable)
         {
@@ -126,15 +122,14 @@ namespace Player
 
         private void PlayerIsDying() => stateMachine.TransitionTo<DeadState>();
         
-
-        private void Die() => onPlayerDeath?.Invoke();        
+        private void Die() => onPlayerDeathEvent?.Invoke();        
 
         internal void UpdateCapsuleInfo()
         {
             var capsulePosition = transform.position + PlayerCollider.center;
             var distanceToPoints = PlayerCollider.height / 2 - PlayerCollider.radius;
-            Point1 = capsulePosition + Vector3.up * distanceToPoints;
-            Point2 = capsulePosition + Vector3.down * distanceToPoints;
+            CapsuleHighPoint = capsulePosition + Vector3.up * distanceToPoints;
+            CapsuleLowPoint = capsulePosition + Vector3.down * distanceToPoints;
         }
 
         private void LimitVelocity()
@@ -179,7 +174,6 @@ namespace Player
         }
 
         public void OnInputCrouch(InputAction.CallbackContext context) => HasInputCrouch = context.performed;
-        
 
         internal Vector3 GetInputVector(float accelerationSpeed)
         {
@@ -207,7 +201,7 @@ namespace Player
         internal RaycastHit GetRayCast(Vector3 direction, float magnitude)
         {
             // Return a Raycast Hit in the direction and magnitude specific
-            Physics.CapsuleCast(Point1, Point2, PlayerCollider.radius, direction.normalized, out var hit, magnitude,
+            Physics.CapsuleCast(CapsuleHighPoint, CapsuleLowPoint, PlayerCollider.radius, direction.normalized, out var hit, magnitude,
                 collisionLayer);
             return hit;
         }
@@ -222,7 +216,7 @@ namespace Player
 
         private IEnumerator EndPushingState()
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return endPushStateSecounds;
             stateMachine.TransitionTo<StandState>();
         }
     }

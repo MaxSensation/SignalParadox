@@ -12,112 +12,104 @@ namespace Player
     {
         [SerializeField] private float damageTickTime;
         [SerializeField] private float minShakeAmount, checkInterval;
-        [SerializeField] private float controllerminShakeAmount;
+        [SerializeField] private float controllerMinShakeAmount;
         [SerializeField] private int shakeOfAmount;
-        private int _currentshakeOfAmount;
-        private int amountOfTrappedBodyTrappers;
+        private PlayerController player;
         private HealthSystem playerHealthSystem;
+        private Vector2 mouseInput, lastMouseInput;
         private Transform playerMesh;
-        private WaitForSeconds _damageTickTime, _checkInterval;
-        private Coroutine _damageOverTime, _mouseShaker;
-        private Vector2 _mouseInput;
-        private Vector2 _lastMouseInput;
-        public static Action<GameObject> onTrapped;
-        public static Action onPlayerTrappedEvent;
-        public static Action onDetached;
-        private PlayerController _player;
+        private WaitForSeconds damageTickTimeSeconds, checkIntervalSeconds;
+        private Coroutine damageOverTime, mouseShaker;
+        private int currentShakeOfAmount, amountOfBodyTrappers;
+        public static Action<GameObject> onTrappedEvent;
+        public static Action onPlayerTrappedEvent, onDetachedEvent;
         
 
         private void Awake()
         {
-            _player = GetComponent<PlayerController>();
-            _damageTickTime = new WaitForSeconds(damageTickTime);
-            _checkInterval = new WaitForSeconds(checkInterval);
-            BodyTrapperController.onTrappedPlayer += TrapPlayer;
-            BodyTrapperController.onDetachedFromPlayer += DetachFromPlayer;
+            player = GetComponent<PlayerController>();
             playerHealthSystem = GetComponent<HealthSystem>();
             playerMesh = transform.Find("PlayerMesh");
+            damageTickTimeSeconds = new WaitForSeconds(damageTickTime);
+            checkIntervalSeconds = new WaitForSeconds(checkInterval);
+            BodyTrapperController.onTrappedPlayer += AttachBodyTrapper;
+            BodyTrapperController.onDetachedFromPlayer += DetachBodyTrapper;
         }
 
         private void OnDestroy()
         {
-            BodyTrapperController.onTrappedPlayer -= TrapPlayer;
-            BodyTrapperController.onDetachedFromPlayer -= DetachFromPlayer;
+            BodyTrapperController.onTrappedPlayer -= AttachBodyTrapper;
+            BodyTrapperController.onDetachedFromPlayer -= DetachBodyTrapper;
         }
 
         private IEnumerator DamageOverTime()
         {
-            while (_player.IsTrapped)
+            while (player.IsTrapped)
             {
                 playerHealthSystem.BodyTrapperDamage(gameObject);
-                yield return _damageTickTime;
+                yield return damageTickTimeSeconds;
             }
         }
 
-        private void CheckMouseCheck()
+        private void CheckMouseShake()
         {
-             var newMouseInput= _mouseInput;
-             if (_lastMouseInput != null)
+             var newMouseInput= mouseInput;
+             if (lastMouseInput != null)
              {
                  if (Gamepad.current != null)
                  {
-                     if (Vector2.Distance(_lastMouseInput, newMouseInput) > controllerminShakeAmount && Vector2.Dot(_lastMouseInput, newMouseInput) < 0.9f)
-                         _currentshakeOfAmount++;
+                     if (Vector2.Distance(lastMouseInput, newMouseInput) > controllerMinShakeAmount && Vector2.Dot(lastMouseInput, newMouseInput) < 0.9f)
+                         currentShakeOfAmount++;
                  }
                  else
                  {
-                     if (Vector2.Distance(_lastMouseInput, newMouseInput) > minShakeAmount && Vector2.Dot(_lastMouseInput, newMouseInput) < 0.9f)
-                         _currentshakeOfAmount++;
+                     if (Vector2.Distance(lastMouseInput, newMouseInput) > minShakeAmount && Vector2.Dot(lastMouseInput, newMouseInput) < 0.9f)
+                         currentShakeOfAmount++;
                  }
-                 if (_currentshakeOfAmount >= shakeOfAmount)
-                     DetachAllTrappers();
+                 if (currentShakeOfAmount >= shakeOfAmount)
+                     DetachAllBodyTrappers();
              } 
-             _lastMouseInput = _mouseInput;
+             lastMouseInput = mouseInput;
         }
 
-        private void TrapPlayer(GameObject bodyTrapper)
+        private void AttachBodyTrapper(GameObject bodyTrapper)
         {
-            amountOfTrappedBodyTrappers++;
+            amountOfBodyTrappers++;
             bodyTrapper.transform.parent = playerMesh;
-            onTrapped?.Invoke(bodyTrapper);
+            onTrappedEvent?.Invoke(bodyTrapper);
             onPlayerTrappedEvent?.Invoke();
-            _damageOverTime = StartCoroutine(DamageOverTime());
-            _mouseShaker = StartCoroutine(MouseShaker());
+            damageOverTime = StartCoroutine(DamageOverTime());
+            mouseShaker = StartCoroutine(MouseShaker());
+        }
+
+        private void DetachBodyTrapper(GameObject bodyTrapper)
+        {
+            amountOfBodyTrappers--;
+            if (amountOfBodyTrappers != 0) return;
+            onDetachedEvent?.Invoke();
+            StopCoroutine(mouseShaker);
+            StopCoroutine(damageOverTime);
+        }
+
+        public void DetachAllBodyTrappers()
+        {
+            onDetachedEvent?.Invoke();
+            if (mouseShaker != null)
+                StopCoroutine(mouseShaker);
+            if (damageOverTime != null)
+                StopCoroutine(damageOverTime);
+            currentShakeOfAmount = 0;
         }
 
         private IEnumerator MouseShaker()
         {
-            while (_player.IsTrapped)
+            while (player.IsTrapped)
             {
-                CheckMouseCheck();
-                yield return _checkInterval;
+                CheckMouseShake();
+                yield return checkIntervalSeconds;
             }
         }
 
-        public void DetachAllTrappers()
-        {
-            onDetached?.Invoke();
-            if (_mouseShaker != null)
-                StopCoroutine(_mouseShaker);
-            if (_damageOverTime != null)
-                StopCoroutine(_damageOverTime);
-            _currentshakeOfAmount = 0;
-        }
-        
-        private void DetachFromPlayer(GameObject obj)
-        {
-            amountOfTrappedBodyTrappers--;
-            if (amountOfTrappedBodyTrappers == 0)
-            {
-                onDetached?.Invoke();
-                StopCoroutine(_mouseShaker);
-                StopCoroutine(_damageOverTime);
-            }
-        }
-
-        public void UpdateMouseInput(InputAction.CallbackContext context)
-        {
-            _mouseInput = context.ReadValue<Vector2>();
-        }
+        public void UpdateMouseInput(InputAction.CallbackContext context) => mouseInput = context.ReadValue<Vector2>();
     }
 }

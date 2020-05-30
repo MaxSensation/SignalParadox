@@ -40,20 +40,20 @@ namespace AI.BodyTrapper
             soundListener = transform.GetComponentInChildren<EchoLocationReceiver>();
 
             soundListener.heardSound += UpdateSoundSource;
-            PlayerTrapable.onTrapped += StuckOnPlayer;
-            PlayerTrapable.onDetached += DetachFromPlayer;
+            PlayerTrapable.onTrappedEvent += StuckOnPlayer;
+            PlayerTrapable.onDetachedEvent += DetachFromPlayer;
             LaserController.onLaserDeath += OnDeathByTrap;
             SteamController.onSteamDamageEvent += OnDeathByTrap;
-            PlayerAnimatorController.OnDeathAnimBeginning += () => isPlayerAlive = false;
+            PlayerAnimatorController.OnDeathAnimBeginningEvent += () => isPlayerAlive = false;
         }
 
         private void OnDestroy()
         {
-            PlayerTrapable.onTrapped -= StuckOnPlayer;
-            PlayerTrapable.onDetached -= DetachFromPlayer;
+            PlayerTrapable.onTrappedEvent -= StuckOnPlayer;
+            PlayerTrapable.onDetachedEvent -= DetachFromPlayer;
             LaserController.onLaserDeath -= OnDeathByTrap;
             SteamController.onSteamDamageEvent -= OnDeathByTrap;
-            PlayerAnimatorController.OnDeathAnimBeginning -= () => isPlayerAlive = false;
+            PlayerAnimatorController.OnDeathAnimBeginningEvent -= () => isPlayerAlive = false;
         }
 
 

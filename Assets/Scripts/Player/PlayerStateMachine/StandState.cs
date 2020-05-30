@@ -9,13 +9,11 @@ namespace Player.PlayerStateMachine
     public class StandState : PlayerBaseState
     {
         [SerializeField] private float soundStrength;
-        public override void Enter()
-        {
-            Player.Transmitter.SetSoundStrength(1 - soundStrength);
-        }
+        public override void Enter() => Player.Transmitter.SetSoundStrength(soundStrength);
+        
         public override void Run()
         {
-            if (Ischarged)
+            if (IsCharged)
                 stateMachine.TransitionTo<ChargedState>();
 
             // If any move Input then change to MoveState
@@ -24,9 +22,7 @@ namespace Player.PlayerStateMachine
             
             // Enter Crouch if Control is pressed 
             if (Player.HasInputCrouch)
-            {
                 stateMachine.TransitionTo<CrouchState>();
-            }
             
             // Check for ground
             var grounded = Player.GetRayCast(Vector3.down, GetGroundCheckDistance + GetSkinWidth).collider;
