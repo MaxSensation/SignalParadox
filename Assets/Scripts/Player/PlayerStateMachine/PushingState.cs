@@ -8,43 +8,44 @@ namespace Player.PlayerStateMachine
     [CreateAssetMenu(menuName = "PlayerState/PushingState")]
     public class PushingState : PlayerBaseState
     {
-        public static Action OnEnterPushingStateEvent;
-        public static Action OnExitPushingStateEvent;
-        public static Action<Boolean> OnPushingStateEvent;
         [SerializeField] private float soundStrength;
-        private Transform _pushableTransform;
+        [SerializeField] private float smoothness = 5f;
+        private Transform pushableTransform;
+        public static Action onEnterPushingStateEvent, onExitPushingStateEvent;
+        public static Action<bool> onPushingStateEvent;
+        
         public override void Enter()
         {
             base.Enter();
-            OnEnterPushingStateEvent?.Invoke();
-            Player.Transmitter.SetSoundStrength(1 - soundStrength);
+            onEnterPushingStateEvent?.Invoke();
+            Player.Transmitter.SetSoundStrength(soundStrength);
             Velocity = Vector3.zero;
-            _pushableTransform = Player.CurrentPushableObject.GetPushableTransform();
+            pushableTransform = Player.CurrentPushableObject.GetPushableTransform();
             TurnWithCamera.Active = false;
-            Player.transform.parent =  _pushableTransform;
+            Player.transform.parent =  pushableTransform;
         }
 
         public override void Run()
         {
+            base.Run();
             if (!Player.EndingPushingState)
             {
-                base.Run();
                 CorrectRotation();
                 CorrectPosition();
                 if (Player.CurrentDirection.z > 0)
                 {
-                    OnPushingStateEvent?.Invoke(true);
+                    onPushingStateEvent?.Invoke(true);
                     Player.CurrentPushableObject.Pushing();
                 }
                 else
                 {
                     Player.CurrentPushableObject.NotPushing();
-                    OnPushingStateEvent?.Invoke(false);
+                    onPushingStateEvent?.Invoke(false);
                 }
             }
             else{
-                OnPushingStateEvent?.Invoke(false);
-                OnExitPushingStateEvent?.Invoke();
+                onPushingStateEvent?.Invoke(false);
+                onExitPushingStateEvent?.Invoke();
                 Player.StartEndingPushingState();
             }
         }
@@ -53,12 +54,17 @@ namespace Player.PlayerStateMachine
         {
             var transform = Player.transform;
             var position = transform.position;
-            Player.transform.position = Vector3.Lerp(position, Player.CurrentPushableObject.GetPushLocation(position), Time.deltaTime * 5f);
+            Player.transform.position = 
+                Vector3.Lerp(position, Player.CurrentPushableObject.GetPushLocation(position), 
+                    Time.deltaTime * smoothness);
         }
 
         private void CorrectRotation()
         {
-            Player.PlayerMesh.transform.rotation = Quaternion.Lerp(Player.PlayerMesh.transform.rotation, Quaternion.LookRotation(_pushableTransform.position - Player.transform.position, Vector3.up), Time.deltaTime * 5f);
+            Player.PlayerMesh.transform.rotation = 
+                Quaternion.Lerp(Player.PlayerMesh.transform.rotation, 
+                    Quaternion.LookRotation(pushableTransform.position - Player.transform.position, Vector3.up), 
+                    Time.deltaTime * smoothness);
         }
 
         public override void Exit()
@@ -69,8 +75,8 @@ namespace Player.PlayerStateMachine
             Player.transform.parent =  null;
             Player.CurrentPushableObject = null;
             Player.EndingPushingState = false;
-            OnPushingStateEvent?.Invoke(false);
-            OnExitPushingStateEvent?.Invoke();
+            onPushingStateEvent?.Invoke(false);
+            onExitPushingStateEvent?.Invoke();
         }
     }
 }

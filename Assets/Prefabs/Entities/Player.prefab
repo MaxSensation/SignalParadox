@@ -1892,13 +1892,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terminalVelocity: 3
   dynamicFriction: 0.5
+  staticFriction: 0.9
   groundCheckDistance: 0.2
   skinWidth: 0.05
-  staticFriction: 0.9
   collisionLayer:
     serializedVersion: 2
     m_Bits: 4864
-  world: {fileID: 11400000, guid: 07745e6075cd9274fb46300406d646a9, type: 2}
+  physicsWorld: {fileID: 11400000, guid: 07745e6075cd9274fb46300406d646a9, type: 2}
   states:
   - {fileID: 11400000, guid: ca4e009196d05d5448361d7ed0fbee7b, type: 2}
   - {fileID: 11400000, guid: 7dd807c997b12564fa7e056e43e74c19, type: 2}
@@ -1953,7 +1953,7 @@ MonoBehaviour:
   damageTickTime: 4
   minShakeAmount: 60
   checkInterval: 0.05
-  controllerminShakeAmount: 0
+  controllerMinShakeAmount: 20
   shakeOfAmount: 10
 --- !u!95 &1850180012
 Animator:

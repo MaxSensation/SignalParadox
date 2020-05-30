@@ -23,7 +23,7 @@ namespace EchoLocation
 
         private void OnEnable() => echo = StartCoroutine(Echo());
         private void OnDisable() => StopCoroutine(echo);
-        public void SetSoundStrength(float tolerance) => minStrengthTolerance = tolerance;
+        public void SetSoundStrength(float tolerance) => minStrengthTolerance = 1 - tolerance;
 
         private IEnumerator Echo()
         {

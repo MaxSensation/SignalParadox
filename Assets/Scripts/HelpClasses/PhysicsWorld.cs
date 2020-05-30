@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(menuName = "WorldParameters")]
-public class World : ScriptableObject
+public class PhysicsWorld : ScriptableObject
 {
     public float gravityCoefficient;
     public float airResistant;

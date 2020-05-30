@@ -50,9 +50,9 @@ public static class Physic3D
         return Vector3.down * (_gravityCoefficient * Time.deltaTime);
     }
 
-    public static void LoadWorldParameters(World world)
+    public static void LoadWorldParameters(PhysicsWorld physicsWorld)
     {
-        _airResistant = world.airResistant;
-        _gravityCoefficient = world.gravityCoefficient;
+        _airResistant = physicsWorld.airResistant;
+        _gravityCoefficient = physicsWorld.gravityCoefficient;
     }
 }

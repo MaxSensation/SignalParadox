@@ -13,15 +13,11 @@ namespace Player.PlayerStateMachine
         [SerializeField] private float decelerateThreshold;
         [SerializeField] private float soundStrength;
 
-        public override void Enter()
-        {
-            Player.Transmitter.SetSoundStrength(1 - soundStrength);
-            //Debug.Log("Entered InAir State");
-        }
-        
+        public override void Enter() => Player.Transmitter.SetSoundStrength(soundStrength);
+
         public override void Run()
         {
-            if (Ischarged)
+            if (IsCharged)
                 stateMachine.TransitionTo<ChargedState>();
 
             // If grounded then change to land State

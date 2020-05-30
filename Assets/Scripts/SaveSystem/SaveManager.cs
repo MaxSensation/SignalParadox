@@ -21,38 +21,38 @@ namespace SaveSystem
             TriggerLoadNextLevel.onTriggerdNextLevelEvent += SaveBetweenLevelData;
             TriggerLoadNextLevel.onTriggerdNextLevelEvent += LoadPlayerDataNextPlayerInstance;
             TriggerCheckPoint.onTriggerCheckPoint += SaveCheckPoint;
-            PlayerController.onPlayerDeath += LoadCheckPointScene;
-            PlayerController.onPlayerDeath += SpawnWithFullHealthNextPlayerInstance;
-            PlayerController.onPlayerDeath += LoadCheckPointNextPlayerInstance;
+            PlayerController.onPlayerDeathEvent += LoadCheckPointScene;
+            PlayerController.onPlayerDeathEvent += SpawnWithFullHealthNextPlayerInstance;
+            PlayerController.onPlayerDeathEvent += LoadCheckPointNextPlayerInstance;
         }
 
-        private static void LoadCheckPointNextPlayerInstance() => PlayerController.onPlayerInit += LoadCheckPoint;
+        private static void LoadCheckPointNextPlayerInstance() => PlayerController.onPlayerInitEvent += LoadCheckPoint;
         private static void SaveBetweenLevelData(PlayerData betweenLevelData) => SaveManager.betweenLevelData = betweenLevelData;
-        private static void LoadPlayerDataNextPlayerInstance(PlayerData playerData) => PlayerController.onPlayerInit += LoadPlayerData;
+        private static void LoadPlayerDataNextPlayerInstance(PlayerData playerData) => PlayerController.onPlayerInitEvent += LoadPlayerData;
         private static void SaveCheckPoint(CheckPoint checkPoint) => SaveManager.checkPoint = checkPoint;
         private static void LoadCheckPointScene() => checkPoint?.LoadScene();
 
         public static void SpawnWithFullHealthNextPlayerInstance()
         {
             checkPoint?.ResetHealth();
-            PlayerController.onPlayerInit += SpawnWithFullHealth;
+            PlayerController.onPlayerInitEvent += SpawnWithFullHealth;
         }
 
         private static void SpawnWithFullHealth(GameObject player)
         {
             player.GetComponent<HealthSystem>().ResetHealth();
-            PlayerController.onPlayerInit -= SpawnWithFullHealth;
+            PlayerController.onPlayerInitEvent -= SpawnWithFullHealth;
         }
 
         private static void LoadPlayerData(GameObject player)
         {
-            PlayerController.onPlayerInit -= LoadPlayerData;
+            PlayerController.onPlayerInitEvent -= LoadPlayerData;
             betweenLevelData?.Load(player);
         }
 
         private static void LoadCheckPoint(GameObject player)
         {
-            PlayerController.onPlayerInit -= LoadCheckPoint;
+            PlayerController.onPlayerInitEvent -= LoadCheckPoint;
             checkPoint.Load(player);
         }
 

@@ -13,6 +13,7 @@ namespace Player
         public static Action<int> onPlayerTakeDamageEvent, onInitEvent;
         public static Action<DamageType> onPlayerDeathEvent;
         public int CurrentHealth { get; private set; }
+
         public enum DamageType { Laser, Steam, Bodytrapper, Charger }
 
         private void Awake()
@@ -20,37 +21,40 @@ namespace Player
             SteamController.onSteamDamageEvent += SteamDamage;
             LaserController.onLaserDeath += LaserDamage;
         }
-
-        private void Start()
+        
+        private void Start() => onInitEvent?.Invoke(CurrentHealth);
+        
+        private void OnDestroy()
         {
-            onInitEvent?.Invoke(CurrentHealth);
+            SteamController.onSteamDamageEvent -= SteamDamage;
+            LaserController.onLaserDeath -= LaserDamage;
         }
 
-        public void SteamDamage(GameObject o)
+        private void SteamDamage(GameObject o)
         {
             if (o != gameObject) return;
             TakeDamage(DamageType.Steam);
+        }
+
+        private void LaserDamage(GameObject o)
+        {
+            if (o != gameObject) return;
+            CurrentHealth = 1;
+            TakeDamage(DamageType.Laser);
+        }
+
+        private void TakeDamage(DamageType dT)
+        {
+            CurrentHealth--;
+            onPlayerTakeDamageEvent?.Invoke(CurrentHealth);
+            if (CurrentHealth <= 0)
+                onPlayerDeathEvent?.Invoke(dT);
         }
 
         public void BodyTrapperDamage(GameObject o)
         {
             if (o != gameObject) return;
             TakeDamage(DamageType.Bodytrapper);
-        }
-
-        public void LaserDamage(GameObject o)
-        {
-            if (o != gameObject) return;
-            CurrentHealth = 1;
-            TakeDamage(DamageType.Laser);
-        }
-        
-        public void TakeDamage(DamageType dT)
-        {
-            CurrentHealth--;
-            onPlayerTakeDamageEvent?.Invoke(CurrentHealth);
-            if (CurrentHealth <= 0)
-                onPlayerDeathEvent?.Invoke(dT);
         }
 
         public void SetHealth(int health)
@@ -65,15 +69,6 @@ namespace Player
             onInitEvent?.Invoke(CurrentHealth);
         }
 
-        private void OnDestroy()
-        {
-            SteamController.onSteamDamageEvent -= SteamDamage;
-            LaserController.onLaserDeath -= LaserDamage;
-        }
-
-        public static int GetMaxHP()
-        {
-            return maxHealth;
-        }
+        public static int GetMaxHP() => maxHealth;
     }
 }

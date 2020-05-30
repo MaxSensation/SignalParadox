@@ -8,58 +8,43 @@ namespace Player.PlayerStateMachine
     [CreateAssetMenu(menuName = "PlayerState/CrouchState")]
     public class CrouchState : PlayerBaseState
     {
-        [SerializeField] private float accelerationSpeed;
-        [SerializeField] private float terminalVelocity;
-        [SerializeField] private float decelerateSpeed;
-        [SerializeField] private float decelerateThreshold;
-        [SerializeField] private float soundStrength;
-        private Vector3 _oldCameraOffset;
-        private float _oldColliderHeight;
-        private bool _isCrouching;
-        
-        public static Action onEnteredCrouchEvent;
-        public static Action onExitCrouchEvent;
+        [SerializeField] private float accelerationSpeed, terminalVelocity, decelerateSpeed, decelerateThreshold, soundStrength;
+        private float oldColliderHeight;
+        private bool isCrouching;
+        public static Action onEnteredCrouchEvent, onExitCrouchEvent;
 
         public override void Enter()
         {
-            if (!_isCrouching)
-            {
-                Player.Transmitter.SetSoundStrength(1 - soundStrength);
-                onEnteredCrouchEvent?.Invoke();
-                Debug.Log("Entered Crouch State");
-                _oldColliderHeight = Player.PlayerCollider.height;
-                Player.PlayerCollider.center = new Vector3(0, -0.35f, 0);
-                Player.PlayerCollider.height = 1.1f;
-                Player.UpdateCapsuleInfo();   
-            }
+            if (isCrouching) return;
+            Player.Transmitter.SetSoundStrength(soundStrength);
+            onEnteredCrouchEvent?.Invoke();
+            oldColliderHeight = Player.PlayerCollider.height;
+            Player.PlayerCollider.center = new Vector3(0, -0.35f, 0);
+            Player.PlayerCollider.height = 1.1f;
+            Player.UpdateCapsuleInfo();
         }
         
         public override void Exit()
         {
-            if (!_isCrouching)
-            {
-                onExitCrouchEvent?.Invoke();
-                Debug.Log("Exit Crouch State");
-                Player.PlayerCollider.center = Vector3.zero;
-                Player.PlayerCollider.height = _oldColliderHeight;
-            }
+            if (isCrouching) return;
+            onExitCrouchEvent?.Invoke();
+            Player.PlayerCollider.center = Vector3.zero;
+            Player.PlayerCollider.height = oldColliderHeight;
         }
 
         public override void Run()
         {
-
-            if (Ischarged)
+            if (IsCharged)
                 stateMachine.TransitionTo<ChargedState>();
             
-
             // Enter Crouch if Control is pressed 
             if (!Player.HasInputCrouch && CanStand())
             {
-                _isCrouching = false;
+                isCrouching = false;
                 stateMachine.TransitionTo<StandState>();
             }
             
-            // Get Input from user
+            // Get InputDirection from user
             var inputVector = Player.GetInputVector(accelerationSpeed);
 
             // Add Input force to velocity
@@ -76,13 +61,19 @@ namespace Player.PlayerStateMachine
                 else
                     Velocity = Vector3.zero;
             }
-
             LimitVelocity();
         }
 
         private bool CanStand()
         {
-            return !Physics.CapsuleCast(Player.Point1, Player.Point2, Player.PlayerCollider.radius, Vector3.up, 1f, LayerMask.GetMask("Colliders"));
+            return !Physics.CapsuleCast(
+                Player.CapsuleHighPoint, 
+                Player.CapsuleLowPoint, 
+                Player.PlayerCollider.radius, 
+                Vector3.up, 
+                1f, 
+                LayerMask.GetMask("Colliders")
+                );
         }
 
         private void LimitVelocity()
