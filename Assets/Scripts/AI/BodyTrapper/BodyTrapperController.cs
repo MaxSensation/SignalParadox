@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using AI.BodyTrapper.AIStateMachine;
 using EchoLocation;
-using Interactables.Triggers;
 using Interactables.Triggers.EntitiesTrigger;
 using Player;
 using Traps;
