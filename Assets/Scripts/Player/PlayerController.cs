@@ -21,6 +21,7 @@ namespace Player
         [SerializeField] private LayerMask collisionLayer;
         [SerializeField] private PhysicsWorld physicsWorld;
         [SerializeField] private State[] states;
+        private WaitForSeconds endPushStateSecounds;
         public static Action onPlayerDeathEvent;
         public static Action<GameObject> onPlayerInitEvent;
         internal CapsuleCollider PlayerCollider { get; private set; }
@@ -43,6 +44,7 @@ namespace Player
 
         private void Awake()
         {
+            endPushStateSecounds = new WaitForSeconds(0.2f);
             Transmitter = transform.GetComponentInChildren<SoundProvider>();
             PlayerMesh = transform.Find("PlayerMesh").gameObject;
             stateMachine = new StateMachine(this, states);
@@ -214,7 +216,7 @@ namespace Player
 
         private IEnumerator EndPushingState()
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return endPushStateSecounds;
             stateMachine.TransitionTo<StandState>();
         }
     }
