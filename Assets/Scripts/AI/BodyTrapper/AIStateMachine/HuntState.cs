@@ -35,6 +35,7 @@ namespace AI.BodyTrapper.AIStateMachine
             {
                 Ai.audioSource.volume = 0.1f;
                 Ai.audioSource.clip = defaultSound;
+                Ai.audioSource.Play();
                 stateMachine.TransitionTo<ChargeState>();
             }
 
