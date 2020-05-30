@@ -11,6 +11,7 @@ namespace AI.Charger.AIStateMachine
     {
         [SerializeField] private float chargeSpeed;
         [SerializeField] private AudioClip hitWallSound;
+        [SerializeField] private AudioClip startChargeSound;
         [SerializeField] private float wallSoundThreshold = 10f;
         private float previousFrameSpeed;
         public static Action<GameObject> onChargeEvent, onStunnedEvent, onSlowChargeEvent;
@@ -18,6 +19,7 @@ namespace AI.Charger.AIStateMachine
         public override void Enter()
         {
             base.Enter();
+            Ai.AudioSource.PlayOneShot(startChargeSound);
             onChargeEvent?.Invoke(Ai.gameObject);
         }
 
