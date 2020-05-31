@@ -11,7 +11,10 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] private float chargeDistance;
         [SerializeField] private float searchingRange;
         [SerializeField] private float maxLookAngle;
-        [SerializeField] private float turnSpeed = 10;
+        [SerializeField] private float minturnSpeed = 10;
+        [SerializeField] private float maxturnSpeed = 45;
+        private float currentTurnSpeed;
+
         public override void Run()
         {
             if (Ai.PlayerInSight())
@@ -26,6 +29,8 @@ namespace AI.Charger.AIStateMachine
             {
                 if (Vector3.Distance(Ai.transform.position, Ai.target.transform.position) > searchingRange)
                     stateMachine.TransitionTo<PatrolState>();   
+                else
+                    Ai.agent.SetDestination(Ai.target.transform.position);
             }
         }
 
@@ -34,7 +39,11 @@ namespace AI.Charger.AIStateMachine
             var newRotation = Quaternion.LookRotation(Ai.target.transform.position - Ai.transform.position, Vector3.up);
             newRotation.x = 0.0f;
             newRotation.z = 0.0f;
-            Ai.transform.rotation = Quaternion.Slerp(Ai.transform.rotation, newRotation, Time.deltaTime * turnSpeed);
+            if ((Ai.target.transform.position - Ai.transform.position).magnitude < Ai.AiCollider.radius * 3.5)
+                currentTurnSpeed = maxturnSpeed;
+            else
+                currentTurnSpeed = minturnSpeed;
+            Ai.transform.rotation = Quaternion.Slerp(Ai.transform.rotation, newRotation, Time.deltaTime * currentTurnSpeed);
         }
 
         private bool CanCharge()
@@ -47,7 +56,7 @@ namespace AI.Charger.AIStateMachine
             var point2 = capsulePosition + Vector3.down * distanceToPoints;
             Physics.CapsuleCast(point1, point2, AiCollider.radius, chargerTransform.forward.normalized, out var hit, (Ai.target.transform.position - chargerTransform.position).magnitude, Ai.visionMask);
             //if very close to player canCharge is true
-            if ((Ai.target.transform.position - Ai.transform.position).magnitude < Ai.AiCollider.radius * 3)
+            if ((Ai.target.transform.position - Ai.transform.position).magnitude < Ai.AiCollider.radius * 3.5)
                 return true;
             return !(hit.collider);
         }
