@@ -47,12 +47,14 @@ namespace AI.Charger
             yield return chargeUpTimeSeconds;
             if (agent.enabled)
                 agent.isStopped = false;
+            aiRigidbody.useGravity = true;
             stateMachine.TransitionTo<ChargeState>();
         }
 
         internal void ChargeUp()
         {
             agent.isStopped = true;
+            aiRigidbody.useGravity = false;
             StartCoroutine(ChargeTime());
         }
 
