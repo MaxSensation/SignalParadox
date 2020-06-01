@@ -40,7 +40,6 @@ namespace Interactables.Triggers.Events
         {
             if (!isDestroyable) return;
             var chargerForward = new Vector3(other.transform.forward.x, 0, other.transform.forward.z);
-            Debug.Log(Vector3.Dot(glassForward, chargerForward));
             if (other.CompareTag("Enemy") && Vector3.Dot(glassForward, chargerForward) > chargerLookAngle)
                 DestoryWall();
         }
