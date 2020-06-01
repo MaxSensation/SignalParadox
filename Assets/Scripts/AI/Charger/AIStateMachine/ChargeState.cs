@@ -13,8 +13,9 @@ namespace AI.Charger.AIStateMachine
         [SerializeField] private AudioClip hitWallSound;
         [SerializeField] private AudioClip startChargeSound;
         [SerializeField] private float wallSoundThreshold = 10f;
+        [SerializeField] private float destroyGlassThreshold = 20f;
         private float previousFrameSpeed;
-        public static Action<GameObject> onChargeEvent, onStunnedEvent, onSlowChargeEvent;
+        public static Action<GameObject> onChargeEvent, onStunnedEvent, onSlowChargeEvent, onFastChargeEvent;
 
         public override void Enter()
         {
@@ -34,6 +35,8 @@ namespace AI.Charger.AIStateMachine
         {
             previousFrameSpeed = Ai.aiRigidbody.velocity.magnitude;
             Ai.aiRigidbody.AddForce(Ai.ChargeDirection.normalized * (chargeSpeed * Time.deltaTime));
+            if (Ai.aiRigidbody.velocity.magnitude > destroyGlassThreshold)
+                onFastChargeEvent?.Invoke(Ai.gameObject);
             if (!Ai.EnemyTrigger.IsTouchingTaggedObject) return;
             Ai.target.transform.parent = Ai.transform;
             Ai.CaughtPlayer();

@@ -1,9 +1,8 @@
 ﻿//Main author: Andreas Berzelius
 //Secondary author: Maximiliam Rosén
 
-using System;
+using AI.Charger;
 using AI.Charger.AIStateMachine;
-using Traps;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -18,7 +17,7 @@ public class ChargerAnimatorController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         charger = transform.parent.gameObject;
-        LaserController.onLaserDeath += Die;
+        ChargerController.onDieEvent += Die;
         PatrolState.onPatrolEvent += Walk;
         ChargeState.onChargeEvent += Charge;
         ChargeState.onStunnedEvent += Stunned;
@@ -30,7 +29,6 @@ public class ChargerAnimatorController : MonoBehaviour
     {
         if (charger != obj) return;
         animator.SetTrigger("Idle");
-        //animator.ResetTrigger("ChargeUp");
     }
 
     private void Stunned(GameObject obj)
@@ -53,9 +51,8 @@ public class ChargerAnimatorController : MonoBehaviour
         animator.SetTrigger("Charge");
     }
 
-    private void Die(GameObject obj)
+    private void Die()
     {
-        if (charger != obj) return;
         animator.SetTrigger("Die");
     }
 
@@ -67,10 +64,11 @@ public class ChargerAnimatorController : MonoBehaviour
 
     private void OnDestroy()
     {
-        LaserController.onLaserDeath -= Die;
+        ChargerController.onDieEvent -= Die;
         PatrolState.onPatrolEvent -= Walk;
         ChargeState.onChargeEvent -= Charge;
         ChargeState.onStunnedEvent -= Stunned;
+        ChargeState.onSlowChargeEvent -= Idle;
         ChargeUpState.onChargeUpEvent -= ChargeUp;
     }
 
