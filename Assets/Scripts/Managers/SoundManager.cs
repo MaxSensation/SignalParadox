@@ -1,6 +1,5 @@
 ﻿//Main author: Maximiliam Rosén
 
-using Interactables.Triggers;
 using Interactables.Triggers.Memo;
 using UnityEngine;
 
