@@ -14,10 +14,7 @@ public class LoadLevel : MonoBehaviour
         button.onClick.AddListener(InvokeLoadLevelEvent);
     }
 
-    private void OnDestroy()
-    {
-        button.onClick.RemoveListener(InvokeLoadLevelEvent);
-    }
+    private void OnDestroy() => button.onClick.RemoveListener(InvokeLoadLevelEvent);
 
     private void InvokeLoadLevelEvent()
     {

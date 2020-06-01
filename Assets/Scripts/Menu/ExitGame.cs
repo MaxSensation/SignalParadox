@@ -1,21 +1,20 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
 using SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ExitGame : MonoBehaviour
 {
-
-    private Button _button;
+    private Button button;
     private void Awake()
     {
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(EndGame);
+        button = GetComponent<Button>();
+        button.onClick.AddListener(EndGame);
     }
 
     private void EndGame()
     {
-        print("Exited Game");
         SaveManager.SaveGame();
         Application.Quit();
     }

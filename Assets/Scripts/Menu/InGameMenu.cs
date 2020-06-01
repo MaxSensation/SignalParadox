@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
 using UnityEngine;
 
 public class InGameMenu : MonoBehaviour
