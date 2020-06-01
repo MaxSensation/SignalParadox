@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using AI.Charger.AIStateMachine;
 using Interactables.Triggers.EntitiesTrigger;
+using Interactables.Triggers.Events;
 using Traps;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace AI.Charger
         internal Vector3 ChargeDirection { get; private set; }
         internal AudioSource AudioSource { get; private set; }
         internal EnemyTrigger EnemyTrigger { get; private set; }
-        public static Action onCrushedPlayerEvent, onCaughtPlayerEvent;
+        public static Action onCrushedPlayerEvent, onCaughtPlayerEvent, onDieEvent;
 
         private new void Awake()
         {
@@ -28,9 +29,13 @@ namespace AI.Charger
             EnemyTrigger = transform.Find("EnemyTrigger").GetComponent<EnemyTrigger>();
             AudioSource = GetComponent<AudioSource>();
             LaserController.onLaserDeath += OnDeathByLaser;
+            GlassWallTrigger.onBrokenEvent += Die;
         }
 
-        private void OnDestroy() => LaserController.onLaserDeath -= OnDeathByLaser;
+        private void OnDestroy() {
+            LaserController.onLaserDeath -= OnDeathByLaser;
+            GlassWallTrigger.onBrokenEvent -= Die;
+        }
 
         private void OnDeathByLaser(GameObject entity)
         {
@@ -70,6 +75,7 @@ namespace AI.Charger
             if (agent != null)
                 agent.enabled = false;
             AudioSource.Stop();
+            onDieEvent?.Invoke();
             stateMachine.TransitionTo<DeadState>();
         }
     }
