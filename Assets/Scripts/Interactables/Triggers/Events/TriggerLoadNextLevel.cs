@@ -14,6 +14,7 @@ namespace Interactables.Triggers.Events
     {
         [SerializeField] [Tooltip("the black screen fading in between levels")] private GameObject loadingScreenObject;
         [SerializeField] private AudioMixer audioMixer;
+        private AudioSource audioSource;
         private PlayerController player;
         private Animator loadingScreenAnimator;
         private Image loadingScreenImage;
@@ -24,7 +25,7 @@ namespace Interactables.Triggers.Events
             player = FindObjectOfType<PlayerController>();
             loadingScreenAnimator = loadingScreenObject.GetComponent<Animator>();
             loadingScreenImage = loadingScreenObject.GetComponent<Image>();
-
+            audioSource = GetComponent<AudioSource>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -39,6 +40,7 @@ namespace Interactables.Triggers.Events
                 player.InCinematic = true;
                 loadingScreenAnimator.SetBool("ReachedEnd", true);
                 audioMixer.FindSnapshot("LevelTransition").TransitionTo(0.1f);
+                audioSource.Play();
                 if (loadingScreenImage.color.a == 1)
                     LoadNextLevel();
             }
