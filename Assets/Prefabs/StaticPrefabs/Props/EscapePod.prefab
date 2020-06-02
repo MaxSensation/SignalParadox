@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 4014941312359137305}
   - component: {fileID: 5398946681565362735}
   - component: {fileID: 1860092257859913430}
-  m_Layer: 0
+  - component: {fileID: 6203412924332870079}
+  m_Layer: 8
   m_Name: EscapePod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4014941312359137305
 Transform:
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &6203412924332870079
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138685804265599498}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 348.13568, y: 345.61047, z: 116.65935}
+  m_Center: {x: -58.838955, y: 172.80524, z: 58.329666}
