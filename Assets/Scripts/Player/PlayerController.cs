@@ -36,7 +36,7 @@ namespace Player
         internal bool EndingPushingState { get; set; }
         internal bool IsPlayerCharged { get; private set; }
         internal Vector3 Velocity { get; set; }
-        private bool InCinematic { get; set; }
+        public bool InCinematic { get; set; }
         private StateMachine stateMachine;
         private Transform cameraTransform;
         
