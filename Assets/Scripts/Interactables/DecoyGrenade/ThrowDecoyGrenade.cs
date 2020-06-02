@@ -1,4 +1,4 @@
-﻿//Main author: Andreas Berzelius
+//Main author: Andreas Berzelius
 //Secondary author: Maximiliam Rosén
 
 using System;
@@ -66,6 +66,8 @@ namespace Interactables.DecoyGrenade
             PushingState.onExitPushingStateEvent += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
             PushingState.onEnterPushingStateEvent += () => currentState = States.Occupied;
             PlayerTrapable.onPlayerTrappedEvent += () => currentState = States.Occupied;
+            InGameMenu.onMenuOpenEvent += () => currentState = States.Occupied;
+            InGameMenu.onMenuCloseEvent += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
             ChargerController.onCrushedPlayerEvent += () => currentState = States.Disabled;
             PlayerAnimatorController.OnDeathAnimBeginningEvent += () => currentState = States.Disabled;
         }
