@@ -22,11 +22,9 @@ namespace Interactables.Triggers.Events
         private void Awake()
         {
             player = FindObjectOfType<PlayerController>();
-            if (loadingScreenObject != null)
-            {
-                loadingScreenAnimator = loadingScreenObject.GetComponent<Animator>();
-                loadingScreenImage = loadingScreenObject.GetComponent<Image>();
-            }
+            loadingScreenAnimator = loadingScreenObject.GetComponent<Animator>();
+            loadingScreenImage = loadingScreenObject.GetComponent<Image>();
+
         }
 
         private void OnTriggerEnter(Collider other)
