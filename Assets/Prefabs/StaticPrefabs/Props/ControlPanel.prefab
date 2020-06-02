@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5259035626570239118
 Transform:
@@ -93,6 +93,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Monitor
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340255997808837990, guid: 160abc005787bbd47a244a375e3203bf,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7340255997808837992, guid: 160abc005787bbd47a244a375e3203bf,
         type: 3}
@@ -189,6 +194,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monitor (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7340255997808837990, guid: 160abc005787bbd47a244a375e3203bf,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7340255997808837992, guid: 160abc005787bbd47a244a375e3203bf,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -283,6 +293,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Monitor (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340255997808837990, guid: 160abc005787bbd47a244a375e3203bf,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7340255997808837992, guid: 160abc005787bbd47a244a375e3203bf,
         type: 3}
