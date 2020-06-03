@@ -1,4 +1,5 @@
-﻿//Main author: Ferreira Dos Santos Keziah
+﻿//Main author: Maximiliam Rosén
+//Secound author: Ferreira Dos Santos Keziah
 using System;
 using UnityEngine;
 namespace FootStepSound

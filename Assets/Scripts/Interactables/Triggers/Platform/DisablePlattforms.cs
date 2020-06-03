@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
+using System;
 using Interactables.Button;
 using UnityEngine;
 

@@ -1,5 +1,6 @@
-﻿//Main author: Ferreira Dos Santos Keziah
+﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
+//Third author: Ferreira Dos Santos Keziah
 
 using UnityEngine;
 using Player.PlayerStateMachine;

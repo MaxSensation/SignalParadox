@@ -1,7 +1,6 @@
 ﻿//Main author: Maximiliam Rosén
 //Secondary author: Andreas Berzelius
 
-using System;
 using SaveSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;

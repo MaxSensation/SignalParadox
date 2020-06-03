@@ -1,6 +1,5 @@
 ﻿//Main author: Maximiliam Rosén
 
-using System;
 using SaveSystem;
 using UnityEngine;
 using UnityEngine.Audio;

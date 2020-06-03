@@ -1,4 +1,6 @@
-﻿using SaveSystem;
+﻿//Main author: Maximiliam Rosén
+
+using SaveSystem;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;

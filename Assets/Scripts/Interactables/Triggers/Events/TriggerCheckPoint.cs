@@ -8,14 +8,14 @@ namespace Interactables.Triggers.Events
 {
     public class TriggerCheckPoint : MonoBehaviour
     {
-        private bool _checkPointUsed;
+        private bool checkPointUsed;
         public static Action<CheckPoint> onTriggerCheckPoint;
         private void OnTriggerEnter(Collider other)
         {
-            if (_checkPointUsed || !other.CompareTag("Player")) return;
+            if (checkPointUsed || !other.CompareTag("Player")) return;
             Debug.Log("CheckpointTrigger activated");
             onTriggerCheckPoint?.Invoke(new CheckPoint(other.gameObject, transform));
-            _checkPointUsed = true;
+            checkPointUsed = true;
         }
     }
 }
