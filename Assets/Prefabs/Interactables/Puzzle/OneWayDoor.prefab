@@ -236,6 +236,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4595561368016741400}
     m_Modifications:
+    - target: {fileID: 1907758787, guid: 2a7b9b49ffa631b4fb4e8745381ba1c6, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -9012548131758760823, guid: 0d6e5510cab130b4a83ebcbe3de323e9,
+        type: 2}
     - target: {fileID: 3832576381926726586, guid: 2a7b9b49ffa631b4fb4e8745381ba1c6,
         type: 3}
       propertyPath: m_Mesh
@@ -400,6 +405,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4595561368016741400}
     m_Modifications:
+    - target: {fileID: 1332863173, guid: ce54bd5529852b94ab868f9a6a6f4735, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -9012548131758760823, guid: 0d6e5510cab130b4a83ebcbe3de323e9,
+        type: 2}
     - target: {fileID: 2051061910063280986, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_Mesh
