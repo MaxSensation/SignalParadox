@@ -1,6 +1,7 @@
 ﻿//Main author: Maximiliam Rosén
 
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,15 +12,21 @@ namespace Interactables.Platform
         [SerializeField] private bool triggerOnce;
         [SerializeField] private Material on ,off;
         [SerializeField] private GameObject[] interactables;
+        private string[] activationTags;
         private Animator animator;
+        private BoxCollider triggerArea;
         private MeshRenderer meshRenderer;
         private static readonly int IsPressed = Animator.StringToHash("IsPressed");
         public UnityEvent isOn, isOff;
         public static Action<GameObject[]> onButtonPressedEvent;
-        private int objectsOnButton;
-
+        private enum State { On, Off }
+        private State currentState;
+        
         private void Awake()
         {
+            currentState = State.Off;
+            activationTags = new[] {"Player", "Enemy", "Interactable"};
+            triggerArea = GetComponent<BoxCollider>();
             var parent = transform.parent;
             animator = parent.GetComponent<Animator>();
             meshRenderer = parent.transform.Find("PlatformButton").GetComponent<MeshRenderer>();
@@ -27,20 +34,20 @@ namespace Interactables.Platform
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable")) return;
-            Activate();
+            if (activationTags.Contains(other.tag) && currentState == State.Off)
+                Activate();
         }
         
         private void OnTriggerExit(Collider other)
         {
-            if (triggerOnce || !other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable")) return;
-            Deactivate();
+            if (triggerOnce || !activationTags.Contains(other.tag)) return;
+            if (!Physics.OverlapBox(transform.position, triggerArea.bounds.extents, transform.rotation).Any(col => activationTags.Contains(col.tag)))
+                Deactivate();
         }
         
         private void Activate()
         {
-            objectsOnButton++;
-            if (objectsOnButton != 1) return;
+            currentState = State.On;
             animator.SetBool(IsPressed, true);
             meshRenderer.material = on;
             isOn.Invoke();
@@ -49,8 +56,7 @@ namespace Interactables.Platform
 
         private void Deactivate()
         {
-            objectsOnButton--;
-            if (objectsOnButton != 0) return;
+            currentState = State.Off;
             animator.SetBool(IsPressed, false);
             meshRenderer.material = off;
             isOff.Invoke();
