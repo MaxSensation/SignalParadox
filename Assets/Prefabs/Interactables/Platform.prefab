@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b0848136fe05e4b9325b369466fcac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerOnes: 0
+  triggerOnce: 0
   on: {fileID: 2100000, guid: affe3e451fc47394ea1fa7e8f05099e1, type: 2}
   off: {fileID: 2100000, guid: 0a44af0d15eb83047a7b41022db4e55c, type: 2}
   interactables:
@@ -117,7 +117,8 @@ AudioSource:
   m_GameObject: {fileID: 8265316513196903234}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -9012548131758760823, guid: 0d6e5510cab130b4a83ebcbe3de323e9,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 983acbcac7dcf8e4e9c353f17faeec23, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5

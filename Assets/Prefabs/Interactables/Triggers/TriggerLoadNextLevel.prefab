@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15096e3bc99a494c855512745bdde22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadingScreenObject: {fileID: 0}
+  loadingScreenAnimator: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 0d6e5510cab130b4a83ebcbe3de323e9, type: 2}
 --- !u!54 &4784122936593600743
 Rigidbody:
@@ -86,7 +86,8 @@ AudioSource:
   m_GameObject: {fileID: 2199262803852952895}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 832296576918905659, guid: 0d6e5510cab130b4a83ebcbe3de323e9,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 180c0a5a40b58e641a7c51a64f0638e9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
