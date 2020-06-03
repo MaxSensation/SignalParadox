@@ -1,5 +1,6 @@
 ﻿//Main author: Maximiliam Rosén
 
+using System;
 using SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ namespace Menu
 {
     public class SetSensitivity : MonoBehaviour
     {
+        public static Action<float> onUpdateEvent;
         private Slider slider;
         private void Awake()
         {
@@ -19,6 +21,7 @@ namespace Menu
         {
             SaveManager.Settings.Sensitivity = sens;
             SaveManager.SaveSettings();
+            onUpdateEvent?.Invoke(sens);
         }
     }
 }
