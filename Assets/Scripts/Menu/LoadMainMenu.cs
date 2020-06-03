@@ -1,21 +1,26 @@
 ﻿//Main author: Maximiliam Rosén
 
+using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
-public class LoadMainMenu : MonoBehaviour
+namespace Menu
 {
-    private VideoPlayer videoPlayer;
-
-    private void Awake()
+    public class LoadMainMenu : MonoBehaviour
     {
-        videoPlayer = GetComponent<VideoPlayer>();
-        videoPlayer.loopPointReached += LoadMainMenuScene;
-    }
+        private VideoPlayer videoPlayer;
 
-    private void LoadMainMenuScene(VideoPlayer source)
-    {
-        SceneManager.LoadScene("GameMenu");
+        private void Awake()
+        {
+            videoPlayer = GetComponent<VideoPlayer>();
+            videoPlayer.loopPointReached += LoadMainMenuScene;
+        }
+
+        private void LoadMainMenuScene(VideoPlayer source)
+        {
+            SaveManager.SaveGame();
+            SceneManager.LoadScene("GameMenu");
+        }
     }
 }

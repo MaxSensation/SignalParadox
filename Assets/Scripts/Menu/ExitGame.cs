@@ -4,18 +4,21 @@ using SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExitGame : MonoBehaviour
+namespace Menu
 {
-    private Button button;
-    private void Awake()
+    public class ExitGame : MonoBehaviour
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(EndGame);
-    }
+        private Button button;
+        private void Awake()
+        {
+            button = GetComponent<Button>();
+            button.onClick.AddListener(EndGame);
+        }
 
-    private void EndGame()
-    {
-        SaveManager.SaveGame();
-        Application.Quit();
+        private void EndGame()
+        {
+            SaveManager.SaveGame();
+            Application.Quit();
+        }
     }
 }

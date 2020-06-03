@@ -64,6 +64,7 @@ namespace SaveSystem
 
         public static void SaveGame()
         {
+            if (checkPoint == null) return;
             var formatter = new BinaryFormatter();
             var path = Application.persistentDataPath + "/SaveGame.paradox";
             var stream = new FileStream(path, FileMode.Create);
