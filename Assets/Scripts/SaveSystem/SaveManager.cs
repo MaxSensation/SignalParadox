@@ -6,17 +6,23 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Interactables.Triggers.Events;
 using Player;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace SaveSystem
 {
     public static class SaveManager
     {
         public static WorldEventsData WorldEventsData { get; private set; }
+        public static GameSettingData Settings { get; private set; }
         private static CheckPoint checkPoint;
         private static PlayerData betweenLevelData;
-        
+
         public static void Init()
         {
+            if (HasSettings())
+                LoadSettings();
+            else
+                Settings = new GameSettingData();
             WorldEventsData = new WorldEventsData();
             TriggerLoadNextLevel.onTriggerdNextLevelEvent += SaveBetweenLevelData;
             TriggerLoadNextLevel.onTriggerdNextLevelEvent += LoadPlayerDataNextPlayerInstance;
@@ -65,6 +71,33 @@ namespace SaveSystem
             stream.Close();
         }
         
+        public static void SaveSettings()
+        {
+            var formatter = new BinaryFormatter();
+            var path = Application.persistentDataPath + "/Settings.paradox";
+            var stream = new FileStream(path, FileMode.Create);
+            formatter.Serialize(stream, Settings);
+            stream.Close();
+        }
+
+        private static void LoadSettings()
+        {
+            var path = Application.persistentDataPath + "/Settings.paradox";
+            if (File.Exists(path))
+            {
+                var formatter = new BinaryFormatter();
+                var stream = new FileStream(path, FileMode.Open);
+                if (stream.Length > 0)
+                {
+                    if (formatter.Deserialize(stream) is GameSettingData settings)
+                        Settings = settings;
+                }
+                stream.Close();
+            }
+            else
+                Debug.Log("Save file not found!");
+        }
+        
         public static void LoadSavedGame()
         {
             var path = Application.persistentDataPath + "/SaveGame.paradox";
@@ -95,6 +128,12 @@ namespace SaveSystem
             return File.Exists(path);
         }
 
+        public static bool HasSettings()
+        {
+            var path = Application.persistentDataPath + "/Settings.paradox";
+            return File.Exists(path);
+        }
+        
         public static void Reset()
         {
             SpawnWithFullHealthNextPlayerInstance();
