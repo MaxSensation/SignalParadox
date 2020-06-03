@@ -1,22 +1,24 @@
-﻿using System;
+﻿//Main author: Maximiliam Rosén
+
 using SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExitGame : MonoBehaviour
+namespace Menu
 {
-
-    private Button _button;
-    private void Awake()
+    public class ExitGame : MonoBehaviour
     {
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(EndGame);
-    }
+        private Button button;
+        private void Awake()
+        {
+            button = GetComponent<Button>();
+            button.onClick.AddListener(EndGame);
+        }
 
-    private void EndGame()
-    {
-        print("Exited Game");
-        SaveManager.SaveGame();
-        Application.Quit();
+        private void EndGame()
+        {
+            SaveManager.SaveGame();
+            Application.Quit();
+        }
     }
 }

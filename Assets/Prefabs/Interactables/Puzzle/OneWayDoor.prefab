@@ -236,6 +236,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4595561368016741400}
     m_Modifications:
+    - target: {fileID: 1907758787, guid: 2a7b9b49ffa631b4fb4e8745381ba1c6, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -9012548131758760823, guid: 0d6e5510cab130b4a83ebcbe3de323e9,
+        type: 2}
     - target: {fileID: 3832576381926726586, guid: 2a7b9b49ffa631b4fb4e8745381ba1c6,
         type: 3}
       propertyPath: m_Mesh
@@ -400,11 +405,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4595561368016741400}
     m_Modifications:
+    - target: {fileID: 1332863173, guid: ce54bd5529852b94ab868f9a6a6f4735, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -9012548131758760823, guid: 0d6e5510cab130b4a83ebcbe3de323e9,
+        type: 2}
     - target: {fileID: 2051061910063280986, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -4713616942930783643, guid: 414e57fb2a460714bbd7a723c5dc1ee4,
+      objectReference: {fileID: -4713616942930783643, guid: 583424b551990e345bcde5b6add5c8f6,
         type: 3}
     - target: {fileID: 2051061910063280987, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
@@ -510,8 +520,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 5561349426305759274, guid: 874658cf944bae44890be2c3df8da829,
-        type: 3}
+      objectReference: {fileID: 2100000, guid: b2585754407790940894b44a1535a3bf, type: 2}
     - target: {fileID: 2051061910063280990, guid: ce54bd5529852b94ab868f9a6a6f4735,
         type: 3}
       propertyPath: m_Name

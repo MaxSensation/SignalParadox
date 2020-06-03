@@ -8,19 +8,13 @@ namespace Player.PlayerStateMachine
     [CreateAssetMenu(menuName = "PlayerState/WalkState")]
     public class WalkState : PlayerBaseState
     {
-        [SerializeField] private float accelerationSpeed;
-        [SerializeField] private float decelerateSpeed;
-        [SerializeField] private float decelerateThreshold;
-        [SerializeField] private float soundStrength;
+        [SerializeField] private float accelerationSpeed, decelerateSpeed, decelerateThreshold, soundStrength;
 
-        public override void Enter()
-        {
-            Player.Transmitter.SetSoundStrength(1 - soundStrength);
-        }
-        
+        public override void Enter() => Player.Transmitter.SetSoundStrength(soundStrength);
+
         public override void Run()
         {
-            if (Ischarged)
+            if (IsCharged)
                 stateMachine.TransitionTo<ChargedState>();
 
             // If Player is not grounded then change state to In Air State
@@ -30,11 +24,9 @@ namespace Player.PlayerStateMachine
             
             // Enter Crouch if Control is pressed 
             if (Player.HasInputCrouch)
-            {
                 stateMachine.TransitionTo<CrouchState>();
-            }
-
-            // Get Input from user
+            
+            // Get Input direction from user
             var inputVector = Player.GetInputVector(accelerationSpeed);
 
             // Add Input force to velocity

@@ -1,29 +1,32 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+//Secondary author: Andreas Berzelius
+
+using Menu;
+using SaveSystem;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputCamera : MonoBehaviour
 {
-    [SerializeField] private float mouseSensitivity = 1.0f;
+    private float mouseSensitivity;
+    private Vector2 mouseInput;
     
-    private Vector2 _mouseInput;
-
-    public void UpdateCameraInput(InputAction.CallbackContext context)
+    
+    private void Start()
     {
-        _mouseInput = context.ReadValue<Vector2>();
+        SetSensitivity.onUpdateEvent += UpdateSensitivity;
+        mouseSensitivity = SaveManager.Settings != null ? SaveManager.Settings.Sensitivity : 0.2f;
+    }
+
+
+    private void UpdateSensitivity(float sens)
+    {
+        mouseSensitivity = sens;
     }
     
-    public float GetHorizontalCameraInput()
-    {
-        return _mouseInput.x * mouseSensitivity;
-    }
+    public void UpdateCameraInput(InputAction.CallbackContext context) => mouseInput = context.ReadValue<Vector2>();
+    
+    public float GetHorizontalCameraInput() => mouseInput.x * mouseSensitivity;
 
-    public float GetVerticalCameraInput()
-    {
-        return -_mouseInput.y * mouseSensitivity;
-    }
-
-    public bool IsCrouching()
-    {
-        return Input.GetKey(KeyCode.LeftControl);
-    }
+    public float GetVerticalCameraInput() => -mouseInput.y * mouseSensitivity;
 }

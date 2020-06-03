@@ -1,10 +1,11 @@
-﻿//Main author: Andreas Berzelius
+//Main author: Andreas Berzelius
 //Secondary author: Maximiliam Rosén
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using AI.Charger;
+using Menu;
 using Player;
 using Player.PlayerStateMachine;
 using UnityEngine;
@@ -62,22 +63,24 @@ namespace Interactables.DecoyGrenade
 
             //Events
             PickupDecoyGrenade.onGrenadePickupEvent += PickupGrenade;
-            PlayerTrapable.onDetached += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
-            PushingState.OnExitPushingStateEvent += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
-            PushingState.OnEnterPushingStateEvent += () => currentState = States.Occupied;
+            PlayerTrapable.onDetachedEvent += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
+            PushingState.onExitPushingStateEvent += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
+            PushingState.onEnterPushingStateEvent += () => currentState = States.Occupied;
             PlayerTrapable.onPlayerTrappedEvent += () => currentState = States.Occupied;
+            InGameMenu.onMenuOpenEvent += () => currentState = States.Occupied;
+            InGameMenu.onMenuCloseEvent += () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
             ChargerController.onCrushedPlayerEvent += () => currentState = States.Disabled;
-            PlayerAnimatorController.OnDeathAnimBeginning += () => currentState = States.Disabled;
+            PlayerAnimatorController.OnDeathAnimBeginningEvent += () => currentState = States.Disabled;
         }
         
         private void OnDestroy()
         {
             PickupDecoyGrenade.onGrenadePickupEvent -= PickupGrenade;
-            PlayerTrapable.onDetached -= () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
-            PushingState.OnExitPushingStateEvent -= () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
-            PushingState.OnEnterPushingStateEvent -= () => currentState = States.Occupied;
+            PlayerTrapable.onDetachedEvent -= () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
+            PushingState.onExitPushingStateEvent -= () => currentState = currentState == States.Disabled ? States.Disabled : hasGrenade ? States.HoldingGrenade : States.HoldingNoGrenade;
+            PushingState.onEnterPushingStateEvent -= () => currentState = States.Occupied;
             PlayerTrapable.onPlayerTrappedEvent -= () => currentState = States.Occupied;
-            PlayerAnimatorController.OnDeathAnimBeginning -= () => currentState = States.Disabled;
+            PlayerAnimatorController.OnDeathAnimBeginningEvent -= () => currentState = States.Disabled;
             ChargerController.onCrushedPlayerEvent -= () => currentState = States.Disabled;
         }
 

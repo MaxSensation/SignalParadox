@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0a44af0d15eb83047a7b41022db4e55c, type: 2}
+  - {fileID: 2100000, guid: 60022cf3eb1d5124b9792e6d5b287f52, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,8 +132,8 @@ MonoBehaviour:
   debugYResolution: 0
   debugMaxBounces: 0
   debugBouncesDecay: 0
-  debugAirDecay: 0
   debugMinStrengthTolerance: 0
+  debugAirDecay: 0
   debugBounceLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -149,13 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6efe2545dcac6f74ebc9ac772b3093fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 0.4
   xResolution: 15
   yResolution: 15
   maxBounces: 10
-  bouncesDecay: 0
+  frequency: 0.4
   airDecay: 0
   minStrengthTolerance: 0
+  bouncesDecay: 0
   bounceLayer:
     serializedVersion: 2
     m_Bits: 16640
@@ -181,7 +181,8 @@ AudioSource:
   m_GameObject: {fileID: 4610478889220799681}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -9012548131758760823, guid: 0d6e5510cab130b4a83ebcbe3de323e9,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 81a482b97371bae48bf181362161239a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3

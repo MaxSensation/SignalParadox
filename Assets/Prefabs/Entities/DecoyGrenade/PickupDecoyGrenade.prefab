@@ -100,7 +100,8 @@ AudioSource:
   m_GameObject: {fileID: 8661174859842367940}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -9012548131758760823, guid: 0d6e5510cab130b4a83ebcbe3de323e9,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 07a4dd82bc656774abac0ec02d3049f0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -284,11 +285,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 1893052681096596492, guid: 20ef39d73a24b8d4bb8306f366baf2dc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0a44af0d15eb83047a7b41022db4e55c, type: 2}
     - target: {fileID: 1941768534580516598, guid: 20ef39d73a24b8d4bb8306f366baf2dc,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -334,26 +330,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.526
       objectReference: {fileID: 0}
-    - target: {fileID: 3788938947371405369, guid: 20ef39d73a24b8d4bb8306f366baf2dc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0a44af0d15eb83047a7b41022db4e55c, type: 2}
     - target: {fileID: 4977033980566660186, guid: 20ef39d73a24b8d4bb8306f366baf2dc,
         type: 3}
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 5371188749272081090, guid: 20ef39d73a24b8d4bb8306f366baf2dc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0a44af0d15eb83047a7b41022db4e55c, type: 2}
-    - target: {fileID: 5563420011238482719, guid: 20ef39d73a24b8d4bb8306f366baf2dc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0a44af0d15eb83047a7b41022db4e55c, type: 2}
     - target: {fileID: 5960124575176840734, guid: 20ef39d73a24b8d4bb8306f366baf2dc,
         type: 3}
       propertyPath: m_Layer
@@ -364,11 +345,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 6714071022069043334, guid: 20ef39d73a24b8d4bb8306f366baf2dc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 0a44af0d15eb83047a7b41022db4e55c, type: 2}
     - target: {fileID: 6949749204102934336, guid: 20ef39d73a24b8d4bb8306f366baf2dc,
         type: 3}
       propertyPath: m_Layer

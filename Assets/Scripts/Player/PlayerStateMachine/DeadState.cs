@@ -7,12 +7,9 @@ namespace Player.PlayerStateMachine
     [CreateAssetMenu(menuName = "PlayerState/DeadState")]
     public class DeadState : PlayerBaseState
     {
-        [SerializeField] private float soundStrength;
         public override void Enter()
         {
             base.Enter();
-            Player.Transmitter.SetSoundStrength(1 - soundStrength);
-            Debug.Log("Entered DeadState");
             TurnWithCamera.Active = false;
             Velocity = Vector3.zero;
         }
@@ -20,7 +17,7 @@ namespace Player.PlayerStateMachine
         public override void Run()
         {
             base.Run();
-            Player.GetComponent<PlayerTrapable>().DetachAllTrappers();
+            Player.GetComponent<PlayerTrapable>().DetachAllBodyTrappers();
         }
     }
 }

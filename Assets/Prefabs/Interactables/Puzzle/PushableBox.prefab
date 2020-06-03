@@ -50,9 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19134ff9dbde2d246a28b04ea001e028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkSize: {x: 0.6, y: 1.7, z: 0.6}
-  force: 50000
-  distanceToPushLocation: 0.2
+  triggerCheckSize: {x: 0.6, y: 1.7, z: 0.6}
+  pushForce: 50000
+  playerDistanceToPushArea: 0.2
   onPushEvent:
     m_PersistentCalls:
       m_Calls:
@@ -90,7 +90,8 @@ AudioSource:
   m_GameObject: {fileID: 3483924296651530164}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -9012548131758760823, guid: 0d6e5510cab130b4a83ebcbe3de323e9,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 5abb408d14abd6d48999c88f2df48414, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

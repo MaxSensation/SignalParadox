@@ -1,5 +1,5 @@
-﻿//Main author: Maximiliam Rosén
-//Secondary Author: Andreas Berzelius
+﻿//Main author: Andreas Berzelius
+//Secondary author: Maximiliam Rosén
 
 using Interactables.Button;
 using Interactables.Triggers.Platform;

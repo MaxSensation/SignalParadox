@@ -1,34 +1,29 @@
-﻿using UnityEngine;
+﻿//Main author: Maximiliam Rosén
+
+using UnityEngine;
 
 namespace TransformModifier
 {
-	public class RotationSmooth : MonoBehaviour
-	{
-		[SerializeField] private float smoothSpeed = 20f;
-		private Transform target;
-		private Transform objectTransform;
-		private Quaternion currentRotation;
+    public class RotationSmooth : MonoBehaviour
+    {
+        [SerializeField] private float smoothSpeed = 20f;
+        private Transform target, objectTransform;
+        private Quaternion currentRotation;
 	
-		private void Awake () {
-			target = transform.parent;
-			var _transform = transform;
-			objectTransform = _transform;
-			currentRotation = _transform.rotation;
-		}
+        private void Awake () {
+            objectTransform = transform;
+            target = objectTransform.parent;
+            currentRotation = objectTransform.rotation;
+        }
 
-		private void LateUpdate () {
-			SmoothUpdate();
-		}
+        private void LateUpdate () => SmoothUpdate();       
 
-		private void SmoothUpdate()
-		{
-			currentRotation = Smooth (currentRotation, target.rotation, smoothSpeed);
-			objectTransform.rotation = currentRotation;
-		}
+        private void SmoothUpdate()
+        {
+            currentRotation = Smooth();
+            objectTransform.rotation = currentRotation;
+        }
 
-		private Quaternion Smooth(Quaternion _currentRotation, Quaternion _targetRotation, float _smoothSpeed)
-		{
-			return Quaternion.Slerp (_currentRotation, _targetRotation, Time.deltaTime * _smoothSpeed);
-		}
-	}
+        private Quaternion Smooth() => Quaternion.Slerp(currentRotation, target.rotation, Time.deltaTime * smoothSpeed);
+    }
 }

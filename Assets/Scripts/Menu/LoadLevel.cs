@@ -1,28 +1,31 @@
 ﻿//Main author: Maximiliam Rosén
 
+using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoadLevel : MonoBehaviour
+namespace Menu
 {
-    [SerializeField] private string levelToLoad;
-    private Button button;
-    private void Start()
+    public class LoadLevel : MonoBehaviour
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(InvokeLoadLevelEvent);
-    }
+        [SerializeField] private string levelToLoad;
+        private Button button;
+        private void Start()
+        {
+            button = GetComponent<Button>();
+            button.onClick.AddListener(InvokeLoadLevelEvent);
+        }
 
-    private void OnDestroy()
-    {
-        button.onClick.RemoveListener(InvokeLoadLevelEvent);
-    }
+        private void OnDestroy() => button.onClick.RemoveListener(InvokeLoadLevelEvent);
 
-    private void InvokeLoadLevelEvent()
-    {
-        SceneManager.LoadScene(levelToLoad);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        private void InvokeLoadLevelEvent()
+        {
+            if (levelToLoad == "GameMenu")
+                SaveManager.SaveGame();
+            SceneManager.LoadScene(levelToLoad);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }

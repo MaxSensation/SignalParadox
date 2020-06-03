@@ -6,16 +6,10 @@ namespace EchoLocation
 {
     public class EchoLocationTransmitter : MonoBehaviour
     {
-        [SerializeField] private bool debugModeOn;
-        [SerializeField] private bool debugTestSoundOn;
-        [SerializeField] [Range(1,1000)] private int debugXResolution;
-        [SerializeField] [Range(1,1000)] private int debugYResolution;
-        [SerializeField] [Range(1,1000)] private int debugMaxBounces;
-        [SerializeField] [Range(0f,1f)] private float debugBouncesDecay;
-        [SerializeField] [Range(0f,1f)] private float debugAirDecay;
-        [SerializeField] [Range(0f,1f)] private float debugMinStrengthTolerance;
+        [SerializeField] private bool debugModeOn, debugTestSoundOn;
+        [SerializeField] [Range(1,1000)] private int debugXResolution, debugYResolution, debugMaxBounces;
+        [SerializeField] [Range(0f,1f)] private float debugBouncesDecay, debugMinStrengthTolerance, debugAirDecay;
         [SerializeField] private LayerMask debugBounceLayer;
-        private Transform _tm;
 
         private void Update()
         {
@@ -23,12 +17,7 @@ namespace EchoLocation
                 CreateTestSound();
         }
 
-        public void SetSoundStrength(float tolerance)
-        {
-            debugMinStrengthTolerance = tolerance;
-        }
-
-        public void CreateTestSound()
+        private void CreateTestSound()
         {
             CastAudioRays(debugXResolution, debugYResolution, debugMaxBounces, debugBouncesDecay, debugAirDecay, debugMinStrengthTolerance, debugBounceLayer);
         }
@@ -36,7 +25,6 @@ namespace EchoLocation
         public void CastAudioRays(int xResolution, int yResolution, int maxBounces, float bouncesDecay, float airDecay, float minStrengthTolerance, LayerMask bounceLayer)
         {
             Gizmos.color = Color.red;
-            _tm = transform;
             var direction = transform.forward;
             var directionChangeAmount = 360 / xResolution; 
             for (var x = 0; x < xResolution; x++)
@@ -53,7 +41,7 @@ namespace EchoLocation
 
         private void CastAudioRay(Vector3 direction, int maxBounces, float bouncesDecay, float airDecay, float minStrengthTolerance, LayerMask bounceLayer)
         {
-            var location = _tm.position;
+            var location = transform.position;
             var distance = 0f;
             var strength = 1f;
             for (var i = 0; i < maxBounces; i++)

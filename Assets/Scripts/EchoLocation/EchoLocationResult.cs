@@ -4,13 +4,11 @@ using UnityEngine;
 
 namespace EchoLocation
 {
-    public class EchoLocationResult
+    public struct EchoLocationResult
     {
-        public float BestSoundStrength;
-        public float BestSoundDistance;
+        public float BestSoundStrength, BestSoundDistance;
+        public GameObject Transmitter, Receiver;
         public Vector3 LastBounceLocation;
-        public GameObject Transmitter;
-        public GameObject Receiver;
 
         public EchoLocationResult(float bestSoundStrength, float bestSoundDistance, Vector3 lastBounceLocation, GameObject transmitter, GameObject receiver)
         {

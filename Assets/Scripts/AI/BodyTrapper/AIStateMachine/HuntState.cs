@@ -12,12 +12,17 @@ namespace AI.BodyTrapper.AIStateMachine
     {
         [SerializeField] private float jumpDistance;
         [SerializeField] private float maxMinLookRange;
+        [SerializeField] private AudioClip clawSnapping;
+        [SerializeField] private AudioClip defaultSound;
 
         public static Action<GameObject> onHuntEvent; 
 
         public override void Enter()
         {
             base.Enter();
+            Ai.audioSource.clip = clawSnapping;
+            Ai.audioSource.volume = 0.5f;
+            Ai.audioSource.Play();
             onHuntEvent?.Invoke(Ai.gameObject);
         }
 
@@ -25,9 +30,14 @@ namespace AI.BodyTrapper.AIStateMachine
         {
             if (!Ai.IsStunned && Ai.agent.enabled)
                 Ai.agent.SetDestination(Ai.target.transform.position);
-            
+
             if (Ai.isPlayerAlive && Ai.PlayerInSight() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance && Ai.LookingAtPlayer(Ai, maxMinLookRange))
+            {
+                Ai.audioSource.volume = 0.1f;
+                Ai.audioSource.clip = defaultSound;
+                Ai.audioSource.Play();
                 stateMachine.TransitionTo<ChargeState>();
+            }
 
             if (Ai.PlayerInSight() && Vector3.Distance(Ai.transform.position, Ai.target.transform.position) < jumpDistance)
             {

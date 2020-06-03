@@ -1,31 +1,26 @@
-﻿//Main author: Ferreira Dos Santos Keziah
-
+﻿//Main author: Maximiliam Rosén
+//Secound author: Ferreira Dos Santos Keziah
+using System;
 using UnityEngine;
 namespace FootStepSound
 {
     public class SurfaceColliderType : MonoBehaviour
     {
-        public enum Mode {Footsteps, Grass, Dirt}
-        public Mode terrainType;
-    
-        public string GetTerrainType()
+        [SerializeField] private SurfaceTypes surfaceType;
+        public enum SurfaceTypes { Metal, Stairs, Glass}
+        public static Action<SurfaceTypes> onEnteredSurfaceZoneEvent;
+
+        private void OnTriggerEnter(Collider other)
         {
-            var typeString = "";
-            switch (terrainType) {
-                case Mode.Footsteps:
-                    typeString = "Footsteps";
-                    break;
-                case Mode.Grass:
-                    typeString = "Grass";
-                    break;
-                case Mode.Dirt:
-                    typeString = "Dirt";
-                    break;
-                default:
-                    typeString = "";
-                    break;
-            }
-            return typeString;
+            if (other.CompareTag("Player"))
+                onEnteredSurfaceZoneEvent?.Invoke(surfaceType);
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                onEnteredSurfaceZoneEvent?.Invoke(SurfaceTypes.Metal);
+        }
+
     }
 }

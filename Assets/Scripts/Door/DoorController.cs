@@ -3,6 +3,7 @@
 
 using System.Linq;
 using Interactables.Button;
+using Interactables.Platform;
 using Interactables.Triggers.Platform;
 using UnityEngine;
 
@@ -10,11 +11,11 @@ namespace Door
 {
     public class DoorController : MonoBehaviour
     {
-        [SerializeField][Tooltip("Is the door open at start.")] private bool isOpen;
-        [SerializeField][Tooltip("Is the door auto closing after the player have passed thru the door.")] private bool isAutoClosing;
-        [SerializeField][Tooltip("The size of the player interrupt size.")] private Vector3 playerCheckSize;
-        [SerializeField][Tooltip("The position of the player interruptBox.")] private Vector3 playerCheckPosition;
-        [SerializeField][Tooltip("Opening and closing AudioClips")] private AudioClip openSound, closeSound;
+        [SerializeField] [Tooltip("Is the door open at start.")] private bool isOpen;
+        [SerializeField] [Tooltip("Is the door auto closing after the player have passed thru the door.")] private bool isAutoClosing;
+        [SerializeField] [Tooltip("The size of the player interrupt size.")] private Vector3 playerCheckSize;
+        [SerializeField] [Tooltip("The position of the player interruptBox.")] private Vector3 playerCheckPosition;
+        [SerializeField] [Tooltip("Opening and closing AudioClips")] private AudioClip openSound, closeSound;
         private AutoCloseTrigger autoCloseTrigger;
         private AudioSource audioSource;
         private MeshRenderer meshRenderer;
@@ -35,19 +36,19 @@ namespace Door
             ButtonController.onButtonPressedEvent += OnButtonPressed;
             PlatformTrigger.onButtonPressedEvent += OnButtonPressed;
         }
-    
+
         private void OnDestroy()
         {
             ButtonController.onButtonPressedEvent -= OnButtonPressed;
             PlatformTrigger.onButtonPressedEvent -= OnButtonPressed;
-            if(isAutoClosing) autoCloseTrigger.onAutoCloseEvent -= CloseDoor;
+            if (isAutoClosing) autoCloseTrigger.onAutoCloseEvent -= CloseDoor;
         }
 
         private bool CheckForPlayer()
         {
             return Physics.OverlapBox(
-                meshRenderer.bounds.center + playerCheckPosition, 
-                playerCheckSize/2, transform.rotation, 
+                meshRenderer.bounds.center + playerCheckPosition,
+                playerCheckSize / 2, transform.rotation,
                 LayerMask.GetMask("Player")
                 ).Length > 0;
         }
@@ -60,7 +61,8 @@ namespace Door
 
         private void AbortClose()
         {
-            autoCloseTrigger.SetHasClosed(false);
+            if (isAutoClosing)
+                autoCloseTrigger.SetHasClosed(false);
             doorAnimator.SetFloat("SpeedModifier", -1f);
             isOpen = true;
             doorAnimator.SetBool("IsOpen", isOpen);

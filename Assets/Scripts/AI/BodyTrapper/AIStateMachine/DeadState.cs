@@ -21,7 +21,7 @@ namespace AI.BodyTrapper.AIStateMachine
         public override void Run()
         {
             base.Run();
-            if (!Ai.Grounded() && isFreezed) return;
+            if (!Ai.Grounded() || isFreezed) return;
             Ai.aiRigidbody.constraints = RigidbodyConstraints.FreezeAll;
             isFreezed = true;
             Ai.AiCollider.enabled = false;
