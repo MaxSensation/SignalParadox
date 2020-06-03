@@ -12,7 +12,7 @@ public class InputCamera : MonoBehaviour
 
     private void Start()
     {
-        mouseSensitivity = SaveManager.HasSettings() ? SaveManager.Settings.Sensitivity : 0.2f;
+        mouseSensitivity = SaveManager.Settings != null ? SaveManager.Settings.Sensitivity : 0.2f;
     }
 
     private Vector2 mouseInput;
