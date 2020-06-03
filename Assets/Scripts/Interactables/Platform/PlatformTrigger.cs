@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Interactables.Triggers.Platform
+namespace Interactables.Platform
 {
     public class PlatformTrigger : MonoBehaviour
     {
@@ -33,7 +33,7 @@ namespace Interactables.Triggers.Platform
         
         private void OnTriggerExit(Collider other)
         {
-            if (triggerOnce || ((!other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable")))) return;
+            if (triggerOnce || !other.CompareTag("Player") && !other.CompareTag("Enemy") && !other.CompareTag("Interactable")) return;
             Deactivate();
         }
         
@@ -42,7 +42,7 @@ namespace Interactables.Triggers.Platform
             objectsOnButton++;
             if (objectsOnButton != 1) return;
             animator.SetBool(IsPressed, true);
-            meshRenderer.material = @on;
+            meshRenderer.material = on;
             isOn.Invoke();
             onButtonPressedEvent?.Invoke(interactables);
         }

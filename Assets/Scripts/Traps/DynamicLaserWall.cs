@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Linq;
 using Interactables.Button;
+using Interactables.Platform;
 using Interactables.Triggers.Platform;
 using UnityEngine;
 using UnityEngine.Events;

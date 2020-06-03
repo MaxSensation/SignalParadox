@@ -19,7 +19,9 @@ namespace Interactables.Triggers.Events
         
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") && !isTriggerd) EndGame();
+            if (!other.CompareTag("Player") || isTriggerd) return;
+            other.GetComponent<PlayerInput>().enabled = false;
+            EndGame();
         }
 
         private IEnumerator EndGameTimer()
