@@ -8,6 +8,7 @@ using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 namespace Interactables.Triggers.Events
 {
@@ -37,6 +38,7 @@ namespace Interactables.Triggers.Events
         {
             if (!other.CompareTag("Player")) return;
             if (isActivated) return;
+            player.GetComponent<PlayerInput>().enabled = false;
             var playerData = new PlayerData(other.gameObject);
             onTriggerdNextLevelEvent?.Invoke(playerData);
             Cursor.visible = false;
