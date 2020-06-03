@@ -2,6 +2,7 @@
 //Secondary author: Andreas Berzelius
 
 using System;
+using System.Runtime.Remoting.Messaging;
 using Player;
 using SaveSystem;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace Interactables.Triggers.Events
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
+            if (isActivated) return;
             var playerData = new PlayerData(other.gameObject);
             onTriggerdNextLevelEvent?.Invoke(playerData);
             Cursor.visible = false;

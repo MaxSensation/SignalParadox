@@ -1,5 +1,6 @@
 ﻿//Main author: Maximiliam Rosén
 
+using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ namespace Menu
 
         private void InvokeLoadLevelEvent()
         {
+            if (levelToLoad == "GameMenu")
+                SaveManager.SaveGame();
             SceneManager.LoadScene(levelToLoad);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;

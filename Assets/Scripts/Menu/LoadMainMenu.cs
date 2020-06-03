@@ -1,6 +1,5 @@
 ﻿//Main author: Maximiliam Rosén
 
-using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -19,7 +18,6 @@ namespace Menu
 
         private void LoadMainMenuScene(VideoPlayer source)
         {
-            SaveManager.SaveGame();
             SceneManager.LoadScene("GameMenu");
         }
     }
