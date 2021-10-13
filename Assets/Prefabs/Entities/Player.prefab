@@ -753,6 +753,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -777,6 +778,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2088238650461902563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,6 +1778,7 @@ GameObject:
   - component: {fileID: 1943442008}
   - component: {fileID: 1943442007}
   - component: {fileID: 3690938433890430611}
+  - component: {fileID: 7105712382134416306}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -1830,6 +1833,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5312461777412064973}
+        m_TargetAssemblyTypeName: 
         m_MethodName: UpdateInputVector
         m_Mode: 0
         m_Arguments:
@@ -1841,6 +1845,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 4008915943660899337}
+        m_TargetAssemblyTypeName: 
         m_MethodName: UpdateMovementInput
         m_Mode: 0
         m_Arguments:
@@ -1856,6 +1861,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1953797835654806964}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Activate
         m_Mode: 0
         m_Arguments:
@@ -1871,6 +1877,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1045748206}
+        m_TargetAssemblyTypeName: 
         m_MethodName: UpdateCameraInput
         m_Mode: 0
         m_Arguments:
@@ -1882,6 +1889,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1850180011}
+        m_TargetAssemblyTypeName: 
         m_MethodName: UpdateMouseInput
         m_Mode: 0
         m_Arguments:
@@ -1897,6 +1905,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1943442007}
+        m_TargetAssemblyTypeName: 
         m_MethodName: HandleInput
         m_Mode: 0
         m_Arguments:
@@ -1912,6 +1921,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5312461777412064973}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnInputCrouch
         m_Mode: 0
         m_Arguments:
@@ -1927,6 +1937,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5312461777412064973}
+        m_TargetAssemblyTypeName: 
         m_MethodName: DebugReset
         m_Mode: 0
         m_Arguments:
@@ -1942,6 +1953,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -2099,6 +2111,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2222,6 +2235,22 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2b22c89df41ab68418f7d1f09ef24952, type: 3}
   defaultVolume: 0.05
   crouchVolume: 0.01
+--- !u!54 &7105712382134416306
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312461777412064974}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &5480050426811886390
 GameObject:
   m_ObjectHideFlags: 0
@@ -2421,6 +2450,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
